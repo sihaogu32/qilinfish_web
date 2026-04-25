@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('首頁')}"></head>
+<body>
+
+<div th:replace="~{fragments/layout :: background}"></div>
+<nav th:replace="~{fragments/layout :: navbar('home')}"></nav>
+
+<main class="qf-page">
+
+    <section class="qf-hero">
+        <div class="qf-hero__crosshair"></div>
+        <span class="qf-hero__corner tl"></span>
+        <span class="qf-hero__corner tr"></span>
+        <span class="qf-hero__corner bl"></span>
+        <span class="qf-hero__corner br"></span>
+
+        <div class="qf-hero__inner">
+            <div>
+                <div class="qf-hero__brand"><span class="pulse"></span> SYSTEM // ONLINE  ·  TPE / UTC+8</div>
+
+                <h1>
+                    用程式碼<br>
+                    丈量<span class="accent">未被定義</span>的<br>
+                    需求邊界。
+                </h1>
+
+                <p class="qf-hero__tagline" data-typewriter="美感是『普適模式』被『主觀經驗』解構後的殘餘。|We build agents that read the spaces between requirements.|AI · Web · Automation · Custom Engineering"></p>
+
+                <div class="qf-hero__cta">
+                    <a class="qf-btn qf-btn--primary" href="/products">
+                        產品方案 <span class="arr">→</span>
+                    </a>
+                    <a class="qf-btn" href="/contact">
+                        聯絡我們 <span class="arr">↗</span>
+                    </a>
+                </div>
+
+                <div class="qf-hero__meta">
+                    <span>STACK / <b>SPRING BOOT 3</b></span>
+                    <span>FRONT / <b>THYMELEAF · BOOTSTRAP</b></span>
+                    <span>HOST / <b>CLOUDFLARE</b></span>
+                </div>
+            </div>
+
+            <!-- Right: code block -->
+            <div class="qf-hero__code" aria-hidden="true">
+                <div class="ln"><span class="n">01</span><span><span class="com">// qilinfish.studio :: capabilities</span></span></div>
+                <div class="ln"><span class="n">02</span><span><span class="kw">const</span> <span class="fn">studio</span> <span class="pn">=</span> <span class="kw">new</span> <span class="fn">Studio</span><span class="pn">({</span></span></div>
+                <div class="ln"><span class="n">03</span><span>  <span class="fn">name</span><span class="pn">:</span> <span class="str">'麒麟魚 / Qilinfish'</span><span class="pn">,</span></span></div>
+                <div class="ln"><span class="n">04</span><span>  <span class="fn">stack</span><span class="pn">:</span> <span class="pn">[</span><span class="str">'AI Agent'</span><span class="pn">,</span> <span class="str">'Web'</span><span class="pn">,</span> <span class="str">'Automation'</span><span class="pn">],</span></span></div>
+                <div class="ln"><span class="n">05</span><span>  <span class="fn">domains</span><span class="pn">:</span> <span class="pn">[</span><span class="str">'legal'</span><span class="pn">,</span> <span class="str">'data'</span><span class="pn">,</span> <span class="str">'process'</span><span class="pn">],</span></span></div>
+                <div class="ln"><span class="n">06</span><span>  <span class="fn">deploy</span><span class="pn">:</span> <span class="str">'cloudflare://qilinfish.com'</span><span class="pn">,</span></span></div>
+                <div class="ln"><span class="n">07</span><span><span class="pn">});</span></span></div>
+                <div class="ln"><span class="n">08</span><span>&nbsp;</span></div>
+                <div class="ln"><span class="n">09</span><span><span class="kw">await</span> studio.<span class="fn">build</span><span class="pn">(</span><span class="str">'__yourIdea'</span><span class="pn">);</span></span></div>
+                <div class="ln"><span class="n">10</span><span><span class="com">// → returns: a working system, not a slide deck.</span></span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="qf-section">
+        <div data-reveal>
+            <div class="qf-eyebrow">CAPABILITIES // 能做什麼</div>
+            <h2 class="qf-title">把模糊的<span style="color:var(--accent); font-style:italic;">想法</span>，收斂成可運行的系統。</h2>
+            <p class="qf-lede">我們承接從原型驗證、產品開發到自動化整合的工程任務。專案規模不限，技術選型取決於需求本身。</p>
+        </div>
+
+        <div class="qf-grid qf-grid--3" style="margin-top: 56px;" data-reveal>
+            <div class="qf-card">
+                <div class="qf-card__index"><span>// 01</span><span>AI</span></div>
+                <h3 class="qf-card__title">AI Agent 開發</h3>
+                <div class="qf-card__sub">LLM · RAG · Tool Use</div>
+                <p class="qf-card__desc">從 prompt 設計到工具呼叫、知識庫整合，打造可實際投產的智能助手。</p>
+            </div>
+            <div class="qf-card">
+                <div class="qf-card__index"><span>// 02</span><span>WEB</span></div>
+                <h3 class="qf-card__title">Web 應用開發</h3>
+                <div class="qf-card__sub">Spring Boot · Thymeleaf</div>
+                <p class="qf-card__desc">響應式形象站、企業內部系統、API 後端。前後端分工清楚、可長期維運。</p>
+            </div>
+            <div class="qf-card">
+                <div class="qf-card__index"><span>// 03</span><span>SVC</span></div>
+                <h3 class="qf-card__title">專案設計與顧問</h3>
+                <div class="qf-card__sub">Architecture · Estimation</div>
+                <p class="qf-card__desc">需求訪談、技術選型、工時評估。把模糊的想法寫成下一份能被執行的工程文件。</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/qilinfish.js}" src="/js/qilinfish.js"></script>
+</body>
+</html>

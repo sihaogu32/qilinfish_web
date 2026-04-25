@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title} + ' — 麒麟魚 Qilinfish Studio'">麒麟魚 Qilinfish Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/qilinfish.css}" href="/css/qilinfish.css">
+</head>
+<body>
+
+<!-- Top navigation fragment -->
+<nav th:fragment="navbar(active)" class="qf-nav">
+    <a href="/" class="qf-nav__brand">
+        <span class="dot"></span>
+        <span class="ch">麒麟魚</span>
+        <span class="en">QILINFISH//STUDIO</span>
+    </a>
+    <div class="qf-nav__menu">
+        <a href="/about"     th:classappend="${active == 'about'}     ? 'is-active' : ''"><span class="num">01</span> 關於我們</a>
+        <a href="/products"  th:classappend="${active == 'products'}  ? 'is-active' : ''"><span class="num">02</span> 產品方案</a>
+        <a href="/cases"     th:classappend="${active == 'cases'}     ? 'is-active' : ''"><span class="num">03</span> 成功案例</a>
+        <a href="/contact"   th:classappend="${active == 'contact'}   ? 'is-active' : ''"><span class="num">04</span> 聯絡我們</a>
+        <a href="/resources" th:classappend="${active == 'resources'} ? 'is-active' : ''"><span class="num">05</span> 參考資源</a>
+        <span class="qf-nav__lang">
+            <button data-lang="zh_TW" class="is-active">ZH</button>
+            <button data-lang="en">EN</button>
+        </span>
+    </div>
+</nav>
+
+<!-- Footer fragment -->
+<footer th:fragment="footer" class="qf-footer">
+    <div class="qf-footer__inner">
+        <span>© 2026 QILINFISH STUDIO  ·  qilinfish.com</span>
+        <span class="right">deployed via cloudflare  ·  build 1.0.0</span>
+    </div>
+</footer>
+
+<!-- Background fragment (grid + noise) -->
+<div th:fragment="background">
+    <div class="bg-grid"></div>
+    <div class="bg-noise"></div>
+</div>
+
+</body>
+</html>

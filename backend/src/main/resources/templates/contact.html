@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('聯絡我們')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: background}"></div>
+<nav th:replace="~{fragments/layout :: navbar('contact')}"></nav>
+
+<main class="qf-page">
+    <section class="qf-section">
+        <div data-reveal>
+            <div class="qf-eyebrow" th:text="${vb.pageSubtitle}">CONTACT</div>
+            <h1 class="qf-title" th:text="${vb.pageTitle}">聯絡我們</h1>
+            <p class="qf-lede">如果你有想法、原型、或一份還沒寫完的需求文件 — 寫信給我們。我們會在兩個工作天內回覆。</p>
+        </div>
+
+        <div class="qf-contact" data-reveal>
+            <!-- Info column -->
+            <aside class="qf-contact__info">
+                <div class="qf-contact__row">
+                    <div class="k">// ADDRESS</div>
+                    <div class="v" th:text="${vb.address}">台北市XX區</div>
+                </div>
+                <div class="qf-contact__row">
+                    <div class="k">// PHONE</div>
+                    <div class="v" th:text="${vb.phone}">+886 (0)2-XXXX-XXXX</div>
+                </div>
+                <div class="qf-contact__row">
+                    <div class="k">// EMAIL</div>
+                    <div class="v"><a th:href="'mailto:' + ${vb.email}" th:text="${vb.email}">qilinfish@gmail.com</a></div>
+                </div>
+                <div class="qf-contact__row">
+                    <div class="k">// HOURS</div>
+                    <div class="v" th:text="${vb.workingHours}">週一 — 週五 10:00 / 19:00 (UTC+8)</div>
+                </div>
+                <div class="qf-contact__row">
+                    <div class="k">// DOMAIN</div>
+                    <div class="v">qilinfish.com</div>
+                </div>
+            </aside>
+
+            <!-- Form column -->
+            <form class="qf-contact__form" method="post" action="/contact" data-contact-form novalidate
+                  th:object="${contactForm}">
+                <div class="qf-field">
+                    <label for="cf-name">姓名 / Name</label>
+                    <input id="cf-name" type="text" required maxlength="64" th:field="*{name}">
+                    <div class="qf-field__err">> name is required.</div>
+                </div>
+                <div class="qf-field">
+                    <label for="cf-email">Email</label>
+                    <input id="cf-email" type="email" required maxlength="128" th:field="*{email}">
+                    <div class="qf-field__err">> please provide a valid email.</div>
+                </div>
+                <div class="qf-field">
+                    <label for="cf-subject">主旨 / Subject</label>
+                    <input id="cf-subject" type="text" maxlength="64" th:field="*{subject}">
+                </div>
+                <div class="qf-field">
+                    <label for="cf-message">訊息內容 / Message</label>
+                    <textarea id="cf-message" rows="6" required maxlength="2000" th:field="*{message}"></textarea>
+                    <div class="qf-field__err">> message body is required.</div>
+                </div>
+                <button type="submit" class="qf-btn qf-btn--primary">
+                    送出 <span class="arr">→</span>
+                </button>
+
+                <!-- Server-side status surfaces here too -->
+                <div class="qf-form-status"
+                     th:classappend="${submitStatus == 'success'} ? 'ok' : ((${submitStatus == 'error'} or ${submitStatus == 'mail-error'}) ? 'err' : '')"
+                     th:text="${submitStatus == 'success'} ? '> 訊息已寄出，我們將盡快回覆。' : (${submitStatus == 'mail-error'} ? '> 寄信暫時失敗，請稍後再試或直接寄到 qilinfish@qilinfish.com' : (${submitStatus == 'error'} ? '> 請檢查必填欄位。' : ''))"
+                     data-form-status></div>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/qilinfish.js}" src="/js/qilinfish.js"></script>
+</body>
+</html>

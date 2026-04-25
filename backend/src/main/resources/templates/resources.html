@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('參考資源')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: background}"></div>
+<nav th:replace="~{fragments/layout :: navbar('resources')}"></nav>
+
+<main class="qf-page">
+    <section class="qf-section">
+        <div data-reveal>
+            <div class="qf-eyebrow" th:text="${vb.pageSubtitle}">RESOURCES // external references</div>
+            <h1 class="qf-title" th:text="${vb.pageTitle}">參考資源</h1>
+            <p class="qf-lede">本頁列出在開發過程中常用的外部資料來源、官方文件或公開資料庫，協助訪客交叉查證。</p>
+        </div>
+
+        <div class="qf-list" data-reveal>
+            <a th:each="lk, it : ${vb.links}" th:href="${lk.url}" target="_blank" rel="noopener">
+                <span class="n" th:text="${'R-' + (it.count < 10 ? '0' + it.count : it.count)}">R-01</span>
+                <span class="label" th:text="${lk.label}">全國法規資料庫</span>
+                <span class="desc" th:text="${lk.description}">description</span>
+                <span class="arr">↗</span>
+            </a>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/qilinfish.js}" src="/js/qilinfish.js"></script>
+</body>
+</html>

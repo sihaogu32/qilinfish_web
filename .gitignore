@@ -1,0 +1,29 @@
+# ---- IDE / OS ----
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
+
+# ---- Java / Maven ----
+target/
+*.class
+*.jar
+*.war
+*.log
+hs_err_pid*
+
+# ---- Spring Boot ----
+**/application-local.yml
+**/application-local.properties
+
+# ---- Local env / secrets ----
+.env
+.env.*
+!.env.example
+
+# ---- Docker ----
+*.pid
+
+# ---- Node (just in case) ----
+node_modules/

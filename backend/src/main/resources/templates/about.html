@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('關於我們')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: background}"></div>
+<nav th:replace="~{fragments/layout :: navbar('about')}"></nav>
+
+<main class="qf-page">
+    <section class="qf-section">
+        <div data-reveal>
+            <div class="qf-eyebrow" th:text="${vb.pageSubtitle}">ABOUT // who we are</div>
+            <h1 class="qf-title" th:text="${vb.pageTitle}">關於我們</h1>
+            <p class="qf-lede">我們是一個以工程為核心的小型工作室。不追逐風口，只承接能交付得清楚、能交代得明白的專案。</p>
+        </div>
+
+        <div class="qf-grid qf-grid--2" style="margin-top: 64px;" data-reveal>
+            <div class="qf-card">
+                <div class="qf-card__index"><span>// SCOPE</span><span>承接專案類型</span></div>
+                <h3 class="qf-card__title">我們做什麼</h3>
+                <ul class="qf-card__list">
+                    <li th:each="cap : ${vb.capabilities}" th:text="${cap}">能力項目</li>
+                </ul>
+            </div>
+            <div class="qf-card">
+                <div class="qf-card__index"><span>// WAY</span><span>工程觀點</span></div>
+                <h3 class="qf-card__title">我們怎麼想事情</h3>
+                <ul class="qf-card__list">
+                    <li th:each="ph : ${vb.philosophy}" th:text="${ph}">觀點</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-top: 64px; border: 1px solid var(--line); padding: 40px; background: var(--bg-1);" data-reveal>
+            <div class="qf-eyebrow">TAGLINE</div>
+            <p style="font-size: clamp(20px, 2.4vw, 28px); margin: 18px 0 0; line-height: 1.4; color: var(--fg-0); font-family: var(--font-mono); letter-spacing: 0.01em;" th:text="${vb.tagline}">tagline</p>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/qilinfish.js}" src="/js/qilinfish.js"></script>
+</body>
+</html>

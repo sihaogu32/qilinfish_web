@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>麒麟魚 Qilinfish Studio — Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style id="qf-css">
+:root{
+  --bg-0:#0a0a0c; --bg-1:#0f0f12; --bg-2:#15151a; --bg-3:#1c1c22;
+  --line:#26262e; --line-soft:#1a1a20;
+  --fg-0:#e8e8ec; --fg-1:#b6b6bf; --fg-2:#6f6f7a; --fg-3:#4a4a52;
+  --accent: oklch(0.58 0.12 252);
+  --accent-soft: oklch(0.58 0.12 252 / 0.18);
+  --accent-line: oklch(0.58 0.12 252 / 0.55);
+  --warn: oklch(0.72 0.14 75);
+  --font-sans:'Inter','Noto Sans TC',-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-mono:'JetBrains Mono','Menlo','Consolas',monospace;
+  --t-fast:120ms ease;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:var(--bg-0);color:var(--fg-0);font-family:var(--font-sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;scroll-behavior:smooth;}
+a{color:inherit;text-decoration:none;transition:color var(--t-fast);}
+a:hover{color:var(--accent);}
+button{font-family:inherit;cursor:pointer;}
+::selection{background:var(--accent-soft);color:var(--fg-0);}
+
+.bg-grid{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.022) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.022) 1px, transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse at 50% 30%, #000 30%, transparent 80%);}
+.bg-noise{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.025;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");}
+
+.qf-nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(10,10,12,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line-soft);}
+.qf-nav__brand{display:flex;align-items:baseline;gap:10px;font-family:var(--font-mono);font-size:13px;letter-spacing:.04em;color:var(--fg-0);}
+.qf-nav__brand .dot{display:inline-block;width:6px;height:6px;background:var(--accent);border-radius:50%;transform:translateY(-1px);box-shadow:0 0 10px var(--accent-line);}
+.qf-nav__brand .ch{letter-spacing:.18em;}
+.qf-nav__brand .en{color:var(--fg-2);}
+.qf-nav__menu{display:flex;gap:4px;align-items:center;}
+.qf-nav__menu a{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--fg-1);border:1px solid transparent;transition:all var(--t-fast);}
+.qf-nav__menu a .num{color:var(--fg-3);font-size:10px;}
+.qf-nav__menu a:hover{color:var(--fg-0);background:var(--bg-2);border-color:var(--line);}
+.qf-nav__menu a.is-active{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft);}
+.qf-nav__lang{display:inline-flex;margin-left:18px;border:1px solid var(--line);font-family:var(--font-mono);font-size:11px;}
+.qf-nav__lang button{background:transparent;color:var(--fg-2);border:none;padding:6px 10px;letter-spacing:.1em;}
+.qf-nav__lang button.is-active{background:var(--accent);color:#06060a;}
+
+.qf-page{position:relative;z-index:1;min-height:100vh;padding-top:64px;}
+.qf-section{max-width:1200px;margin:0 auto;padding:96px 40px;}
+.qf-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;display:flex;align-items:center;gap:10px;}
+.qf-eyebrow::before{content:"";display:inline-block;width:24px;height:1px;background:var(--accent);}
+.qf-title{font-size:clamp(32px,4vw,56px);line-height:1.08;letter-spacing:-.01em;font-weight:500;margin:18px 0 0;color:var(--fg-0);text-wrap:balance;}
+.qf-lede{margin-top:24px;max-width:640px;color:var(--fg-1);font-size:17px;line-height:1.65;text-wrap:pretty;}
+
+/* Hero */
+.qf-hero{position:relative;min-height:calc(100vh - 64px);display:flex;align-items:center;overflow:hidden;padding:0 40px;}
+.qf-hero__inner{position:relative;z-index:2;max-width:1200px;width:100%;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;}
+@media (max-width:900px){.qf-hero__inner{grid-template-columns:1fr;gap:32px;}}
+.qf-hero__crosshair{position:absolute;inset:24px;pointer-events:none;border:1px solid var(--line-soft);z-index:1;}
+.qf-hero__crosshair::before,.qf-hero__crosshair::after{content:"";position:absolute;background:var(--line);}
+.qf-hero__crosshair::before{left:0;right:0;top:50%;height:1px;}
+.qf-hero__crosshair::after{top:0;bottom:0;left:50%;width:1px;}
+.qf-hero__corner{position:absolute;width:14px;height:14px;border:1px solid var(--accent);}
+.qf-hero__corner.tl{top:18px;left:18px;border-right:none;border-bottom:none;}
+.qf-hero__corner.tr{top:18px;right:18px;border-left:none;border-bottom:none;}
+.qf-hero__corner.bl{bottom:18px;left:18px;border-right:none;border-top:none;}
+.qf-hero__corner.br{bottom:18px;right:18px;border-left:none;border-top:none;}
+.qf-hero__brand{font-family:var(--font-mono);font-size:12px;color:var(--fg-2);letter-spacing:.16em;margin-bottom:28px;display:flex;align-items:center;gap:12px;}
+.qf-hero__brand .pulse{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulse 2.4s infinite ease-in-out;}
+@keyframes pulse{0%,100%{opacity:.4;transform:scale(.85);}50%{opacity:1;transform:scale(1.2);box-shadow:0 0 12px var(--accent-line);}}
+.qf-hero h1{font-size:clamp(40px,5.5vw,76px);line-height:1.02;letter-spacing:-.02em;font-weight:500;margin:0 0 24px;color:var(--fg-0);}
+.qf-hero h1 .accent{color:var(--accent);font-style:italic;font-weight:400;}
+.qf-hero__tagline{font-family:var(--font-mono);font-size:14px;color:var(--fg-1);margin:0 0 8px;min-height:1.6em;}
+.qf-hero__tagline::after{content:"▌";display:inline-block;margin-left:2px;color:var(--accent);animation:caret 1s steps(1) infinite;}
+@keyframes caret{50%{opacity:0;}}
+.qf-hero__meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:36px;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--fg-2);}
+.qf-hero__meta span b{color:var(--fg-0);font-weight:500;}
+.qf-hero__cta{display:inline-flex;gap:12px;margin-top:36px;flex-wrap:wrap;}
+.qf-hero__code{position:relative;background:var(--bg-1);border:1px solid var(--line);font-family:var(--font-mono);font-size:12.5px;line-height:1.75;color:var(--fg-1);padding:14px 0;overflow:hidden;}
+.qf-hero__code::before{content:"qilinfish@studio:~";display:block;padding:6px 14px;font-size:10.5px;letter-spacing:.1em;color:var(--fg-3);border-bottom:1px solid var(--line);background:var(--bg-2);margin-bottom:6px;}
+.qf-hero__code .ln{display:grid;grid-template-columns:44px 1fr;padding:0 14px;}
+.qf-hero__code .ln .n{color:var(--fg-3);user-select:none;}
+.qf-hero__code .kw{color:oklch(0.78 0.10 252);}
+.qf-hero__code .fn{color:oklch(0.85 0.06 90);}
+.qf-hero__code .str{color:oklch(0.78 0.10 145);}
+.qf-hero__code .com{color:var(--fg-3);font-style:italic;}
+.qf-hero__code .pn{color:var(--fg-2);}
+
+.qf-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line);background:transparent;color:var(--fg-0);transition:all var(--t-fast);}
+.qf-btn:hover{background:var(--bg-2);border-color:var(--accent-line);color:var(--accent);}
+.qf-btn--primary{background:var(--accent);border-color:var(--accent);color:#06060a;}
+.qf-btn--primary:hover{background:oklch(0.65 0.12 252);border-color:oklch(0.65 0.12 252);color:#06060a;}
+.qf-btn .arr{font-family:var(--font-mono);transition:transform var(--t-fast);}
+.qf-btn:hover .arr{transform:translateX(3px);}
+
+.qf-grid{display:grid;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);}
+.qf-grid--3{grid-template-columns:repeat(3,1fr);}
+.qf-grid--2{grid-template-columns:repeat(2,1fr);}
+@media (max-width:900px){.qf-grid--3,.qf-grid--2{grid-template-columns:1fr;}}
+.qf-card{position:relative;background:var(--bg-1);padding:32px 28px;transition:background var(--t-fast);}
+.qf-card:hover{background:var(--bg-2);}
+.qf-card__index{font-family:var(--font-mono);font-size:10.5px;color:var(--fg-3);letter-spacing:.16em;display:flex;justify-content:space-between;}
+.qf-card__title{font-size:22px;font-weight:500;letter-spacing:-.005em;margin:18px 0 4px;color:var(--fg-0);}
+.qf-card__sub{font-family:var(--font-mono);font-size:11px;color:var(--fg-2);letter-spacing:.08em;}
+.qf-card__desc{margin-top:16px;color:var(--fg-1);font-size:14.5px;}
+.qf-card__list{margin:18px 0 0;padding:0;list-style:none;border-top:1px dashed var(--line);padding-top:14px;}
+.qf-card__list li{font-family:var(--font-mono);font-size:11.5px;color:var(--fg-1);padding:4px 0 4px 18px;position:relative;letter-spacing:.02em;}
+.qf-card__list li::before{content:"›";position:absolute;left:0;top:4px;color:var(--accent);}
+
+.qf-status{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;padding:3px 8px;border:1px solid var(--line);text-transform:uppercase;}
+.qf-status--available{color:var(--accent);border-color:var(--accent-line);}
+.qf-status--coming{color:var(--warn);border-color:oklch(0.72 0.14 75 / 0.45);}
+.qf-status--custom{color:var(--fg-1);}
+.qf-status .blip{width:5px;height:5px;border-radius:50%;background:currentColor;}
+
+.qf-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin:32px 0 0;}
+.qf-tabs button{background:transparent;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;padding:14px 22px;font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;color:var(--fg-2);text-transform:uppercase;}
+.qf-tabs button:hover{color:var(--fg-0);}
+.qf-tabs button.is-active{color:var(--accent);border-bottom-color:var(--accent);}
+.qf-tabs button .count{display:inline-block;margin-left:6px;font-size:10px;color:var(--fg-3);}
+
+.qf-contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-top:40px;}
+@media (max-width:900px){.qf-contact{grid-template-columns:1fr;}}
+.qf-contact__info,.qf-contact__form{background:var(--bg-1);padding:36px 32px;}
+.qf-contact__row{padding:16px 0;border-bottom:1px dashed var(--line);}
+.qf-contact__row:last-child{border-bottom:none;}
+.qf-contact__row .k{font-family:var(--font-mono);font-size:10.5px;color:var(--fg-3);letter-spacing:.18em;text-transform:uppercase;}
+.qf-contact__row .v{margin-top:4px;font-size:15px;color:var(--fg-0);}
+
+.qf-field{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.qf-field label{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--fg-2);text-transform:uppercase;}
+.qf-field input,.qf-field textarea{background:var(--bg-0);border:1px solid var(--line);color:var(--fg-0);font-family:var(--font-sans);font-size:14px;padding:12px 14px;outline:none;transition:border-color var(--t-fast),background var(--t-fast);}
+.qf-field input:focus,.qf-field textarea:focus{border-color:var(--accent-line);background:var(--bg-1);}
+.qf-field.is-invalid input,.qf-field.is-invalid textarea{border-color:oklch(0.65 0.18 25);}
+.qf-field__err{font-family:var(--font-mono);font-size:11px;color:oklch(0.78 0.16 25);display:none;}
+.qf-field.is-invalid .qf-field__err{display:block;}
+.qf-form-status{font-family:var(--font-mono);font-size:12px;margin-top:14px;padding:10px 12px;border:1px solid var(--line);display:none;}
+.qf-form-status.ok{display:block;color:var(--accent);border-color:var(--accent-line);}
+.qf-form-status.err{display:block;color:oklch(0.78 0.16 25);border-color:oklch(0.78 0.16 25 / 0.45);}
+
+.qf-list{border-top:1px solid var(--line);margin-top:40px;}
+.qf-list a,.qf-list__item{display:grid;grid-template-columns:80px 1fr 1fr auto;gap:24px;align-items:baseline;padding:22px 4px;border-bottom:1px solid var(--line);transition:background var(--t-fast);}
+.qf-list a:hover{background:var(--bg-1);color:var(--fg-0);}
+.qf-list .n{font-family:var(--font-mono);font-size:11px;color:var(--fg-3);letter-spacing:.16em;}
+.qf-list .label{font-size:17px;color:var(--fg-0);}
+.qf-list .desc{color:var(--fg-2);font-size:13px;}
+.qf-list .arr{font-family:var(--font-mono);color:var(--fg-3);}
+.qf-list a:hover .arr{color:var(--accent);transform:translateX(4px);}
+@media (max-width:900px){.qf-list a,.qf-list__item{grid-template-columns:1fr;gap:6px;}}
+
+.qf-empty{margin-top:40px;border:1px dashed var(--line);padding:80px 32px;text-align:center;color:var(--fg-2);font-family:var(--font-mono);font-size:13px;}
+.qf-empty .glyph{display:block;margin:0 auto 16px;width:32px;height:32px;border:1px solid var(--line);position:relative;}
+.qf-empty .glyph::after{content:"";position:absolute;inset:8px;background:linear-gradient(135deg,transparent 47%,var(--fg-3) 47% 53%,transparent 53%);}
+
+.qf-footer{position:relative;z-index:1;border-top:1px solid var(--line);margin-top:80px;padding:40px;}
+.qf-footer__inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--fg-3);}
+.qf-footer .right{color:var(--fg-2);}
+
+[data-reveal]{opacity:0;transform:translateY(14px);transition:opacity 700ms ease,transform 700ms cubic-bezier(.2,.8,.2,1);}
+[data-reveal].is-revealed{opacity:1;transform:none;}
+
+.qf-route{display:none;}
+.qf-route.is-active{display:block;}
+
+/* Preview tag */
+.qf-preview-tag{position:fixed;bottom:14px;left:14px;z-index:100;font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--fg-3);border:1px solid var(--line);padding:6px 10px;background:rgba(10,10,12,.7);backdrop-filter:blur(8px);}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+
+<nav class="qf-nav">
+    <a href="#home" class="qf-nav__brand" data-route-link="home">
+        <span class="dot"></span>
+        <span class="ch">麒麟魚</span>
+        <span class="en">QILINFISH//STUDIO</span>
+    </a>
+    <div class="qf-nav__menu">
+        <a href="#about"     data-route-link="about"><span class="num">01</span> 關於我們</a>
+        <a href="#products"  data-route-link="products"><span class="num">02</span> 產品方案</a>
+        <a href="#cases"     data-route-link="cases"><span class="num">03</span> 成功案例</a>
+        <a href="#contact"   data-route-link="contact"><span class="num">04</span> 聯絡我們</a>
+        <a href="#resources" data-route-link="resources"><span class="num">05</span> 參考資源</a>
+        <span class="qf-nav__lang">
+            <button data-lang="zh" class="is-active">ZH</button>
+            <button data-lang="en">EN</button>
+        </span>
+    </div>
+</nav>
+
+<!-- ======================== HOME ======================== -->
+<main class="qf-page qf-route is-active" data-route="home">
+    <section class="qf-hero">
+        <div class="qf-hero__crosshair"></div>
+        <span class="qf-hero__corner tl"></span>
+        <span class="qf-hero__corner tr"></span>
+        <span class="qf-hero__corner bl"></span>
+        <span class="qf-hero__corner br"></span>
+
+        <div class="qf-hero__inner">
+            <div>
+                <div class="qf-hero__brand"><span class="pulse"></span> SYSTEM // ONLINE  ·  TPE / UTC+8</div>
+                <h1>用程式碼<br>丈量<span class="accent">未被定義</span>的<br>需求邊界。</h1>
+                <p class="qf-hero__tagline" data-typewriter="美感是『普適模式』被『主觀經驗』解構後的殘餘。|We build agents that read the spaces between requirements.|AI · Web · Automation · Custom Engineering"></p>
+                <div class="qf-hero__cta">
+                    <a class="qf-btn qf-btn--primary" href="#products" data-route-link="products">產品方案 <span class="arr">→</span></a>
+                    <a class="qf-btn" href="#contact" data-route-link="contact">聯絡我們 <span class="arr">↗</span></a>
+                </div>
+                <div class="qf-hero__meta">
+                    <span>STACK / <b>SPRING BOOT 3</b></span>
+                    <span>FRONT / <b>THYMELEAF · BOOTSTRAP</b></span>
+                    <span>HOST / <b>CLOUDFLARE</b></span>
+                </div>
+            </div>
+
+            <div class="qf-hero__code" aria-hidden="true">
+                <div class="ln"><span class="n">01</span><span><span class="com">// qilinfish.studio :: capabilities</span></span></div>
+                <div class="ln"><span class="n">02</span><span><span class="kw">const</span> <span class="fn">studio</span> <span class="pn">=</span> <span class="kw">new</span> <span class="fn">Studio</span><span class="pn">({</span></span></div>
+                <div class="ln"><span class="n">03</span><span>&nbsp;&nbsp;<span class="fn">name</span><span class="pn">:</span> <span class="str">'麒麟魚 / Qilinfish'</span><span class="pn">,</span></span></div>
+                <div class="ln"><span class="n">04</span><span>&nbsp;&nbsp;<span class="fn">stack</span><span class="pn">:</span> <span class="pn">[</span><span class="str">'AI Agent'</span><span class="pn">,</span> <span class="str">'Web'</span><span class="pn">,</span> <span class="str">'Automation'</span><span class="pn">],</span></span></div>
+                <div class="ln"><span class="n">05</span><span>&nbsp;&nbsp;<span class="fn">domains</span><span class="pn">:</span> <span class="pn">[</span><span class="str">'legal'</span><span class="pn">,</span> <span class="str">'data'</span><span class="pn">,</span> <span class="str">'process'</span><span class="pn">],</span></span></div>
+                <div class="ln"><span class="n">06</span><span>&nbsp;&nbsp;<span class="fn">deploy</span><span class="pn">:</span> <span class="str">'cloudflare://qilinfish.com'</span><span class="pn">,</span></span></div>
+                <div class="ln"><span class="n">07</span><span><span class="pn">});</span></span></div>
+                <div class="ln"><span class="n">08</span><span>&nbsp;</span></div>
+                <div class="ln"><span class="n">09</span><span><span class="kw">await</span> studio.<span class="fn">build</span><span class="pn">(</span><span class="str">'__yourIdea'</span><span class="pn">);</span></span></div>
+                <div class="ln"><span class="n">10</span><span><span class="com">// → returns: a working system, not a slide deck.</span></span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="qf-section">
+        <div data-reveal>
+            <div class="qf-eyebrow">CAPABILITIES // 能做什麼</div>
+            <h2 class="qf-title">把模糊的<span style="color:var(--accent);font-style:italic;">想法</span>，收斂成可運行的系統。</h2>
+            <p class="qf-lede">我們承接從原型驗證、產品開發到自動化整合的工程任務。專案規模不限，技術選型取決於需求本身。</p>
+        </div>
+
+        <div class="qf-grid qf-grid--3" style="margin-top:56px;" data-reveal>
+            <div class="qf-card">
+                <div class="qf-card__index"><span>// 01</span><span>AI</span></div>
+                <h3 class="qf-card__title">AI Agent 開發</h3>
+                <div class="qf-card__sub">LLM · RAG · Tool Use</div>
+                <p class="qf-card__desc">從 prompt 設計到工具呼叫、知識庫整合，打造可實際投產的智能助手。</p>
+            </div>
+            <div class="qf-card">
+                <div class="qf-card__index"><span>// 02</span><span>WEB</span></div>
+                <h3 class="qf-card__title">Web 應用開發</h3>
+                <div class="qf-card__sub">Spring Boot · Thymeleaf</div>
+                <p class="qf-card__desc">響應式形象站、企業內部系統、API 後端。前後端分工清楚、可長期維運。</p>
+            </div>
+            <div class="qf-card">
+                <div class="qf-card__index"><span>// 03</span><span>SVC</span></div>
+                <h3 class="qf-card__title">專案設計與顧問</h3>
+                <div class="qf-card__sub">Architecture · Estimation</div>
+                <p class="qf-card__desc">需求訪談、技術選型、工時評估。把模糊的想法寫成下一份能被執行的工程文件。</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- ======================== ABOUT ======================== -->
+<main class="qf-page qf-route" data-route="about">
+    <section class="qf-section">
+        <div data-reveal>
+            <div class="qf-eyebrow">ABOUT // who we are</div>
+            <h1 class="qf-title">關於我們</h1>
+            <p class="qf-lede">我們是一個以工程為核心的小型工作室。不追逐風口，只承接能交付得清楚、能交代得明白的專案。</p>
+        </div>
+
+        <div class="qf-grid qf-grid--2" style="margin-top:64px;" data-reveal>
+            <div class="qf-card">
+                <div class="qf-card__index"><span>// SCOPE</span><span>承接專案類型</span></div>
+                <h3 class="qf-card__title">我們做什麼</h3>
+                <ul class="qf-card__list">
+                    <li>AI Agent 開發 — LLM Pipeline、RAG、知識圖譜整合</li>
+                    <li>Web 應用開發 — 響應式網頁、後端 API、雲端部署</li>
+                    <li>自動化流程 — 跨系統串接、資料抓取、定時任務</li>
+                    <li>資料工程 — ETL、資料清洗、視覺化報表</li>
+                    <li>客製化專案 — 從需求訪談到上線維運的一條龍服務</li>
+                </ul>
+            </div>
+            <div class="qf-card">
+                <div class="qf-card__index"><span>// WAY</span><span>工程觀點</span></div>
+                <h3 class="qf-card__title">我們怎麼想事情</h3>
+                <ul class="qf-card__list">
+                    <li>工程不是堆疊技術，是把複雜性收斂到使用者看不見的地方。</li>
+                    <li>每一行程式碼都該為一個明確的決策服務。</li>
+                    <li>好的系統不只能跑，還能被下一個人讀懂、改動、擴展。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-top:64px;border:1px solid var(--line);padding:40px;background:var(--bg-1);" data-reveal>
+            <div class="qf-eyebrow">TAGLINE</div>
+            <p style="font-size:clamp(20px,2.4vw,28px);margin:18px 0 0;line-height:1.4;color:var(--fg-0);font-family:var(--font-mono);letter-spacing:.01em;">美感是『普適模式』被『主觀經驗』解構後的殘餘。</p>
+        </div>
+    </section>
+</main>
+
+<!-- ======================== PRODUCTS ======================== -->
+<main class="qf-page qf-route" data-route="products">
+    <section class="qf-section">
+        <div data-reveal>
+            <div class="qf-eyebrow">PRODUCTS // what we ship</div>
+            <h1 class="qf-title">產品方案</h1>
+            <p class="qf-lede">我們的方案分成三個方向：法律領域 Agent、Agent 客製化開發、以及通用網頁與專案設計。下方切換瀏覽。</p>
+        </div>
+
+        <div class="qf-tabs" data-tabs data-reveal>
+            <button data-tab="legal-agent" class="is-active">法律 Agent <span class="count">· 1</span></button>
+            <button data-tab="custom-agent">Agent 客製化 <span class="count">· 1</span></button>
+            <button data-tab="others">其他類型 <span class="count">· 2</span></button>
+        </div>
+
+        <div data-tab-panel="legal-agent" style="margin-top:32px;">
+            <div class="qf-grid qf-grid--2">
+                <div class="qf-card">
+                    <div class="qf-card__index"><span>// 01</span><span class="qf-status qf-status--coming"><span class="blip"></span>coming-soon</span></div>
+                    <h3 class="qf-card__title">法律 Agent</h3>
+                    <div class="qf-card__sub">Legal Domain Intelligent Agent</div>
+                    <p class="qf-card__desc">結合台灣現行法規與案例資料庫，協助使用者進行條文檢索、爭點整理、風險評估的智能助手。</p>
+                    <ul class="qf-card__list">
+                        <li>全國法規即時檢索</li>
+                        <li>案例引用標註</li>
+                        <li>爭點摘要</li>
+                        <li>可整合企業內部法務系統</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div data-tab-panel="custom-agent" style="display:none;margin-top:32px;">
+            <div class="qf-grid qf-grid--2">
+                <div class="qf-card">
+                    <div class="qf-card__index"><span>// 01</span><span class="qf-status qf-status--available"><span class="blip"></span>available</span></div>
+                    <h3 class="qf-card__title">Agent 客製化</h3>
+                    <div class="qf-card__sub">Custom Agent Engineering</div>
+                    <p class="qf-card__desc">依需求設計專屬 Agent — 從 prompt 工程、工具呼叫、到資料來源整合，全程量身打造。</p>
+                    <ul class="qf-card__list">
+                        <li>領域知識微調</li>
+                        <li>工具/API 串接</li>
+                        <li>工作流自動化</li>
+                        <li>可離線部署選項</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div data-tab-panel="others" style="display:none;margin-top:32px;">
+            <div class="qf-grid qf-grid--2">
+                <div class="qf-card">
+                    <div class="qf-card__index"><span>// 01</span><span class="qf-status qf-status--available"><span class="blip"></span>available</span></div>
+                    <h3 class="qf-card__title">Web 網頁開發</h3>
+                    <div class="qf-card__sub">Responsive Web Application</div>
+                    <p class="qf-card__desc">從靜態形象站到後端動態應用，使用 Spring Boot、Thymeleaf、現代前端框架交付。</p>
+                    <ul class="qf-card__list">
+                        <li>響應式設計</li>
+                        <li>SEO 友善</li>
+                        <li>雲端部署 (Cloudflare / AWS)</li>
+                        <li>後台管理系統</li>
+                    </ul>
+                </div>
+                <div class="qf-card">
+                    <div class="qf-card__index"><span>// 02</span><span class="qf-status qf-status--available"><span class="blip"></span>available</span></div>
+                    <h3 class="qf-card__title">專案設計</h3>
+                    <div class="qf-card__sub">Project Architecture &amp; Design</div>
+                    <p class="qf-card__desc">需求訪談、系統規劃、技術選型、人力評估 — 把模糊的想法收斂成可執行的工程文件。</p>
+                    <ul class="qf-card__list">
+                        <li>需求訪談</li>
+                        <li>系統架構圖</li>
+                        <li>技術選型建議</li>
+                        <li>工時估算</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- ======================== CASES ======================== -->
+<main class="qf-page qf-route" data-route="cases">
+    <section class="qf-section">
+        <div data-reveal>
+            <div class="qf-eyebrow">CASES // selected works</div>
+            <h1 class="qf-title">成功案例</h1>
+            <p class="qf-lede">這個區塊保留給已交付專案的精選紀錄。內容陸續補上中。</p>
+        </div>
+        <div class="qf-empty" data-reveal>
+            <span class="glyph"></span>
+            // PLACEHOLDER · 案例資料尚未公開<br>
+            // We are preparing curated case studies. Stand by.
+        </div>
+    </section>
+</main>
+
+<!-- ======================== CONTACT ======================== -->
+<main class="qf-page qf-route" data-route="contact">
+    <section class="qf-section">
+        <div data-reveal>
+            <div class="qf-eyebrow">CONTACT</div>
+            <h1 class="qf-title">聯絡我們</h1>
+            <p class="qf-lede">如果你有想法、原型、或一份還沒寫完的需求文件 — 寫信給我們。我們會在兩個工作天內回覆。</p>
+        </div>
+
+        <div class="qf-contact" data-reveal>
+            <aside class="qf-contact__info">
+                <div class="qf-contact__row">
+                    <div class="k">// ADDRESS</div>
+                    <div class="v">台北市XX區</div>
+                </div>
+                <div class="qf-contact__row">
+                    <div class="k">// PHONE</div>
+                    <div class="v">+886 (0)2-XXXX-XXXX</div>
+                </div>
+                <div class="qf-contact__row">
+                    <div class="k">// EMAIL</div>
+                    <div class="v"><a href="mailto:qilinfish@gmail.com">qilinfish@gmail.com</a></div>
+                </div>
+                <div class="qf-contact__row">
+                    <div class="k">// HOURS</div>
+                    <div class="v">週一 — 週五  10:00 / 19:00 (UTC+8)</div>
+                </div>
+                <div class="qf-contact__row">
+                    <div class="k">// DOMAIN</div>
+                    <div class="v">qilinfish.com</div>
+                </div>
+            </aside>
+
+            <form class="qf-contact__form" data-contact-form novalidate>
+                <div class="qf-field">
+                    <label for="cf-name">姓名 / Name</label>
+                    <input id="cf-name" type="text" required maxlength="64" name="name">
+                    <div class="qf-field__err">> name is required.</div>
+                </div>
+                <div class="qf-field">
+                    <label for="cf-email">Email</label>
+                    <input id="cf-email" type="email" required maxlength="128" name="email">
+                    <div class="qf-field__err">> please provide a valid email.</div>
+                </div>
+                <div class="qf-field">
+                    <label for="cf-subject">主旨 / Subject</label>
+                    <input id="cf-subject" type="text" maxlength="64" name="subject">
+                </div>
+                <div class="qf-field">
+                    <label for="cf-message">訊息內容 / Message</label>
+                    <textarea id="cf-message" rows="6" required maxlength="2000" name="message"></textarea>
+                    <div class="qf-field__err">> message body is required.</div>
+                </div>
+                <button type="submit" class="qf-btn qf-btn--primary">送出 <span class="arr">→</span></button>
+                <div class="qf-form-status" data-form-status></div>
+            </form>
+        </div>
+    </section>
+</main>
+
+<!-- ======================== RESOURCES ======================== -->
+<main class="qf-page qf-route" data-route="resources">
+    <section class="qf-section">
+        <div data-reveal>
+            <div class="qf-eyebrow">RESOURCES // external references</div>
+            <h1 class="qf-title">參考資源</h1>
+            <p class="qf-lede">本頁列出在開發過程中常用的外部資料來源、官方文件或公開資料庫，協助訪客交叉查證。</p>
+        </div>
+
+        <div class="qf-list" data-reveal>
+            <a href="https://law.moj.gov.tw/" target="_blank" rel="noopener">
+                <span class="n">R-01</span>
+                <span class="label">全國法規資料庫</span>
+                <span class="desc">法務部維運的台灣現行法規、判解、命令、行政函釋查詢入口。</span>
+                <span class="arr">↗</span>
+            </a>
+        </div>
+    </section>
+</main>
+
+<footer class="qf-footer">
+    <div class="qf-footer__inner">
+        <span>© 2026 QILINFISH STUDIO  ·  qilinfish.com</span>
+        <span class="right">deployed via cloudflare  ·  build 1.0.0</span>
+    </div>
+</footer>
+
+<div class="qf-preview-tag">// PREVIEW · STATIC SPA MOCKUP</div>
+
+<script>
+(function(){
+  'use strict';
+
+  // ---- Routing (hash-based, mimics multi-page navigation) ----
+  function syncRoute(){
+    var route = (location.hash || '#home').replace('#','').split('?')[0];
+    var routes = document.querySelectorAll('[data-route]');
+    var found = false;
+    routes.forEach(function(r){
+      var on = r.getAttribute('data-route') === route;
+      r.classList.toggle('is-active', on);
+      if(on) found = true;
+    });
+    if(!found){
+      document.querySelector('[data-route="home"]').classList.add('is-active');
+      route = 'home';
+    }
+    document.querySelectorAll('[data-route-link]').forEach(function(a){
+      a.classList.toggle('is-active', a.getAttribute('data-route-link') === route);
+    });
+    // re-trigger reveals
+    document.querySelectorAll('.is-active [data-reveal]').forEach(function(n){ n.classList.remove('is-revealed'); });
+    window.scrollTo({top:0,behavior:'instant'});
+    runReveal();
+    runTypewriter();
+  }
+  window.addEventListener('hashchange', syncRoute);
+
+  // ---- Reveal-on-scroll ----
+  var io = null;
+  function runReveal(){
+    if(io) io.disconnect();
+    var nodes = document.querySelectorAll('.is-active [data-reveal]');
+    if(!('IntersectionObserver' in window)){ nodes.forEach(function(n){n.classList.add('is-revealed');}); return; }
+    io = new IntersectionObserver(function(__entries){
+      __entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-revealed'); io.unobserve(e.target); } });
+    }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+    nodes.forEach(function(n){ io.observe(n); });
+  }
+
+  // ---- Typewriter ----
+  var typeTimer = null;
+  function runTypewriter(){
+    if(typeTimer){ clearTimeout(typeTimer); typeTimer = null; }
+    var el = document.querySelector('.is-active [data-typewriter]');
+    if(!el) return;
+    var phrases = (el.getAttribute('data-typewriter')||'').split('|').map(function(s){return s.trim();}).filter(Boolean);
+    if(!phrases.length) return;
+    var idx=0, mode='type', step=0;
+    function tick(){
+      var phrase = phrases[idx];
+      if(mode==='type'){
+        step++; el.textContent = phrase.slice(0,step);
+        if(step>=phrase.length){ mode='hold'; typeTimer=setTimeout(tick,2400); return; }
+        typeTimer=setTimeout(tick, 50 + Math.random()*50);
+      } else if(mode==='hold'){ mode='erase'; typeTimer=setTimeout(tick,0);
+      } else if(mode==='erase'){
+        step--; el.textContent = phrase.slice(0,step);
+        if(step<=0){ mode='type'; idx=(idx+1)%phrases.length; typeTimer=setTimeout(tick,400); return; }
+        typeTimer=setTimeout(tick,24);
+      }
+    }
+    tick();
+  }
+
+  // ---- Tabs ----
+  function initTabs(){
+    document.querySelectorAll('[data-tabs]').forEach(function(root){
+      var btns = root.querySelectorAll('[data-tab]');
+      var panels = document.querySelectorAll('[data-tab-panel]');
+      btns.forEach(function(b){
+        b.addEventListener('click', function(){
+          var key = b.getAttribute('data-tab');
+          btns.forEach(function(x){ x.classList.toggle('is-active', x===b); });
+          panels.forEach(function(p){ p.style.display = p.getAttribute('data-tab-panel')===key ? '' : 'none'; });
+        });
+      });
+    });
+  }
+
+  // ---- Contact form (front-end validation only in preview) ----
+  function initContactForm(){
+    var form = document.querySelector('[data-contact-form]');
+    if(!form) return;
+    var statusEl = form.querySelector('[data-form-status]');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var ok = true;
+      form.querySelectorAll('.qf-field').forEach(function(f){
+        f.classList.remove('is-invalid');
+        var input = f.querySelector('input, textarea');
+        if(!input) return;
+        var v = (input.value||'').trim();
+        if(input.required && !v){ f.classList.add('is-invalid'); ok=false; return; }
+        if(input.type==='email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ f.classList.add('is-invalid'); ok=false; }
+      });
+      if(!ok){
+        statusEl.className='qf-form-status err';
+        statusEl.textContent='> error: 請檢查必填欄位 / please review the highlighted fields';
+        return;
+      }
+      statusEl.className='qf-form-status ok';
+      statusEl.textContent='> 訊息已收到（preview mode；後端尚未連接）';
+      form.reset();
+    });
+  }
+
+  // ---- Lang switcher (visual only in preview) ----
+  function initLang(){
+    document.querySelectorAll('[data-lang]').forEach(function(b){
+      b.addEventListener('click', function(){
+        document.querySelectorAll('[data-lang]').forEach(function(x){ x.classList.toggle('is-active', x===b); });
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    syncRoute();
+    initTabs();
+    initContactForm();
+    initLang();
+  });
+})();
+</script>
+</body>
+</html>

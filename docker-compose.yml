@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  # ---- Spring Boot app ----
+  qilinfish-web:
+    build: ./backend
+    container_name: qilinfish-web
+    restart: unless-stopped
+    expose:
+      - "8080"
+    environment:
+      # SMTP (Gmail) — used to send the contact-form notification
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME}        # qilinfish@gmail.com
+      MAIL_PASSWORD: ${MAIL_PASSWORD}        # Google App Password (16-char)
+      MAIL_FROM:     ${MAIL_FROM:-qilinfish@gmail.com}
+      MAIL_TO:       ${MAIL_TO:-qilinfish@qilinfish.com}
+      # Reserved DB port (not used yet)
+      QILINFISH_DB_RESERVED_PORT: 3306
+    networks:
+      - qilin-net
+
+  # ---- Cloudflare Tunnel ----
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: qilinfish-cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - qilinfish-web
+    networks:
+      - qilin-net
+
+networks:
+  qilin-net:
+    driver: bridge

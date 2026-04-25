@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('成功案例')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: background}"></div>
+<nav th:replace="~{fragments/layout :: navbar('cases')}"></nav>
+
+<main class="qf-page">
+    <section class="qf-section">
+        <div data-reveal>
+            <div class="qf-eyebrow" th:text="${vb.pageSubtitle}">CASES // selected works</div>
+            <h1 class="qf-title" th:text="${vb.pageTitle}">成功案例</h1>
+            <p class="qf-lede">這個區塊保留給已交付專案的精選紀錄。內容陸續補上中。</p>
+        </div>
+
+        <div th:if="${vb.empty}" class="qf-empty" data-reveal>
+            <span class="glyph"></span>
+            // PLACEHOLDER · 案例資料尚未公開<br>
+            // We are preparing curated case studies. Stand by.
+        </div>
+
+        <div th:unless="${vb.empty}" class="qf-list">
+            <div class="qf-list__item" th:each="c, it : ${vb.cases}">
+                <span class="n" th:text="${'C-' + (it.count < 10 ? '0' + it.count : it.count)}">C-01</span>
+                <span class="label" th:text="${c.title}">title</span>
+                <span class="desc" th:text="${c.summary}">summary</span>
+                <span class="arr" th:text="${c.year}">2026</span>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/qilinfish.js}" src="/js/qilinfish.js"></script>
+</body>
+</html>
