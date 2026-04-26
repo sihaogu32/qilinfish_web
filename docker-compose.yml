@@ -22,6 +22,9 @@ services:
       - qilin-net
 
   # ---- Cloudflare Tunnel ----
+  # Shares the network namespace of qilinfish-web so it can reach the app via
+  # loopback (http://localhost:8080) without going through Docker's embedded DNS.
+  # Make sure the Tunnel's Public Hostname Service is set to http://localhost:8080.
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: qilinfish-cloudflared
@@ -31,8 +34,7 @@ services:
       TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
     depends_on:
       - qilinfish-web
-    networks:
-      - qilin-net
+    network_mode: "service:qilinfish-web"
 
 networks:
   qilin-net:
