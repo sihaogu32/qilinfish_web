@@ -12,7 +12,7 @@ public class ProductModel {
     private String subtitle;
     private String description;
     private String[] features;
-    private String status;     // available / coming-soon / custom
+    private String status;     // available / demo-ready / coming-soon / custom
 
     public ProductModel() { }
 

@@ -28,7 +28,7 @@ public class ProductsController {
                 "Legal Domain Intelligent Agent",
                 "結合台灣現行法規與案例資料庫，協助使用者進行條文檢索、爭點整理、風險評估的智能助手。",
                 new String[]{"全國法規即時檢索", "案例引用標註", "爭點摘要", "可整合企業內部法務系統"},
-                "coming-soon"
+                "demo-ready"
             )
         ));
 

@@ -509,6 +509,94 @@ button { font-family: inherit; cursor: pointer; }
   color: var(--fg-3);
 }
 
+/* product demo gallery */
+.qf-demo-gallery {
+  margin-top: 36px;
+}
+.qf-demo-gallery__group {
+  margin-top: 34px;
+}
+.qf-demo-gallery__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+}
+.qf-demo-gallery__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--fg-0);
+  letter-spacing: 0.01em;
+}
+.qf-demo-gallery__meta {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--fg-3);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.qf-demo-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.qf-demo-shot {
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.qf-demo-shot__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 180px;
+  background: var(--bg-0);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  cursor: zoom-in;
+  transition: filter var(--t-fast), border-color var(--t-fast);
+}
+.qf-demo-shot__media:hover {
+  filter: brightness(1.08);
+}
+.qf-demo-shot__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.qf-demo-shot__body {
+  padding: 16px 18px 18px;
+}
+.qf-demo-shot__title {
+  margin: 0;
+  color: var(--fg-0);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+.qf-demo-shot__desc {
+  margin: 8px 0 0;
+  color: var(--fg-2);
+  font-size: 13px;
+  line-height: 1.55;
+}
+@media (max-width: 900px) {
+  .qf-demo-gallery__head { display: block; }
+  .qf-demo-gallery__meta {
+    display: block;
+    margin-top: 6px;
+    white-space: normal;
+  }
+  .qf-demo-gallery__grid { grid-template-columns: 1fr; }
+  .qf-demo-shot__media { height: 150px; }
+}
+
 /* ============================================================
    Contact
    ============================================================ */

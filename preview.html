@@ -124,6 +124,26 @@ button{font-family:inherit;cursor:pointer;}
 .qf-tabs button.is-active{color:var(--accent);border-bottom-color:var(--accent);}
 .qf-tabs button .count{display:inline-block;margin-left:6px;font-size:10px;color:var(--fg-3);}
 
+.qf-demo-gallery{margin-top:36px;}
+.qf-demo-gallery__group{margin-top:34px;}
+.qf-demo-gallery__head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;margin-bottom:16px;border-bottom:1px solid var(--line);padding-bottom:12px;}
+.qf-demo-gallery__title{margin:0;font-size:18px;font-weight:500;color:var(--fg-0);letter-spacing:.01em;}
+.qf-demo-gallery__meta{font-family:var(--font-mono);font-size:10.5px;color:var(--fg-3);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;}
+.qf-demo-gallery__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;}
+.qf-demo-shot{background:var(--bg-1);border:1px solid var(--line);overflow:hidden;}
+.qf-demo-shot__media{display:flex;align-items:center;justify-content:center;height:180px;background:var(--bg-0);border-bottom:1px solid var(--line);overflow:hidden;cursor:zoom-in;transition:filter var(--t-fast),border-color var(--t-fast);}
+.qf-demo-shot__media:hover{filter:brightness(1.08);}
+.qf-demo-shot__media img{display:block;width:100%;height:100%;object-fit:contain;}
+.qf-demo-shot__body{padding:16px 18px 18px;}
+.qf-demo-shot__title{margin:0;color:var(--fg-0);font-size:15px;font-weight:500;line-height:1.35;}
+.qf-demo-shot__desc{margin:8px 0 0;color:var(--fg-2);font-size:13px;line-height:1.55;}
+@media (max-width:900px){
+  .qf-demo-gallery__head{display:block;}
+  .qf-demo-gallery__meta{display:block;margin-top:6px;white-space:normal;}
+  .qf-demo-gallery__grid{grid-template-columns:1fr;}
+  .qf-demo-shot__media{height:150px;}
+}
+
 .qf-contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-top:40px;}
 @media (max-width:900px){.qf-contact{grid-template-columns:1fr;}}
 .qf-contact__info,.qf-contact__form{background:var(--bg-1);padding:36px 32px;}
@@ -322,7 +342,7 @@ button{font-family:inherit;cursor:pointer;}
         <div data-tab-panel="legal-agent" style="margin-top:32px;">
             <div class="qf-grid qf-grid--2">
                 <div class="qf-card">
-                    <div class="qf-card__index"><span>// 01</span><span class="qf-status qf-status--coming"><span class="blip"></span>coming-soon</span></div>
+                    <div class="qf-card__index"><span>// 01</span><span class="qf-status qf-status--available"><span class="blip"></span>demo-ready</span></div>
                     <h3 class="qf-card__title">法律 Agent</h3>
                     <div class="qf-card__sub">Legal Domain Intelligent Agent</div>
                     <p class="qf-card__desc">結合台灣現行法規與案例資料庫，協助使用者進行條文檢索、爭點整理、風險評估的智能助手。</p>
@@ -332,6 +352,98 @@ button{font-family:inherit;cursor:pointer;}
                         <li>爭點摘要</li>
                         <li>可整合企業內部法務系統</li>
                     </ul>
+                </div>
+            </div>
+
+            <div class="qf-demo-gallery" data-reveal>
+                <div class="qf-demo-gallery__group">
+                    <div class="qf-demo-gallery__head">
+                        <h4 class="qf-demo-gallery__title">使用者前台</h4>
+                        <span class="qf-demo-gallery__meta">// Public User Workflow</span>
+                    </div>
+                    <div class="qf-demo-gallery__grid">
+                        <article class="qf-demo-shot">
+                            <a class="qf-demo-shot__media" href="images/law_agent/法務agent_使用者前台_金融裁罰案例查詢.png" target="_blank" rel="noopener">
+                                <img src="images/law_agent/法務agent_使用者前台_金融裁罰案例查詢.png" alt="法律 Agent 使用者前台金融裁罰案例查詢畫面" loading="lazy">
+                            </a>
+                            <div class="qf-demo-shot__body">
+                                <h5 class="qf-demo-shot__title">金融裁罰案例查詢</h5>
+                                <p class="qf-demo-shot__desc">使用者可輸入查詢條件，快速檢索金融裁罰案例與相關資料。</p>
+                            </div>
+                        </article>
+                        <article class="qf-demo-shot">
+                            <a class="qf-demo-shot__media" href="images/law_agent/法務agent_使用者前台_法規查詢測試.png" target="_blank" rel="noopener">
+                                <img src="images/law_agent/法務agent_使用者前台_法規查詢測試.png" alt="法律 Agent 使用者前台法規查詢測試畫面" loading="lazy">
+                            </a>
+                            <div class="qf-demo-shot__body">
+                                <h5 class="qf-demo-shot__title">法規查詢測試</h5>
+                                <p class="qf-demo-shot__desc">展示法規查詢互動流程，協助使用者快速定位相關條文與脈絡。</p>
+                            </div>
+                        </article>
+                        <article class="qf-demo-shot">
+                            <a class="qf-demo-shot__media" href="images/law_agent/法務agent_使用者前台_禁止項提問測試.png" target="_blank" rel="noopener">
+                                <img src="images/law_agent/法務agent_使用者前台_禁止項提問測試.png" alt="法律 Agent 使用者前台禁止項提問測試畫面" loading="lazy">
+                            </a>
+                            <div class="qf-demo-shot__body">
+                                <h5 class="qf-demo-shot__title">禁止項提問測試</h5>
+                                <p class="qf-demo-shot__desc">呈現風險與限制情境下的提問處理，作為合規回應設計參考。</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="qf-demo-gallery__group">
+                    <div class="qf-demo-gallery__head">
+                        <h4 class="qf-demo-gallery__title">管理者後台</h4>
+                        <span class="qf-demo-gallery__meta">// Admin Console</span>
+                    </div>
+                    <div class="qf-demo-gallery__grid">
+                        <article class="qf-demo-shot">
+                            <a class="qf-demo-shot__media" href="images/law_agent/法務agent_管理者後台_Dashboard.png" target="_blank" rel="noopener">
+                                <img src="images/law_agent/法務agent_管理者後台_Dashboard.png" alt="法律 Agent 管理者後台 Dashboard 畫面" loading="lazy">
+                            </a>
+                            <div class="qf-demo-shot__body">
+                                <h5 class="qf-demo-shot__title">Dashboard 總覽</h5>
+                                <p class="qf-demo-shot__desc">後台首頁集中呈現系統狀態、使用概況與管理入口。</p>
+                            </div>
+                        </article>
+                        <article class="qf-demo-shot">
+                            <a class="qf-demo-shot__media" href="images/law_agent/法務agent_管理者後台_KB管理.png" target="_blank" rel="noopener">
+                                <img src="images/law_agent/法務agent_管理者後台_KB管理.png" alt="法律 Agent 管理者後台 KB 管理畫面" loading="lazy">
+                            </a>
+                            <div class="qf-demo-shot__body">
+                                <h5 class="qf-demo-shot__title">KB 知識庫管理</h5>
+                                <p class="qf-demo-shot__desc">管理法規、案例或內部文件等知識來源，支援後續 Agent 查詢。</p>
+                            </div>
+                        </article>
+                        <article class="qf-demo-shot">
+                            <a class="qf-demo-shot__media" href="images/law_agent/法務agent_管理者後台_SKill.png" target="_blank" rel="noopener">
+                                <img src="images/law_agent/法務agent_管理者後台_SKill.png" alt="法律 Agent 管理者後台 Skill 管理畫面" loading="lazy">
+                            </a>
+                            <div class="qf-demo-shot__body">
+                                <h5 class="qf-demo-shot__title">Skill 能力管理</h5>
+                                <p class="qf-demo-shot__desc">設定 Agent 可使用的技能、工具或流程，讓回應能力可控可調整。</p>
+                            </div>
+                        </article>
+                        <article class="qf-demo-shot">
+                            <a class="qf-demo-shot__media" href="images/law_agent/法務agent_管理者後台_Session.png" target="_blank" rel="noopener">
+                                <img src="images/law_agent/法務agent_管理者後台_Session.png" alt="法律 Agent 管理者後台 Session 列表畫面" loading="lazy">
+                            </a>
+                            <div class="qf-demo-shot__body">
+                                <h5 class="qf-demo-shot__title">Session 紀錄</h5>
+                                <p class="qf-demo-shot__desc">檢視使用者互動紀錄，支援營運追蹤與服務品質檢查。</p>
+                            </div>
+                        </article>
+                        <article class="qf-demo-shot">
+                            <a class="qf-demo-shot__media" href="images/law_agent/法務agent_管理者後台_Session_內容.png" target="_blank" rel="noopener">
+                                <img src="images/law_agent/法務agent_管理者後台_Session_內容.png" alt="法律 Agent 管理者後台 Session 內容畫面" loading="lazy">
+                            </a>
+                            <div class="qf-demo-shot__body">
+                                <h5 class="qf-demo-shot__title">Session 內容檢視</h5>
+                                <p class="qf-demo-shot__desc">展開單次對話內容，方便追蹤 Agent 回應與使用者需求。</p>
+                            </div>
+                        </article>
+                    </div>
                 </div>
             </div>
         </div>
