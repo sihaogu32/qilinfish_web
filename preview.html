@@ -49,6 +49,7 @@ button{font-family:inherit;cursor:pointer;}
 .qf-nav__lang{display:inline-flex;margin-left:18px;border:1px solid var(--line);font-family:var(--font-mono);font-size:11px;}
 .qf-nav__lang button{background:transparent;color:var(--fg-2);border:none;padding:6px 10px;letter-spacing:.1em;}
 .qf-nav__lang button.is-active{background:var(--accent);color:#06060a;}
+.qf-nav__lang button:disabled{opacity:.4;cursor:not-allowed;}
 
 .qf-page{position:relative;z-index:1;min-height:100vh;padding-top:64px;}
 .qf-section{max-width:1200px;margin:0 auto;padding:96px 40px;}
@@ -203,14 +204,11 @@ button{font-family:inherit;cursor:pointer;}
         <span class="en">QILINFISH//STUDIO</span>
     </a>
     <div class="qf-nav__menu">
-        <a href="#about"     data-route-link="about"><span class="num">01</span> 關於我們</a>
-        <a href="#products"  data-route-link="products"><span class="num">02</span> 產品方案</a>
-        <a href="#cases"     data-route-link="cases"><span class="num">03</span> 成功案例</a>
-        <a href="#contact"   data-route-link="contact"><span class="num">04</span> 聯絡我們</a>
-        <a href="#resources" data-route-link="resources"><span class="num">05</span> 參考資源</a>
+        <a href="#about"     data-route-link="about">關於我們</a>
+        <a href="#products"  data-route-link="products">產品方案</a>
         <span class="qf-nav__lang">
-            <button data-lang="zh" class="is-active">ZH</button>
-            <button data-lang="en">EN</button>
+            <button data-lang="zh" class="is-active" disabled>ZH</button>
+            <button data-lang="en" disabled>EN</button>
         </span>
     </div>
 </nav>
@@ -231,7 +229,6 @@ button{font-family:inherit;cursor:pointer;}
                 <p class="qf-hero__tagline" data-typewriter="美感是『普適模式』被『主觀經驗』解構後的殘餘。|We build agents that read the spaces between requirements.|AI · Web · Automation · Custom Engineering"></p>
                 <div class="qf-hero__cta">
                     <a class="qf-btn qf-btn--primary" href="#products" data-route-link="products">產品方案 <span class="arr">→</span></a>
-                    <a class="qf-btn" href="#contact" data-route-link="contact">聯絡我們 <span class="arr">↗</span></a>
                 </div>
                 <div class="qf-hero__meta">
                     <span>STACK / <b>SPRING BOOT 3</b></span>

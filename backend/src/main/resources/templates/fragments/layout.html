@@ -19,14 +19,11 @@
         <span class="en">QILINFISH//STUDIO</span>
     </a>
     <div class="qf-nav__menu">
-        <a href="/about"     th:classappend="${active == 'about'}     ? 'is-active' : ''"><span class="num">01</span> 關於我們</a>
-        <a href="/products"  th:classappend="${active == 'products'}  ? 'is-active' : ''"><span class="num">02</span> 產品方案</a>
-        <a href="/cases"     th:classappend="${active == 'cases'}     ? 'is-active' : ''"><span class="num">03</span> 成功案例</a>
-        <a href="/contact"   th:classappend="${active == 'contact'}   ? 'is-active' : ''"><span class="num">04</span> 聯絡我們</a>
-        <a href="/resources" th:classappend="${active == 'resources'} ? 'is-active' : ''"><span class="num">05</span> 參考資源</a>
+        <a href="/about"     th:classappend="${active == 'about'}     ? 'is-active' : ''">關於我們</a>
+        <a href="/products"  th:classappend="${active == 'products'}  ? 'is-active' : ''">產品方案</a>
         <span class="qf-nav__lang">
-            <button data-lang="zh_TW" class="is-active">ZH</button>
-            <button data-lang="en">EN</button>
+            <button data-lang="zh_TW" class="is-active" disabled>ZH</button>
+            <button data-lang="en" disabled>EN</button>
         </span>
     </div>
 </nav>

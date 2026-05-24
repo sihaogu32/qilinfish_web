@@ -152,6 +152,10 @@ button { font-family: inherit; cursor: pointer; }
   background: var(--accent);
   color: #06060a;
 }
+.qf-nav__lang button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 
 /* ============================================================
    Layout primitives
