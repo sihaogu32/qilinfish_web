@@ -203,6 +203,8 @@ button{font-family:inherit;cursor:pointer;}
   font-size: 14px;
 }
 .qf-inline input { width: 110px; }
+/* a label and its box wrap as one piece, so a line never ends on "US$" */
+.qf-inline__group { white-space: nowrap; }
 .qf-survey__other { margin-top: 8px; }
 .qf-survey__other input { width: 100%; }
 
@@ -682,7 +684,7 @@ button{font-family:inherit;cursor:pointer;}
                     <div class="qf-card__sub">AI Output Verification &amp; Audit</div>
                     <p class="qf-card__desc">AI 說「做完了」，真的完成了嗎？
 AI 的回答常常看起來對，其實有錯。
-主管或客戶問「這是怎麼來的？」，你拿得出根據嗎？</p>
+主管或客戶問「這是怎麼來的？」，您拿得出根據嗎？</p>
                     <ul class="qf-card__list">
                         <li>逐句查核</li>
                         <li>附上出處</li>
@@ -751,8 +753,8 @@ AI 的回答常常看起來對，其實有錯。
         <div class="sv-hero__inner">
             <div class="sv-rec"><span><span class="sv-rec__dot">●</span> REC</span><span>2023-06-22 · 紐約聯邦法院</span><span class="warn">6 個判例不存在</span></div>
             <h1 class="sv-hero__title">這些事，都是交出去之後，<em>才被別人發現的。</em></h1>
-            <p class="sv-hero__sub">律師、顧問、客服、工程師，都碰過 AI 給的東西「幾乎對」。我們想聽你最近一次：你是怎麼決定它能交出去的？</p>
-            <a class="qf-btn qf-btn--primary sv-cta" href="#sv-choose">說說你那一次 <span class="arr">↓</span></a>
+            <p class="sv-hero__sub">律師、顧問、客服、工程師，都碰過 AI 給的東西「幾乎對」。我們想聽您最近一次：您是怎麼決定它能交出去的？</p>
+            <a class="qf-btn qf-btn--primary sv-cta" href="#sv-choose">說說您那一次 <span class="arr">↓</span></a>
             <div class="sv-meta"><span>TIME / <b>約 7 分鐘</b></span><span>PRIVACY / <b>不公開名字與公司</b></span><span>YOU GET / <b>彙整報告</b></span></div>
         </div>
         <span class="sv-ai">示意畫面 · AI 生成</span>
@@ -817,7 +819,7 @@ AI 的回答常常看起來對，其實有錯。
     <!-- ---- choose one ---- -->
     <section class="sv-section sv-section--flush" id="sv-choose">
         <div class="sv-eb">STEP 01 · 先選一種</div>
-        <h2 class="sv-h2">你最近一次遇到的，是哪一種？</h2>
+        <h2 class="sv-h2">您最近一次遇到的，是哪一種？</h2>
         <div class="sv-choose" role="group" aria-label="選一種經驗">
             <button class="sv-opt" type="button" data-sv-pick="verify" aria-pressed="false">
                 <span class="sv-opt__img"><video src="backend/src/main/resources/static/media/bp_desk.mp4" poster="backend/src/main/resources/static/media/bp_desk.jpg" muted loop playsinline preload="none" data-sv-play aria-label="藍圖：審查桌上的清單有一格空著"></video></span>
@@ -825,19 +827,19 @@ AI 的回答常常看起來對，其實有錯。
             </button>
             <button class="sv-opt" type="button" data-sv-pick="explain" aria-pressed="false">
                 <span class="sv-opt__img"><video src="backend/src/main/resources/static/media/bp_chain.mp4" poster="backend/src/main/resources/static/media/bp_chain.jpg" muted loop playsinline preload="none" data-sv-play aria-label="藍圖：證據鏈中間一環裂開"></video></span>
-                <span class="sv-opt__tx"><span class="n"><span>DWG-B</span><span class="st">選這個</span></span><b>被問「這是怎麼來的」</b><span class="s">主管、客戶、稽核、主管機關要你說明</span></span>
+                <span class="sv-opt__tx"><span class="n"><span>DWG-B</span><span class="st">選這個</span></span><b>被問「這是怎麼來的」</b><span class="s">主管、客戶、稽核、主管機關要您說明</span></span>
             </button>
             <button class="sv-opt" type="button" data-sv-pick="inventory" aria-pressed="false">
                 <span class="sv-opt__img"><video src="backend/src/main/resources/static/media/bp_mainframe.mp4" poster="backend/src/main/resources/static/media/bp_mainframe.jpg" muted loop playsinline preload="none" data-sv-play aria-label="藍圖：舊主機拆解圖"></video></span>
                 <span class="sv-opt__tx"><span class="n"><span>DWG-C</span><span class="st">選這個</span></span><b>弄清楚舊系統在做什麼</b><span class="s">接手、換系統、文件跟實際對不上</span></span>
             </button>
         </div>
-        <button class="sv-none" type="button" data-sv-pick="other">都不是這三種？<u>寫下你遇到的</u> →</button>
+        <button class="sv-none" type="button" data-sv-pick="other">都不是這三種？<u>寫下您遇到的</u> →</button>
         <button class="sv-none" type="button" data-sv-pick="none">都沒遇過？<u>也請告訴我們，只有一題</u> →</button>
         <div class="sv-deal">
             <div><span class="k">TIME</span><b>約 7 分鐘</b><span>可以只寫幾句</span></div>
             <div><span class="k">PRIVACY</span><b>不公開</b><span>名字與公司只有我們看得到</span></div>
-            <div><span class="k">YOU GET</span><b>彙整報告</b><span>寄到你留的聯絡方式</span></div>
+            <div><span class="k">YOU GET</span><b>彙整報告</b><span>寄到您留的聯絡方式</span></div>
         </div>
     </section>
 
@@ -845,7 +847,7 @@ AI 的回答常常看起來對，其實有錯。
     <section class="sv-section sv-section--flush" id="sv-form">
         <div class="sv-formwrap">
             <nav class="sv-toc" aria-label="表單段落" data-sv-toc>
-                <a href="#sv-p1"><span>01</span>關於你</a>
+                <a href="#sv-p1"><span>01</span>關於您</a>
                 <a href="#sv-p2"><span>02</span>最近一次</a>
                 <a href="#sv-p3" data-branch-link="story"><span>03</span>花了多少</a>
                 <a href="#sv-p4" data-branch-link="story"><span>04</span>試過的做法</a>
@@ -856,10 +858,10 @@ AI 的回答常常看起來對，其實有錯。
         <form class="qf-survey sv-form" data-survey-form novalidate>
 
             <!-- ---- about you ---- -->
-            <div class="qf-survey__part" id="sv-p1">// 01 · 關於你</div>
+            <div class="qf-survey__part" id="sv-p1">// 01 · 關於您</div>
 
             <div class="qf-field" data-required>
-                <div class="qf-field__q">你的角色最接近哪一個？<span class="qf-field__req">必填</span></div>
+                <div class="qf-field__q">您的角色最接近哪一個？<span class="qf-field__req">必填</span></div>
                 <div class="qf-choices">
                     <label class="qf-choice"><input type="radio" name="role" value="工程師">工程師</label>
                     <label class="qf-choice"><input type="radio" name="role" value="工程主管或技術主管">工程主管或技術主管</label>
@@ -870,13 +872,13 @@ AI 的回答常常看起來對，其實有錯。
                     <label class="qf-choice"><input type="radio" name="role" value="其他">其他</label>
                 </div>
                 <div class="qf-survey__other" data-show-if="role=其他">
-                    <input id="sf-role-other" type="text" maxlength="64" placeholder="請寫你的角色" name="roleOther">
+                    <input id="sf-role-other" type="text" maxlength="64" placeholder="請寫您的角色" name="roleOther">
                 </div>
                 <div class="qf-field__err">> 請選一個角色。</div>
             </div>
 
             <div class="qf-field" data-required>
-                <div class="qf-field__q">你所在組織的規模？<span class="qf-field__req">必填</span></div>
+                <div class="qf-field__q">您所在組織的規模？<span class="qf-field__req">必填</span></div>
                 <div class="qf-choices">
                     <label class="qf-choice"><input type="radio" name="orgSize" value="1–10 人">1–10 人</label>
                     <label class="qf-choice"><input type="radio" name="orgSize" value="11–50 人">11–50 人</label>
@@ -890,11 +892,11 @@ AI 的回答常常看起來對，其實有錯。
             <!-- ---- the last time ---- -->
             <div class="sv-part" id="sv-p2">
                 <img data-sv-part-img src="backend/src/main/resources/static/media/bp_desk.jpg" alt="">
-                <div><span class="k" data-sv-part-k>// 02 · 最近一次</span><b data-sv-part-title>最近一次，你需要處理的那一件事</b></div>
+                <div><span class="k" data-sv-part-k>// 02 · 最近一次</span><b data-sv-part-title>最近一次，您需要處理的那一件事</b></div>
             </div>
 
             <div class="qf-field" data-required>
-                <div class="qf-field__q">最近一次你（或你的團隊）需要做下面哪一件事？選最近發生的那一件。<span class="qf-field__req">必填</span></div>
+                <div class="qf-field__q">最近一次您（或您的團隊）需要做下面哪一件事？選最近發生的那一件。<span class="qf-field__req">必填</span></div>
                 <div class="qf-choices qf-choices--stack">
                     <label class="qf-choice"><input type="radio" name="situation" value="verify">確認 AI 產出的內容（程式碼、文件、回答）是否正確</label>
                     <label class="qf-choice"><input type="radio" name="situation" value="explain">回應別人對「我們怎麼用 AI」的詢問或要求（主管、客戶、稽核、主管機關）</label>
@@ -919,7 +921,7 @@ AI 的回答常常看起來對，其實有錯。
                 </div>
 
                 <div class="qf-field" data-required>
-                    <label for="sf-what">那一次發生了什麼事？是什麼讓你覺得一定要處理，而不是直接放著或直接用？<span class="qf-field__req">必填</span></label>
+                    <label for="sf-what">那一次發生了什麼事？是什麼讓您覺得一定要處理，而不是直接放著或直接用？<span class="qf-field__req">必填</span></label>
                     <div class="sv-why">我們想知道「決定要確認」的那一刻。目前公開的調查都沒有問過這件事。</div>
                     <textarea id="sf-what" rows="6" maxlength="2000" data-sv-count-text name="whatHappened"></textarea>
                     <div class="sv-cnt"></div>
@@ -927,7 +929,7 @@ AI 的回答常常看起來對，其實有錯。
                 </div>
 
                 <div class="qf-field" data-required>
-                    <label for="sf-steps">從開始處理到你覺得可以放心交出去，中間做了哪些步驟？誰參與？用了什麼工具或文件？<span class="qf-field__req">必填</span></label>
+                    <label for="sf-steps">從開始處理到您覺得可以放心交出去，中間做了哪些步驟？誰參與？用了什麼工具或文件？<span class="qf-field__req">必填</span></label>
                     <div class="sv-why">「怎麼確認」的步驟，就是我們最想了解的部分。照順序寫幾步就好。</div>
                     <textarea id="sf-steps" rows="6" maxlength="2000" data-sv-count-text placeholder="例如：先對原始檔、再請同事看一遍、最後跟去年的報告比" name="steps"></textarea>
                     <div class="sv-cnt"></div>
@@ -951,16 +953,16 @@ AI 的回答常常看起來對，其實有錯。
                     </div>
                 </div>
 
-                <div class="qf-field">
+                <div class="qf-field" data-amounts>
                     <div class="qf-field__q">那一次有沒有因此另外花錢（工具、外包、顧問、加班費）？</div>
-                    <div class="qf-choices">
-                        <label class="qf-choice"><input type="radio" name="extraSpend" value="沒有">沒有</label>
-                        <label class="qf-choice"><input type="radio" name="extraSpend" value="不到新台幣 1 萬">不到新台幣 1 萬</label>
-                        <label class="qf-choice"><input type="radio" name="extraSpend" value="1–10 萬">1–10 萬</label>
-                        <label class="qf-choice"><input type="radio" name="extraSpend" value="10–100 萬">10–100 萬</label>
-                        <label class="qf-choice"><input type="radio" name="extraSpend" value="超過 100 萬">超過 100 萬</label>
-                        <label class="qf-choice"><input type="radio" name="extraSpend" value="不知道">不知道</label>
+                    <div class="qf-inline">
+                        <span class="qf-inline__group">US$ <input id="sf-extra-usd" type="text" inputmode="decimal" maxlength="24" aria-label="另外花的錢（美金）" data-amount name="extraSpendUsd"></span>
                     </div>
+                    <div class="qf-choices">
+                        <label class="qf-choice"><input type="radio" name="extraSpend" value="none">沒有</label>
+                        <label class="qf-choice"><input type="radio" name="extraSpend" value="unknown">不知道</label>
+                    </div>
+                    <div class="qf-field__err">> 金額只能填數字（不加幣別），例如 500 或 1,200.5。</div>
                 </div>
 
                 <div class="qf-field">
@@ -972,7 +974,7 @@ AI 的回答常常看起來對，其實有錯。
                 <div class="qf-survey__part" id="sv-p4">// 04 · 試過的做法</div>
 
                 <div class="qf-field" data-required>
-                    <label for="sf-tried">你有沒有找過或試過其他做法、工具或服務？試了什麼？為什麼繼續用，或為什麼不用了？<span class="qf-field__req">必填</span></label>
+                    <label for="sf-tried">您有沒有找過或試過其他做法、工具或服務？試了什麼？為什麼繼續用，或為什麼不用了？<span class="qf-field__req">必填</span></label>
                     <div class="qf-field__hint">如果沒有找過，也請寫「沒有」，可以的話說說為什麼。</div>
                     <textarea id="sf-tried" rows="5" maxlength="2000" data-sv-count-text name="triedOther"></textarea>
                     <div class="sv-cnt"></div>
@@ -980,20 +982,34 @@ AI 的回答常常看起來對，其實有錯。
                 </div>
 
                 <div class="qf-field">
-                    <label for="sf-hardest">回想那一次，哪一個步驟最花時間或最讓你不放心？如果那一步可以變得不一樣，你希望它變成什麼樣子？</label>
+                    <label for="sf-hardest">回想那一次，哪一個步驟最花時間或最讓您不放心？如果那一步可以變得不一樣，您希望它變成什麼樣子？</label>
                     <textarea id="sf-hardest" rows="5" maxlength="2000" name="hardestStep"></textarea>
                 </div>
             </div>
 
             <div data-branch="none">
                 <div class="qf-field">
-                    <label for="sf-why-not">你的工作裡有用到 AI 工具嗎？如果有，為什麼不需要確認它的產出？</label>
+                    <label for="sf-why-not">您的工作裡有用到 AI 工具嗎？如果有，為什麼不需要確認它的產出？</label>
                     <textarea id="sf-why-not" rows="5" maxlength="2000" name="whyNotNeeded"></textarea>
                 </div>
             </div>
 
             <!-- ---- follow-up ---- -->
             <div class="qf-survey__part" id="sv-p5">// 05 · 後續</div>
+
+            <div class="qf-field" data-required data-amounts>
+                <div class="qf-field__q"><span data-show-if="situation!=none">為了解決上述問題，您的組織每年願意付多少？</span><span data-show-if="situation=none" hidden>如果之後需要確認 AI 產出的內容、回應別人對 AI 使用的詢問，或盤點舊系統，您的組織每年願意付多少？</span><span class="qf-field__req">必填</span></div>
+                <div class="qf-field__hint">只願付一個金額的話，兩格填一樣。</div>
+                <div class="qf-inline">
+                    <span class="qf-inline__group">每年 US$ <input id="sf-pay-min" type="text" inputmode="decimal" maxlength="24" placeholder="最低" aria-label="每年最低金額（美金）" data-amount name="payMin"></span>
+                    <span class="qf-inline__group">到 US$ <input id="sf-pay-max" type="text" inputmode="decimal" maxlength="24" placeholder="最高" aria-label="每年最高金額（美金）" data-amount name="payMax"></span>
+                </div>
+                <div class="qf-choices">
+                    <label class="qf-choice"><input type="radio" name="payOption" value="none">不會付費</label>
+                    <label class="qf-choice"><input type="radio" name="payOption" value="unknown">不知道</label>
+                </div>
+                <div class="qf-field__err">> 請填金額範圍，或選「不會付費」「不知道」。</div>
+            </div>
 
             <div class="qf-field">
                 <div class="qf-field__q">願意之後接受一次 20–30 分鐘的線上對話，多聊聊那一次的經驗嗎？</div>
@@ -1008,7 +1024,7 @@ AI 的回答常常看起來對，其實有錯。
             </div>
 
             <div class="qf-field">
-                <label for="sf-message">有什麼是你想告訴我們的</label>
+                <label for="sf-message">有什麼是您想告訴我們的</label>
                 <textarea id="sf-message" rows="4" maxlength="2000" name="message"></textarea>
             </div>
 
@@ -1016,7 +1032,7 @@ AI 的回答常常看起來對，其實有錯。
             <div class="qf-survey__part" id="sv-p6">// 06 · 聯絡方式</div>
 
             <div class="sv-priv">
-                <div><b>你的資料</b>不公開、不轉給第三方。</div>
+                <div><b>您的資料</b>不公開、不轉給第三方。</div>
             </div>
 
             <div class="qf-field" data-required>
@@ -1052,7 +1068,7 @@ AI 的回答常常看起來對，其實有錯。
         <div data-reveal>
             <div class="qf-eyebrow">CONTACT</div>
             <h1 class="qf-title">聯絡我們</h1>
-            <p class="qf-lede">如果你有想法、原型、或一份還沒寫完的需求文件 — 寫信給我們。我們會在兩個工作天內回覆。</p>
+            <p class="qf-lede">如果您有想法、原型、或一份還沒寫完的需求文件 — 寫信給我們。我們會在兩個工作天內回覆。</p>
         </div>
 
         <div class="qf-contact" data-reveal>
@@ -1244,6 +1260,55 @@ AI 的回答常常看起來對，其實有錯。
   }
 
   // ---- Survey form (front-end only in preview) ----
+  /**
+   * Amount field check: '' when fine, otherwise the message to show.
+   * A picked choice ("none", "unknown") stands in for the amounts. Filled boxes must be plain numbers;
+   * a required field needs every box, and with two boxes the second (max) must not be below the first (min).
+   */
+  /**
+   * An amount as the server reads it (SurveyFormModel.plainUsd): full-width digits, comma and point
+   * become half-width, then commas and spaces are dropped.
+   */
+  function plainAmount(__v){
+    return __v.replace(/[０-９，．]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+              .replace(/[,\s]/g, '');
+  }
+
+  function amountError(__field){
+    if(__field.querySelector('input[type="radio"]:checked')) return '';
+    var vals = Array.prototype.map.call(__field.querySelectorAll('[data-amount]'), function(b){ return plainAmount(b.value); });
+    var filled = vals.filter(Boolean);
+    if(filled.some(function(v){ return !/^\d+(\.\d+)?$/.test(v); })) return '> 金額只能填數字（不加幣別），例如 500 或 1,200.5。';
+    // the limit counts digits only, so commas never push an amount over it
+    if(filled.some(function(v){ return v.replace('.', '').length > 16; })) return '> 金額最多 16 位數。';
+    if(!__field.hasAttribute('data-required')) return '';
+    if(!filled.length) return '> 請填金額範圍，或選「不會付費」「不知道」。';
+    if(filled.length < vals.length) return '> 最低和最高都要填；只願付一個金額的話，兩格填一樣。';
+    if(vals.length > 1 && compareDecimal(vals[1], vals[0]) < 0) return '> 最高金額不可小於最低金額。';
+    return '';
+  }
+
+  /**
+   * Compares two plain decimal strings ("1200.5") without going through Number, so long amounts keep
+   * every digit, same as the server's BigDecimal. Returns <0, 0 or >0.
+   */
+  function compareDecimal(__a, __b){
+    function parts(__s){
+      var p = __s.split('.');
+      return [p[0].replace(/^0+/, ''), (p[1] || '').replace(/0+$/, '')];
+    }
+    var a = parts(__a), b = parts(__b);
+    if(a[0].length !== b[0].length) return a[0].length - b[0].length;
+    var n = Math.max(a[1].length, b[1].length);
+    var x = a[0] + a[1].padEnd(n, '0'), y = b[0] + b[1].padEnd(n, '0');
+    return x < y ? -1 : (x > y ? 1 : 0);
+  }
+
+  /** An email or a phone number; shared by the submit check and the section index ticks. */
+  function isValidContact(__v){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(__v) || /^\+?[0-9()\-\s#]{7,24}$/.test(__v);
+  }
+
   function initSurveyForm(){
     var form = document.querySelector('[data-survey-form]');
     if(!form) return;
@@ -1258,30 +1323,67 @@ AI 的回答常常看起來對，其實有錯。
         var want = b.getAttribute('data-branch');
         b.hidden = !situation || (want === 'none' ? situation !== 'none' : situation === 'none');
       });
+      // "name=value" shows on that answer, "name!=value" on any other answer (including none yet)
       form.querySelectorAll('[data-show-if]').forEach(function(b){
-        var rule = b.getAttribute('data-show-if').split('=');
-        b.hidden = checkedValue(rule[0]) !== rule[1];
+        var rule = b.getAttribute('data-show-if').match(/^(\w+)(!?=)(.*)$/);
+        var same = checkedValue(rule[1]) === rule[3];
+        b.hidden = rule[2] === '=' ? !same : same;
       });
-    }
-    function isValidContact(__v){
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(__v) || /^\+?[0-9()\-\s#]{7,24}$/.test(__v);
     }
     function clearMark(__e){
       var f = __e.target.closest('.qf-field');
       if(f) f.classList.remove('is-invalid');
     }
+    // typing in the "other" box picks "other", since the box lives inside that choice
+    form.querySelectorAll('[data-other-text]').forEach(function(t){
+      function pickOther(){
+        var radio = t.closest('.qf-choice').querySelector('input[type="radio"]');
+        if(radio.checked) return;
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      // not on focus: tabbing through the box must not change the answer
+      ['click', 'input'].forEach(function(__type){ t.addEventListener(__type, pickOther); });
+    });
+    // an amount and the "no amount" choices answer the same question, so one clears the other
+    form.querySelectorAll('.qf-field[data-amounts]').forEach(function(f){
+      var boxes = f.querySelectorAll('[data-amount]');
+      var radios = f.querySelectorAll('input[type="radio"]');
+      boxes.forEach(function(b){
+        b.addEventListener('input', function(){
+          // only blanks or commas is not an amount yet, so the picked choice stays
+          if(plainAmount(b.value)) radios.forEach(function(r){ r.checked = false; });
+        });
+      });
+      radios.forEach(function(r){
+        r.addEventListener('change', function(){
+          if(r.checked) boxes.forEach(function(b){ b.value = ''; });
+        });
+      });
+    });
     form.addEventListener('change', syncBranches);
     form.addEventListener('change', clearMark);
     form.addEventListener('input', clearMark);
     syncBranches();
+    // run every listener that mirrors the answers (branches, picker cards, index ticks, length hints);
+    // the form event never reaches the "other" box, so it cannot pick "other" by itself
+    function resyncAll(){
+      form.dispatchEvent(new Event('change'));
+      form.querySelectorAll('[data-sv-count-text]').forEach(function(t){ t.dispatchEvent(new Event('input')); });
+    }
+    // going back can refill the answers after this script ran, so mirror them again once the page shows
+    window.addEventListener('pageshow', resyncAll);
     form.addEventListener('submit', function(e){
       e.preventDefault();
       var ok = true;
       form.querySelectorAll('.qf-field[data-required]').forEach(function(f){
         f.classList.remove('is-invalid');
-        if(f.closest('[hidden]')) return;
+        if(f.closest('[hidden]') || f.hasAttribute('data-amounts')) return;
         if(f.querySelectorAll('input[type="radio"]').length){
-          if(!f.querySelector('input[type="radio"]:checked')){ f.classList.add('is-invalid'); ok=false; }
+          var picked = f.querySelector('input[type="radio"]:checked');
+          var other = f.querySelector('[data-other-text]');
+          // "other" needs its own words, otherwise the answer says nothing
+          if(!picked || (other && picked.value === 'other' && !other.value.trim())){ f.classList.add('is-invalid'); ok=false; }
           return;
         }
         var input = f.querySelector('input, textarea');
@@ -1289,15 +1391,26 @@ AI 的回答常常看起來對，其實有錯。
         if(!v){ f.classList.add('is-invalid'); ok=false; return; }
         if(input.hasAttribute('data-contact') && !isValidContact(v)){ f.classList.add('is-invalid'); ok=false; }
       });
+      // amount fields say which rule failed, so the message is set per field
+      form.querySelectorAll('.qf-field[data-amounts]').forEach(function(f){
+        f.classList.remove('is-invalid');
+        if(f.closest('[hidden]')) return;
+        var msg = amountError(f);
+        if(!msg) return;
+        f.querySelector('.qf-field__err').textContent = msg;
+        f.classList.add('is-invalid');
+        ok=false;
+      });
       if(!ok){
         statusEl.className='qf-form-status err';
         statusEl.textContent='> 還有必填的題目沒填，請看標紅的地方。';
         return;
       }
       statusEl.className='qf-form-status ok';
-      statusEl.textContent='> 謝謝你。彙整報告完成後，會用你留的聯絡方式寄給你。（preview mode；後端尚未連接）';
+      statusEl.textContent='> 謝謝您。您描述的那一次經驗，比任何一般性的意見都更有幫助。彙整報告完成後，會用您留的聯絡方式寄給您。（preview mode；後端尚未連接）';
       form.reset();
-      syncBranches();
+      // reset fires no change/input
+      resyncAll();
     });
   }
 
@@ -1393,15 +1506,18 @@ AI 的回答常常看起來對，其實有錯。
     var form = document.querySelector('[data-survey-form]');
     if (!form) return;
     var art = {
-      verify:    { img: 'bp_desk.jpg',      title: '最近一次，你確認 AI 產出的那一次' },
-      explain:   { img: 'bp_chain.jpg',     title: '最近一次，有人問你「這是怎麼來的」' },
-      inventory: { img: 'bp_mainframe.jpg', title: '最近一次，你需要弄清楚舊系統的那一次' },
-      other:     { img: 'bp_desk.jpg',      title: '最近一次，你需要處理的那一件事' },
+      verify:    { img: 'bp_desk.jpg',      title: '最近一次，您確認 AI 產出的那一次' },
+      explain:   { img: 'bp_chain.jpg',     title: '最近一次，有人問您「這是怎麼來的」' },
+      inventory: { img: 'bp_mainframe.jpg', title: '最近一次，您需要弄清楚舊系統的那一次' },
+      other:     { img: 'bp_desk.jpg',      title: '最近一次，您需要處理的那一件事' },
       none:      { img: 'bp_desk.jpg',      title: '如果都沒遇過，也請告訴我們' }
     };
     var partImg = form.querySelector('[data-sv-part-img]');
     var partTitle = form.querySelector('[data-sv-part-title]');
     var picks = document.querySelectorAll('[data-sv-pick]');
+    // the page's own picture and title, shown again when nothing is picked (e.g. after a reset)
+    var partImgName = partImg && partImg.src.match(/[^\/]+\.jpg$/);
+    var partDefault = partImgName ? { img: partImgName[0], title: partTitle.textContent } : null;
 
     function syncPicked() {
       var el = form.querySelector('input[name="situation"]:checked');
@@ -1412,9 +1528,10 @@ AI 的回答常常看起來對，其實有錯。
         var st = p.querySelector('.st');
         if (st) st.textContent = on ? '● 已選' : '選這個';
       });
-      if (art[v] && partImg) {
-        partImg.src = partImg.src.replace(/[^\/]+\.jpg$/, art[v].img);
-        partTitle.textContent = art[v].title;
+      var shown = art[v] || partDefault;
+      if (shown && partImg) {
+        partImg.src = partImg.src.replace(/[^\/]+\.jpg$/, shown.img);
+        partTitle.textContent = shown.title;
       }
       // parts 03–04 only exist on the story branch, which stays hidden until a situation other than "none" is picked
       document.querySelectorAll('[data-branch-link]').forEach(function (a) { a.hidden = !v || v === 'none'; });
@@ -1445,18 +1562,29 @@ AI 的回答常常看起來對，其實有錯。
       return idx;
     }
     function answered(__field) {
+      if (__field.hasAttribute('data-amounts')) return !amountError(__field);
       if (__field.querySelector('input[type="radio"]')) {
         var picked = __field.querySelector('input[type="radio"]:checked');
         var other = __field.querySelector('[data-other-text]');
         return !!picked && !(other && picked.value === 'other' && !other.value.trim());
       }
       var input = __field.querySelector('input, textarea');
-      return !!(input && input.value.trim());
+      var v = input ? input.value.trim() : '';
+      if (v && input.hasAttribute('data-contact')) return isValidContact(v);
+      return !!v;
     }
+    // any answer at all, for parts with no required field (03): ticking says "I've been through this part"
+    function touched(__field) {
+      return Array.prototype.some.call(__field.querySelectorAll('input, textarea'), function (el) {
+        return el.type === 'radio' ? el.checked : !!el.value.trim();
+      });
+    }
+    var fields = Array.prototype.slice.call(form.querySelectorAll('.qf-field'));
     function syncDone() {
       links.forEach(function (a, i) {
-        var fs = required.filter(function (f) { return partOf(f) === i && !f.closest('[hidden]'); });
-        a.classList.toggle('is-done', fs.length > 0 && fs.every(answered));
+        var inPart = function (f) { return partOf(f) === i && !f.closest('[hidden]'); };
+        var fs = required.filter(inPart);
+        a.classList.toggle('is-done', fs.length > 0 ? fs.every(answered) : fields.filter(inPart).some(touched));
       });
     }
     form.addEventListener('input', syncDone);

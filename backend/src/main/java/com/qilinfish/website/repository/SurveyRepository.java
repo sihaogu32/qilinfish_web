@@ -43,16 +43,23 @@ public class SurveyRepository {
       + " hours TEXT, people TEXT, extra_spend TEXT, worst_case TEXT,"
       + " tried_other TEXT, hardest_step TEXT,"
       + " why_not_needed TEXT,"
-      + " interview TEXT, available_time TEXT, message TEXT)";
+      + " interview TEXT, available_time TEXT, message TEXT,"
+      + " pay_min TEXT, pay_max TEXT, pay_option TEXT)";
 
-    // tables created before the "message" question existed lack the column
-    private static final String ADD_MESSAGE = "ALTER TABLE survey ADD COLUMN message TEXT";
+    // tables created before a question existed lack its column; each ALTER fails harmlessly once it is there
+    private static final String[] ADD_COLUMNS = {
+        "ALTER TABLE survey ADD COLUMN message TEXT",
+        "ALTER TABLE survey ADD COLUMN pay_min TEXT",
+        "ALTER TABLE survey ADD COLUMN pay_max TEXT",
+        "ALTER TABLE survey ADD COLUMN pay_option TEXT",
+    };
 
     private static final String INSERT =
         "INSERT INTO survey (created_at, name, company, contact, role, role_other, org_size,"
       + " situation, occurred_when, what_happened, steps, outcome, hours, people, extra_spend,"
-      + " worst_case, tried_other, hardest_step, why_not_needed, interview, available_time, message)"
-      + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      + " worst_case, tried_other, hardest_step, why_not_needed, interview, available_time, message,"
+      + " pay_min, pay_max, pay_option)"
+      + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private final String dbPath;
 
@@ -73,10 +80,12 @@ public class SurveyRepository {
             try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath)) {
                 try (Statement st = conn.createStatement()) {
                     st.execute(CREATE_TABLE);
-                    try {
-                        st.execute(ADD_MESSAGE);
-                    } catch (SQLException ex) {
-                        // column already there
+                    for (String addColumn : ADD_COLUMNS) {
+                        try {
+                            st.execute(addColumn);
+                        } catch (SQLException ex) {
+                            // column already there
+                        }
                     }
                 }
                 boolean none = "none".equals(__form.getSituation());
@@ -97,7 +106,7 @@ public class SurveyRepository {
                     ps.setString(i++, none ? null : trim(__form.getOutcome()));
                     ps.setString(i++, none ? null : trim(__form.getHours()));
                     ps.setString(i++, none ? null : trim(__form.getPeople()));
-                    ps.setString(i++, none ? null : trim(__form.getExtraSpend()));
+                    ps.setString(i++, none ? null : extraSpendLabel(__form.getExtraSpend(), __form.getExtraSpendUsd()));
                     ps.setString(i++, none ? null : trim(__form.getWorstCase()));
                     ps.setString(i++, none ? null : trim(__form.getTriedOther()));
                     ps.setString(i++, none ? null : trim(__form.getHardestStep()));
@@ -105,6 +114,11 @@ public class SurveyRepository {
                     ps.setString(i++, interviewLabel(__form.getInterview()));
                     ps.setString(i++, "yes".equals(__form.getInterview()) ? trim(__form.getAvailableTime()) : null);
                     ps.setString(i++, trim(__form.getMessage()));
+                    // a picked option wins over typed amounts, so the range is stored only without one
+                    String payOption = optionLabel(__form.getPayOption(), "不會付費");
+                    ps.setString(i++, payOption == null ? SurveyFormModel.normalizeUsd(__form.getPayMin()) : null);
+                    ps.setString(i++, payOption == null ? SurveyFormModel.normalizeUsd(__form.getPayMax()) : null);
+                    ps.setString(i++, payOption);
                     ps.executeUpdate();
                 }
             }
@@ -132,6 +146,20 @@ public class SurveyRepository {
         if ("yes".equals(__interview)) return "願意";
         if ("no".equals(__interview)) return "不願意";
         return null;
+    }
+
+    // "none" reads differently per question; "unknown" is always 不知道
+    private String optionLabel(String __option, String __noneLabel) {
+        if ("none".equals(__option)) return __noneLabel;
+        if ("unknown".equals(__option)) return "不知道";
+        return null;
+    }
+
+    private String extraSpendLabel(String __extraSpend, String __extraSpendUsd) {
+        String label = optionLabel(__extraSpend, "沒有");
+        if (label != null) return label;
+        String usd = SurveyFormModel.normalizeUsd(__extraSpendUsd);
+        return usd == null ? null : "US$" + usd;
     }
 
     private String trim(String __value) {

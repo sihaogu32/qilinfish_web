@@ -38,8 +38,10 @@ public class SurveyFormModel {
     private String hours;
     @Size(max = 16)
     private String people;
-    @Size(max = 32)
-    private String extraSpend;
+    // no @Size on the amount questions: SurveyController checks them (length included) so each
+    // shows one message in the page's wording, not a Bean Validation default
+    private String extraSpend;           // none / unknown / blank (then extraSpendUsd holds the amount)
+    private String extraSpendUsd;        // US dollars, digits with optional thousands commas and decimals
     @Size(max = 2000)
     private String worstCase;
 
@@ -48,6 +50,11 @@ public class SurveyFormModel {
     private String triedOther;
     @Size(max = 2000)
     private String hardestStep;
+
+    // ---- willingness to pay (US$ per year; checked in SurveyController, see extraSpend) ----
+    private String payMin;
+    private String payMax;
+    private String payOption;           // none / unknown / blank (then payMin..payMax holds the range)
 
     // ---- situation = none ----
     @Size(max = 2000)
@@ -69,7 +76,52 @@ public class SurveyFormModel {
     @NotBlank @Size(max = 128)
     private String contact;              // email or phone
 
+    /** Same as maxlength on the amount boxes in survey.html: room for commas and spaces. */
+    public static final int USD_BOX_LENGTH = 24;
+    /** Digits allowed in an amount, after commas and spaces are dropped (decimal point not counted). */
+    public static final int USD_MAX_DIGITS = 16;
+
+    /** What is wrong with a typed amount; same order as amountError in qilinfish.js. */
+    public enum UsdProblem { INVALID, TOO_LONG }
+
     public SurveyFormModel() { }
+
+    /**
+     * Check a non-blank US-dollar amount typed by the respondent.
+     * Returns null when it is a non-negative number with optional decimals and at most USD_MAX_DIGITS digits.
+     */
+    public static UsdProblem usdProblem(String __value) {
+        String s = plainUsd(__value);
+        if (!s.matches("\\d+(\\.\\d+)?")) return UsdProblem.INVALID;
+        if (__value.length() > USD_BOX_LENGTH || s.replace(".", "").length() > USD_MAX_DIGITS) return UsdProblem.TOO_LONG;
+        return null;
+    }
+
+    /**
+     * Normalize a US-dollar amount: returns the plain number (e.g. "1,200.50" or "１，２００．５" -> "1200.5"),
+     * or null if blank or usdProblem finds anything wrong.
+     */
+    public static String normalizeUsd(String __value) {
+        if (isBlankUsd(__value) || usdProblem(__value) != null) return null;
+        return new java.math.BigDecimal(plainUsd(__value)).stripTrailingZeros().toPlainString();
+    }
+
+    /** True when nothing is left after dropping commas and spaces, same as the page's amount check. */
+    public static boolean isBlankUsd(String __value) {
+        return __value == null || plainUsd(__value).isEmpty();
+    }
+
+    /**
+     * Same as plainAmount in qilinfish.js: full-width digits, comma and point become half-width,
+     * then commas and spaces are dropped. (?U) so full-width and no-break spaces count as spaces.
+     */
+    private static String plainUsd(String __value) {
+        StringBuilder sb = new StringBuilder(__value.length());
+        for (char c : __value.toCharArray()) {
+            sb.append((c >= '０' && c <= '９') || c == '，' || c == '．' ? (char) (c - 0xFEE0) : c);
+        }
+        return sb.toString().replaceAll("(?U)[,\\s]", "");
+    }
 
     public String getRole() { return role; }
     public void setRole(String __role) { this.role = __role; }
@@ -106,6 +158,18 @@ public class SurveyFormModel {
 
     public String getExtraSpend() { return extraSpend; }
     public void setExtraSpend(String __extraSpend) { this.extraSpend = __extraSpend; }
+
+    public String getExtraSpendUsd() { return extraSpendUsd; }
+    public void setExtraSpendUsd(String __extraSpendUsd) { this.extraSpendUsd = __extraSpendUsd; }
+
+    public String getPayMin() { return payMin; }
+    public void setPayMin(String __payMin) { this.payMin = __payMin; }
+
+    public String getPayMax() { return payMax; }
+    public void setPayMax(String __payMax) { this.payMax = __payMax; }
+
+    public String getPayOption() { return payOption; }
+    public void setPayOption(String __payOption) { this.payOption = __payOption; }
 
     public String getWorstCase() { return worstCase; }
     public void setWorstCase(String __worstCase) { this.worstCase = __worstCase; }

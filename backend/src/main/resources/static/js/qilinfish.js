@@ -110,6 +110,55 @@
     });
   }
 
+  /**
+   * Amount field check: '' when fine, otherwise the message to show.
+   * A picked choice ("none", "unknown") stands in for the amounts. Filled boxes must be plain numbers;
+   * a required field needs every box, and with two boxes the second (max) must not be below the first (min).
+   */
+  /**
+   * An amount as the server reads it (SurveyFormModel.plainUsd): full-width digits, comma and point
+   * become half-width, then commas and spaces are dropped.
+   */
+  function plainAmount(__v) {
+    return __v.replace(/[０-９，．]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+              .replace(/[,\s]/g, '');
+  }
+
+  function amountError(__field) {
+    if (__field.querySelector('input[type="radio"]:checked')) return '';
+    var vals = Array.prototype.map.call(__field.querySelectorAll('[data-amount]'), function (b) { return plainAmount(b.value); });
+    var filled = vals.filter(Boolean);
+    if (filled.some(function (v) { return !/^\d+(\.\d+)?$/.test(v); })) return '> 金額只能填數字（不加幣別），例如 500 或 1,200.5。';
+    // the limit counts digits only, so commas never push an amount over it
+    if (filled.some(function (v) { return v.replace('.', '').length > 16; })) return '> 金額最多 16 位數。';
+    if (!__field.hasAttribute('data-required')) return '';
+    if (!filled.length) return '> 請填金額範圍，或選「不會付費」「不知道」。';
+    if (filled.length < vals.length) return '> 最低和最高都要填；只願付一個金額的話，兩格填一樣。';
+    if (vals.length > 1 && compareDecimal(vals[1], vals[0]) < 0) return '> 最高金額不可小於最低金額。';
+    return '';
+  }
+
+  /**
+   * Compares two plain decimal strings ("1200.5") without going through Number, so long amounts keep
+   * every digit, same as the server's BigDecimal. Returns <0, 0 or >0.
+   */
+  function compareDecimal(__a, __b) {
+    function parts(__s) {
+      var p = __s.split('.');
+      return [p[0].replace(/^0+/, ''), (p[1] || '').replace(/0+$/, '')];
+    }
+    var a = parts(__a), b = parts(__b);
+    if (a[0].length !== b[0].length) return a[0].length - b[0].length;
+    var n = Math.max(a[1].length, b[1].length);
+    var x = a[0] + a[1].padEnd(n, '0'), y = b[0] + b[1].padEnd(n, '0');
+    return x < y ? -1 : (x > y ? 1 : 0);
+  }
+
+  /** An email or a phone number; shared by the submit check and the section index ticks. */
+  function isValidContact(__v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(__v) || /^\+?[0-9()\-\s#]{7,24}$/.test(__v);
+  }
+
   /** Survey form: show the branch that matches the answers, validate visible required fields. */
   function initSurveyForm() {
     var form = document.querySelector('[data-survey-form]');
@@ -127,14 +176,12 @@
         var want = b.getAttribute('data-branch');
         b.hidden = !situation || (want === 'none' ? situation !== 'none' : situation === 'none');
       });
+      // "name=value" shows on that answer, "name!=value" on any other answer (including none yet)
       form.querySelectorAll('[data-show-if]').forEach(function (b) {
-        var rule = b.getAttribute('data-show-if').split('=');
-        b.hidden = checkedValue(rule[0]) !== rule[1];
+        var rule = b.getAttribute('data-show-if').match(/^(\w+)(!?=)(.*)$/);
+        var same = checkedValue(rule[1]) === rule[3];
+        b.hidden = rule[2] === '=' ? !same : same;
       });
-    }
-
-    function isValidContact(__v) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(__v) || /^\+?[0-9()\-\s#]{7,24}$/.test(__v);
     }
 
     function clearMark(__e) {
@@ -150,12 +197,37 @@
         radio.checked = true;
         radio.dispatchEvent(new Event('change', { bubbles: true }));
       }
-      ['focus', 'click', 'input'].forEach(function (__type) { t.addEventListener(__type, pickOther); });
+      // not on focus: tabbing through the box must not change the answer
+      ['click', 'input'].forEach(function (__type) { t.addEventListener(__type, pickOther); });
+    });
+    // an amount and the "no amount" choices answer the same question, so one clears the other
+    form.querySelectorAll('.qf-field[data-amounts]').forEach(function (f) {
+      var boxes = f.querySelectorAll('[data-amount]');
+      var radios = f.querySelectorAll('input[type="radio"]');
+      boxes.forEach(function (b) {
+        b.addEventListener('input', function () {
+          // only blanks or commas is not an amount yet, so the picked choice stays
+          if (plainAmount(b.value)) radios.forEach(function (r) { r.checked = false; });
+        });
+      });
+      radios.forEach(function (r) {
+        r.addEventListener('change', function () {
+          if (r.checked) boxes.forEach(function (b) { b.value = ''; });
+        });
+      });
     });
     form.addEventListener('change', syncBranches);
     form.addEventListener('change', clearMark);
     form.addEventListener('input', clearMark);
     syncBranches();
+    // run every listener that mirrors the answers (branches, picker cards, index ticks, length hints);
+    // the form event never reaches the "other" box, so it cannot pick "other" by itself
+    function resyncAll() {
+      form.dispatchEvent(new Event('change'));
+      form.querySelectorAll('[data-sv-count-text]').forEach(function (t) { t.dispatchEvent(new Event('input')); });
+    }
+    // going back can refill the answers after this script ran, so mirror them again once the page shows
+    window.addEventListener('pageshow', resyncAll);
     if (statusEl && /\b(ok|err)\b/.test(statusEl.className)) {
       statusEl.scrollIntoView({ block: 'center' });
     }
@@ -164,7 +236,7 @@
       var ok = true;
       form.querySelectorAll('.qf-field[data-required]').forEach(function (f) {
         f.classList.remove('is-invalid');
-        if (f.closest('[hidden]')) return;
+        if (f.closest('[hidden]') || f.hasAttribute('data-amounts')) return;
         var radios = f.querySelectorAll('input[type="radio"]');
         if (radios.length) {
           var picked = f.querySelector('input[type="radio"]:checked');
@@ -177,6 +249,16 @@
         var v = input ? (input.value || '').trim() : '';
         if (!v) { f.classList.add('is-invalid'); ok = false; return; }
         if (input.hasAttribute('data-contact') && !isValidContact(v)) { f.classList.add('is-invalid'); ok = false; }
+      });
+      // amount fields say which rule failed, so the message is set per field
+      form.querySelectorAll('.qf-field[data-amounts]').forEach(function (f) {
+        f.classList.remove('is-invalid');
+        if (f.closest('[hidden]')) return;
+        var msg = amountError(f);
+        if (!msg) return;
+        f.querySelector('.qf-field__err').textContent = msg;
+        f.classList.add('is-invalid');
+        ok = false;
       });
       if (!ok) {
         e.preventDefault();
@@ -281,15 +363,18 @@
     var form = document.querySelector('[data-survey-form]');
     if (!form) return;
     var art = {
-      verify:    { img: 'bp_desk.jpg',      title: '最近一次，你確認 AI 產出的那一次' },
-      explain:   { img: 'bp_chain.jpg',     title: '最近一次，有人問你「這是怎麼來的」' },
-      inventory: { img: 'bp_mainframe.jpg', title: '最近一次，你需要弄清楚舊系統的那一次' },
-      other:     { img: 'bp_desk.jpg',      title: '最近一次，你需要處理的那一件事' },
+      verify:    { img: 'bp_desk.jpg',      title: '最近一次，您確認 AI 產出的那一次' },
+      explain:   { img: 'bp_chain.jpg',     title: '最近一次，有人問您「這是怎麼來的」' },
+      inventory: { img: 'bp_mainframe.jpg', title: '最近一次，您需要弄清楚舊系統的那一次' },
+      other:     { img: 'bp_desk.jpg',      title: '最近一次，您需要處理的那一件事' },
       none:      { img: 'bp_desk.jpg',      title: '如果都沒遇過，也請告訴我們' }
     };
     var partImg = form.querySelector('[data-sv-part-img]');
     var partTitle = form.querySelector('[data-sv-part-title]');
     var picks = document.querySelectorAll('[data-sv-pick]');
+    // the page's own picture and title, shown again when nothing is picked (e.g. after a reset)
+    var partImgName = partImg && partImg.src.match(/[^\/]+\.jpg$/);
+    var partDefault = partImgName ? { img: partImgName[0], title: partTitle.textContent } : null;
 
     function syncPicked() {
       var el = form.querySelector('input[name="situation"]:checked');
@@ -300,9 +385,10 @@
         var st = p.querySelector('.st');
         if (st) st.textContent = on ? '● 已選' : '選這個';
       });
-      if (art[v] && partImg) {
-        partImg.src = partImg.src.replace(/[^\/]+\.jpg$/, art[v].img);
-        partTitle.textContent = art[v].title;
+      var shown = art[v] || partDefault;
+      if (shown && partImg) {
+        partImg.src = partImg.src.replace(/[^\/]+\.jpg$/, shown.img);
+        partTitle.textContent = shown.title;
       }
       // parts 03–04 only exist on the story branch, which stays hidden until a situation other than "none" is picked
       document.querySelectorAll('[data-branch-link]').forEach(function (a) { a.hidden = !v || v === 'none'; });
@@ -333,18 +419,29 @@
       return idx;
     }
     function answered(__field) {
+      if (__field.hasAttribute('data-amounts')) return !amountError(__field);
       if (__field.querySelector('input[type="radio"]')) {
         var picked = __field.querySelector('input[type="radio"]:checked');
         var other = __field.querySelector('[data-other-text]');
         return !!picked && !(other && picked.value === 'other' && !other.value.trim());
       }
       var input = __field.querySelector('input, textarea');
-      return !!(input && input.value.trim());
+      var v = input ? input.value.trim() : '';
+      if (v && input.hasAttribute('data-contact')) return isValidContact(v);
+      return !!v;
     }
+    // any answer at all, for parts with no required field (03): ticking says "I've been through this part"
+    function touched(__field) {
+      return Array.prototype.some.call(__field.querySelectorAll('input, textarea'), function (el) {
+        return el.type === 'radio' ? el.checked : !!el.value.trim();
+      });
+    }
+    var fields = Array.prototype.slice.call(form.querySelectorAll('.qf-field'));
     function syncDone() {
       links.forEach(function (a, i) {
-        var fs = required.filter(function (f) { return partOf(f) === i && !f.closest('[hidden]'); });
-        a.classList.toggle('is-done', fs.length > 0 && fs.every(answered));
+        var inPart = function (f) { return partOf(f) === i && !f.closest('[hidden]'); };
+        var fs = required.filter(inPart);
+        a.classList.toggle('is-done', fs.length > 0 ? fs.every(answered) : fields.filter(inPart).some(touched));
       });
     }
     form.addEventListener('input', syncDone);

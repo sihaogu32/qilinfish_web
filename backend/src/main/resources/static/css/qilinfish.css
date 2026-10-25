@@ -607,6 +607,8 @@ button { font-family: inherit; cursor: pointer; }
   font-size: 14px;
 }
 .qf-inline input { width: 110px; }
+/* a label and its box wrap as one piece, so a line never ends on "US$" */
+.qf-inline__group { white-space: nowrap; }
 .qf-survey__other { margin-top: 8px; }
 .qf-survey__other input { width: 100%; }
 

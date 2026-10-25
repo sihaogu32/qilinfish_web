@@ -28,7 +28,7 @@ public class ProductsController {
                 "AI Output Verification & Audit",
                 "AI 說「做完了」，真的完成了嗎？\n"
                     + "AI 的回答常常看起來對，其實有錯。\n"
-                    + "主管或客戶問「這是怎麼來的？」，你拿得出根據嗎？",
+                    + "主管或客戶問「這是怎麼來的？」，您拿得出根據嗎？",
                 new String[]{"逐句查核", "附上出處", "標出錯誤", "留下查核紀錄"},
                 "coming-soon"
             )
