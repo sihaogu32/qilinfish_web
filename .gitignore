@@ -25,5 +25,9 @@ hs_err_pid*
 # ---- Docker ----
 *.pid
 
+# ---- Survey answers (local SQLite) ----
+data/
+*.db
+
 # ---- Node (just in case) ----
 node_modules/

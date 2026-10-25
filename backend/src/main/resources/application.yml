@@ -59,3 +59,5 @@ qilinfish:
     from:    ${MAIL_FROM:qilinfish@gmail.com}
     to:      ${MAIL_TO:qilinfish@qilinfish.com}
     enabled: ${MAIL_ENABLED:true}
+  survey:
+    db-path: ${SURVEY_DB_PATH:data/survey.db}   # Docker sets /data/survey.db

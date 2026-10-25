@@ -110,10 +110,78 @@
     });
   }
 
+  /** Survey form: show the branch that matches the answers, validate visible required fields. */
+  function initSurveyForm() {
+    var form = document.querySelector('[data-survey-form]');
+    if (!form) return;
+    var statusEl = form.querySelector('[data-form-status]');
+
+    function checkedValue(__name) {
+      var el = form.querySelector('input[name="' + __name + '"]:checked');
+      return el ? el.value : '';
+    }
+
+    function syncBranches() {
+      var situation = checkedValue('situation');
+      form.querySelectorAll('[data-branch]').forEach(function (b) {
+        var want = b.getAttribute('data-branch');
+        b.hidden = !situation || (want === 'none' ? situation !== 'none' : situation === 'none');
+      });
+      form.querySelectorAll('[data-show-if]').forEach(function (b) {
+        var rule = b.getAttribute('data-show-if').split('=');
+        b.hidden = checkedValue(rule[0]) !== rule[1];
+      });
+    }
+
+    function isValidContact(__v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(__v) || /^\+?[0-9()\-\s#]{7,24}$/.test(__v);
+    }
+
+    function clearMark(__e) {
+      var f = __e.target.closest('.qf-field');
+      if (f) f.classList.remove('is-invalid');
+    }
+
+    form.addEventListener('change', syncBranches);
+    form.addEventListener('change', clearMark);
+    form.addEventListener('input', clearMark);
+    syncBranches();
+    if (statusEl && /\b(ok|err)\b/.test(statusEl.className)) {
+      statusEl.scrollIntoView({ block: 'center' });
+    }
+
+    form.addEventListener('submit', function (e) {
+      var ok = true;
+      form.querySelectorAll('.qf-field[data-required]').forEach(function (f) {
+        f.classList.remove('is-invalid');
+        if (f.closest('[hidden]')) return;
+        var radios = f.querySelectorAll('input[type="radio"]');
+        if (radios.length) {
+          if (!f.querySelector('input[type="radio"]:checked')) { f.classList.add('is-invalid'); ok = false; }
+          return;
+        }
+        var input = f.querySelector('input, textarea');
+        var v = input ? (input.value || '').trim() : '';
+        if (!v) { f.classList.add('is-invalid'); ok = false; return; }
+        if (input.hasAttribute('data-contact') && !isValidContact(v)) { f.classList.add('is-invalid'); ok = false; }
+      });
+      if (!ok) {
+        e.preventDefault();
+        if (statusEl) {
+          statusEl.className = 'qf-form-status err';
+          statusEl.textContent = '> 還有必填的題目沒填，請看標紅的地方。';
+        }
+        var first = form.querySelector('.qf-field.is-invalid');
+        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initReveal();
     initTypewriter();
     initContactForm();
+    initSurveyForm();
     initLangSwitcher();
     initTabs();
   });

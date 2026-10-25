@@ -18,6 +18,9 @@ services:
       MAIL_TO:       ${MAIL_TO:-qilinfish@qilinfish.com}
       # Reserved DB port (not used yet)
       QILINFISH_DB_RESERVED_PORT: 3306
+    volumes:
+      # Survey answers (SQLite file /data/survey.db) — survives rebuilds
+      - qilinfish-data:/data
     networks:
       - qilin-net
 
@@ -35,6 +38,9 @@ services:
     depends_on:
       - qilinfish-web
     network_mode: "service:qilinfish-web"
+
+volumes:
+  qilinfish-data:
 
 networks:
   qilin-net:

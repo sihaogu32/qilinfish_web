@@ -74,6 +74,18 @@ Repo：<https://github.com/sihaogu32/qilinfish_web>
 寄件流程：表單送出 → Spring Boot 透過 Gmail SMTP 寄到 `qilinfish@qilinfish.com` → Cloudflare Email Routing 自動轉發到 `qilinfish@gmail.com`。
 （Cloudflare Email Routing 只支援接信轉發，不提供寄信 SMTP，所以寄送端仍走 Gmail。）
 
+## 問卷資料
+`/survey` 的答案不寄信，存在容器裡的 SQLite 檔 `/data/survey.db`（compose 的 `qilinfish-data` volume，重建容器不會不見）。一份答案一列。
+
+在跑 `docker compose` 的那台機器上，把檔案複製出來：
+
+```bash
+docker cp qilinfish-web:/data/survey.db ./survey.db
+```
+
+再用免費的 [DB Browser for SQLite](https://sqlitebrowser.org/) 打開 `survey.db` → `survey` 表，可以篩選，也可以「檔案 → 匯出 → 表格為 CSV」。
+`survey.db` 有填寫者的名字和聯絡方式，不要放進 repo（`.gitignore` 已排除 `*.db`）。
+
 ## 後續
 - 補上案例資料後解開 `cases.html` 的列表（VB 的 `empty=false`）
 - DB 啟用：解開 `application.yml` 的 datasource，移除 autoconfigure exclude

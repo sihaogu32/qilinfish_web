@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('填寫問卷')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: background}"></div>
+<nav th:replace="~{fragments/layout :: navbar('survey')}"></nav>
+
+<main class="qf-page">
+    <section class="qf-section">
+        <div data-reveal>
+            <div class="qf-eyebrow" th:text="${vb.pageSubtitle}">SURVEY // tell us about the last time</div>
+            <h1 class="qf-title" th:text="${vb.pageTitle}">說說你最近一次的經驗</h1>
+            <p class="qf-lede">越來越多團隊在工作中用 AI 工具產出程式碼、文件、報告或回答。有時候，有人需要確認這些內容能不能用；有時候，是主管、客戶或稽核要求說明用了哪些 AI、怎麼用的；也有團隊需要先弄清楚自己的系統裡到底有哪些東西。</p>
+            <p class="qf-lede">我們想聽你<strong>最近一次真實發生的那一次</strong>。小事也很好；如果從來沒發生過，也請直接告訴我們，這一樣是很有用的答案。大約 5–7 分鐘。最後會請你留下名字、公司和聯絡方式，只用來向你確認內容，不會公開。</p>
+        </div>
+
+        <form class="qf-survey" method="post" action="/survey" data-survey-form novalidate
+              th:object="${surveyForm}" data-reveal>
+
+            <!-- ---- about you ---- -->
+            <div class="qf-survey__part">// 01 · 關於你</div>
+
+            <div class="qf-field" data-required th:classappend="${#fields.hasErrors('role')} ? 'is-invalid' : ''">
+                <div class="qf-field__q">你的角色最接近哪一個？<span class="qf-field__req">必填</span></div>
+                <div class="qf-choices">
+                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="工程師">工程師</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="工程主管或技術主管">工程主管或技術主管</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="法遵或法務">法遵或法務</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="內部稽核或風險管理">內部稽核或風險管理</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="資訊或 IT 管理">資訊或 IT 管理</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="產品或專案管理">產品或專案管理</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="其他">其他</label>
+                </div>
+                <div class="qf-survey__other" data-show-if="role=其他">
+                    <input id="sf-role-other" type="text" maxlength="64" placeholder="請寫你的角色" th:field="*{roleOther}">
+                </div>
+                <div class="qf-field__err">> 請選一個角色。</div>
+            </div>
+
+            <div class="qf-field" data-required th:classappend="${#fields.hasErrors('orgSize')} ? 'is-invalid' : ''">
+                <div class="qf-field__q">你所在組織的規模？<span class="qf-field__req">必填</span></div>
+                <div class="qf-choices">
+                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="1–10 人">1–10 人</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="11–50 人">11–50 人</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="51–200 人">51–200 人</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="201–1000 人">201–1000 人</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="1000 人以上">1000 人以上</label>
+                </div>
+                <div class="qf-field__err">> 請選一個規模。</div>
+            </div>
+
+            <!-- ---- the last time ---- -->
+            <div class="qf-survey__part">// 02 · 最近一次</div>
+
+            <div class="qf-field" data-required th:classappend="${#fields.hasErrors('situation')} ? 'is-invalid' : ''">
+                <div class="qf-field__q">最近一次你（或你的團隊）需要做下面哪一件事？選最近發生的那一件。<span class="qf-field__req">必填</span></div>
+                <div class="qf-choices qf-choices--stack">
+                    <label class="qf-choice"><input type="radio" th:field="*{situation}" value="verify">確認 AI 產出的內容（程式碼、文件、回答）是否正確</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{situation}" value="explain">回應別人對「我們怎麼用 AI」的詢問或要求（主管、客戶、稽核、主管機關）</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{situation}" value="inventory">盤點舊系統、舊程式裡有什麼、誰在用、還能不能動</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{situation}" value="none">以上都沒發生過</label>
+                </div>
+                <div class="qf-field__err">> 請選一項。</div>
+            </div>
+
+            <div data-branch="story">
+                <div class="qf-field" data-required th:classappend="${#fields.hasErrors('occurredWhen')} ? 'is-invalid' : ''">
+                    <div class="qf-field__q">那一次大約是什麼時候？<span class="qf-field__req">必填</span></div>
+                    <div class="qf-field__hint">想不起來的話，可以從最近一次交報告、上線、稽核或客戶詢問往回想。</div>
+                    <div class="qf-choices">
+                        <label class="qf-choice"><input type="radio" th:field="*{occurredWhen}" value="過去一週內">過去一週內</label>
+                        <label class="qf-choice"><input type="radio" th:field="*{occurredWhen}" value="過去一個月內">過去一個月內</label>
+                        <label class="qf-choice"><input type="radio" th:field="*{occurredWhen}" value="一到六個月前">一到六個月前</label>
+                        <label class="qf-choice"><input type="radio" th:field="*{occurredWhen}" value="超過半年前">超過半年前</label>
+                    </div>
+                    <div class="qf-field__err">> 請選一個時間。</div>
+                </div>
+
+                <div class="qf-field" data-required th:classappend="${#fields.hasErrors('whatHappened')} ? 'is-invalid' : ''">
+                    <label for="sf-what">那一次發生了什麼事？是什麼讓你覺得一定要處理，而不是直接放著或直接用？<span class="qf-field__req">必填</span></label>
+                    <div class="qf-field__hint">幾句話就好。</div>
+                    <textarea id="sf-what" rows="4" maxlength="2000" th:field="*{whatHappened}"></textarea>
+                    <div class="qf-field__err">> 這題必填。</div>
+                </div>
+
+                <div class="qf-field" data-required th:classappend="${#fields.hasErrors('steps')} ? 'is-invalid' : ''">
+                    <label for="sf-steps">從開始處理到你覺得可以放心交出去，中間做了哪些步驟？誰參與？用了什麼工具或文件？<span class="qf-field__req">必填</span></label>
+                    <textarea id="sf-steps" rows="4" maxlength="2000" th:field="*{steps}"></textarea>
+                    <div class="qf-field__err">> 這題必填。</div>
+                </div>
+
+                <div class="qf-field">
+                    <label for="sf-outcome">最後結果如何？有沒有漏掉什麼，後來才發現？</label>
+                    <textarea id="sf-outcome" rows="3" maxlength="2000" th:field="*{outcome}"></textarea>
+                </div>
+
+                <!-- ---- cost ---- -->
+                <div class="qf-survey__part">// 03 · 花了多少</div>
+
+                <div class="qf-field">
+                    <div class="qf-field__q">那一次大概花了多少時間？</div>
+                    <div class="qf-inline">
+                        <input id="sf-hours" type="text" inputmode="decimal" maxlength="16" th:field="*{hours}"> 小時，
+                        <input id="sf-people" type="text" inputmode="numeric" maxlength="16" th:field="*{people}"> 個人參與（大概就好）
+                    </div>
+                </div>
+
+                <div class="qf-field">
+                    <div class="qf-field__q">那一次有沒有因此另外花錢（工具、外包、顧問、加班費）？</div>
+                    <div class="qf-choices">
+                        <label class="qf-choice"><input type="radio" th:field="*{extraSpend}" value="沒有">沒有</label>
+                        <label class="qf-choice"><input type="radio" th:field="*{extraSpend}" value="不到新台幣 1 萬">不到新台幣 1 萬</label>
+                        <label class="qf-choice"><input type="radio" th:field="*{extraSpend}" value="1–10 萬">1–10 萬</label>
+                        <label class="qf-choice"><input type="radio" th:field="*{extraSpend}" value="10–100 萬">10–100 萬</label>
+                        <label class="qf-choice"><input type="radio" th:field="*{extraSpend}" value="超過 100 萬">超過 100 萬</label>
+                        <label class="qf-choice"><input type="radio" th:field="*{extraSpend}" value="不知道">不知道</label>
+                    </div>
+                </div>
+
+                <div class="qf-field">
+                    <label for="sf-worst">如果那次沒有處理，最壞可能發生什麼事？</label>
+                    <textarea id="sf-worst" rows="3" maxlength="2000" th:field="*{worstCase}"></textarea>
+                </div>
+
+                <!-- ---- what you tried ---- -->
+                <div class="qf-survey__part">// 04 · 試過的做法</div>
+
+                <div class="qf-field" data-required th:classappend="${#fields.hasErrors('triedOther')} ? 'is-invalid' : ''">
+                    <label for="sf-tried">你有沒有找過或試過其他做法、工具或服務？試了什麼？為什麼繼續用，或為什麼不用了？<span class="qf-field__req">必填</span></label>
+                    <div class="qf-field__hint">如果沒有找過，也請寫「沒有」，可以的話說說為什麼。</div>
+                    <textarea id="sf-tried" rows="4" maxlength="2000" th:field="*{triedOther}"></textarea>
+                    <div class="qf-field__err">> 這題必填。</div>
+                </div>
+
+                <div class="qf-field">
+                    <label for="sf-hardest">回想那一次，哪一個步驟最花時間或最讓你不放心？如果那一步可以變得不一樣，你希望它變成什麼樣子？</label>
+                    <textarea id="sf-hardest" rows="4" maxlength="2000" th:field="*{hardestStep}"></textarea>
+                </div>
+            </div>
+
+            <div data-branch="none">
+                <div class="qf-field">
+                    <label for="sf-why-not">你的工作裡有用到 AI 工具嗎？如果有，為什麼不需要確認它的產出？</label>
+                    <textarea id="sf-why-not" rows="4" maxlength="2000" th:field="*{whyNotNeeded}"></textarea>
+                </div>
+            </div>
+
+            <!-- ---- follow-up ---- -->
+            <div class="qf-survey__part">// 05 · 後續</div>
+
+            <div class="qf-field">
+                <div class="qf-field__q">願意之後接受一次 20–30 分鐘的線上對話，多聊聊那一次的經驗嗎？</div>
+                <div class="qf-choices">
+                    <label class="qf-choice"><input type="radio" th:field="*{interview}" value="yes">願意</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{interview}" value="no">不願意</label>
+                </div>
+                <div class="qf-survey__other" data-show-if="interview=yes">
+                    <input id="sf-time" type="text" maxlength="128" placeholder="方便的時段，例如：平日晚上、週三下午" th:field="*{availableTime}">
+                </div>
+            </div>
+
+            <!-- ---- contact ---- -->
+            <div class="qf-survey__part">// 06 · 聯絡方式</div>
+
+            <div class="qf-field" data-required th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''">
+                <label for="sf-name">名字<span class="qf-field__req">必填</span></label>
+                <input id="sf-name" type="text" maxlength="64" th:field="*{name}">
+                <div class="qf-field__err">> 請留下名字。</div>
+            </div>
+            <div class="qf-field" data-required th:classappend="${#fields.hasErrors('company')} ? 'is-invalid' : ''">
+                <label for="sf-company">公司<span class="qf-field__req">必填</span></label>
+                <input id="sf-company" type="text" maxlength="128" th:field="*{company}">
+                <div class="qf-field__err">> 請留下公司名稱。</div>
+            </div>
+            <div class="qf-field" data-required th:classappend="${#fields.hasErrors('contact')} ? 'is-invalid' : ''">
+                <label for="sf-contact">Email 或電話<span class="qf-field__req">必填</span></label>
+                <input id="sf-contact" type="text" maxlength="128" data-contact th:field="*{contact}">
+                <div class="qf-field__err">> 請填一個 Email 或電話號碼。</div>
+            </div>
+
+            <button type="submit" class="qf-btn qf-btn--primary">
+                送出 <span class="arr">→</span>
+            </button>
+
+            <div class="qf-form-status"
+                 th:classappend="${submitStatus == 'success'} ? 'ok' : ((${submitStatus == 'error'} or ${submitStatus == 'save-error'}) ? 'err' : '')"
+                 th:text="${submitStatus == 'success'} ? '> 謝謝你。你描述的那一次經驗，比任何一般性的意見都更有幫助。' : (${submitStatus == 'save-error'} ? '> 送出暫時失敗，你填的內容還在，請稍後再按一次送出。' : (${submitStatus == 'error'} ? '> 還有必填的題目沒填，請看標紅的地方。' : ''))"
+                 data-form-status></div>
+        </form>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/qilinfish.js}" src="/js/qilinfish.js"></script>
+</body>
+</html>
