@@ -13,34 +13,24 @@ import java.util.List;
 public class ProductsController {
 
     @GetMapping("/products")
-    public String renderProducts(@RequestParam(value = "tab", required = false, defaultValue = "legal-agent") String __tab,
+    public String renderProducts(@RequestParam(value = "tab", required = false, defaultValue = "ai-audit") String __tab,
                                  Model __model) {
         ProductsViewBinder vb = new ProductsViewBinder();
         vb.setPageTitle("產品方案");
         vb.setPageSubtitle("PRODUCTS // what we ship");
         vb.setActiveCategory(__tab);
 
-        vb.setLegalAgentProducts(List.of(
+        vb.setAiAuditProducts(List.of(
             new ProductModel(
-                "p-legal-01",
-                "legal-agent-pro",
-                "法律 Agent",
-                "Legal Domain Intelligent Agent",
-                "結合台灣現行法規與案例資料庫，協助使用者進行條文檢索、爭點整理、風險評估的智能助手。",
-                new String[]{"全國法規即時檢索", "案例引用標註", "爭點摘要", "可整合企業內部法務系統"},
-                "demo-ready"
-            )
-        ));
-
-        vb.setCustomAgentProducts(List.of(
-            new ProductModel(
-                "p-custom-01",
-                "agent-customization",
-                "Agent 客製化",
-                "Custom Agent Engineering",
-                "依需求設計專屬 Agent — 從 prompt 工程、工具呼叫、到資料來源整合，全程量身打造。",
-                new String[]{"領域知識微調", "工具/API 串接", "工作流自動化", "可離線部署選項"},
-                "available"
+                "p-audit-01",
+                "ai-audit",
+                "稽核與驗證 AI 系統",
+                "AI Output Verification & Audit",
+                "AI 說「做完了」，真的完成了嗎？\n"
+                    + "AI 的回答常常看起來對，其實有錯。\n"
+                    + "主管或客戶問「這是怎麼來的？」，你拿得出根據嗎？",
+                new String[]{"逐句查核", "附上出處", "標出錯誤", "留下查核紀錄"},
+                "coming-soon"
             )
         ));
 

@@ -12,9 +12,8 @@ public class ProductsViewBinder {
 
     private String pageTitle;
     private String pageSubtitle;
-    private String activeCategory;       // legal-agent / custom-agent / others
-    private List<ProductModel> legalAgentProducts;
-    private List<ProductModel> customAgentProducts;
+    private String activeCategory;       // ai-audit / others
+    private List<ProductModel> aiAuditProducts;
     private List<ProductModel> otherProducts;
 
     public ProductsViewBinder() { }
@@ -28,11 +27,8 @@ public class ProductsViewBinder {
     public String getActiveCategory() { return activeCategory; }
     public void setActiveCategory(String __activeCategory) { this.activeCategory = __activeCategory; }
 
-    public List<ProductModel> getLegalAgentProducts() { return legalAgentProducts; }
-    public void setLegalAgentProducts(List<ProductModel> __list) { this.legalAgentProducts = __list; }
-
-    public List<ProductModel> getCustomAgentProducts() { return customAgentProducts; }
-    public void setCustomAgentProducts(List<ProductModel> __list) { this.customAgentProducts = __list; }
+    public List<ProductModel> getAiAuditProducts() { return aiAuditProducts; }
+    public void setAiAuditProducts(List<ProductModel> __list) { this.aiAuditProducts = __list; }
 
     public List<ProductModel> getOtherProducts() { return otherProducts; }
     public void setOtherProducts(List<ProductModel> __list) { this.otherProducts = __list; }
