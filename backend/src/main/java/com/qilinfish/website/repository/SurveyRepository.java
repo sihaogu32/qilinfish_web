@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -42,13 +43,16 @@ public class SurveyRepository {
       + " hours TEXT, people TEXT, extra_spend TEXT, worst_case TEXT,"
       + " tried_other TEXT, hardest_step TEXT,"
       + " why_not_needed TEXT,"
-      + " interview TEXT, available_time TEXT)";
+      + " interview TEXT, available_time TEXT, message TEXT)";
+
+    // tables created before the "message" question existed lack the column
+    private static final String ADD_MESSAGE = "ALTER TABLE survey ADD COLUMN message TEXT";
 
     private static final String INSERT =
         "INSERT INTO survey (created_at, name, company, contact, role, role_other, org_size,"
       + " situation, occurred_when, what_happened, steps, outcome, hours, people, extra_spend,"
-      + " worst_case, tried_other, hardest_step, why_not_needed, interview, available_time)"
-      + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      + " worst_case, tried_other, hardest_step, why_not_needed, interview, available_time, message)"
+      + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private final String dbPath;
 
@@ -69,6 +73,11 @@ public class SurveyRepository {
             try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath)) {
                 try (Statement st = conn.createStatement()) {
                     st.execute(CREATE_TABLE);
+                    try {
+                        st.execute(ADD_MESSAGE);
+                    } catch (SQLException ex) {
+                        // column already there
+                    }
                 }
                 boolean none = "none".equals(__form.getSituation());
                 try (PreparedStatement ps = conn.prepareStatement(INSERT)) {
@@ -80,7 +89,7 @@ public class SurveyRepository {
                     ps.setString(i++, trim(__form.getRole()));
                     ps.setString(i++, "其他".equals(__form.getRole()) ? trim(__form.getRoleOther()) : null);
                     ps.setString(i++, trim(__form.getOrgSize()));
-                    ps.setString(i++, situationLabel(__form.getSituation()));
+                    ps.setString(i++, situationLabel(__form.getSituation(), __form.getSituationOther()));
                     // story answers only count when something happened; the none-branch answer only when nothing did
                     ps.setString(i++, none ? null : trim(__form.getOccurredWhen()));
                     ps.setString(i++, none ? null : trim(__form.getWhatHappened()));
@@ -95,6 +104,7 @@ public class SurveyRepository {
                     ps.setString(i++, none ? trim(__form.getWhyNotNeeded()) : null);
                     ps.setString(i++, interviewLabel(__form.getInterview()));
                     ps.setString(i++, "yes".equals(__form.getInterview()) ? trim(__form.getAvailableTime()) : null);
+                    ps.setString(i++, trim(__form.getMessage()));
                     ps.executeUpdate();
                 }
             }
@@ -105,12 +115,14 @@ public class SurveyRepository {
         }
     }
 
-    private String situationLabel(String __situation) {
+    // "other" is stored as its own words in the same column, so the existing table needs no new column
+    private String situationLabel(String __situation, String __situationOther) {
         if (__situation == null) return null;
         switch (__situation) {
             case "verify":    return "確認 AI 產出的內容對不對";
             case "explain":   return "回應別人問「我們怎麼用 AI」";
             case "inventory": return "盤點舊系統、舊程式裡有什麼";
+            case "other":     return "其他：" + trim(__situationOther);
             case "none":      return "以上都沒發生過";
             default:          return __situation;
         }

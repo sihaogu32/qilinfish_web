@@ -21,7 +21,9 @@ public class SurveyFormModel {
 
     // ---- the last time ----
     @NotBlank @Size(max = 16)
-    private String situation;            // verify / explain / inventory / none
+    private String situation;            // verify / explain / inventory / other / none
+    @Size(max = 200)
+    private String situationOther;       // the respondent's own words when situation = other
     @Size(max = 32)
     private String occurredWhen;
     @Size(max = 2000)
@@ -56,6 +58,8 @@ public class SurveyFormModel {
     private String interview;            // yes / no
     @Size(max = 128)
     private String availableTime;
+    @Size(max = 2000)
+    private String message;              // anything else the respondent wants to tell us
 
     // ---- contact ----
     @NotBlank @Size(max = 64)
@@ -78,6 +82,9 @@ public class SurveyFormModel {
 
     public String getSituation() { return situation; }
     public void setSituation(String __situation) { this.situation = __situation; }
+
+    public String getSituationOther() { return situationOther; }
+    public void setSituationOther(String __situationOther) { this.situationOther = __situationOther; }
 
     public String getOccurredWhen() { return occurredWhen; }
     public void setOccurredWhen(String __occurredWhen) { this.occurredWhen = __occurredWhen; }
@@ -117,6 +124,9 @@ public class SurveyFormModel {
 
     public String getAvailableTime() { return availableTime; }
     public void setAvailableTime(String __availableTime) { this.availableTime = __availableTime; }
+
+    public String getMessage() { return message; }
+    public void setMessage(String __message) { this.message = __message; }
 
     public String getName() { return name; }
     public void setName(String __name) { this.name = __name; }

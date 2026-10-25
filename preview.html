@@ -6,7 +6,7 @@
 <title>麒麟魚 Qilinfish Studio — Preview</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style id="qf-css">
 :root{
   --bg-0:#0a0a0c; --bg-1:#0f0f12; --bg-2:#15151a; --bg-3:#1c1c22;
@@ -251,6 +251,283 @@ button{font-family:inherit;cursor:pointer;}
 
 /* Preview tag */
 .qf-preview-tag{position:fixed;bottom:14px;left:14px;z-index:100;font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--fg-3);border:1px solid var(--line);padding:6px 10px;background:rgba(10,10,12,.7);backdrop-filter:blur(8px);}
+/* ============================================================
+   Survey visuals — film opening, data figures, stills, picker
+   ============================================================ */
+.sv-hero {
+  position: relative;
+  min-height: clamp(560px, calc(100vh - 64px), 860px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+.sv-hero__video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.sv-hero::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10,10,12,0.94) 0%, rgba(10,10,12,0.6) 42%, rgba(10,10,12,0.05) 100%),
+    linear-gradient(0deg, var(--bg-0) 0%, transparent 40%);
+}
+.sv-corner {
+  position: absolute; z-index: 2;
+  width: 18px; height: 18px;
+  border: 1px solid var(--fg-2);
+}
+.sv-corner.tl { top: 24px; left: 24px; border-right: 0; border-bottom: 0; }
+.sv-corner.tr { top: 24px; right: 24px; border-left: 0; border-bottom: 0; }
+.sv-hero__inner {
+  position: relative; z-index: 2;
+  width: 100%; max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px clamp(48px, 8vh, 88px);
+  display: grid; gap: 20px;
+  grid-template-columns: minmax(0, 1fr);
+}
+.sv-rec {
+  display: flex; flex-wrap: wrap; gap: 18px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--fg-1);
+}
+.sv-rec .warn { color: var(--warn); }
+.sv-rec__dot { color: oklch(0.68 0.17 25); animation: sv-blink 1.4s steps(1) infinite; }
+@keyframes sv-blink { 50% { opacity: 0; } }
+.sv-hero__title {
+  margin: 0;
+  max-width: 13em;
+  font-size: clamp(34px, 6.4vw, 76px);
+  line-height: 1.1;
+  font-weight: 900;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.sv-hero__title em { font-style: normal; color: var(--accent); }
+.sv-hero__sub {
+  max-width: 36em;
+  margin: 0;
+  color: var(--fg-1);
+  font-size: clamp(15px, 1.6vw, 18px);
+}
+.sv-cta { width: max-content; max-width: 100%; }
+.sv-meta {
+  display: flex; flex-wrap: wrap; gap: 26px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--fg-2);
+}
+.sv-meta b { color: var(--fg-0); font-weight: 500; }
+.sv-ai {
+  position: absolute; z-index: 2;
+  right: 24px; bottom: 18px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: var(--fg-2);
+}
+
+.sv-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 104px 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+}
+.sv-section--flush { padding-top: 0; }
+.sv-eb {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+  display: flex; align-items: center; gap: 10px;
+}
+.sv-eb::before { content: "//"; color: var(--accent); }
+.sv-h2 {
+  margin: -12px 0 0;
+  font-size: clamp(26px, 4vw, 42px);
+  line-height: 1.2;
+  font-weight: 900;
+  text-wrap: balance;
+}
+.sv-src {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--fg-2);
+}
+.sv-note { font-size: 12.5px; color: var(--fg-2); margin-top: -14px; }
+
+.sv-dots { position: relative; border: 1px solid var(--line); background: var(--bg-1); }
+.sv-dots canvas { display: block; width: 100%; height: auto; }
+.sv-dots__over {
+  position: absolute;
+  left: clamp(16px, 3vw, 32px); bottom: clamp(16px, 3vw, 28px);
+  display: grid; gap: 6px;
+  pointer-events: none;
+  text-shadow: 0 2px 24px #000;
+}
+.sv-dots__over b {
+  font-family: var(--font-mono);
+  font-size: clamp(56px, 11vw, 140px);
+  line-height: 0.9;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.sv-dots__over span:not(.sv-src) { max-width: 30em; color: var(--fg-1); font-size: clamp(14px, 1.7vw, 18px); }
+@media (max-width: 600px) { .sv-dots__over span:not(.sv-src) { display: none; } }
+
+.sv-two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+@media (max-width: 820px) { .sv-two { grid-template-columns: 1fr; } }
+.sv-panel {
+  border: 1px solid var(--line);
+  background: var(--bg-1);
+  padding: 22px;
+  display: grid; gap: 14px;
+  align-content: start;
+  min-width: 0;
+}
+.sv-bar { display: grid; gap: 5px; }
+.sv-bar__l { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; color: var(--fg-1); }
+.sv-bar__l b { font-family: var(--font-mono); font-weight: 500; font-size: 15px; color: var(--fg-0); }
+.sv-bar__t { height: 14px; background: var(--bg-3); overflow: hidden; }
+.sv-bar__t i {
+  display: block; height: 100%;
+  width: var(--w);
+  background: var(--accent);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1.6s cubic-bezier(.2,.7,.2,1);
+}
+.sv-bar__t i.g { background: var(--fg-1); }
+.sv-gapq {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--warn);
+  border-left: 1px dashed var(--warn);
+  padding-left: 10px;
+}
+.sv-scale svg { width: 100%; height: auto; }
+.sv-scale text { font-family: var(--font-mono); font-size: 10.5px; fill: var(--fg-1); }
+.sv-scale .tick text { font-size: 9.5px; fill: var(--fg-3); }
+.sv-scale .amt { fill: var(--warn); }
+.sv-scale .ax { stroke: var(--line); }
+.sv-scale .lead { stroke: var(--fg-3); stroke-dasharray: 2 2; }
+.sv-scale circle { fill: var(--accent); }
+.sv-scale circle.big { fill: oklch(0.68 0.17 25); }
+.sv-scale .pt { opacity: 0; transform: translateY(6px); transition: opacity .5s, transform .5s; }
+.is-grown .sv-bar__t i { transform: scaleX(1); }
+.is-grown .sv-scale .pt { opacity: 1; transform: none; }
+
+.sv-reel { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px; background: var(--line-soft); }
+@media (max-width: 900px) { .sv-reel { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .sv-reel { grid-template-columns: 1fr; } }
+.sv-still { position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; background: var(--bg-1); }
+.sv-still img, .sv-still video { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; }
+.sv-still:hover img, .sv-still:hover video { transform: scale(1.06); }
+.sv-still::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(10,10,12,0.96) 8%, rgba(10,10,12,0.25) 55%, transparent 100%);
+}
+.sv-still figcaption { position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 2; display: grid; gap: 4px; }
+.sv-still .d { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; color: var(--fg-2); }
+.sv-still b { font-size: 16px; line-height: 1.4; font-weight: 700; }
+.sv-still .amt { font-family: var(--font-mono); font-size: 13px; color: var(--warn); }
+
+.sv-choose { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 860px) { .sv-choose { grid-template-columns: 1fr; } }
+.sv-opt {
+  display: grid;
+  padding: 0;
+  text-align: left;
+  font: inherit; color: inherit;
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: border-color var(--t-base), transform var(--t-base);
+}
+.sv-opt:hover { border-color: var(--fg-3); transform: translateY(-2px); }
+.sv-opt:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+.sv-opt[aria-pressed="true"] { border-color: var(--accent); }
+.sv-opt__img { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--line); }
+.sv-opt__img img, .sv-opt__img video { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease; }
+.sv-opt:hover .sv-opt__img img, .sv-opt:hover .sv-opt__img video { transform: scale(1.05); }
+.sv-opt__img::before, .sv-opt__img::after {
+  content: ""; position: absolute; z-index: 2;
+  width: 12px; height: 12px;
+  border: 1px solid var(--fg-1); opacity: 0.7;
+}
+.sv-opt__img::before { top: 8px; left: 8px; border-right: 0; border-bottom: 0; }
+.sv-opt__img::after { bottom: 8px; right: 8px; border-left: 0; border-top: 0; }
+.sv-opt__tx { display: grid; gap: 4px; padding: 16px 18px 18px; }
+.sv-opt .n { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; color: var(--fg-2); }
+.sv-opt[aria-pressed="true"] .st { color: var(--accent); }
+.sv-opt b { font-size: 18px; font-weight: 700; }
+.sv-opt .s { font-size: 13px; color: var(--fg-2); }
+.sv-none { width: max-content; max-width: 100%; padding: 0; background: none; border: 0; cursor: pointer; font: inherit; font-size: 14px; color: var(--fg-2); }
+.sv-none u { color: var(--fg-1); text-decoration-color: var(--fg-3); }
+.sv-deal { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); background: var(--bg-1); }
+@media (max-width: 640px) { .sv-deal { grid-template-columns: 1fr; } }
+.sv-deal div { display: grid; gap: 4px; padding: 20px; border-right: 1px solid var(--line); }
+.sv-deal div:last-child { border-right: 0; }
+@media (max-width: 640px) { .sv-deal div { border-right: 0; border-bottom: 1px solid var(--line); } .sv-deal div:last-child { border-bottom: 0; } }
+.sv-deal .k { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; color: var(--fg-2); }
+.sv-deal b { font-size: 20px; font-weight: 700; }
+.sv-deal span { font-size: 12.5px; color: var(--fg-2); }
+
+.sv-formwrap { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 40px; align-items: start; }
+@media (max-width: 860px) { .sv-formwrap { grid-template-columns: 1fr; gap: 16px; } }
+.sv-toc { position: sticky; top: 96px; display: grid; gap: 2px; font-family: var(--font-mono); font-size: 12px; }
+@media (max-width: 860px) { .sv-toc { position: static; grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.sv-toc a { display: flex; gap: 10px; padding: 8px 10px; border-left: 1px solid var(--line); color: var(--fg-2); }
+.sv-toc a.is-done { color: var(--fg-1); }
+.sv-toc a.is-done::after { content: "✓"; margin-left: auto; color: var(--accent); }
+.sv-toc a.is-now { color: var(--fg-0); border-left-color: var(--accent); background: var(--accent-soft); }
+.sv-toc a[hidden] { display: none; }
+.sv-form.qf-survey { max-width: none; margin-top: 0; }
+.sv-form .qf-survey__part { scroll-margin-top: 90px; }
+.sv-part {
+  display: flex; align-items: center; gap: 14px;
+  margin: 34px 0 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--line);
+  scroll-margin-top: 90px;
+}
+.sv-part img { width: 96px; aspect-ratio: 16 / 10; object-fit: cover; border: 1px solid var(--line); }
+.sv-part div { display: grid; }
+.sv-part .k { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-2); }
+.sv-part b { font-size: 18px; font-weight: 700; }
+.sv-why { display: flex; gap: 8px; font-size: 13px; color: var(--fg-2); }
+.sv-why::before {
+  content: "為什麼問";
+  flex: none; height: 20px; padding: 0 6px;
+  font-family: var(--font-mono); font-size: 10.5px; line-height: 19px;
+  color: var(--accent);
+  border: 1px solid var(--accent-line);
+}
+.sv-form textarea { min-height: 120px; resize: vertical; line-height: 1.7; }
+.sv-cnt { font-family: var(--font-mono); font-size: 10.5px; color: var(--fg-2); text-align: right; margin-top: -4px; }
+.sv-priv { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-bottom: 22px; font-size: 13.5px; color: var(--fg-1); }
+@media (max-width: 640px) { .sv-priv { grid-template-columns: 1fr; } }
+.sv-priv b { display: block; margin-bottom: 4px; color: var(--fg-0); }
+
+@media (max-width: 640px) {
+  .sv-hero__inner, .sv-section { padding-left: 16px; padding-right: 16px; }
+  .sv-section { padding-top: 72px; padding-bottom: 72px; }
+  .sv-section--flush { padding-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sv-rec__dot { animation: none; }
+  .sv-bar__t i, .sv-scale .pt { transition: none; }
+}
 </style>
 </head>
 <body>
@@ -465,18 +742,121 @@ AI 的回答常常看起來對，其實有錯。
 
 <!-- ======================== SURVEY ======================== -->
 <main class="qf-page qf-route" data-route="survey">
-    <section class="qf-section">
-        <div data-reveal>
-            <div class="qf-eyebrow">SURVEY // tell us about the last time</div>
-            <h1 class="qf-title">說說你最近一次的經驗</h1>
-            <p class="qf-lede">越來越多團隊在工作中用 AI 工具產出程式碼、文件、報告或回答。有時候，有人需要確認這些內容能不能用；有時候，是主管、客戶或稽核要求說明用了哪些 AI、怎麼用的；也有團隊需要先弄清楚自己的系統裡到底有哪些東西。</p>
-            <p class="qf-lede">我們想聽你<strong>最近一次真實發生的那一次</strong>。小事也很好；如果從來沒發生過，也請直接告訴我們，這一樣是很有用的答案。大約 5–7 分鐘。最後會請你留下名字、公司和聯絡方式，只用來向你確認內容，不會公開。</p>
-        </div>
 
-        <form class="qf-survey" data-survey-form novalidate data-reveal>
+    <!-- ---- opening film ---- -->
+    <header class="sv-hero">
+        <video class="sv-hero__video" src="backend/src/main/resources/static/media/court.mp4" poster="backend/src/main/resources/static/media/court.jpg"
+               autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="sv-corner tl"></span><span class="sv-corner tr"></span>
+        <div class="sv-hero__inner">
+            <div class="sv-rec"><span><span class="sv-rec__dot">●</span> REC</span><span>2023-06-22 · 紐約聯邦法院</span><span class="warn">6 個判例不存在</span></div>
+            <h1 class="sv-hero__title">這些事，都是交出去之後，<em>才被別人發現的。</em></h1>
+            <p class="sv-hero__sub">律師、顧問、客服、工程師，都碰過 AI 給的東西「幾乎對」。我們想聽你最近一次：你是怎麼決定它能交出去的？</p>
+            <a class="qf-btn qf-btn--primary sv-cta" href="#sv-choose">說說你那一次 <span class="arr">↓</span></a>
+            <div class="sv-meta"><span>TIME / <b>約 7 分鐘</b></span><span>PRIVACY / <b>不公開名字與公司</b></span><span>YOU GET / <b>彙整報告</b></span></div>
+        </div>
+        <span class="sv-ai">示意畫面 · AI 生成</span>
+    </header>
+
+    <!-- ---- numbers ---- -->
+    <section class="sv-section">
+        <div class="sv-eb">fig.1 · 已經被記下來的</div>
+        <div class="sv-dots">
+            <canvas data-sv-dots width="1400" height="560" aria-label="2,207 個點，每一點是一件法院紀錄裡的 AI 捏造引用"></canvas>
+            <div class="sv-dots__over">
+                <b data-sv-count>2,207</b>
+                <span>每一個點，是一件法院紀錄裡的 AI 捏造引用。發現錯誤的，幾乎都是對造律師或法官。</span>
+                <span class="sv-src">AI HALLUCINATION CASES DATABASE · D. CHARLOTIN · 截至 2026-10-23</span>
+            </div>
+        </div>
+        <div class="sv-two" data-sv-grow>
+            <div class="sv-panel">
+                <div class="sv-eb">fig.2 · 不信任，但沒有每次檢查</div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>不完全信任 AI 產出</span><b>96%</b></div><div class="sv-bar__t"><i class="g" style="--w:96%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>每次提交前都檢查</span><b>48%</b></div><div class="sv-bar__t"><i style="--w:48%"></i></div></div>
+                <span class="sv-gapq">中間這 48 個百分點，靠什麼決定能交出去？</span>
+                <span class="sv-src">SONAR 2026 · 1,100+ 位開發者 · 廠商調查</span>
+            </div>
+            <div class="sv-panel sv-scale">
+                <div class="sv-eb">fig.3 · 被發現之後的代價</div>
+                <svg viewBox="0 0 540 150" role="img" aria-label="金額對數尺：航空客服 CA$812、律師書狀 US$5,000、顧問報告退款 AU$97,000、AI 不實宣稱 US$400,000、壽險換系統 NT$3,000 萬、銀行系統遷移 £48.65M">
+                    <line x1="20" y1="80" x2="520" y2="80" class="ax"/>
+                    <g class="tick" text-anchor="middle">
+                        <text x="20" y="98">$100</text><text x="103" y="98">$1K</text><text x="187" y="98">$10K</text><text x="270" y="98">$100K</text><text x="353" y="98">$1M</text><text x="437" y="98">$10M</text><text x="520" y="98">$100M</text>
+                    </g>
+                    <g class="lab">
+                        <g class="pt" style="transition-delay:.1s"><circle cx="84" cy="80" r="4.5"/><text x="84" y="62" text-anchor="middle">航空客服</text><text x="84" y="50" text-anchor="middle" class="amt">CA$812</text></g>
+                        <g class="pt" style="transition-delay:.35s"><circle cx="161" cy="80" r="4.5"/><text x="161" y="118" text-anchor="middle">律師書狀</text><text x="161" y="131" text-anchor="middle" class="amt">US$5K</text></g>
+                        <g class="pt" style="transition-delay:.6s"><circle cx="252" cy="80" r="4.5"/><text x="244" y="62" text-anchor="middle">顧問報告退款</text><text x="244" y="50" text-anchor="middle" class="amt">AU$97K</text></g>
+                        <g class="pt" style="transition-delay:.85s"><circle cx="320" cy="80" r="4.5"/><text x="316" y="118" text-anchor="middle">AI 不實宣稱</text><text x="316" y="131" text-anchor="middle" class="amt">US$400K</text></g>
+                        <g class="pt" style="transition-delay:1.1s"><circle cx="350" cy="80" r="5.5"/><line x1="352" y1="74" x2="368" y2="36" class="lead"/><text x="372" y="30" text-anchor="middle">壽險換系統</text><text x="372" y="18" text-anchor="middle" class="amt">NT$3,000 萬</text></g>
+                        <g class="pt" style="transition-delay:1.35s"><circle cx="500" cy="80" r="7" class="big"/><text x="506" y="62" text-anchor="end">銀行系統遷移</text><text x="506" y="50" text-anchor="end" class="amt">£48.65M</text></g>
+                    </g>
+                </svg>
+                <span class="sv-src">罰款、判賠或退款，約略換算美元後放在同一把對數尺上</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ---- four stills ---- -->
+    <section class="sv-section sv-section--flush">
+        <div class="sv-eb">fig.4 · 四件真實的事</div>
+        <div class="sv-reel">
+            <figure class="sv-still"><video src="backend/src/main/resources/static/media/court.mp4" poster="backend/src/main/resources/static/media/court.jpg" muted loop playsinline preload="none" data-sv-play aria-label="夜裡的律師桌，書狀的引用被紅筆圈起"></video>
+                <figcaption><span class="d">2023-06-22 · 紐約聯邦法院</span><b>律師用 AI 寫書狀，交出 6 個不存在的判例</b><span class="amt">罰 US$5,000</span></figcaption></figure>
+            <figure class="sv-still"><video src="backend/src/main/resources/static/media/chat.mp4" poster="backend/src/main/resources/static/media/chat.jpg" muted loop playsinline preload="none" data-sv-play aria-label="機場桌上的手機開著客服對話"></video>
+                <figcaption><span class="d">2024-02-14 · 加拿大</span><b>航空公司的客服機器人講錯退款規則，公司要負責</b><span class="amt">判賠 CA$812</span></figcaption></figure>
+            <figure class="sv-still"><video src="backend/src/main/resources/static/media/review.mp4" poster="backend/src/main/resources/static/media/review.jpg" muted loop playsinline preload="none" data-sv-play aria-label="深夜看著螢幕審程式的工程師"></video>
+                <figcaption><span class="d">2025 · STACK OVERFLOW 開發者調查</span><b>66% 遇過「幾乎對，但不完全對」的 AI 答案</b><span class="amt">31,476 人回答</span></figcaption></figure>
+            <figure class="sv-still"><video src="backend/src/main/resources/static/media/server.mp4" poster="backend/src/main/resources/static/media/server.jpg" muted loop playsinline preload="none" data-sv-play aria-label="老舊機房裡用手電筒看系統文件"></video>
+                <figcaption><span class="d">2019-09 · 台灣</span><b>壽險公司換核心系統，15.2 萬張保單出問題</b><span class="amt">罰 NT$3,000 萬</span></figcaption></figure>
+        </div>
+        <div class="sv-note">照片為示意畫面，由 AI 生成，不是事件現場。</div>
+    </section>
+
+    <!-- ---- choose one ---- -->
+    <section class="sv-section sv-section--flush" id="sv-choose">
+        <div class="sv-eb">STEP 01 · 先選一種</div>
+        <h2 class="sv-h2">你最近一次遇到的，是哪一種？</h2>
+        <div class="sv-choose" role="group" aria-label="選一種經驗">
+            <button class="sv-opt" type="button" data-sv-pick="verify" aria-pressed="false">
+                <span class="sv-opt__img"><video src="backend/src/main/resources/static/media/bp_desk.mp4" poster="backend/src/main/resources/static/media/bp_desk.jpg" muted loop playsinline preload="none" data-sv-play aria-label="藍圖：審查桌上的清單有一格空著"></video></span>
+                <span class="sv-opt__tx"><span class="n"><span>DWG-A</span><span class="st">選這個</span></span><b>確認 AI 產出能不能用</b><span class="s">程式碼、報告、客服回覆、代理說的「已完成」</span></span>
+            </button>
+            <button class="sv-opt" type="button" data-sv-pick="explain" aria-pressed="false">
+                <span class="sv-opt__img"><video src="backend/src/main/resources/static/media/bp_chain.mp4" poster="backend/src/main/resources/static/media/bp_chain.jpg" muted loop playsinline preload="none" data-sv-play aria-label="藍圖：證據鏈中間一環裂開"></video></span>
+                <span class="sv-opt__tx"><span class="n"><span>DWG-B</span><span class="st">選這個</span></span><b>被問「這是怎麼來的」</b><span class="s">主管、客戶、稽核、主管機關要你說明</span></span>
+            </button>
+            <button class="sv-opt" type="button" data-sv-pick="inventory" aria-pressed="false">
+                <span class="sv-opt__img"><video src="backend/src/main/resources/static/media/bp_mainframe.mp4" poster="backend/src/main/resources/static/media/bp_mainframe.jpg" muted loop playsinline preload="none" data-sv-play aria-label="藍圖：舊主機拆解圖"></video></span>
+                <span class="sv-opt__tx"><span class="n"><span>DWG-C</span><span class="st">選這個</span></span><b>弄清楚舊系統在做什麼</b><span class="s">接手、換系統、文件跟實際對不上</span></span>
+            </button>
+        </div>
+        <button class="sv-none" type="button" data-sv-pick="other">都不是這三種？<u>寫下你遇到的</u> →</button>
+        <button class="sv-none" type="button" data-sv-pick="none">都沒遇過？<u>也請告訴我們，只有一題</u> →</button>
+        <div class="sv-deal">
+            <div><span class="k">TIME</span><b>約 7 分鐘</b><span>可以只寫幾句</span></div>
+            <div><span class="k">PRIVACY</span><b>不公開</b><span>名字與公司只有我們看得到</span></div>
+            <div><span class="k">YOU GET</span><b>彙整報告</b><span>寄到你留的聯絡方式</span></div>
+        </div>
+    </section>
+
+    <!-- ---- the form ---- -->
+    <section class="sv-section sv-section--flush" id="sv-form">
+        <div class="sv-formwrap">
+            <nav class="sv-toc" aria-label="表單段落" data-sv-toc>
+                <a href="#sv-p1"><span>01</span>關於你</a>
+                <a href="#sv-p2"><span>02</span>最近一次</a>
+                <a href="#sv-p3" data-branch-link="story"><span>03</span>花了多少</a>
+                <a href="#sv-p4" data-branch-link="story"><span>04</span>試過的做法</a>
+                <a href="#sv-p5"><span>05</span>後續</a>
+                <a href="#sv-p6"><span>06</span>聯絡方式</a>
+            </nav>
+
+        <form class="qf-survey sv-form" data-survey-form novalidate>
 
             <!-- ---- about you ---- -->
-            <div class="qf-survey__part">// 01 · 關於你</div>
+            <div class="qf-survey__part" id="sv-p1">// 01 · 關於你</div>
 
             <div class="qf-field" data-required>
                 <div class="qf-field__q">你的角色最接近哪一個？<span class="qf-field__req">必填</span></div>
@@ -508,7 +888,10 @@ AI 的回答常常看起來對，其實有錯。
             </div>
 
             <!-- ---- the last time ---- -->
-            <div class="qf-survey__part">// 02 · 最近一次</div>
+            <div class="sv-part" id="sv-p2">
+                <img data-sv-part-img src="backend/src/main/resources/static/media/bp_desk.jpg" alt="">
+                <div><span class="k" data-sv-part-k>// 02 · 最近一次</span><b data-sv-part-title>最近一次，你需要處理的那一件事</b></div>
+            </div>
 
             <div class="qf-field" data-required>
                 <div class="qf-field__q">最近一次你（或你的團隊）需要做下面哪一件事？選最近發生的那一件。<span class="qf-field__req">必填</span></div>
@@ -516,9 +899,10 @@ AI 的回答常常看起來對，其實有錯。
                     <label class="qf-choice"><input type="radio" name="situation" value="verify">確認 AI 產出的內容（程式碼、文件、回答）是否正確</label>
                     <label class="qf-choice"><input type="radio" name="situation" value="explain">回應別人對「我們怎麼用 AI」的詢問或要求（主管、客戶、稽核、主管機關）</label>
                     <label class="qf-choice"><input type="radio" name="situation" value="inventory">盤點舊系統、舊程式裡有什麼、誰在用、還能不能動</label>
+                    <label class="qf-choice qf-choice--other"><input type="radio" name="situation" value="other">其他<input type="text" class="qf-choice__text" maxlength="200" placeholder="寫下是什麼事" aria-label="其他：寫下是什麼事" data-other-text name="situationOther"></label>
                     <label class="qf-choice"><input type="radio" name="situation" value="none">以上都沒發生過</label>
                 </div>
-                <div class="qf-field__err">> 請選一項。</div>
+                <div class="qf-field__err">> 請選一項；選「其他」的話，請寫下是什麼事。</div>
             </div>
 
             <div data-branch="story">
@@ -536,30 +920,34 @@ AI 的回答常常看起來對，其實有錯。
 
                 <div class="qf-field" data-required>
                     <label for="sf-what">那一次發生了什麼事？是什麼讓你覺得一定要處理，而不是直接放著或直接用？<span class="qf-field__req">必填</span></label>
-                    <div class="qf-field__hint">幾句話就好。</div>
-                    <textarea id="sf-what" rows="4" maxlength="2000" name="whatHappened"></textarea>
+                    <div class="sv-why">我們想知道「決定要確認」的那一刻。目前公開的調查都沒有問過這件事。</div>
+                    <textarea id="sf-what" rows="6" maxlength="2000" data-sv-count-text name="whatHappened"></textarea>
+                    <div class="sv-cnt"></div>
                     <div class="qf-field__err">> 這題必填。</div>
                 </div>
 
                 <div class="qf-field" data-required>
                     <label for="sf-steps">從開始處理到你覺得可以放心交出去，中間做了哪些步驟？誰參與？用了什麼工具或文件？<span class="qf-field__req">必填</span></label>
-                    <textarea id="sf-steps" rows="4" maxlength="2000" name="steps"></textarea>
+                    <div class="sv-why">「怎麼確認」的步驟，就是我們最想了解的部分。照順序寫幾步就好。</div>
+                    <textarea id="sf-steps" rows="6" maxlength="2000" data-sv-count-text placeholder="例如：先對原始檔、再請同事看一遍、最後跟去年的報告比" name="steps"></textarea>
+                    <div class="sv-cnt"></div>
                     <div class="qf-field__err">> 這題必填。</div>
                 </div>
 
                 <div class="qf-field">
                     <label for="sf-outcome">最後結果如何？有沒有漏掉什麼，後來才發現？</label>
-                    <textarea id="sf-outcome" rows="3" maxlength="2000" name="outcome"></textarea>
+                    <textarea id="sf-outcome" rows="4" maxlength="2000" name="outcome"></textarea>
                 </div>
 
                 <!-- ---- cost ---- -->
-                <div class="qf-survey__part">// 03 · 花了多少</div>
+                <div class="qf-survey__part" id="sv-p3">// 03 · 花了多少</div>
 
                 <div class="qf-field">
                     <div class="qf-field__q">那一次大概花了多少時間？</div>
+                    <div class="sv-why">覆核要花多少工時，目前沒有公開的數字。大概就好。</div>
                     <div class="qf-inline">
                         <input id="sf-hours" type="text" inputmode="decimal" maxlength="16" name="hours"> 小時，
-                        <input id="sf-people" type="text" inputmode="numeric" maxlength="16" name="people"> 個人參與（大概就好）
+                        <input id="sf-people" type="text" inputmode="numeric" maxlength="16" name="people"> 個人參與
                     </div>
                 </div>
 
@@ -577,37 +965,39 @@ AI 的回答常常看起來對，其實有錯。
 
                 <div class="qf-field">
                     <label for="sf-worst">如果那次沒有處理，最壞可能發生什麼事？</label>
-                    <textarea id="sf-worst" rows="3" maxlength="2000" name="worstCase"></textarea>
+                    <textarea id="sf-worst" rows="4" maxlength="2000" name="worstCase"></textarea>
                 </div>
 
                 <!-- ---- what you tried ---- -->
-                <div class="qf-survey__part">// 04 · 試過的做法</div>
+                <div class="qf-survey__part" id="sv-p4">// 04 · 試過的做法</div>
 
                 <div class="qf-field" data-required>
                     <label for="sf-tried">你有沒有找過或試過其他做法、工具或服務？試了什麼？為什麼繼續用，或為什麼不用了？<span class="qf-field__req">必填</span></label>
                     <div class="qf-field__hint">如果沒有找過，也請寫「沒有」，可以的話說說為什麼。</div>
-                    <textarea id="sf-tried" rows="4" maxlength="2000" name="triedOther"></textarea>
+                    <textarea id="sf-tried" rows="5" maxlength="2000" data-sv-count-text name="triedOther"></textarea>
+                    <div class="sv-cnt"></div>
                     <div class="qf-field__err">> 這題必填。</div>
                 </div>
 
                 <div class="qf-field">
                     <label for="sf-hardest">回想那一次，哪一個步驟最花時間或最讓你不放心？如果那一步可以變得不一樣，你希望它變成什麼樣子？</label>
-                    <textarea id="sf-hardest" rows="4" maxlength="2000" name="hardestStep"></textarea>
+                    <textarea id="sf-hardest" rows="5" maxlength="2000" name="hardestStep"></textarea>
                 </div>
             </div>
 
             <div data-branch="none">
                 <div class="qf-field">
                     <label for="sf-why-not">你的工作裡有用到 AI 工具嗎？如果有，為什麼不需要確認它的產出？</label>
-                    <textarea id="sf-why-not" rows="4" maxlength="2000" name="whyNotNeeded"></textarea>
+                    <textarea id="sf-why-not" rows="5" maxlength="2000" name="whyNotNeeded"></textarea>
                 </div>
             </div>
 
             <!-- ---- follow-up ---- -->
-            <div class="qf-survey__part">// 05 · 後續</div>
+            <div class="qf-survey__part" id="sv-p5">// 05 · 後續</div>
 
             <div class="qf-field">
                 <div class="qf-field__q">願意之後接受一次 20–30 分鐘的線上對話，多聊聊那一次的經驗嗎？</div>
+                <div class="qf-field__hint">隨時可以說不，也可以中途退出。</div>
                 <div class="qf-choices">
                     <label class="qf-choice"><input type="radio" name="interview" value="yes">願意</label>
                     <label class="qf-choice"><input type="radio" name="interview" value="no">不願意</label>
@@ -617,8 +1007,17 @@ AI 的回答常常看起來對，其實有錯。
                 </div>
             </div>
 
+            <div class="qf-field">
+                <label for="sf-message">有什麼是你想告訴我們的</label>
+                <textarea id="sf-message" rows="4" maxlength="2000" name="message"></textarea>
+            </div>
+
             <!-- ---- contact ---- -->
-            <div class="qf-survey__part">// 06 · 聯絡方式</div>
+            <div class="qf-survey__part" id="sv-p6">// 06 · 聯絡方式</div>
+
+            <div class="sv-priv">
+                <div><b>你的資料</b>不公開、不轉給第三方。</div>
+            </div>
 
             <div class="qf-field" data-required>
                 <label for="sf-name">名字<span class="qf-field__req">必填</span></label>
@@ -643,6 +1042,7 @@ AI 的回答常常看起來對，其實有錯。
             <div class="qf-form-status"
                  data-form-status></div>
         </form>
+        </div>
     </section>
 </main>
 
@@ -895,9 +1295,206 @@ AI 的回答常常看起來對，其實有錯。
         return;
       }
       statusEl.className='qf-form-status ok';
-      statusEl.textContent='> 謝謝你。（preview mode；後端尚未連接）';
+      statusEl.textContent='> 謝謝你。彙整報告完成後，會用你留的聯絡方式寄給你。（preview mode；後端尚未連接）';
       form.reset();
       syncBranches();
+    });
+  }
+
+  // ---- Survey visuals (synced from qilinfish.js) ----
+  /** Run __fn once when __el scrolls into view (immediately without IntersectionObserver). */
+  function whenSeen(__el, __threshold, __fn) {
+    if (!('IntersectionObserver' in window)) { __fn(); return; }
+    var io = new IntersectionObserver(function (__entries) {
+      if (__entries[0].isIntersecting) { io.disconnect(); __fn(); }
+    }, { threshold: __threshold });
+    io.observe(__el);
+  }
+
+  /** Survey fig.1: 2,207 dots light up one by one, the counter follows. */
+  function initSurveyDots() {
+    var canvas = document.querySelector('[data-sv-dots]');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var counter = document.querySelector('[data-sv-count]');
+    var total = 2207, cols = 78;
+    if (canvas.clientWidth && canvas.clientWidth < 600) {
+      // narrow screens: a taller grid so the dots stay visible instead of a thin strip
+      canvas.width = 720; canvas.height = 860; cols = 42;
+    }
+    var rows = Math.ceil(total / cols);
+    var w = canvas.width, h = canvas.height, pad = 26;
+    var gx = (w - pad * 2) / cols, gy = (h - pad * 2) / rows;
+    var order = [];
+    for (var i = 0; i < total; i++) order.push(i);
+    for (var j = total - 1; j > 0; j--) {
+      var k = Math.floor(Math.random() * (j + 1)), t = order[j];
+      order[j] = order[k]; order[k] = t;
+    }
+
+    function drawDot(__i, __color, __r) {
+      ctx.fillStyle = __color;
+      ctx.beginPath();
+      ctx.arc(pad + (__i % cols + 0.5) * gx, pad + (Math.floor(__i / cols) + 0.5) * gy, __r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    function drawAll(__color) {
+      ctx.fillStyle = '#0f0f12';
+      ctx.fillRect(0, 0, w, h);
+      for (var i = 0; i < total; i++) drawDot(i, __color, 2.4);
+    }
+
+    drawAll('#6f8fd8');
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    function run() {
+      var lit = 0, start = null, dur = 5600;
+      drawAll('#1c1c22');
+      function frame(__ts) {
+        if (start === null) start = __ts;
+        var p = Math.min(1, (__ts - start) / dur);
+        var target = Math.floor((1 - Math.pow(1 - p, 2.2)) * total);
+        for (; lit < target; lit++) drawDot(order[lit], '#e8e8ec', 2.8);
+        for (var b = Math.max(0, lit - 60); b < lit - 10; b++) drawDot(order[b], '#6f8fd8', 2.4);
+        if (counter) counter.textContent = target.toLocaleString('en-US');
+        if (p < 1) { requestAnimationFrame(frame); return; }
+        drawAll('#6f8fd8');
+        if (counter) counter.textContent = '2,207';
+        setTimeout(run, 5000);
+      }
+      requestAnimationFrame(frame);
+    }
+    whenSeen(canvas, 0.35, run);
+  }
+
+  /** Survey figures, picker cards, section index and answer-length hints. */
+  function initSurveyVisuals() {
+    document.querySelectorAll('[data-sv-grow]').forEach(function (el) {
+      whenSeen(el, 0.3, function () { el.classList.add('is-grown'); });
+    });
+
+    // looping clips play only while on screen; reduced motion keeps the poster still
+    var clips = document.querySelectorAll('video[data-sv-play]');
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (clips.length && !still && 'IntersectionObserver' in window) {
+      var vio = new IntersectionObserver(function (__entries) {
+        __entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            var p = e.target.play();
+            if (p && p.catch) p.catch(function () {});
+          } else {
+            e.target.pause();
+          }
+        });
+      }, { threshold: 0.25 });
+      clips.forEach(function (v) { vio.observe(v); });
+    }
+
+    var form = document.querySelector('[data-survey-form]');
+    if (!form) return;
+    var art = {
+      verify:    { img: 'bp_desk.jpg',      title: '最近一次，你確認 AI 產出的那一次' },
+      explain:   { img: 'bp_chain.jpg',     title: '最近一次，有人問你「這是怎麼來的」' },
+      inventory: { img: 'bp_mainframe.jpg', title: '最近一次，你需要弄清楚舊系統的那一次' },
+      other:     { img: 'bp_desk.jpg',      title: '最近一次，你需要處理的那一件事' },
+      none:      { img: 'bp_desk.jpg',      title: '如果都沒遇過，也請告訴我們' }
+    };
+    var partImg = form.querySelector('[data-sv-part-img]');
+    var partTitle = form.querySelector('[data-sv-part-title]');
+    var picks = document.querySelectorAll('[data-sv-pick]');
+
+    function syncPicked() {
+      var el = form.querySelector('input[name="situation"]:checked');
+      var v = el ? el.value : '';
+      picks.forEach(function (p) {
+        var on = p.getAttribute('data-sv-pick') === v;
+        if (p.hasAttribute('aria-pressed')) p.setAttribute('aria-pressed', on ? 'true' : 'false');
+        var st = p.querySelector('.st');
+        if (st) st.textContent = on ? '● 已選' : '選這個';
+      });
+      if (art[v] && partImg) {
+        partImg.src = partImg.src.replace(/[^\/]+\.jpg$/, art[v].img);
+        partTitle.textContent = art[v].title;
+      }
+      // parts 03–04 only exist on the story branch, which stays hidden until a situation other than "none" is picked
+      document.querySelectorAll('[data-branch-link]').forEach(function (a) { a.hidden = !v || v === 'none'; });
+    }
+
+    picks.forEach(function (p) {
+      p.addEventListener('click', function () {
+        var radio = form.querySelector('input[name="situation"][value="' + p.getAttribute('data-sv-pick') + '"]');
+        if (!radio) return;
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change', { bubbles: true }));
+        document.getElementById('sv-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+    form.addEventListener('change', syncPicked);
+    syncPicked();
+
+    // section index: highlight the part on screen, tick parts whose required fields are answered
+    var links = Array.prototype.slice.call(document.querySelectorAll('[data-sv-toc] a'));
+    var parts = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    var required = Array.prototype.slice.call(form.querySelectorAll('.qf-field[data-required]'));
+
+    function partOf(__field) {
+      var idx = -1;
+      parts.forEach(function (p, i) {
+        if (p && (p.compareDocumentPosition(__field) & Node.DOCUMENT_POSITION_FOLLOWING)) idx = i;
+      });
+      return idx;
+    }
+    function answered(__field) {
+      if (__field.querySelector('input[type="radio"]')) {
+        var picked = __field.querySelector('input[type="radio"]:checked');
+        var other = __field.querySelector('[data-other-text]');
+        return !!picked && !(other && picked.value === 'other' && !other.value.trim());
+      }
+      var input = __field.querySelector('input, textarea');
+      return !!(input && input.value.trim());
+    }
+    function syncDone() {
+      links.forEach(function (a, i) {
+        var fs = required.filter(function (f) { return partOf(f) === i && !f.closest('[hidden]'); });
+        a.classList.toggle('is-done', fs.length > 0 && fs.every(answered));
+      });
+    }
+    form.addEventListener('input', syncDone);
+    form.addEventListener('change', syncDone);
+    syncDone();
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (__entries) {
+        __entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          var i = parts.indexOf(e.target);
+          links.forEach(function (a, k) { a.classList.toggle('is-now', k === i); });
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+      parts.forEach(function (p) { if (p) io.observe(p); });
+    }
+
+    // answer-length hint under the long questions
+    form.querySelectorAll('[data-sv-count-text]').forEach(function (t) {
+      var out = t.parentNode.querySelector('.sv-cnt');
+      if (!out) return;
+      function sync() {
+        var n = t.value.replace(/\s/g, '').length;
+        out.textContent = n + ' 字' + (n < 20 ? ' · 幾句話就好' : '');
+      }
+      t.addEventListener('input', sync);
+      sync();
+    });
+  }
+
+  /** Preview only: #sv-* links scroll in place so the hash router keeps the survey route. */
+  function initSurveyJumps(){
+    document.addEventListener('click', function(e){
+      var a = e.target.closest('a[href^="#sv-"]');
+      if(!a) return;
+      e.preventDefault();
+      var t = document.getElementById(a.getAttribute('href').slice(1));
+      if(t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 
@@ -915,6 +1512,9 @@ AI 的回答常常看起來對，其實有錯。
     initTabs();
     initContactForm();
     initSurveyForm();
+    initSurveyDots();
+    initSurveyVisuals();
+    initSurveyJumps();
     initLang();
   });
 })();

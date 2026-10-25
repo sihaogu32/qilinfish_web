@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 @Controller
 public class SurveyController {
 
-    private static final Set<String> SITUATIONS = Set.of("verify", "explain", "inventory", "none");
+    private static final Set<String> SITUATIONS = Set.of("verify", "explain", "inventory", "other", "none");
     private static final Pattern EMAIL = Pattern.compile("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
     private static final Pattern PHONE = Pattern.compile("^\\+?[0-9()\\-\\s#]{7,24}$");
 
@@ -62,6 +62,9 @@ public class SurveyController {
         String situation = __form.getSituation();
         if (situation != null && !situation.isBlank() && !SITUATIONS.contains(situation)) {
             __bindingResult.rejectValue("situation", "invalid");
+        }
+        if ("other".equals(situation)) {
+            rejectIfBlank(__bindingResult, "situation", __form.getSituationOther());
         }
         if (situation != null && SITUATIONS.contains(situation) && !"none".equals(situation)) {
             rejectIfBlank(__bindingResult, "occurredWhen", __form.getOccurredWhen());
