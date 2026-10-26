@@ -21,23 +21,29 @@ backend/
 │   │   ├── ProductsController.java
 │   │   ├── CasesController.java
 │   │   ├── ContactController.java
-│   │   └── ResourcesController.java
+│   │   ├── ResourcesController.java
+│   │   └── SurveyController.java
 │   ├── model/                                      # 純資料 Model
-│   │   ├── ProductModel.java
+│   │   ├── ScenarioModel.java                      # 產品頁情境卡
 │   │   ├── CaseModel.java
 │   │   ├── ContactFormModel.java
-│   │   └── ResourceLinkModel.java
+│   │   ├── ResourceLinkModel.java
+│   │   └── SurveyFormModel.java
+│   ├── repository/SurveyRepository.java            # 問卷答案寫進 SQLite
+│   ├── service/MailService.java                    # 聯絡表單寄信
 │   └── vb/                                         # ViewBinder（MVVM 的 VM）
 │       ├── AboutViewBinder.java
 │       ├── ProductsViewBinder.java
 │       ├── CasesViewBinder.java
 │       ├── ContactViewBinder.java
-│       └── ResourcesViewBinder.java
+│       ├── ResourcesViewBinder.java
+│       └── SurveyViewBinder.java
 └── src/main/resources/
     ├── application.yml                             # DB 連接埠保留 (3306)，autoconfig 已停用
     ├── i18n/                                       # 中英 messages
     ├── static/css/qilinfish.css
     ├── static/js/qilinfish.js
+    ├── static/media/                               # 頁面用的圖與短片（AI 生成的示意畫面）
     └── templates/
         ├── fragments/layout.html                   # navbar / footer / background fragment
         ├── index.html
@@ -45,7 +51,8 @@ backend/
         ├── products.html
         ├── cases.html
         ├── contact.html
-        └── resources.html
+        ├── resources.html
+        └── survey.html
 ```
 
 ## 撰寫規則
@@ -57,7 +64,7 @@ backend/
 - 配色：`--bg-0:#0a0a0c` 主底；`--accent: oklch(0.58 0.12 252)` 藏青單色強調
 - 字型：Inter / Noto Sans TC（內文）+ JetBrains Mono（技術細節）
 - 風格：細線條格線、十字準星、終端機 prompt、單色 status pill
-- 互動：打字機 hero、滾動淡入 (IntersectionObserver)、聯絡表單前端驗證、中英 (`?lang=`) 切換、Tabs 切換產品分類
+- 互動：打字機 hero、滾動淡入 (IntersectionObserver)、聯絡表單前端驗證、中英 (`?lang=`) 切換、產品頁放大鏡開場、情境卡連到問卷並預選經驗（`/survey?pick=`）
 
 ## 部署
 詳見 `DEPLOY.md` — Cloudflare Tunnel + Email Routing 的完整步驟。簡述：
@@ -69,7 +76,6 @@ docker compose up -d --build
 
 ## GitHub
 Repo：<https://github.com/sihaogu32/qilinfish_web>
-首次推送步驟見 `GITHUB.md`。
 
 寄件流程：表單送出 → Spring Boot 透過 Gmail SMTP 寄到 `qilinfish@qilinfish.com` → Cloudflare Email Routing 自動轉發到 `qilinfish@gmail.com`。
 （Cloudflare Email Routing 只支援接信轉發，不提供寄信 SMTP，所以寄送端仍走 Gmail。）
