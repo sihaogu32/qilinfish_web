@@ -19,6 +19,7 @@
   --font-sans:'Inter','Noto Sans TC',-apple-system,BlinkMacSystemFont,sans-serif;
   --font-mono:'JetBrains Mono','Menlo','Consolas',monospace;
   --t-fast:120ms ease;
+  --t-base:220ms cubic-bezier(.4,.0,.2,1);
 }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;background:var(--bg-0);color:var(--fg-0);font-family:var(--font-sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;scroll-behavior:smooth;}
@@ -120,11 +121,6 @@ button{font-family:inherit;cursor:pointer;}
 .qf-status--custom{color:var(--fg-1);}
 .qf-status .blip{width:5px;height:5px;border-radius:50%;background:currentColor;}
 
-.qf-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin:32px 0 0;}
-.qf-tabs button{background:transparent;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;padding:14px 22px;font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;color:var(--fg-2);text-transform:uppercase;}
-.qf-tabs button:hover{color:var(--fg-0);}
-.qf-tabs button.is-active{color:var(--accent);border-bottom-color:var(--accent);}
-.qf-tabs button .count{display:inline-block;margin-left:6px;font-size:10px;color:var(--fg-3);}
 
 /* survey page */
 .qf-survey {
@@ -530,6 +526,198 @@ button{font-family:inherit;cursor:pointer;}
   .sv-rec__dot { animation: none; }
   .sv-bar__t i, .sv-scale .pt { transition: none; }
 }
+
+/* ============================================================
+   About — crystal opening, story, way, next step
+   ============================================================ */
+.ab-hero {
+  position: relative;
+  min-height: clamp(520px, calc(100vh - 64px), 820px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+.ab-hero__video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.ab-hero::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10,10,12,0.9) 0%, rgba(10,10,12,0.5) 45%, rgba(10,10,12,0.05) 100%),
+    linear-gradient(0deg, var(--bg-0) 0%, transparent 40%);
+}
+.ab-hero__inner {
+  position: relative; z-index: 2;
+  width: 100%; max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px clamp(48px, 8vh, 88px);
+  display: grid; gap: 20px;
+  grid-template-columns: minmax(0, 1fr);
+}
+.ab-hero__title {
+  margin: 0;
+  max-width: 15em;
+  font-size: clamp(28px, 4.6vw, 56px);
+  line-height: 1.25;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.ab-ai {
+  position: absolute; z-index: 2;
+  top: 20px; right: 24px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: var(--fg-2);
+}
+
+.ab-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 104px 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+.ab-section--flush { padding-top: 0; }
+.ab-h2 {
+  margin: -6px 0 0;
+  font-size: clamp(26px, 4vw, 42px);
+  line-height: 1.2;
+  font-weight: 900;
+  text-wrap: balance;
+}
+.ab-story { max-width: 40em; display: grid; gap: 18px; }
+.ab-story p { margin: 0; color: var(--fg-1); font-size: clamp(15px, 1.6vw, 17px); line-height: 1.85; text-wrap: pretty; }
+.ab-way {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line-soft);
+  border: 1px solid var(--line-soft);
+}
+@media (max-width: 860px) { .ab-way { grid-template-columns: 1fr; } }
+.ab-way li { display: grid; gap: 14px; align-content: start; padding: 28px 24px; background: var(--bg-1); font-size: 16px; line-height: 1.7; color: var(--fg-0); }
+.ab-way .n { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--accent); }
+.ab-next { justify-items: start; gap: 16px; }
+.ab-also { font-size: 14px; color: var(--fg-2); }
+
+@media (max-width: 640px) {
+  .ab-hero__inner, .ab-section { padding-left: 16px; padding-right: 16px; }
+  .ab-section { padding-top: 72px; padding-bottom: 72px; }
+  .ab-section--flush { padding-top: 0; }
+  .ab-ai { right: 16px; }
+}
+
+/* ============================================================
+   Products — lens opening, scenario cards, stage note
+   ============================================================ */
+.pd-open {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 40px 0;
+}
+.pd-frame { position: relative; }
+/* --x/--y: lens centre (moved by initProductsLens), --r: lens radius */
+.pd-lens {
+  position: relative;
+  aspect-ratio: 1100 / 613;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  --x: 47%; --y: 52%; --r: 13%;
+}
+.pd-lens__base, .pd-lens__mag img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+}
+.pd-lens__glass { position: absolute; inset: 0; clip-path: circle(var(--r) at var(--x) var(--y)); }
+.pd-lens__mag { position: absolute; inset: 0; transform-origin: var(--x) var(--y); transform: scale(1.7); }
+.pd-lens__mag img { filter: brightness(1.15); }
+.pd-lens__mag svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pd-lens__ring {
+  position: absolute;
+  left: var(--x); top: var(--y);
+  width: calc(var(--r) * 1.618);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px #111, 0 0 0 7px #444, 0 12px 40px rgba(0,0,0,0.7);
+  pointer-events: none;
+}
+.pd-ai {
+  position: absolute; z-index: 2;
+  top: 12px; right: 14px;
+  padding: 2px 8px;
+  background: rgba(0,0,0,0.7);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: var(--fg-1);
+}
+.pd-lens__t {
+  position: absolute; z-index: 2;
+  left: 1px; right: 1px; bottom: 1px;
+  padding: 64px 32px 26px;
+  background: linear-gradient(transparent, rgba(5,8,16,0.94));
+}
+.pd-lens__t h1 {
+  margin: 0;
+  font-size: clamp(22px, 3.4vw, 40px);
+  line-height: 1.3;
+  font-weight: 900;
+  text-wrap: balance;
+}
+.pd-lens__t p { margin: 8px 0 0; color: var(--fg-1); font-size: clamp(14px, 1.5vw, 17px); }
+
+.pd-h2 {
+  margin: 0;
+  font-size: clamp(26px, 4vw, 42px);
+  line-height: 1.2;
+  font-weight: 900;
+  text-wrap: balance;
+}
+.pd-scenes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 760px) { .pd-scenes { grid-template-columns: 1fr; } }
+.pd-scene {
+  display: grid;
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  transition: border-color var(--t-base), transform var(--t-base);
+}
+.pd-scene:hover { color: inherit; border-color: var(--fg-3); transform: translateY(-2px); }
+.pd-scene:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+.pd-scene__img { display: block; aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--line); background: var(--bg-2); }
+.pd-scene__img video { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease; }
+.pd-scene:hover .pd-scene__img video { transform: scale(1.05); }
+.pd-scene__tx { display: grid; gap: 10px; padding: 18px 20px 20px; }
+.pd-scene b { font-size: 18px; line-height: 1.45; font-weight: 700; }
+.pd-scene__go { font-size: 14px; color: var(--accent); }
+.pd-scene__go .arr { display: inline-block; transition: transform var(--t-fast); }
+.pd-scene:hover .pd-scene__go .arr { transform: translateX(3px); }
+.pd-note { margin: 0; font-size: 12.5px; color: var(--fg-2); }
+
+.pd-stage {
+  display: grid; justify-items: start; gap: 22px;
+  padding: 32px;
+  background: var(--bg-1);
+  border: 1px solid var(--line-soft);
+}
+.pd-stage p { margin: 0; max-width: 40em; color: var(--fg-0); font-size: clamp(16px, 1.7vw, 19px); line-height: 1.8; text-wrap: pretty; }
+.pd-also { max-width: 1200px; margin: 0 auto; padding: 0 40px 48px; font-size: 14px; color: var(--fg-2); }
+.pd-also a { color: var(--fg-1); text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 640px) {
+  .pd-open { padding: 24px 16px 0; }
+  .pd-also { padding: 0 16px 40px; }
+  .pd-stage { padding: 24px 20px; }
+  /* the picture is short on phones: the title moves below it instead of covering the lens */
+  .pd-lens__t { position: static; padding: 18px 0 0; background: none; }
+}
 </style>
 </head>
 <body>
@@ -625,105 +813,107 @@ button{font-family:inherit;cursor:pointer;}
 
 <!-- ======================== ABOUT ======================== -->
 <main class="qf-page qf-route" data-route="about">
-    <section class="qf-section">
-        <div data-reveal>
+    <header class="ab-hero">
+        <video class="ab-hero__video" src="backend/src/main/resources/static/media/about_crystal.mp4" poster="backend/src/main/resources/static/media/about_crystal.jpg"
+               autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="ab-ai">示意畫面 · AI 生成</span>
+        <div class="ab-hero__inner">
             <div class="qf-eyebrow">ABOUT // who we are</div>
-            <h1 class="qf-title">關於我們</h1>
-            <p class="qf-lede">我們是一個以工程為核心的小型工作室。不追逐風口，只承接能交付得清楚、能交代得明白的專案。</p>
+            <h1 class="ab-hero__title">美感是『普適模式』被『主觀經驗』解構後的殘餘。</h1>
         </div>
+    </header>
 
-        <div class="qf-grid qf-grid--2" style="margin-top:64px;" data-reveal>
-            <div class="qf-card">
-                <div class="qf-card__index"><span>// SCOPE</span><span>承接專案類型</span></div>
-                <h3 class="qf-card__title">我們做什麼</h3>
-                <ul class="qf-card__list">
-                    <li>AI Agent 開發 — LLM Pipeline、RAG、知識圖譜整合</li>
-                    <li>Web 應用開發 — 響應式網頁、後端 API、雲端部署</li>
-                    <li>自動化流程 — 跨系統串接、資料抓取、定時任務</li>
-                    <li>資料工程 — ETL、資料清洗、視覺化報表</li>
-                    <li>客製化專案 — 從需求訪談到上線維運的一條龍服務</li>
-                </ul>
-            </div>
-            <div class="qf-card">
-                <div class="qf-card__index"><span>// WAY</span><span>工程觀點</span></div>
-                <h3 class="qf-card__title">我們怎麼想事情</h3>
-                <ul class="qf-card__list">
-                    <li>工程不是堆疊技術，是把複雜性收斂到使用者看不見的地方。</li>
-                    <li>每一行程式碼都該為一個明確的決策服務。</li>
-                    <li>好的系統不只能跑，還能被下一個人讀懂、改動、擴展。</li>
-                </ul>
-            </div>
+    <section class="ab-section" data-reveal>
+        <div class="qf-eyebrow">WHY</div>
+        <h2 class="ab-h2">為什麼做這件事</h2>
+        <div class="ab-story">
+            <p>我們遇過系統遷移的顧問案，也接手過規模很大、交接卻不齊全的舊系統。傳統做法是靠人一項一項讀、一項一項對，曠日費時，對人員的經驗和系統的條件要求都很高。</p>
+            <p>現在，很多這類工作都期待導入 AI，或者被要求導入 AI。可是傳統做法有嚴謹的流程、有專業的人，仍然會出錯；換成一個本身就不穩定的 AI 工具，風險只會更大。我們自己每天用 AI 代理寫程式，也常常遇到它回報「做完了」，打開一看，有一部分沒做，或者做的跟它說的不一樣。</p>
+            <p>同時，要求監管 AI 的聲音越來越多。主管、客戶、稽核都會問：「這是怎麼來的？」</p>
+            <p>所以我們在做一個工具，讓 AI 的結果可以被檢查，人要監督也比較省力，出了事也查得到根據。</p>
+            <p>我們還不知道其他行業怎麼處理這件事。律師、顧問、客服遇到的情況，可能跟我們很不一樣。這就是我們做問卷的原因。</p>
         </div>
+    </section>
 
-        <div style="margin-top:64px;border:1px solid var(--line);padding:40px;background:var(--bg-1);" data-reveal>
-            <div class="qf-eyebrow">TAGLINE</div>
-            <p style="font-size:clamp(20px,2.4vw,28px);margin:18px 0 0;line-height:1.4;color:var(--fg-0);font-family:var(--font-mono);letter-spacing:.01em;">美感是『普適模式』被『主觀經驗』解構後的殘餘。</p>
-        </div>
+    <section class="ab-section ab-section--flush" data-reveal>
+        <div class="qf-eyebrow">WAY // 工程觀點</div>
+        <h2 class="ab-h2">我們怎麼想事情</h2>
+        <ol class="ab-way">
+            <li><span class="n">01</span><span>工程不是堆疊技術，是把複雜性收斂到使用者看不見的地方。</span></li>
+            <li><span class="n">02</span><span>每一行程式碼都該為一個明確的決策服務。</span></li>
+            <li><span class="n">03</span><span>好的系統不只能跑，還能被下一個人讀懂、改動、擴展。</span></li>
+        </ol>
+    </section>
+
+    <section class="ab-section ab-section--flush ab-next" data-reveal>
+        <a class="qf-btn qf-btn--primary" href="#survey" data-route-link="survey">說說您那一次 <span class="arr">→</span></a>
+        <a class="ab-also" href="#contact" data-route-link="contact">也接 Web 開發與專案設計 → 聯絡我們</a>
     </section>
 </main>
 
 <!-- ======================== PRODUCTS ======================== -->
 <main class="qf-page qf-route" data-route="products">
-    <section class="qf-section">
-        <div data-reveal>
-            <div class="qf-eyebrow">PRODUCTS // what we ship</div>
-            <h1 class="qf-title">產品方案</h1>
-            <p class="qf-lede">我們的方案分成兩個方向：稽核與驗證 AI 系統，以及通用網頁與專案設計。下方切換瀏覽。</p>
+    <section class="pd-open"><div class="pd-frame">
+        <div class="pd-lens" data-pd-lens>
+            <img class="pd-lens__base" src="backend/src/main/resources/static/media/report_clean.jpg" alt="深夜書桌上一份排版完美的報告">
+            <div class="pd-lens__glass" aria-hidden="true"><div class="pd-lens__mag">
+                <img src="backend/src/main/resources/static/media/report_clean.jpg" alt="">
+                <svg viewBox="0 0 1100 613" preserveAspectRatio="none">
+                    <g fill="none" stroke="#ff4d4a" stroke-width="1.4" stroke-linecap="round">
+                        <g transform="rotate(16 560 300)">
+                            <path d="M455 252 q6 4 12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0"/>
+                            <path d="M520 284 h150"/><path d="M520 281 h150"/>
+                            <path d="M440 318 q6 4 12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0"/>
+                            <path d="M600 335 l10 -10 m-10 0 l10 10"/>
+                            <path d="M470 350 h120"/>
+                        </g>
+                        <ellipse cx="405" cy="350" rx="38" ry="14" transform="rotate(16 405 350)"/>
+                        <path d="M455 378 l14 -14 m-14 0 l14 14"/>
+                        <path d="M560 412 l16 -16 m-16 0 l16 16"/>
+                        <ellipse cx="560" cy="430" rx="34" ry="20" transform="rotate(-10 560 430)"/>
+                    </g>
+                </svg>
+            </div></div>
+            <div class="pd-lens__ring" aria-hidden="true"></div>
+            <span class="pd-ai">示意畫面 · AI 生成</span>
         </div>
-
-        <div class="qf-tabs" data-tabs data-reveal>
-            <button data-tab="ai-audit" class="is-active">稽核與驗證 AI 系統 <span class="count">· 1</span></button>
-            <button data-tab="others">其他類型 <span class="count">· 2</span></button>
+        <div class="pd-lens__t">
+            <h1>AI 說「做完了」，真的完成了嗎？</h1>
+            <p>整份看起來都對。往下查，錯誤才一個一個出現。</p>
         </div>
+    </div></section>
 
-        <div data-tab-panel="ai-audit" style="margin-top:32px;">
-            <div class="qf-grid qf-grid--2">
-                <div class="qf-card">
-                    <div class="qf-card__index"><span>// 01</span><span class="qf-status qf-status--coming"><span class="blip"></span>coming-soon</span></div>
-                    <h3 class="qf-card__title">稽核與驗證 AI 系統</h3>
-                    <div class="qf-card__sub">AI Output Verification &amp; Audit</div>
-                    <p class="qf-card__desc">AI 說「做完了」，真的完成了嗎？
-AI 的回答常常看起來對，其實有錯。
-主管或客戶問「這是怎麼來的？」，您拿得出根據嗎？</p>
-                    <ul class="qf-card__list">
-                        <li>逐句查核</li>
-                        <li>附上出處</li>
-                        <li>標出錯誤</li>
-                        <li>留下查核紀錄</li>
-                    </ul>
-                </div>
-            </div>
+    <section class="sv-section">
+        <h2 class="pd-h2">您是不是也遇過這些時候？</h2>
+        <div class="pd-scenes">
+            <a class="pd-scene" href="#survey">
+                <span class="pd-scene__img"><video src="backend/src/main/resources/static/media/scene_brief.mp4" poster="backend/src/main/resources/static/media/scene_brief.jpg" muted loop playsinline preload="none" data-sv-play aria-hidden="true"></video></span>
+                <span class="pd-scene__tx"><b>交出 AI 協助寫的書狀或報告之前</b><span class="pd-scene__go">說說您那一次 <span class="arr">→</span></span></span>
+            </a>
+            <a class="pd-scene" href="#survey">
+                <span class="pd-scene__img"><video src="backend/src/main/resources/static/media/scene_agent.mp4" poster="backend/src/main/resources/static/media/scene_agent.jpg" muted loop playsinline preload="none" data-sv-play aria-hidden="true"></video></span>
+                <span class="pd-scene__tx"><b>AI 代理回報「做完了」</b><span class="pd-scene__go">說說您那一次 <span class="arr">→</span></span></span>
+            </a>
+            <a class="pd-scene" href="#survey">
+                <span class="pd-scene__img"><video src="backend/src/main/resources/static/media/scene_explain.mp4" poster="backend/src/main/resources/static/media/scene_explain.jpg" muted loop playsinline preload="none" data-sv-play aria-hidden="true"></video></span>
+                <span class="pd-scene__tx"><b>主管、客戶、稽核問「這是怎麼來的」</b><span class="pd-scene__go">說說您那一次 <span class="arr">→</span></span></span>
+            </a>
+            <a class="pd-scene" href="#survey">
+                <span class="pd-scene__img"><video src="backend/src/main/resources/static/media/scene_legacy.mp4" poster="backend/src/main/resources/static/media/scene_legacy.jpg" muted loop playsinline preload="none" data-sv-play aria-hidden="true"></video></span>
+                <span class="pd-scene__tx"><b>接手交接不齊的舊系統、準備系統遷移</b><span class="pd-scene__go">說說您那一次 <span class="arr">→</span></span></span>
+            </a>
         </div>
+        <p class="pd-note">照片為示意畫面，由 AI 生成。</p>
+    </section>
 
-        <div data-tab-panel="others" style="display:none;margin-top:32px;">
-            <div class="qf-grid qf-grid--2">
-                <div class="qf-card">
-                    <div class="qf-card__index"><span>// 01</span><span class="qf-status qf-status--available"><span class="blip"></span>available</span></div>
-                    <h3 class="qf-card__title">Web 網頁開發</h3>
-                    <div class="qf-card__sub">Responsive Web Application</div>
-                    <p class="qf-card__desc">從靜態形象站到後端動態應用，使用 Spring Boot、Thymeleaf、現代前端框架交付。</p>
-                    <ul class="qf-card__list">
-                        <li>響應式設計</li>
-                        <li>SEO 友善</li>
-                        <li>雲端部署 (Cloudflare / AWS)</li>
-                        <li>後台管理系統</li>
-                    </ul>
-                </div>
-                <div class="qf-card">
-                    <div class="qf-card__index"><span>// 02</span><span class="qf-status qf-status--available"><span class="blip"></span>available</span></div>
-                    <h3 class="qf-card__title">專案設計</h3>
-                    <div class="qf-card__sub">Project Architecture &amp; Design</div>
-                    <p class="qf-card__desc">需求訪談、系統規劃、技術選型、人力評估 — 把模糊的想法收斂成可執行的工程文件。</p>
-                    <ul class="qf-card__list">
-                        <li>需求訪談</li>
-                        <li>系統架構圖</li>
-                        <li>技術選型建議</li>
-                        <li>工時估算</li>
-                    </ul>
-                </div>
-            </div>
+    <section class="sv-section sv-section--flush">
+        <div class="pd-stage">
+            <p>這個產品還在打磨，還沒開放使用。我們想先聽您最近一次查核 AI 產出的經驗，您的回答會決定我們先做哪一部分。</p>
+            <a class="qf-btn qf-btn--primary" href="#survey">說說您那一次 <span class="arr">→</span></a>
         </div>
     </section>
+
+    <p class="pd-also">也接 Web 開發與專案設計 → <a href="#contact">聯絡我們</a></p>
 </main>
 
 <!-- ======================== CASES ======================== -->
@@ -1216,21 +1406,6 @@ AI 的回答常常看起來對，其實有錯。
     tick();
   }
 
-  // ---- Tabs ----
-  function initTabs(){
-    document.querySelectorAll('[data-tabs]').forEach(function(root){
-      var btns = root.querySelectorAll('[data-tab]');
-      var panels = document.querySelectorAll('[data-tab-panel]');
-      btns.forEach(function(b){
-        b.addEventListener('click', function(){
-          var key = b.getAttribute('data-tab');
-          btns.forEach(function(x){ x.classList.toggle('is-active', x===b); });
-          panels.forEach(function(p){ p.style.display = p.getAttribute('data-tab-panel')===key ? '' : 'none'; });
-        });
-      });
-    });
-  }
-
   // ---- Contact form (front-end validation only in preview) ----
   function initContactForm(){
     var form = document.querySelector('[data-contact-form]');
@@ -1625,6 +1800,24 @@ AI 的回答常常看起來對，其實有錯。
     });
   }
 
+  /** Products opening: the lens drifts over the report in a slow figure-eight; reduced motion parks it. (synced from qilinfish.js) */
+  function initProductsLens() {
+    var lens = document.querySelector('[data-pd-lens]');
+    if (!lens) return;
+    // lens centre, in percent of the picture
+    function pos(__t) { return { x: 47 + 9 * Math.sin(__t), y: 55 + 7 * Math.sin(2 * __t) }; }
+    function place(__p) {
+      lens.style.setProperty('--x', __p.x + '%');
+      lens.style.setProperty('--y', __p.y + '%');
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { place(pos(0.6)); return; }
+    var t0 = performance.now();
+    (function frame(__now) {
+      place(pos((__now - t0) / 2600));
+      requestAnimationFrame(frame);
+    })(t0);
+  }
+
   // ---- Lang switcher (visual only in preview) ----
   function initLang(){
     document.querySelectorAll('[data-lang]').forEach(function(b){
@@ -1636,11 +1829,11 @@ AI 的回答常常看起來對，其實有錯。
 
   document.addEventListener('DOMContentLoaded', function(){
     syncRoute();
-    initTabs();
     initContactForm();
     initSurveyForm();
     initSurveyDots();
     initSurveyVisuals();
+    initProductsLens();
     initSurveyJumps();
     initLang();
   });

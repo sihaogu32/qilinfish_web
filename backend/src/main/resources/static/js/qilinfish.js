@@ -93,23 +93,6 @@
     });
   }
 
-  /** Tabs on the products page. */
-  function initTabs() {
-    document.querySelectorAll('[data-tabs]').forEach(function (root) {
-      var btns   = root.querySelectorAll('[data-tab]');
-      var panels = document.querySelectorAll('[data-tab-panel]');
-      btns.forEach(function (b) {
-        b.addEventListener('click', function () {
-          var key = b.getAttribute('data-tab');
-          btns.forEach(function (x) { x.classList.toggle('is-active', x === b); });
-          panels.forEach(function (p) {
-            p.style.display = p.getAttribute('data-tab-panel') === key ? '' : 'none';
-          });
-        });
-      });
-    });
-  }
-
   /**
    * Amount field check: '' when fine, otherwise the message to show.
    * A picked choice ("none", "unknown") stands in for the amounts. Filled boxes must be plain numbers;
@@ -406,6 +389,13 @@
     form.addEventListener('change', syncPicked);
     syncPicked();
 
+    // /survey?pick=verify|explain|inventory (from the products page cards): same as clicking that card; other values are ignored
+    var preset = new URLSearchParams(location.search).get('pick');
+    if (['verify', 'explain', 'inventory'].indexOf(preset) >= 0) {
+      var presetBtn = document.querySelector('[data-sv-pick="' + preset + '"]');
+      if (presetBtn) presetBtn.click();
+    }
+
     // section index: highlight the part on screen, tick parts whose required fields are answered
     var links = Array.prototype.slice.call(document.querySelectorAll('[data-sv-toc] a'));
     var parts = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
@@ -472,6 +462,24 @@
     });
   }
 
+  /** Products opening: the lens drifts over the report in a slow figure-eight; reduced motion parks it. */
+  function initProductsLens() {
+    var lens = document.querySelector('[data-pd-lens]');
+    if (!lens) return;
+    // lens centre, in percent of the picture
+    function pos(__t) { return { x: 47 + 9 * Math.sin(__t), y: 55 + 7 * Math.sin(2 * __t) }; }
+    function place(__p) {
+      lens.style.setProperty('--x', __p.x + '%');
+      lens.style.setProperty('--y', __p.y + '%');
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { place(pos(0.6)); return; }
+    var t0 = performance.now();
+    (function frame(__now) {
+      place(pos((__now - t0) / 2600));
+      requestAnimationFrame(frame);
+    })(t0);
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initReveal();
     initTypewriter();
@@ -479,7 +487,7 @@
     initSurveyForm();
     initSurveyDots();
     initSurveyVisuals();
+    initProductsLens();
     initLangSwitcher();
-    initTabs();
   });
 })();

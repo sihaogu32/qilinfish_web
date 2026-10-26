@@ -1,7 +1,7 @@
 package com.qilinfish.website.vb;
 
 /**
- * ViewBinder for the about page — domain capabilities & studio narrative.
+ * ViewBinder for the about page — opening tagline, why-we-do-this story & studio narrative.
  */
 public class AboutViewBinder {
 
@@ -9,7 +9,8 @@ public class AboutViewBinder {
     private String pageSubtitle;
     private String studioName;
     private String tagline;
-    private String[] capabilities;
+    private String[] capabilities;       // home page capability strip
+    private String[] story;
     private String[] philosophy;
 
     public AboutViewBinder() { }
@@ -28,6 +29,9 @@ public class AboutViewBinder {
 
     public String[] getCapabilities() { return capabilities; }
     public void setCapabilities(String[] __capabilities) { this.capabilities = __capabilities; }
+
+    public String[] getStory() { return story; }
+    public void setStory(String[] __story) { this.story = __story; }
 
     public String[] getPhilosophy() { return philosophy; }
     public void setPhilosophy(String[] __philosophy) { this.philosophy = __philosophy; }

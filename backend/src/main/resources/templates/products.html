@@ -6,65 +6,68 @@
 <nav th:replace="~{fragments/layout :: navbar('products')}"></nav>
 
 <main class="qf-page">
-    <section class="qf-section">
-        <div data-reveal>
-            <div class="qf-eyebrow" th:text="${vb.pageSubtitle}">PRODUCTS // what we ship</div>
-            <h1 class="qf-title" th:text="${vb.pageTitle}">產品方案</h1>
-            <p class="qf-lede">我們的方案分成兩個方向：稽核與驗證 AI 系統，以及通用網頁與專案設計。下方切換瀏覽。</p>
-        </div>
 
-        <div class="qf-tabs" data-tabs data-reveal>
-            <button data-tab="ai-audit" class="is-active">稽核與驗證 AI 系統 <span class="count" th:text="'· ' + ${#lists.size(vb.aiAuditProducts)}">· 1</span></button>
-            <button data-tab="others">其他類型 <span class="count" th:text="'· ' + ${#lists.size(vb.otherProducts)}">· 2</span></button>
+    <!-- ---- opening: a lens drifts over a clean report; only inside it do the errors show ---- -->
+    <section class="pd-open"><div class="pd-frame">
+        <div class="pd-lens" data-pd-lens>
+            <img class="pd-lens__base" th:src="@{/media/report_clean.jpg}" src="/media/report_clean.jpg" alt="深夜書桌上一份排版完美的報告">
+            <div class="pd-lens__glass" aria-hidden="true"><div class="pd-lens__mag">
+                <img th:src="@{/media/report_clean.jpg}" src="/media/report_clean.jpg" alt="">
+                <svg viewBox="0 0 1100 613" preserveAspectRatio="none">
+                    <g fill="none" stroke="#ff4d4a" stroke-width="1.4" stroke-linecap="round">
+                        <g transform="rotate(16 560 300)">
+                            <path d="M455 252 q6 4 12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0"/>
+                            <path d="M520 284 h150"/><path d="M520 281 h150"/>
+                            <path d="M440 318 q6 4 12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0"/>
+                            <path d="M600 335 l10 -10 m-10 0 l10 10"/>
+                            <path d="M470 350 h120"/>
+                        </g>
+                        <ellipse cx="405" cy="350" rx="38" ry="14" transform="rotate(16 405 350)"/>
+                        <path d="M455 378 l14 -14 m-14 0 l14 14"/>
+                        <path d="M560 412 l16 -16 m-16 0 l16 16"/>
+                        <ellipse cx="560" cy="430" rx="34" ry="20" transform="rotate(-10 560 430)"/>
+                    </g>
+                </svg>
+            </div></div>
+            <div class="pd-lens__ring" aria-hidden="true"></div>
+            <span class="pd-ai">示意畫面 · AI 生成</span>
         </div>
-
-        <!-- AI audit panel -->
-        <div data-tab-panel="ai-audit" style="margin-top: 32px;">
-            <div class="qf-grid qf-grid--2" data-reveal>
-                <div class="qf-card" th:each="p, it : ${vb.aiAuditProducts}">
-                    <div class="qf-card__index">
-                        <span th:text="'// ' + ${#strings.toString(it.count).length() == 1 ? '0' + it.count : it.count}">// 01</span>
-                        <span class="qf-status"
-                              th:classappend="${p.status == 'available' || p.status == 'demo-ready'} ? 'qf-status--available' : (${p.status == 'coming-soon'} ? 'qf-status--coming' : 'qf-status--custom')">
-                            <span class="blip"></span>
-                            <span th:text="${p.status}">status</span>
-                        </span>
-                    </div>
-                    <h3 class="qf-card__title" th:text="${p.title}">title</h3>
-                    <div class="qf-card__sub" th:text="${p.subtitle}">subtitle</div>
-                    <p class="qf-card__desc" th:text="${p.description}">description</p>
-                    <ul class="qf-card__list">
-                        <li th:each="f : ${p.features}" th:text="${f}">feature</li>
-                    </ul>
-                </div>
-            </div>
+        <!-- over the picture's bottom edge on wide screens, below it on phones -->
+        <div class="pd-lens__t">
+            <h1 th:text="${vb.heroTitle}">AI 說「做完了」，真的完成了嗎？</h1>
+            <p th:text="${vb.heroSubtitle}">整份看起來都對。往下查，錯誤才一個一個出現。</p>
         </div>
+    </div></section>
 
-        <!-- Others panel -->
-        <div data-tab-panel="others" style="display: none; margin-top: 32px;">
-            <div class="qf-grid qf-grid--2">
-                <div class="qf-card" th:each="p, it : ${vb.otherProducts}">
-                    <div class="qf-card__index">
-                        <span th:text="'// ' + ${#strings.toString(it.count).length() == 1 ? '0' + it.count : it.count}">// 01</span>
-                        <span class="qf-status"
-                              th:classappend="${p.status == 'available'} ? 'qf-status--available' : (${p.status == 'coming-soon'} ? 'qf-status--coming' : 'qf-status--custom')">
-                            <span class="blip"></span>
-                            <span th:text="${p.status}">status</span>
-                        </span>
-                    </div>
-                    <h3 class="qf-card__title" th:text="${p.title}">title</h3>
-                    <div class="qf-card__sub" th:text="${p.subtitle}">subtitle</div>
-                    <p class="qf-card__desc" th:text="${p.description}">description</p>
-                    <ul class="qf-card__list">
-                        <li th:each="f : ${p.features}" th:text="${f}">feature</li>
-                    </ul>
-                </div>
-            </div>
+    <!-- ---- scenarios: each card opens the survey with its first step already picked ---- -->
+    <section class="sv-section">
+        <h2 class="pd-h2">您是不是也遇過這些時候？</h2>
+        <div class="pd-scenes">
+            <a class="pd-scene" th:each="s : ${vb.scenarios}" th:href="@{/survey(pick=${s.pick})}" href="/survey?pick=verify">
+                <span class="pd-scene__img"><video th:src="@{'/media/' + ${s.media} + '.mp4'}" src="/media/scene_brief.mp4"
+                       th:poster="@{'/media/' + ${s.media} + '.jpg'}" poster="/media/scene_brief.jpg"
+                       muted loop playsinline preload="none" data-sv-play aria-hidden="true"></video></span>
+                <span class="pd-scene__tx">
+                    <b th:text="${s.title}">交出 AI 協助寫的書狀或報告之前</b>
+                    <span class="pd-scene__go">說說您那一次 <span class="arr">→</span></span>
+                </span>
+            </a>
+        </div>
+        <p class="pd-note">照片為示意畫面，由 AI 生成。</p>
+    </section>
+
+    <!-- ---- where the product stands ---- -->
+    <section class="sv-section sv-section--flush">
+        <div class="pd-stage">
+            <p>這個產品還在打磨，還沒開放使用。我們想先聽您最近一次查核 AI 產出的經驗，您的回答會決定我們先做哪一部分。</p>
+            <a class="qf-btn qf-btn--primary" th:href="@{/survey}" href="/survey">說說您那一次 <span class="arr">→</span></a>
         </div>
     </section>
+
+    <p class="pd-also">也接 Web 開發與專案設計 → <a th:href="@{/contact}" href="/contact">聯絡我們</a></p>
 </main>
 
 <footer th:replace="~{fragments/layout :: footer}"></footer>
-<script th:src="@{/js/qilinfish.js}" src="/js/qilinfish.js"></script>
+<script th:src="@{/js/qilinfish.js(v='20261026-pick')}" src="/js/qilinfish.js"></script>
 </body>
 </html>
