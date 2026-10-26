@@ -16,7 +16,7 @@ backend/
 │   ├── QilinfishWebsiteApplication.java
 │   ├── config/WebConfig.java                       # i18n + locale interceptor
 │   ├── controller/                                 # Controller 層
-│   │   ├── HomeController.java
+│   │   ├── HomeController.java                     # 沒有獨立首頁：/ 導到 /about
 │   │   ├── AboutController.java
 │   │   ├── ProductsController.java
 │   │   ├── CasesController.java
@@ -52,7 +52,6 @@ backend/
         ├── fragments/blog.html                     # 文章封面（缺圖時顯示底圖區塊）與文章標頭
         ├── blog.html                               # 文章列表
         ├── blog/shadow-ai.html                     # 每篇文章的內文一個檔，檔名＝slug
-        ├── index.html
         ├── about.html
         ├── products.html
         ├── cases.html
