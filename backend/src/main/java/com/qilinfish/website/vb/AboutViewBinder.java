@@ -9,6 +9,7 @@ public class AboutViewBinder {
     private String pageSubtitle;
     private String studioName;
     private String tagline;
+    private String[][] valueProposition; // clauses → phrases; the line only breaks between them
     private String[] capabilities;       // home page capability strip
     private String[] story;
     private String[] philosophy;
@@ -26,6 +27,9 @@ public class AboutViewBinder {
 
     public String getTagline() { return tagline; }
     public void setTagline(String __tagline) { this.tagline = __tagline; }
+
+    public String[][] getValueProposition() { return valueProposition; }
+    public void setValueProposition(String[][] __valueProposition) { this.valueProposition = __valueProposition; }
 
     public String[] getCapabilities() { return capabilities; }
     public void setCapabilities(String[] __capabilities) { this.capabilities = __capabilities; }
