@@ -25,7 +25,7 @@ public class SurveyController {
 
     // amount-question messages: same wording as amountError in qilinfish.js, shown via #fields.errors(...)[0]
     private static final String MSG_PAY_REQUIRED = "> 請填金額範圍，或選「不會付費」「不知道」。";
-    private static final String MSG_PAY_PARTIAL = "> 最低和最高都要填；只願付一個金額的話，兩格填一樣。";
+    private static final String MSG_PAY_PARTIAL = "> 最低和最高都要填；如果是固定金額，兩格填一樣。";
     private static final String MSG_PAY_RANGE = "> 最高金額不可小於最低金額。";
     private static final String MSG_AMOUNT_INVALID = "> 金額只能填數字（不加幣別），例如 500 或 1,200.5。";
     private static final String MSG_AMOUNT_TOO_LONG = "> 金額最多 16 位數。";

@@ -209,8 +209,8 @@
                 <div class="qf-survey__part" id="sv-p3">// 03 · 花了多少</div>
 
                 <div class="qf-field">
-                    <div class="qf-field__q">那一次大概花了多少時間？</div>
-                    <div class="sv-why">覆核要花多少工時，目前沒有公開的數字。大概就好。</div>
+                    <div class="qf-field__q">大概花了多少時間？</div>
+                    <div class="sv-why">覆核要花多少工時。大概就好。</div>
                     <div class="qf-inline">
                         <input id="sf-hours" type="text" inputmode="decimal" maxlength="16" th:field="*{hours}"> 小時，
                         <input id="sf-people" type="text" inputmode="numeric" maxlength="16" th:field="*{people}"> 個人參與
@@ -218,7 +218,7 @@
                 </div>
 
                 <div class="qf-field" data-amounts th:classappend="${#fields.hasErrors('extraSpendUsd')} ? 'is-invalid' : ''">
-                    <div class="qf-field__q">那一次有沒有因此另外花錢（工具、外包、顧問、加班費）？</div>
+                    <div class="qf-field__q">有沒有因此另外花錢（工具、外包、顧問、加班費）？</div>
                     <div class="qf-inline">
                         <span class="qf-inline__group">US$ <input id="sf-extra-usd" type="text" inputmode="decimal" maxlength="24" aria-label="另外花的錢（美金）" data-amount th:field="*{extraSpendUsd}"></span>
                     </div>
@@ -263,7 +263,7 @@
 
             <div class="qf-field" data-required data-amounts th:classappend="${#fields.hasErrors('payMin')} ? 'is-invalid' : ''">
                 <div class="qf-field__q"><span data-show-if="situation!=none">為了解決上述問題，您的組織每年願意付多少？</span><span data-show-if="situation=none" hidden>如果之後需要確認 AI 產出的內容、回應別人對 AI 使用的詢問，或盤點舊系統，您的組織每年願意付多少？</span><span class="qf-field__req">必填</span></div>
-                <div class="qf-field__hint">只願付一個金額的話，兩格填一樣。</div>
+                <div class="qf-field__hint">如果是固定金額，兩格填一樣。</div>
                 <div class="qf-inline">
                     <span class="qf-inline__group">每年 US$ <input id="sf-pay-min" type="text" inputmode="decimal" maxlength="24" placeholder="最低" aria-label="每年最低金額（美金）" data-amount th:field="*{payMin}"></span>
                     <span class="qf-inline__group">到 US$ <input id="sf-pay-max" type="text" inputmode="decimal" maxlength="24" placeholder="最高" aria-label="每年最高金額（美金）" data-amount th:field="*{payMax}"></span>
@@ -277,7 +277,6 @@
 
             <div class="qf-field">
                 <div class="qf-field__q">願意之後接受一次 20–30 分鐘的線上對話，多聊聊那一次的經驗嗎？</div>
-                <div class="qf-field__hint">隨時可以說不，也可以中途退出。</div>
                 <div class="qf-choices">
                     <label class="qf-choice"><input type="radio" th:field="*{interview}" value="yes">願意</label>
                     <label class="qf-choice"><input type="radio" th:field="*{interview}" value="no">不願意</label>
@@ -329,6 +328,6 @@
 </main>
 
 <footer th:replace="~{fragments/layout :: footer}"></footer>
-<script th:src="@{/js/qilinfish.js(v='20261025-pay5')}" src="/js/qilinfish.js"></script>
+<script th:src="@{/js/qilinfish.js(v='20261026-copy')}" src="/js/qilinfish.js"></script>
 </body>
 </html>

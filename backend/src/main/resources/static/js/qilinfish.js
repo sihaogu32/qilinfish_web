@@ -133,7 +133,7 @@
     if (filled.some(function (v) { return v.replace('.', '').length > 16; })) return '> 金額最多 16 位數。';
     if (!__field.hasAttribute('data-required')) return '';
     if (!filled.length) return '> 請填金額範圍，或選「不會付費」「不知道」。';
-    if (filled.length < vals.length) return '> 最低和最高都要填；只願付一個金額的話，兩格填一樣。';
+    if (filled.length < vals.length) return '> 最低和最高都要填；如果是固定金額，兩格填一樣。';
     if (vals.length > 1 && compareDecimal(vals[1], vals[0]) < 0) return '> 最高金額不可小於最低金額。';
     return '';
   }
