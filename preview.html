@@ -60,6 +60,8 @@ button{font-family:inherit;cursor:pointer;}
 .qf-title{font-size:clamp(32px,4vw,56px);line-height:1.08;letter-spacing:-.01em;font-weight:500;margin:18px 0 0;color:var(--fg-0);text-wrap:balance;}
 .qf-lede{margin-top:24px;max-width:640px;color:var(--fg-1);font-size:17px;line-height:1.65;text-wrap:pretty;}
 
+.is-typing .tw-char{opacity:0;}.is-typing .tw-char.is-on{opacity:1;}
+.tw-char.is-caret{position:relative;}.tw-char.is-caret::after{content:"▌";position:absolute;left:100%;top:0;font-weight:400;color:var(--accent);animation:caret 1s steps(1) infinite;}
 @keyframes caret{50%{opacity:0;}}
 
 .qf-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line);background:transparent;color:var(--fg-0);transition:all var(--t-fast);}
@@ -834,13 +836,13 @@ button{font-family:inherit;cursor:pointer;}
         <span class="ab-ai">示意畫面 · AI 生成</span>
         <div class="ab-hero__inner">
             <div class="qf-eyebrow">ABOUT // who we are</div>
-            <h1 class="ab-hero__title">美感是『普適模式』被『主觀經驗』解構後的殘餘。</h1>
+            <h1 class="ab-hero__title" data-typewriter>美感是『普適模式』被『主觀經驗』解構後的殘餘。</h1>
         </div>
     </header>
 
     <section class="ab-section" data-reveal>
         <div class="qf-eyebrow">WHAT</div>
-        <h2 class="ab-h2"><span style="display:inline-block"><span style="display:inline-block">我們幫使用 AI</span> <span style="display:inline-block">且要為此負責的人，</span></span><span style="display:inline-block"><span style="display:inline-block">在交出 AI 的產物之前，</span></span><span style="display:inline-block"><span style="display:inline-block">抓出監督盲區的未爆彈，</span></span><span style="display:inline-block"><span style="display:inline-block">而且不用</span><span style="display:inline-block">每一次每一條</span><span style="display:inline-block">都親自回到</span><span style="display:inline-block">原始出處核對。</span></span></h2>
+        <h2 class="ab-h2" data-typewriter><span style="display:inline-block"><span style="display:inline-block">我們幫使用 AI</span> <span style="display:inline-block">且要為此負責的人，</span></span><span style="display:inline-block"><span style="display:inline-block">在交出 AI 的產物之前，</span></span><span style="display:inline-block"><span style="display:inline-block">抓出監督盲區的未爆彈，</span></span><span style="display:inline-block"><span style="display:inline-block">而且不用</span><span style="display:inline-block">每一次每一條</span><span style="display:inline-block">都親自回到</span><span style="display:inline-block">原始出處核對。</span></span></h2>
     </section>
 
     <section class="ab-section ab-section--flush" data-reveal>
@@ -1538,29 +1540,46 @@ button{font-family:inherit;cursor:pointer;}
     nodes.forEach(function(n){ io.observe(n); });
   }
 
-  // ---- Typewriter ----
-  var typeTimer = null;
+  // ---- Typewriter: each [data-typewriter] types its own text once when it scrolls in ----
+  var twIo = null, twTimers = [];
+  function splitChars(__el){
+    if(__el._twChars) return __el._twChars;
+    var chars = [], texts = [];
+    var walker = document.createTreeWalker(__el, NodeFilter.SHOW_TEXT);
+    while(walker.nextNode()) texts.push(walker.currentNode);
+    texts.forEach(function(t){
+      var frag = document.createDocumentFragment();
+      Array.from(t.nodeValue).forEach(function(ch){
+        if(/\s/.test(ch)){ frag.appendChild(document.createTextNode(ch)); return; }
+        var span = document.createElement('span'); span.className = 'tw-char'; span.textContent = ch;
+        frag.appendChild(span); chars.push(span);
+      });
+      t.parentNode.replaceChild(frag, t);
+    });
+    return (__el._twChars = chars);
+  }
+  function typeOnce(__el){
+    var chars = splitChars(__el);
+    if(!chars.length) return;
+    chars.forEach(function(c){ c.classList.remove('is-on','is-caret'); });
+    __el.classList.add('is-typing');
+    var i = 0;
+    (function tick(){
+      if(i>0) chars[i-1].classList.remove('is-caret');
+      chars[i].classList.add('is-on','is-caret');
+      i++;
+      if(i<chars.length) twTimers.push(setTimeout(tick, 50 + Math.random()*50));
+    })();
+  }
   function runTypewriter(){
-    if(typeTimer){ clearTimeout(typeTimer); typeTimer = null; }
-    var el = document.querySelector('.is-active [data-typewriter]');
-    if(!el) return;
-    var phrases = (el.getAttribute('data-typewriter')||'').split('|').map(function(s){return s.trim();}).filter(Boolean);
-    if(!phrases.length) return;
-    var idx=0, mode='type', step=0;
-    function tick(){
-      var phrase = phrases[idx];
-      if(mode==='type'){
-        step++; el.textContent = phrase.slice(0,step);
-        if(step>=phrase.length){ mode='hold'; typeTimer=setTimeout(tick,2400); return; }
-        typeTimer=setTimeout(tick, 50 + Math.random()*50);
-      } else if(mode==='hold'){ mode='erase'; typeTimer=setTimeout(tick,0);
-      } else if(mode==='erase'){
-        step--; el.textContent = phrase.slice(0,step);
-        if(step<=0){ mode='type'; idx=(idx+1)%phrases.length; typeTimer=setTimeout(tick,400); return; }
-        typeTimer=setTimeout(tick,24);
-      }
-    }
-    tick();
+    twTimers.forEach(clearTimeout); twTimers = [];
+    if(twIo) twIo.disconnect();
+    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if(!('IntersectionObserver' in window)) return;
+    twIo = new IntersectionObserver(function(__entries){
+      __entries.forEach(function(e){ if(e.isIntersecting){ twIo.unobserve(e.target); typeOnce(e.target); } });
+    }, {threshold:.6});
+    document.querySelectorAll('.is-active [data-typewriter]').forEach(function(n){ twIo.observe(n); });
   }
 
   // ---- Contact form (front-end validation only in preview) ----

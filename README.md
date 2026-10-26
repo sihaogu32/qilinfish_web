@@ -69,7 +69,7 @@ backend/
 - 配色：`--bg-0:#0a0a0c` 主底；`--accent: oklch(0.58 0.12 252)` 藏青單色強調
 - 字型：Inter / Noto Sans TC（內文）+ JetBrains Mono（技術細節）
 - 風格：細線條格線、十字準星、終端機 prompt、單色 status pill
-- 互動：打字機 hero、滾動淡入 (IntersectionObserver)、聯絡表單前端驗證、中英 (`?lang=`) 切換、產品頁放大鏡開場、情境卡連到問卷並預選經驗（`/survey?pick=`）
+- 互動：打字機（關於頁的開場標題與 WHAT 那句，各打一次）、滾動淡入 (IntersectionObserver)、聯絡表單前端驗證、中英 (`?lang=`) 切換、產品頁放大鏡開場、情境卡連到問卷並預選經驗（`/survey?pick=`）
 
 ## 部署
 詳見 `DEPLOY.md` — Cloudflare Tunnel + Email Routing 的完整步驟。簡述：

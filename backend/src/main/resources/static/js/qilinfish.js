@@ -22,35 +22,54 @@
     nodes.forEach(function (n) { io.observe(n); });
   }
 
-  /** Typewriter loop driven by [data-typewriter] containing | -separated phrases. */
+  /** Wraps every visible character of __el in a .tw-char span, keeping the
+      element's own markup (phrase spans, spaces) so the line breaks stay put. */
+  function splitChars(__el) {
+    var chars = [];
+    var walker = document.createTreeWalker(__el, NodeFilter.SHOW_TEXT);
+    var texts = [];
+    while (walker.nextNode()) texts.push(walker.currentNode);
+    texts.forEach(function (t) {
+      var frag = document.createDocumentFragment();
+      Array.from(t.nodeValue).forEach(function (ch) {
+        if (/\s/.test(ch)) { frag.appendChild(document.createTextNode(ch)); return; }
+        var span = document.createElement('span');
+        span.className = 'tw-char';
+        span.textContent = ch;
+        frag.appendChild(span);
+        chars.push(span);
+      });
+      t.parentNode.replaceChild(frag, t);
+    });
+    return chars;
+  }
+
+  /** Types out a [data-typewriter] element's own text once, when it scrolls into view.
+      The text keeps its space while hidden, so nothing below it moves. */
+  function typeOnce(__el) {
+    var chars = splitChars(__el);
+    if (!chars.length) return;
+    __el.classList.add('is-typing');
+    var i = 0;
+    (function tick() {
+      if (i > 0) chars[i - 1].classList.remove('is-caret');
+      chars[i].classList.add('is-on', 'is-caret');
+      i++;
+      if (i < chars.length) setTimeout(tick, 50 + Math.random() * 50);
+    })();
+  }
+
   function initTypewriter() {
-    var el = document.querySelector('[data-typewriter]');
-    if (!el) return;
-    var phrases = (el.getAttribute('data-typewriter') || '').split('|').map(function (s) { return s.trim(); }).filter(Boolean);
-    if (!phrases.length) return;
-
-    var idx = 0, cur = '', mode = 'type', step = 0;
-
-    function tick() {
-      var phrase = phrases[idx];
-      if (mode === 'type') {
-        step++;
-        cur = phrase.slice(0, step);
-        el.textContent = cur;
-        if (step >= phrase.length) { mode = 'hold'; setTimeout(tick, 2400); return; }
-        setTimeout(tick, 50 + Math.random() * 50);
-      } else if (mode === 'hold') {
-        mode = 'erase';
-        setTimeout(tick, 0);
-      } else if (mode === 'erase') {
-        step--;
-        cur = phrase.slice(0, step);
-        el.textContent = cur;
-        if (step <= 0) { mode = 'type'; idx = (idx + 1) % phrases.length; setTimeout(tick, 400); return; }
-        setTimeout(tick, 24);
-      }
-    }
-    tick();
+    var nodes = document.querySelectorAll('[data-typewriter]');
+    if (!nodes.length) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (__entries) {
+      __entries.forEach(function (e) {
+        if (e.isIntersecting) { io.unobserve(e.target); typeOnce(e.target); }
+      });
+    }, { threshold: 0.6 });
+    nodes.forEach(function (n) { io.observe(n); });
   }
 
   /** Simple front-end form validation for the contact form. */

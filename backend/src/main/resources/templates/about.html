@@ -15,7 +15,7 @@
         <span class="ab-ai">示意畫面 · AI 生成</span>
         <div class="ab-hero__inner">
             <div class="qf-eyebrow" th:text="${vb.pageSubtitle}">ABOUT // who we are</div>
-            <h1 class="ab-hero__title" th:text="${vb.tagline}">tagline</h1>
+            <h1 class="ab-hero__title" data-typewriter th:text="${vb.tagline}">tagline</h1>
         </div>
     </header>
 
@@ -23,7 +23,7 @@
     <section class="ab-section" data-reveal>
         <div class="qf-eyebrow">WHAT</div>
         <!-- each clause / phrase is an inline-block, so a line never breaks inside a phrase like「而且不用」 -->
-        <h2 class="ab-h2"><span th:each="clause : ${vb.valueProposition}" style="display:inline-block"><th:block th:each="ph : ${clause}"><span style="display:inline-block" th:text="${#strings.trim(ph)}">我們幫使用 AI 且要為此負責的人，在交出 AI 的產物之前，抓出監督盲區的未爆彈，而且不用每一次每一條都親自回到原始出處核對。</span><th:block th:if="${#strings.endsWith(ph, ' ')}"> </th:block></th:block></span></h2>
+        <h2 class="ab-h2" data-typewriter><span th:each="clause : ${vb.valueProposition}" style="display:inline-block"><th:block th:each="ph : ${clause}"><span style="display:inline-block" th:text="${#strings.trim(ph)}">我們幫使用 AI 且要為此負責的人，在交出 AI 的產物之前，抓出監督盲區的未爆彈，而且不用每一次每一條都親自回到原始出處核對。</span><th:block th:if="${#strings.endsWith(ph, ' ')}"> </th:block></th:block></span></h2>
     </section>
 
     <!-- ---- why we do this ---- -->

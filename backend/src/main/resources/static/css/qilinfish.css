@@ -224,6 +224,17 @@ button { font-family: inherit; cursor: pointer; }
   text-wrap: pretty;
 }
 
+/* Typewriter: characters hold their place while hidden, a caret follows the last one */
+.is-typing .tw-char { opacity: 0; }
+.is-typing .tw-char.is-on { opacity: 1; }
+.tw-char.is-caret { position: relative; }
+.tw-char.is-caret::after {
+  content: "▌";
+  position: absolute; left: 100%; top: 0;
+  font-weight: 400;
+  color: var(--accent);
+  animation: caret 1s steps(1) infinite;
+}
 @keyframes caret { 50% { opacity: 0; } }
 
 /* ============================================================
