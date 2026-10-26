@@ -4,6 +4,51 @@
 (function () {
   'use strict';
 
+  /**
+   * Page text this script writes itself, in both languages. The page sets <html lang="en"> under /en
+   * (LangModelAdvice), so the language is read from there; anything else is Chinese.
+   * Amount messages must say the same as i18n/survey*.properties, which SurveyController shows after a POST.
+   */
+  var TEXT = {
+    zh: {
+      contactError: '> error: 請檢查必填欄位 / please review the highlighted fields',
+      amountInvalid: '> 金額只能填數字（不加幣別），例如 500 或 1,200.5。',
+      amountTooLong: '> 金額最多 16 位數。',
+      payRequired: '> 請填金額範圍，或選「不會付費」「不知道」。',
+      payPartial: '> 最低和最高都要填；如果是固定金額，兩格填一樣。',
+      payRange: '> 最高金額不可小於最低金額。',
+      surveyError: '> 還有必填的題目沒填，請看標紅的地方。',
+      picked: '● 已選',
+      pick: '選這個',
+      partVerify: '最近一次，您確認 AI 產出的那一次',
+      partExplain: '最近一次，有人問您「這是怎麼來的」',
+      partInventory: '最近一次，您需要弄清楚舊系統的那一次',
+      partOther: '最近一次，您需要處理的那一件事',
+      partNone: '如果都沒遇過，也請告訴我們',
+      countUnit: ' 字',
+      countHint: ' · 幾句話就好'
+    },
+    en: {
+      contactError: '> error: please review the highlighted fields',
+      amountInvalid: '> Amounts must be numbers only (no currency), e.g. 500 or 1,200.5.',
+      amountTooLong: '> Amounts can have at most 16 digits.',
+      payRequired: '> Please fill in a range, or pick "Would not pay" or "Don\'t know".',
+      payPartial: '> Both minimum and maximum are needed; for a fixed amount, fill in the same number in both.',
+      payRange: '> The maximum cannot be less than the minimum.',
+      surveyError: '> Some required questions are still unanswered. Please check the ones marked in red.',
+      picked: '● Picked',
+      pick: 'Pick this',
+      partVerify: 'The last time you checked AI output',
+      partExplain: 'The last time someone asked you "where did this come from?"',
+      partInventory: 'The last time you had to work out a legacy system',
+      partOther: 'The last time you had to deal with one of these',
+      partNone: 'If it never happened to you, please tell us too',
+      countUnit: ' characters',
+      countHint: ' · a few sentences is enough'
+    }
+  };
+  var T = TEXT[(document.documentElement.lang || '').slice(0, 2) === 'en' ? 'en' : 'zh'];
+
   /** Reveal-on-scroll for elements tagged with [data-reveal]. */
   function initReveal() {
     var nodes = document.querySelectorAll('[data-reveal]');
@@ -50,12 +95,15 @@
     var chars = splitChars(__el);
     if (!chars.length) return;
     __el.classList.add('is-typing');
+    // 50–100 ms a character; text longer than 62 characters (the Chinese WHAT sentence) types faster, so English
+    // takes about as long as Chinese
+    var step = Math.min(50, 3100 / chars.length);
     var i = 0;
     (function tick() {
       if (i > 0) chars[i - 1].classList.remove('is-caret');
       chars[i].classList.add('is-on', 'is-caret');
       i++;
-      if (i < chars.length) setTimeout(tick, 50 + Math.random() * 50);
+      if (i < chars.length) setTimeout(tick, step + Math.random() * step);
     })();
   }
 
@@ -94,20 +142,17 @@
         e.preventDefault();
         if (statusEl) {
           statusEl.className = 'qf-form-status err';
-          statusEl.textContent = '> error: 請檢查必填欄位 / please review the highlighted fields';
+          statusEl.textContent = T.contactError;
         }
       }
     });
   }
 
-  /** Lang switcher — rewrites ?lang= on the URL and reloads. */
+  /** Lang switcher — the links already point at the other language; remember the pick so "/" opens it next time. */
   function initLangSwitcher() {
-    document.querySelectorAll('[data-lang]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var l = btn.getAttribute('data-lang');
-        var u = new URL(window.location.href);
-        u.searchParams.set('lang', l);
-        window.location.href = u.toString();
+    document.querySelectorAll('[data-lang]').forEach(function (link) {
+      link.addEventListener('click', function () {
+        document.cookie = 'qf_lang=' + link.getAttribute('data-lang') + '; path=/; max-age=31536000; samesite=lax';
       });
     });
   }
@@ -130,13 +175,13 @@
     if (__field.querySelector('input[type="radio"]:checked')) return '';
     var vals = Array.prototype.map.call(__field.querySelectorAll('[data-amount]'), function (b) { return plainAmount(b.value); });
     var filled = vals.filter(Boolean);
-    if (filled.some(function (v) { return !/^\d+(\.\d+)?$/.test(v); })) return '> 金額只能填數字（不加幣別），例如 500 或 1,200.5。';
+    if (filled.some(function (v) { return !/^\d+(\.\d+)?$/.test(v); })) return T.amountInvalid;
     // the limit counts digits only, so commas never push an amount over it
-    if (filled.some(function (v) { return v.replace('.', '').length > 16; })) return '> 金額最多 16 位數。';
+    if (filled.some(function (v) { return v.replace('.', '').length > 16; })) return T.amountTooLong;
     if (!__field.hasAttribute('data-required')) return '';
-    if (!filled.length) return '> 請填金額範圍，或選「不會付費」「不知道」。';
-    if (filled.length < vals.length) return '> 最低和最高都要填；如果是固定金額，兩格填一樣。';
-    if (vals.length > 1 && compareDecimal(vals[1], vals[0]) < 0) return '> 最高金額不可小於最低金額。';
+    if (!filled.length) return T.payRequired;
+    if (filled.length < vals.length) return T.payPartial;
+    if (vals.length > 1 && compareDecimal(vals[1], vals[0]) < 0) return T.payRange;
     return '';
   }
 
@@ -266,7 +311,7 @@
         e.preventDefault();
         if (statusEl) {
           statusEl.className = 'qf-form-status err';
-          statusEl.textContent = '> 還有必填的題目沒填，請看標紅的地方。';
+          statusEl.textContent = T.surveyError;
         }
         var first = form.querySelector('.qf-field.is-invalid');
         if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -365,11 +410,11 @@
     var form = document.querySelector('[data-survey-form]');
     if (!form) return;
     var art = {
-      verify:    { img: 'bp_desk.jpg',      title: '最近一次，您確認 AI 產出的那一次' },
-      explain:   { img: 'bp_chain.jpg',     title: '最近一次，有人問您「這是怎麼來的」' },
-      inventory: { img: 'bp_mainframe.jpg', title: '最近一次，您需要弄清楚舊系統的那一次' },
-      other:     { img: 'bp_desk.jpg',      title: '最近一次，您需要處理的那一件事' },
-      none:      { img: 'bp_desk.jpg',      title: '如果都沒遇過，也請告訴我們' }
+      verify:    { img: 'bp_desk.jpg',      title: T.partVerify },
+      explain:   { img: 'bp_chain.jpg',     title: T.partExplain },
+      inventory: { img: 'bp_mainframe.jpg', title: T.partInventory },
+      other:     { img: 'bp_desk.jpg',      title: T.partOther },
+      none:      { img: 'bp_desk.jpg',      title: T.partNone }
     };
     var partImg = form.querySelector('[data-sv-part-img]');
     var partTitle = form.querySelector('[data-sv-part-title]');
@@ -385,7 +430,7 @@
         var on = p.getAttribute('data-sv-pick') === v;
         if (p.hasAttribute('aria-pressed')) p.setAttribute('aria-pressed', on ? 'true' : 'false');
         var st = p.querySelector('.st');
-        if (st) st.textContent = on ? '● 已選' : '選這個';
+        if (st) st.textContent = on ? T.picked : T.pick;
       });
       var shown = art[v] || partDefault;
       if (shown && partImg) {
@@ -474,7 +519,7 @@
       if (!out) return;
       function sync() {
         var n = t.value.replace(/\s/g, '').length;
-        out.textContent = n + ' 字' + (n < 20 ? ' · 幾句話就好' : '');
+        out.textContent = n + T.countUnit + (n < 20 ? T.countHint : '');
       }
       t.addEventListener('input', sync);
       sync();

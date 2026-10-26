@@ -141,20 +141,20 @@ button { font-family: inherit; cursor: pointer; }
   font-family: var(--font-mono);
   font-size: 11px;
 }
-.qf-nav__lang button {
+.qf-nav__menu .qf-nav__lang a {
   background: transparent;
   color: var(--fg-2);
   border: none;
   padding: 6px 10px;
+  font-size: 11px;
   letter-spacing: 0.1em;
 }
-.qf-nav__lang button.is-active {
+.qf-nav__menu .qf-nav__lang a:hover {
+  color: var(--fg-0);
+}
+.qf-nav__menu .qf-nav__lang a.is-active {
   background: var(--accent);
   color: #06060a;
-}
-.qf-nav__lang button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
 }
 @media (max-width: 640px) {
   .qf-nav { padding: 12px 16px; }

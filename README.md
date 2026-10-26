@@ -14,9 +14,13 @@ backend/
 ├── pom.xml
 ├── src/main/java/com/qilinfish/website/
 │   ├── QilinfishWebsiteApplication.java
-│   ├── config/WebConfig.java                       # i18n + locale interceptor
+│   ├── config/                                     # 中英文：/en/... 是英文，其餘是中文
+│   │   ├── WebConfig.java                          # 每頁一組語系檔、語言由網址決定
+│   │   ├── LangPathFilter.java                     # 拿掉 /en 再轉給同一個 Controller
+│   │   ├── LangLocaleResolver.java
+│   │   └── LangModelAdvice.java                    # 每頁都有的 lp（連結前綴）、htmlLang、zhUrl / enUrl
 │   ├── controller/                                 # Controller 層
-│   │   ├── HomeController.java                     # 沒有獨立首頁：/ 導到 /about
+│   │   ├── HomeController.java                     # 沒有獨立首頁：/ 依切換鍵記住的語言或瀏覽器語言，導到 /about 或 /en/about
 │   │   ├── AboutController.java
 │   │   ├── ProductsController.java
 │   │   ├── CasesController.java
@@ -43,7 +47,7 @@ backend/
 │       └── BlogViewBinder.java
 └── src/main/resources/
     ├── application.yml                             # DB 連接埠保留 (3306)，autoconfig 已停用
-    ├── i18n/                                       # 中英 messages
+    ├── i18n/                                       # 每頁一組：<頁>.properties 中文、<頁>_en.properties 英文
     ├── static/css/qilinfish.css
     ├── static/js/qilinfish.js
     ├── static/media/                               # 頁面用的圖與短片（AI 生成的示意畫面）
@@ -69,7 +73,7 @@ backend/
 - 配色：`--bg-0:#0a0a0c` 主底；`--accent: oklch(0.58 0.12 252)` 藏青單色強調
 - 字型：Inter / Noto Sans TC（內文）+ JetBrains Mono（技術細節）
 - 風格：細線條格線、十字準星、終端機 prompt、單色 status pill
-- 互動：打字機（關於頁的開場標題與 WHAT 那句，各打一次）、滾動淡入 (IntersectionObserver)、聯絡表單前端驗證、中英 (`?lang=`) 切換、產品頁放大鏡開場、情境卡連到問卷並預選經驗（`/survey?pick=`）
+- 互動：打字機（關於頁的開場標題與 WHAT 那句，各打一次）、滾動淡入 (IntersectionObserver)、聯絡表單前端驗證、中英切換（英文在 `/en/...`，切換時記在 cookie `qf_lang`；新頁面或文章要中英文一起上線）、產品頁放大鏡開場、情境卡連到問卷並預選經驗（`/survey?pick=`）
 
 ## 部署
 詳見 `DEPLOY.md` — Cloudflare Tunnel + Email Routing 的完整步驟。簡述：
@@ -87,6 +91,7 @@ Repo：<https://github.com/sihaogu32/qilinfish_web>
 
 ## 問卷資料
 `/survey` 的答案不寄信，存在容器裡的 SQLite 檔 `/data/survey.db`（compose 的 `qilinfish-data` volume，重建容器不會不見）。一份答案一列。
+英文頁 `/en/survey` 的答案存在同一張表：選擇題一律存中文字，`lang` 欄標 `zh` 或 `en`，開放題照填寫者寫的語言存。
 
 在跑 `docker compose` 的那台機器上，把檔案複製出來：
 

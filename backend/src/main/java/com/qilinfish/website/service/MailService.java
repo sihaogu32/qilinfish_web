@@ -44,11 +44,12 @@ public class MailService {
 
     /**
      * Send a contact-form submission as a notification email.
+     * __lang is the language page it was sent from ("en" or "zh"), shown in the body.
      * Returns true on success, false on any failure (logged).
      */
-    public boolean sendContactNotification(ContactFormModel __form) {
+    public boolean sendContactNotification(ContactFormModel __form, String __lang) {
         if (!mailEnabled) {
-            log.info("Mail disabled — skipping contact notification from {}", __form.getEmail());
+            log.info("Mail disabled — skipping contact notification from {} (lang {})", __form.getEmail(), __lang);
             return true;
         }
         try {
@@ -57,7 +58,7 @@ public class MailService {
             msg.setTo(toAddress);
             msg.setReplyTo(__form.getEmail());
             msg.setSubject(buildSubject(__form));
-            msg.setText(buildBody(__form));
+            msg.setText(buildBody(__form, __lang));
             mailSender.send(msg);
             return true;
         } catch (Exception ex) {
@@ -74,12 +75,13 @@ public class MailService {
         return "[qilinfish.com] " + subj + " — from " + __form.getName();
     }
 
-    private String buildBody(ContactFormModel __form) {
+    private String buildBody(ContactFormModel __form, String __lang) {
         return "// New contact-form submission\n"
              + "==============================\n"
              + "Name    : " + __form.getName()    + "\n"
              + "Email   : " + __form.getEmail()   + "\n"
              + "Subject : " + (__form.getSubject() == null ? "" : __form.getSubject()) + "\n"
+             + "Lang    : " + __lang + "\n"
              + "------------------------------\n"
              + __form.getMessage() + "\n"
              + "==============================\n"

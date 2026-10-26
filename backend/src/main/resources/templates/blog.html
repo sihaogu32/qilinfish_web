@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('文章')}"></head>
+<html th:lang="${htmlLang}" lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(#{blog.title})}"></head>
 <body>
 <div th:replace="~{fragments/layout :: background}"></div>
 <nav th:replace="~{fragments/layout :: navbar('blog')}"></nav>
 
 <main class="qf-page">
     <section class="sv-section">
-        <div class="sv-eb" th:text="${vb.pageSubtitle}">NOTES // what we have been reading</div>
-        <h1 class="pd-h2" th:text="${vb.pageTitle}">文章</h1>
+        <div class="sv-eb" th:text="#{blog.subtitle}">NOTES // what we have been reading</div>
+        <h1 class="pd-h2" th:text="#{blog.title}">文章</h1>
         <div class="bl-list">
-            <a class="bl-card" th:each="p : ${vb.posts}" th:href="@{'/blog/' + ${p.slug}}" href="/blog/shadow-ai">
+            <a class="bl-card" th:each="p : ${vb.posts}" th:href="${lp + '/blog/' + p.slug}" href="/blog/shadow-ai">
                 <div class="bl-card__img"><div th:replace="~{fragments/blog :: cover(${vb}, ${p})}"></div></div>
                 <div class="bl-card__tx">
                     <time class="bl-date" th:datetime="${p.date}" th:text="${p.date}">2026-10-26</time>
-                    <b th:text="${p.title}">Shadow AI：公司不知道的 AI 使用</b>
-                    <span class="s" th:text="${p.summary}">摘要</span>
-                    <span class="pd-scene__go">閱讀全文 <span class="arr">→</span></span>
+                    <b th:text="${vb.titleOf(p)}">Shadow AI：公司不知道的 AI 使用</b>
+                    <span class="s" th:text="${vb.summaryOf(p)}">摘要</span>
+                    <span class="pd-scene__go">[[#{blog.readMore}]] <span class="arr">→</span></span>
                 </div>
             </a>
         </div>

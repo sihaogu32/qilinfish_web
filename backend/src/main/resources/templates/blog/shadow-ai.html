@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head(${vb.post.title})}"></head>
+<html th:lang="${htmlLang}" lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${vb.titleOf(vb.post)})}"></head>
 <body>
 <div th:replace="~{fragments/layout :: background}"></div>
 <nav th:replace="~{fragments/layout :: navbar('blog')}"></nav>
@@ -92,7 +92,7 @@
 
             <div class="pd-stage bl-invite">
                 <p>您的公司有沒有發生過「事後才知道有人用了 AI」的事？我們正在整理實際的經驗，想聽聽您遇過的情況。</p>
-                <a class="qf-btn qf-btn--primary" th:href="@{/survey}" href="/survey">填寫問卷 <span class="arr">→</span></a>
+                <a class="qf-btn qf-btn--primary" th:href="${lp + '/survey'}" href="/survey">填寫問卷 <span class="arr">→</span></a>
             </div>
 
             <h2 id="refs">參考資料</h2>

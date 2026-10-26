@@ -1,31 +1,33 @@
 <!DOCTYPE html>
-<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<html th:lang="${htmlLang}" lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${title} + ' — 麒麟魚 Qilinfish Studio'">麒麟魚 Qilinfish Studio</title>
+    <title th:text="${title} + ' — ' + #{site.name}">麒麟魚 Qilinfish Studio</title>
+    <link rel="alternate" hreflang="zh-Hant-TW" th:href="${zhUrl}">
+    <link rel="alternate" hreflang="en" th:href="${enUrl}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/qilinfish.css(v='20261026-blog')}" href="/css/qilinfish.css?v=20261026-blog">
+    <link rel="stylesheet" th:href="@{/css/qilinfish.css(v='20261026-en')}" href="/css/qilinfish.css?v=20261026-en">
 </head>
 <body>
 
 <!-- Top navigation fragment -->
 <nav th:fragment="navbar(active)" class="qf-nav">
-    <a href="/about" class="qf-nav__brand">
+    <a th:href="${lp + '/about'}" href="/about" class="qf-nav__brand">
         <span class="dot"></span>
         <span class="ch">麒麟魚</span>
         <span class="en">QILINFISH//STUDIO</span>
     </a>
     <div class="qf-nav__menu">
-        <a href="/about"     th:classappend="${active == 'about'}     ? 'is-active' : ''">關於我們</a>
-        <a href="/products"  th:classappend="${active == 'products'}  ? 'is-active' : ''">產品方案</a>
-        <a href="/blog"      th:classappend="${active == 'blog'}      ? 'is-active' : ''">文章</a>
-        <a href="/survey"    th:classappend="${active == 'survey'}    ? 'is-active' : ''">填寫問卷</a>
+        <a th:href="${lp + '/about'}"    href="/about"    th:classappend="${active == 'about'}     ? 'is-active' : ''" th:text="#{nav.about}">關於我們</a>
+        <a th:href="${lp + '/products'}" href="/products" th:classappend="${active == 'products'}  ? 'is-active' : ''" th:text="#{nav.products}">產品方案</a>
+        <a th:href="${lp + '/blog'}"     href="/blog"     th:classappend="${active == 'blog'}      ? 'is-active' : ''" th:text="#{nav.blog}">文章</a>
+        <a th:href="${lp + '/survey'}"   href="/survey"   th:classappend="${active == 'survey'}    ? 'is-active' : ''" th:text="#{nav.survey}">填寫問卷</a>
         <span class="qf-nav__lang">
-            <button data-lang="zh_TW" class="is-active" disabled>ZH</button>
-            <button data-lang="en" disabled>EN</button>
+            <a data-lang="zh" th:href="${zhUrl}" href="#" th:classappend="${isEn} ? '' : 'is-active'" hreflang="zh-Hant-TW">ZH</a>
+            <a data-lang="en" th:href="${enUrl}" href="#" th:classappend="${isEn} ? 'is-active' : ''" hreflang="en">EN</a>
         </span>
     </div>
 </nav>

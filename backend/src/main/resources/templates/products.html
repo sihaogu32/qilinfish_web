@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('產品方案')}"></head>
+<html th:lang="${htmlLang}" lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(#{products.title})}"></head>
 <body>
 <div th:replace="~{fragments/layout :: background}"></div>
 <nav th:replace="~{fragments/layout :: navbar('products')}"></nav>
@@ -10,7 +10,7 @@
     <!-- ---- opening: a lens drifts over a clean report; only inside it do the errors show ---- -->
     <section class="pd-open"><div class="pd-frame">
         <div class="pd-lens" data-pd-lens>
-            <img class="pd-lens__base" th:src="@{/media/report_clean.jpg}" src="/media/report_clean.jpg" alt="深夜書桌上一份排版完美的報告">
+            <img class="pd-lens__base" th:src="@{/media/report_clean.jpg}" src="/media/report_clean.jpg" th:alt="#{products.hero.alt}" alt="深夜書桌上一份排版完美的報告">
             <div class="pd-lens__glass" aria-hidden="true"><div class="pd-lens__mag">
                 <img th:src="@{/media/report_clean.jpg}" src="/media/report_clean.jpg" alt="">
                 <svg viewBox="0 0 1100 613" preserveAspectRatio="none">
@@ -30,7 +30,7 @@
                 </svg>
             </div></div>
             <div class="pd-lens__ring" aria-hidden="true"></div>
-            <span class="pd-ai">示意畫面 · AI 生成</span>
+            <span class="pd-ai" th:text="#{products.ai}">示意畫面 · AI 生成</span>
         </div>
         <!-- over the picture's bottom edge on wide screens, below it on phones -->
         <div class="pd-lens__t">
@@ -41,30 +41,30 @@
 
     <!-- ---- scenarios: each card opens the survey with its first step already picked ---- -->
     <section class="sv-section">
-        <h2 class="pd-h2">您是不是也遇過這些時候？</h2>
+        <h2 class="pd-h2" th:text="#{products.scenes.title}">您是不是也遇過這些時候？</h2>
         <div class="pd-scenes">
-            <a class="pd-scene" th:each="s : ${vb.scenarios}" th:href="@{/survey(pick=${s.pick})}" href="/survey?pick=verify">
+            <a class="pd-scene" th:each="s : ${vb.scenarios}" th:href="${lp + '/survey?pick=' + s.pick}" href="/survey?pick=verify">
                 <span class="pd-scene__img"><video th:src="@{'/media/' + ${s.media} + '.mp4'}" src="/media/scene_brief.mp4"
                        th:poster="@{'/media/' + ${s.media} + '.jpg'}" poster="/media/scene_brief.jpg"
                        muted loop playsinline preload="none" data-sv-play aria-hidden="true"></video></span>
                 <span class="pd-scene__tx">
                     <b th:text="${s.title}">交出 AI 協助寫的書狀或報告之前</b>
-                    <span class="pd-scene__go">說說您那一次 <span class="arr">→</span></span>
+                    <span class="pd-scene__go"><th:block th:text="#{products.cta}">說說您那一次</th:block> <span class="arr">→</span></span>
                 </span>
             </a>
         </div>
-        <p class="pd-note">照片為示意畫面，由 AI 生成。</p>
+        <p class="pd-note" th:text="#{products.note}">照片為示意畫面，由 AI 生成。</p>
     </section>
 
     <!-- ---- where the product stands ---- -->
     <section class="sv-section sv-section--flush">
         <div class="pd-stage">
-            <p>這個產品還在打磨，還沒開放使用。我們想先聽您最近一次查核 AI 產出的經驗，您的回答會決定我們先做哪一部分。</p>
-            <a class="qf-btn qf-btn--primary" th:href="@{/survey}" href="/survey">說說您那一次 <span class="arr">→</span></a>
+            <p th:text="#{products.stage}">這個產品還在打磨，還沒開放使用。我們想先聽您最近一次查核 AI 產出的經驗，您的回答會決定我們先做哪一部分。</p>
+            <a class="qf-btn qf-btn--primary" th:href="${lp + '/survey'}" href="/survey"><th:block th:text="#{products.cta}">說說您那一次</th:block> <span class="arr">→</span></a>
         </div>
     </section>
 
-    <p class="pd-also">也接 Web 開發與專案設計 → <a th:href="@{/contact}" href="/contact">聯絡我們</a></p>
+    <p class="pd-also"><th:block th:text="#{products.also}">也接 Web 開發與專案設計 →</th:block> <a th:href="${lp + '/contact'}" href="/contact" th:text="#{products.also.link}">聯絡我們</a></p>
 </main>
 
 <footer th:replace="~{fragments/layout :: footer}"></footer>

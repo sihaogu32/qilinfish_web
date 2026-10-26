@@ -43,14 +43,15 @@ public class SurveyRepository {
       + " tried_other TEXT, hardest_step TEXT,"
       + " why_not_needed TEXT,"
       + " message TEXT,"
-      + " pay_min TEXT, pay_max TEXT, pay_option TEXT)";
+      + " pay_min TEXT, pay_max TEXT, pay_option TEXT,"
+      + " lang TEXT)";
 
     private static final String INSERT =
         "INSERT INTO survey (created_at, name, company, contact, role, role_other, org_size,"
       + " situation, occurred_when, what_happened, steps, outcome, hours, people, extra_spend,"
       + " worst_case, tried_other, hardest_step, why_not_needed, message,"
-      + " pay_min, pay_max, pay_option)"
-      + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      + " pay_min, pay_max, pay_option, lang)"
+      + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private final String dbPath;
 
@@ -61,8 +62,10 @@ public class SurveyRepository {
     /**
      * Save one submission. Returns true on success, false on any failure (logged).
      * Synchronized: SQLite allows one writer at a time, and traffic here is tiny.
+     * __lang is the page language the respondent answered in ("zh" or "en"); choice values are
+     * stored as the same Chinese strings in both languages, so rows can be filtered together.
      */
-    public synchronized boolean saveSurvey(SurveyFormModel __form) {
+    public synchronized boolean saveSurvey(SurveyFormModel __form, String __lang) {
         try {
             Path parent = Path.of(dbPath).toAbsolutePath().getParent();
             if (parent != null) {
@@ -101,6 +104,7 @@ public class SurveyRepository {
                     ps.setString(i++, payOption == null ? SurveyFormModel.normalizeUsd(__form.getPayMin()) : null);
                     ps.setString(i++, payOption == null ? SurveyFormModel.normalizeUsd(__form.getPayMax()) : null);
                     ps.setString(i++, payOption);
+                    ps.setString(i++, __lang);
                     ps.executeUpdate();
                 }
             }

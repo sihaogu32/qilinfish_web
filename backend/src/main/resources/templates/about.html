@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('關於我們')}"></head>
+<html th:lang="${htmlLang}" lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(#{about.title})}"></head>
 <body>
 <div th:replace="~{fragments/layout :: background}"></div>
 <nav th:replace="~{fragments/layout :: navbar('about')}"></nav>
@@ -12,7 +12,7 @@
         <video class="ab-hero__video" th:src="@{/media/about_crystal.mp4}" src="/media/about_crystal.mp4"
                th:poster="@{/media/about_crystal.jpg}" poster="/media/about_crystal.jpg"
                autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
-        <span class="ab-ai">示意畫面 · AI 生成</span>
+        <span class="ab-ai" th:text="#{about.ai}">示意畫面 · AI 生成</span>
         <div class="ab-hero__inner">
             <div class="qf-eyebrow" th:text="${vb.pageSubtitle}">ABOUT // who we are</div>
             <h1 class="ab-hero__title" data-typewriter th:text="${vb.tagline}">tagline</h1>
@@ -21,15 +21,15 @@
 
     <!-- ---- what we do ---- -->
     <section class="ab-section" data-reveal>
-        <div class="qf-eyebrow">WHAT</div>
-        <!-- each clause / phrase is an inline-block, so a line never breaks inside a phrase like「而且不用」 -->
+        <div class="qf-eyebrow" th:text="#{about.what.eyebrow}">WHAT</div>
+        <!--/* each clause / phrase is an inline-block, so a line never breaks inside a phrase like「而且不用」 */-->
         <h2 class="ab-h2" data-typewriter><span th:each="clause : ${vb.valueProposition}" style="display:inline-block"><th:block th:each="ph : ${clause}"><span style="display:inline-block" th:text="${#strings.trim(ph)}">我們幫使用 AI 且要為此負責的人，在交出 AI 的產物之前，抓出監督盲區的未爆彈，而且不用每一次每一條都親自回到原始出處核對。</span><th:block th:if="${#strings.endsWith(ph, ' ')}"> </th:block></th:block></span></h2>
     </section>
 
     <!-- ---- why we do this ---- -->
     <section class="ab-section ab-section--flush" data-reveal>
-        <div class="qf-eyebrow">WHY</div>
-        <h2 class="ab-h2">為什麼做這件事</h2>
+        <div class="qf-eyebrow" th:text="#{about.why.eyebrow}">WHY</div>
+        <h2 class="ab-h2" th:text="#{about.why.title}">為什麼做這件事</h2>
         <div class="ab-story">
             <p th:each="para : ${vb.story}" th:text="${para}">段落</p>
         </div>
@@ -37,8 +37,8 @@
 
     <!-- ---- how we think ---- -->
     <section class="ab-section ab-section--flush" data-reveal>
-        <div class="qf-eyebrow">WAY // 工程觀點</div>
-        <h2 class="ab-h2">我們怎麼想事情</h2>
+        <div class="qf-eyebrow" th:text="#{about.way.eyebrow}">WAY // 工程觀點</div>
+        <h2 class="ab-h2" th:text="#{about.way.title}">我們怎麼想事情</h2>
         <ol class="ab-way">
             <li th:each="ph, it : ${vb.philosophy}">
                 <span class="n" th:text="${#numbers.formatInteger(it.count, 2)}">01</span>
@@ -49,8 +49,8 @@
 
     <!-- ---- next step ---- -->
     <section class="ab-section ab-section--flush ab-next" data-reveal>
-        <a class="qf-btn qf-btn--primary" href="/survey">說說您那一次 <span class="arr">→</span></a>
-        <a class="ab-also" href="/contact">也接 Web 開發與專案設計 → 聯絡我們</a>
+        <a class="qf-btn qf-btn--primary" th:href="${lp + '/survey'}" href="/survey"><th:block th:text="#{about.cta}">說說您那一次</th:block> <span class="arr">→</span></a>
+        <a class="ab-also" th:href="${lp + '/contact'}" href="/contact" th:text="#{about.also}">也接 Web 開發與專案設計 → 聯絡我們</a>
     </section>
 </main>
 

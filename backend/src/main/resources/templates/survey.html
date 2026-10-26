@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('填寫問卷')}"></head>
+<html th:lang="${htmlLang}" lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(#{page.title})}"></head>
 <body>
 <div th:replace="~{fragments/layout :: background}"></div>
 <nav th:replace="~{fragments/layout :: navbar('survey')}"></nav>
@@ -14,302 +14,302 @@
                autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
         <span class="sv-corner tl"></span><span class="sv-corner tr"></span>
         <div class="sv-hero__inner">
-            <div class="sv-rec"><span><span class="sv-rec__dot">●</span> REC</span><span>2023-06-22 · 紐約聯邦法院</span><span class="warn">6 個判例不存在</span></div>
-            <h1 class="sv-hero__title">這些事，都是交出去之後，<em>才被別人發現的。</em></h1>
-            <p class="sv-hero__sub">律師、顧問、客服、工程師，都碰過 AI 給的東西「幾乎對」。我們想聽您最近一次：您是怎麼決定它能交出去的？</p>
-            <a class="qf-btn qf-btn--primary sv-cta" href="#sv-choose">說說您那一次 <span class="arr">↓</span></a>
-            <div class="sv-meta"><span>TIME / <b>約 7 分鐘</b></span><span>PRIVACY / <b>不公開名字與公司</b></span><span>YOU GET / <b>彙整報告</b></span></div>
+            <div class="sv-rec"><span><span class="sv-rec__dot">●</span> REC</span><span th:text="#{hero.rec.where}">2023-06-22 · 紐約聯邦法院</span><span class="warn" th:text="#{hero.rec.warn}">6 個判例不存在</span></div>
+            <h1 class="sv-hero__title" th:utext="#{hero.title}">這些事，都是交出去之後，<em>才被別人發現的。</em></h1>
+            <p class="sv-hero__sub" th:text="#{hero.sub}">律師、顧問、客服、工程師，都碰過 AI 給的東西「幾乎對」。我們想聽您最近一次：您是怎麼決定它能交出去的？</p>
+            <a class="qf-btn qf-btn--primary sv-cta" href="#sv-choose" th:utext="#{hero.cta}">說說您那一次 <span class="arr">↓</span></a>
+            <div class="sv-meta"><span th:utext="#{hero.meta.time}">TIME / <b>約 7 分鐘</b></span><span th:utext="#{hero.meta.privacy}">PRIVACY / <b>不公開名字與公司</b></span><span th:utext="#{hero.meta.get}">YOU GET / <b>彙整報告</b></span></div>
         </div>
-        <span class="sv-ai">示意畫面 · AI 生成</span>
+        <span class="sv-ai" th:text="#{hero.ai}">示意畫面 · AI 生成</span>
     </header>
 
     <!-- ---- numbers ---- -->
     <section class="sv-section">
-        <div class="sv-eb">fig.1 · 已經被記下來的</div>
+        <div class="sv-eb" th:text="#{fig1.eb}">fig.1 · 已經被記下來的</div>
         <div class="sv-dots">
-            <canvas data-sv-dots width="1400" height="560" aria-label="2,207 個點，每一點是一件法院紀錄裡的 AI 捏造引用"></canvas>
+            <canvas data-sv-dots width="1400" height="560" th:aria-label="#{fig1.aria}" aria-label="2,207 個點，每一點是一件法院紀錄裡的 AI 捏造引用"></canvas>
             <div class="sv-dots__over">
                 <b data-sv-count>2,207</b>
-                <span>每一個點，是一件法院紀錄裡的 AI 捏造引用。發現錯誤的，幾乎都是對造律師或法官。</span>
-                <span class="sv-src">AI HALLUCINATION CASES DATABASE · D. CHARLOTIN · 截至 2026-10-23</span>
+                <span th:text="#{fig1.text}">每一個點，是一件法院紀錄裡的 AI 捏造引用。發現錯誤的，幾乎都是對造律師或法官。</span>
+                <span class="sv-src" th:text="#{fig1.src}">AI HALLUCINATION CASES DATABASE · D. CHARLOTIN · 截至 2026-10-23</span>
             </div>
         </div>
         <div class="sv-two" data-sv-grow>
             <div class="sv-panel">
-                <div class="sv-eb">fig.2 · 不信任，但沒有每次檢查</div>
-                <div class="sv-bar"><div class="sv-bar__l"><span>不完全信任 AI 產出</span><b>96%</b></div><div class="sv-bar__t"><i class="g" style="--w:96%"></i></div></div>
-                <div class="sv-bar"><div class="sv-bar__l"><span>每次提交前都檢查</span><b>48%</b></div><div class="sv-bar__t"><i style="--w:48%"></i></div></div>
-                <span class="sv-gapq">中間這 48 個百分點，靠什麼決定能交出去？</span>
-                <span class="sv-src">SONAR 2026 · 1,100+ 位開發者 · 廠商調查</span>
+                <div class="sv-eb" th:text="#{fig2.eb}">fig.2 · 不信任，但沒有每次檢查</div>
+                <div class="sv-bar"><div class="sv-bar__l"><span th:text="#{fig2.bar1}">不完全信任 AI 產出</span><b>96%</b></div><div class="sv-bar__t"><i class="g" style="--w:96%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span th:text="#{fig2.bar2}">每次提交前都檢查</span><b>48%</b></div><div class="sv-bar__t"><i style="--w:48%"></i></div></div>
+                <span class="sv-gapq" th:text="#{fig2.gap}">中間這 48 個百分點，靠什麼決定能交出去？</span>
+                <span class="sv-src" th:text="#{fig2.src}">SONAR 2026 · 1,100+ 位開發者 · 廠商調查</span>
             </div>
             <div class="sv-panel sv-scale">
-                <div class="sv-eb">fig.3 · 被發現之後的代價</div>
-                <svg viewBox="0 0 540 150" role="img" aria-label="金額對數尺：航空客服 CA$812、律師書狀 US$5,000、顧問報告退款 AU$97,000、AI 不實宣稱 US$400,000、壽險換系統 NT$3,000 萬、銀行系統遷移 £48.65M">
+                <div class="sv-eb" th:text="#{fig3.eb}">fig.3 · 被發現之後的代價</div>
+                <svg viewBox="0 0 540 150" role="img" th:aria-label="#{fig3.aria}" aria-label="金額對數尺：航空客服 CA$812、律師書狀 US$5,000、顧問報告退款 AU$97,000、AI 不實宣稱 US$400,000、壽險換系統 NT$3,000 萬、銀行系統遷移 £48.65M">
                     <line x1="20" y1="80" x2="520" y2="80" class="ax"/>
                     <g class="tick" text-anchor="middle">
                         <text x="20" y="98">$100</text><text x="103" y="98">$1K</text><text x="187" y="98">$10K</text><text x="270" y="98">$100K</text><text x="353" y="98">$1M</text><text x="437" y="98">$10M</text><text x="520" y="98">$100M</text>
                     </g>
                     <g class="lab">
-                        <g class="pt" style="transition-delay:.1s"><circle cx="84" cy="80" r="4.5"/><text x="84" y="62" text-anchor="middle">航空客服</text><text x="84" y="50" text-anchor="middle" class="amt">CA$812</text></g>
-                        <g class="pt" style="transition-delay:.35s"><circle cx="161" cy="80" r="4.5"/><text x="161" y="118" text-anchor="middle">律師書狀</text><text x="161" y="131" text-anchor="middle" class="amt">US$5K</text></g>
-                        <g class="pt" style="transition-delay:.6s"><circle cx="252" cy="80" r="4.5"/><text x="244" y="62" text-anchor="middle">顧問報告退款</text><text x="244" y="50" text-anchor="middle" class="amt">AU$97K</text></g>
-                        <g class="pt" style="transition-delay:.85s"><circle cx="320" cy="80" r="4.5"/><text x="316" y="118" text-anchor="middle">AI 不實宣稱</text><text x="316" y="131" text-anchor="middle" class="amt">US$400K</text></g>
-                        <g class="pt" style="transition-delay:1.1s"><circle cx="350" cy="80" r="5.5"/><line x1="352" y1="74" x2="368" y2="36" class="lead"/><text x="372" y="30" text-anchor="middle">壽險換系統</text><text x="372" y="18" text-anchor="middle" class="amt">NT$3,000 萬</text></g>
-                        <g class="pt" style="transition-delay:1.35s"><circle cx="500" cy="80" r="7" class="big"/><text x="506" y="62" text-anchor="end">銀行系統遷移</text><text x="506" y="50" text-anchor="end" class="amt">£48.65M</text></g>
+                        <g class="pt" style="transition-delay:.1s"><circle cx="84" cy="80" r="4.5"/><text x="84" y="62" text-anchor="middle" th:text="#{fig3.p1}">航空客服</text><text x="84" y="50" text-anchor="middle" class="amt">CA$812</text></g>
+                        <g class="pt" style="transition-delay:.35s"><circle cx="161" cy="80" r="4.5"/><text x="161" y="118" text-anchor="middle" th:text="#{fig3.p2}">律師書狀</text><text x="161" y="131" text-anchor="middle" class="amt">US$5K</text></g>
+                        <g class="pt" style="transition-delay:.6s"><circle cx="252" cy="80" r="4.5"/><text x="244" y="62" text-anchor="middle" th:text="#{fig3.p3}">顧問報告退款</text><text x="244" y="50" text-anchor="middle" class="amt">AU$97K</text></g>
+                        <g class="pt" style="transition-delay:.85s"><circle cx="320" cy="80" r="4.5"/><text x="316" y="118" text-anchor="middle" th:text="#{fig3.p4}">AI 不實宣稱</text><text x="316" y="131" text-anchor="middle" class="amt">US$400K</text></g>
+                        <g class="pt" style="transition-delay:1.1s"><circle cx="350" cy="80" r="5.5"/><line x1="352" y1="74" x2="368" y2="36" class="lead"/><text x="372" y="30" text-anchor="middle" th:text="#{fig3.p5}">壽險換系統</text><text x="372" y="18" text-anchor="middle" class="amt" th:text="#{fig3.p5.amt}">NT$3,000 萬</text></g>
+                        <g class="pt" style="transition-delay:1.35s"><circle cx="500" cy="80" r="7" class="big"/><text x="506" y="62" text-anchor="end" th:text="#{fig3.p6}">銀行系統遷移</text><text x="506" y="50" text-anchor="end" class="amt">£48.65M</text></g>
                     </g>
                 </svg>
-                <span class="sv-src">罰款、判賠或退款，約略換算美元後放在同一把對數尺上</span>
+                <span class="sv-src" th:text="#{fig3.src}">罰款、判賠或退款，約略換算美元後放在同一把對數尺上</span>
             </div>
         </div>
     </section>
 
     <!-- ---- four stills ---- -->
     <section class="sv-section sv-section--flush">
-        <div class="sv-eb">fig.4 · 四件真實的事</div>
+        <div class="sv-eb" th:text="#{fig4.eb}">fig.4 · 四件真實的事</div>
         <div class="sv-reel">
-            <figure class="sv-still"><video th:src="@{/media/court.mp4}" src="/media/court.mp4" th:poster="@{/media/court.jpg}" poster="/media/court.jpg" muted loop playsinline preload="none" data-sv-play aria-label="夜裡的律師桌，書狀的引用被紅筆圈起"></video>
-                <figcaption><span class="d">2023-06-22 · 紐約聯邦法院</span><b>律師用 AI 寫書狀，交出 6 個不存在的判例</b><span class="amt">罰 US$5,000</span></figcaption></figure>
-            <figure class="sv-still"><video th:src="@{/media/chat.mp4}" src="/media/chat.mp4" th:poster="@{/media/chat.jpg}" poster="/media/chat.jpg" muted loop playsinline preload="none" data-sv-play aria-label="機場桌上的手機開著客服對話"></video>
-                <figcaption><span class="d">2024-02-14 · 加拿大</span><b>航空公司的客服機器人講錯退款規則，公司要負責</b><span class="amt">判賠 CA$812</span></figcaption></figure>
-            <figure class="sv-still"><video th:src="@{/media/review.mp4}" src="/media/review.mp4" th:poster="@{/media/review.jpg}" poster="/media/review.jpg" muted loop playsinline preload="none" data-sv-play aria-label="深夜看著螢幕審程式的工程師"></video>
-                <figcaption><span class="d">2025 · STACK OVERFLOW 開發者調查</span><b>66% 遇過「幾乎對，但不完全對」的 AI 答案</b><span class="amt">31,476 人回答</span></figcaption></figure>
-            <figure class="sv-still"><video th:src="@{/media/server.mp4}" src="/media/server.mp4" th:poster="@{/media/server.jpg}" poster="/media/server.jpg" muted loop playsinline preload="none" data-sv-play aria-label="老舊機房裡用手電筒看系統文件"></video>
-                <figcaption><span class="d">2019-09 · 台灣</span><b>壽險公司換核心系統，15.2 萬張保單出問題</b><span class="amt">罰 NT$3,000 萬</span></figcaption></figure>
+            <figure class="sv-still"><video th:src="@{/media/court.mp4}" src="/media/court.mp4" th:poster="@{/media/court.jpg}" poster="/media/court.jpg" muted loop playsinline preload="none" data-sv-play th:aria-label="#{fig4.s1.aria}" aria-label="夜裡的律師桌，書狀的引用被紅筆圈起"></video>
+                <figcaption><span class="d" th:text="#{fig4.s1.d}">2023-06-22 · 紐約聯邦法院</span><b th:text="#{fig4.s1.b}">律師用 AI 寫書狀，交出 6 個不存在的判例</b><span class="amt" th:text="#{fig4.s1.amt}">罰 US$5,000</span></figcaption></figure>
+            <figure class="sv-still"><video th:src="@{/media/chat.mp4}" src="/media/chat.mp4" th:poster="@{/media/chat.jpg}" poster="/media/chat.jpg" muted loop playsinline preload="none" data-sv-play th:aria-label="#{fig4.s2.aria}" aria-label="機場桌上的手機開著客服對話"></video>
+                <figcaption><span class="d" th:text="#{fig4.s2.d}">2024-02-14 · 加拿大</span><b th:text="#{fig4.s2.b}">航空公司的客服機器人講錯退款規則，公司要負責</b><span class="amt" th:text="#{fig4.s2.amt}">判賠 CA$812</span></figcaption></figure>
+            <figure class="sv-still"><video th:src="@{/media/review.mp4}" src="/media/review.mp4" th:poster="@{/media/review.jpg}" poster="/media/review.jpg" muted loop playsinline preload="none" data-sv-play th:aria-label="#{fig4.s3.aria}" aria-label="深夜看著螢幕審程式的工程師"></video>
+                <figcaption><span class="d" th:text="#{fig4.s3.d}">2025 · STACK OVERFLOW 開發者調查</span><b th:text="#{fig4.s3.b}">66% 遇過「幾乎對，但不完全對」的 AI 答案</b><span class="amt" th:text="#{fig4.s3.amt}">31,476 人回答</span></figcaption></figure>
+            <figure class="sv-still"><video th:src="@{/media/server.mp4}" src="/media/server.mp4" th:poster="@{/media/server.jpg}" poster="/media/server.jpg" muted loop playsinline preload="none" data-sv-play th:aria-label="#{fig4.s4.aria}" aria-label="老舊機房裡用手電筒看系統文件"></video>
+                <figcaption><span class="d" th:text="#{fig4.s4.d}">2019-09 · 台灣</span><b th:text="#{fig4.s4.b}">壽險公司換核心系統，15.2 萬張保單出問題</b><span class="amt" th:text="#{fig4.s4.amt}">罰 NT$3,000 萬</span></figcaption></figure>
         </div>
-        <div class="sv-note">照片為示意畫面，由 AI 生成，不是事件現場。</div>
+        <div class="sv-note" th:text="#{fig4.note}">照片為示意畫面，由 AI 生成，不是事件現場。</div>
     </section>
 
     <!-- ---- choose one ---- -->
     <section class="sv-section sv-section--flush" id="sv-choose">
-        <div class="sv-eb">STEP 01 · 先選一種</div>
-        <h2 class="sv-h2">您最近一次遇到的，是哪一種？</h2>
-        <div class="sv-choose" role="group" aria-label="選一種經驗">
+        <div class="sv-eb" th:text="#{choose.eb}">STEP 01 · 先選一種</div>
+        <h2 class="sv-h2" th:text="#{choose.h2}">您最近一次遇到的，是哪一種？</h2>
+        <div class="sv-choose" role="group" th:aria-label="#{choose.aria}" aria-label="選一種經驗">
             <button class="sv-opt" type="button" data-sv-pick="verify" aria-pressed="false">
-                <span class="sv-opt__img"><video th:src="@{/media/bp_desk.mp4}" src="/media/bp_desk.mp4" th:poster="@{/media/bp_desk.jpg}" poster="/media/bp_desk.jpg" muted loop playsinline preload="none" data-sv-play aria-label="藍圖：審查桌上的清單有一格空著"></video></span>
-                <span class="sv-opt__tx"><span class="n"><span>DWG-A</span><span class="st">選這個</span></span><b>確認 AI 產出能不能用</b><span class="s">程式碼、報告、客服回覆、代理說的「已完成」</span></span>
+                <span class="sv-opt__img"><video th:src="@{/media/bp_desk.mp4}" src="/media/bp_desk.mp4" th:poster="@{/media/bp_desk.jpg}" poster="/media/bp_desk.jpg" muted loop playsinline preload="none" data-sv-play th:aria-label="#{choose.a.aria}" aria-label="藍圖：審查桌上的清單有一格空著"></video></span>
+                <span class="sv-opt__tx"><span class="n"><span>DWG-A</span><span class="st" th:text="#{choose.pick}">選這個</span></span><b th:text="#{choose.a.b}">確認 AI 產出能不能用</b><span class="s" th:text="#{choose.a.s}">程式碼、報告、客服回覆、代理說的「已完成」</span></span>
             </button>
             <button class="sv-opt" type="button" data-sv-pick="explain" aria-pressed="false">
-                <span class="sv-opt__img"><video th:src="@{/media/bp_chain.mp4}" src="/media/bp_chain.mp4" th:poster="@{/media/bp_chain.jpg}" poster="/media/bp_chain.jpg" muted loop playsinline preload="none" data-sv-play aria-label="藍圖：證據鏈中間一環裂開"></video></span>
-                <span class="sv-opt__tx"><span class="n"><span>DWG-B</span><span class="st">選這個</span></span><b>被問「這是怎麼來的」</b><span class="s">主管、客戶、稽核、主管機關要您說明</span></span>
+                <span class="sv-opt__img"><video th:src="@{/media/bp_chain.mp4}" src="/media/bp_chain.mp4" th:poster="@{/media/bp_chain.jpg}" poster="/media/bp_chain.jpg" muted loop playsinline preload="none" data-sv-play th:aria-label="#{choose.b.aria}" aria-label="藍圖：證據鏈中間一環裂開"></video></span>
+                <span class="sv-opt__tx"><span class="n"><span>DWG-B</span><span class="st" th:text="#{choose.pick}">選這個</span></span><b th:text="#{choose.b.b}">被問「這是怎麼來的」</b><span class="s" th:text="#{choose.b.s}">主管、客戶、稽核、主管機關要您說明</span></span>
             </button>
             <button class="sv-opt" type="button" data-sv-pick="inventory" aria-pressed="false">
-                <span class="sv-opt__img"><video th:src="@{/media/bp_mainframe.mp4}" src="/media/bp_mainframe.mp4" th:poster="@{/media/bp_mainframe.jpg}" poster="/media/bp_mainframe.jpg" muted loop playsinline preload="none" data-sv-play aria-label="藍圖：舊主機拆解圖"></video></span>
-                <span class="sv-opt__tx"><span class="n"><span>DWG-C</span><span class="st">選這個</span></span><b>弄清楚舊系統在做什麼</b><span class="s">接手、換系統、文件跟實際對不上</span></span>
+                <span class="sv-opt__img"><video th:src="@{/media/bp_mainframe.mp4}" src="/media/bp_mainframe.mp4" th:poster="@{/media/bp_mainframe.jpg}" poster="/media/bp_mainframe.jpg" muted loop playsinline preload="none" data-sv-play th:aria-label="#{choose.c.aria}" aria-label="藍圖：舊主機拆解圖"></video></span>
+                <span class="sv-opt__tx"><span class="n"><span>DWG-C</span><span class="st" th:text="#{choose.pick}">選這個</span></span><b th:text="#{choose.c.b}">弄清楚舊系統在做什麼</b><span class="s" th:text="#{choose.c.s}">接手、換系統、文件跟實際對不上</span></span>
             </button>
         </div>
-        <button class="sv-none" type="button" data-sv-pick="other">都不是這三種？<u>寫下您遇到的</u> →</button>
-        <button class="sv-none" type="button" data-sv-pick="none">都沒遇過？<u>也請告訴我們，只有一題</u> →</button>
+        <button class="sv-none" type="button" data-sv-pick="other" th:utext="#{choose.other}">都不是這三種？<u>寫下您遇到的</u> →</button>
+        <button class="sv-none" type="button" data-sv-pick="none" th:utext="#{choose.none}">都沒遇過？<u>也請告訴我們，只有一題</u> →</button>
         <div class="sv-deal">
-            <div><span class="k">TIME</span><b>約 7 分鐘</b><span>可以只寫幾句</span></div>
-            <div><span class="k">PRIVACY</span><b>不公開</b><span>名字與公司只有我們看得到</span></div>
-            <div><span class="k">YOU GET</span><b>彙整報告</b><span>寄到您留的聯絡方式</span></div>
+            <div><span class="k">TIME</span><b th:text="#{deal.time.b}">約 7 分鐘</b><span th:text="#{deal.time.s}">可以只寫幾句</span></div>
+            <div><span class="k">PRIVACY</span><b th:text="#{deal.privacy.b}">不公開</b><span th:text="#{deal.privacy.s}">名字與公司只有我們看得到</span></div>
+            <div><span class="k">YOU GET</span><b th:text="#{deal.get.b}">彙整報告</b><span th:text="#{deal.get.s}">寄到您留的聯絡方式</span></div>
         </div>
     </section>
 
     <!-- ---- the form ---- -->
     <section class="sv-section sv-section--flush" id="sv-form">
         <div class="sv-formwrap">
-            <nav class="sv-toc" aria-label="表單段落" data-sv-toc>
-                <a href="#sv-p1"><span>01</span>關於您</a>
-                <a href="#sv-p2"><span>02</span>最近一次</a>
-                <a href="#sv-p3" data-branch-link="story"><span>03</span>花了多少</a>
-                <a href="#sv-p4" data-branch-link="story"><span>04</span>試過的做法</a>
-                <a href="#sv-p5"><span>05</span>後續</a>
-                <a href="#sv-p6"><span>06</span>聯絡方式</a>
+            <nav class="sv-toc" th:aria-label="#{toc.aria}" aria-label="表單段落" data-sv-toc>
+                <a href="#sv-p1"><span>01</span><th:block th:text="#{toc.1}">關於您</th:block></a>
+                <a href="#sv-p2"><span>02</span><th:block th:text="#{toc.2}">最近一次</th:block></a>
+                <a href="#sv-p3" data-branch-link="story"><span>03</span><th:block th:text="#{toc.3}">花了多少</th:block></a>
+                <a href="#sv-p4" data-branch-link="story"><span>04</span><th:block th:text="#{toc.4}">試過的做法</th:block></a>
+                <a href="#sv-p5"><span>05</span><th:block th:text="#{toc.5}">後續</th:block></a>
+                <a href="#sv-p6"><span>06</span><th:block th:text="#{toc.6}">聯絡方式</th:block></a>
             </nav>
 
-        <form class="qf-survey sv-form" method="post" action="/survey" data-survey-form novalidate
+        <form class="qf-survey sv-form" method="post" th:action="${lp + '/survey'}" action="/survey" data-survey-form novalidate
               th:object="${surveyForm}">
 
             <!-- ---- about you ---- -->
-            <div class="qf-survey__part" id="sv-p1">// 01 · 關於您</div>
+            <div class="qf-survey__part" id="sv-p1" th:text="#{part.1}">// 01 · 關於您</div>
 
             <div class="qf-field" data-required th:classappend="${#fields.hasErrors('role')} ? 'is-invalid' : ''">
-                <div class="qf-field__q">您的角色最接近哪一個？<span class="qf-field__req">必填</span></div>
+                <div class="qf-field__q"><th:block th:text="#{q.role}">您的角色最接近哪一個？</th:block><span class="qf-field__req" th:text="#{req}">必填</span></div>
                 <div class="qf-choices">
-                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="工程師">工程師</label>
-                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="工程主管或技術主管">工程主管或技術主管</label>
-                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="法遵或法務">法遵或法務</label>
-                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="內部稽核或風險管理">內部稽核或風險管理</label>
-                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="資訊或 IT 管理">資訊或 IT 管理</label>
-                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="產品或專案管理">產品或專案管理</label>
-                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="其他">其他</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="工程師"><th:block th:text="#{opt.role.1}">工程師</th:block></label>
+                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="工程主管或技術主管"><th:block th:text="#{opt.role.2}">工程主管或技術主管</th:block></label>
+                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="法遵或法務"><th:block th:text="#{opt.role.3}">法遵或法務</th:block></label>
+                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="內部稽核或風險管理"><th:block th:text="#{opt.role.4}">內部稽核或風險管理</th:block></label>
+                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="資訊或 IT 管理"><th:block th:text="#{opt.role.5}">資訊或 IT 管理</th:block></label>
+                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="產品或專案管理"><th:block th:text="#{opt.role.6}">產品或專案管理</th:block></label>
+                    <label class="qf-choice"><input type="radio" th:field="*{role}" value="其他"><th:block th:text="#{opt.role.other}">其他</th:block></label>
                 </div>
                 <div class="qf-survey__other" data-show-if="role=其他">
-                    <input id="sf-role-other" type="text" maxlength="64" placeholder="請寫您的角色" th:field="*{roleOther}">
+                    <input id="sf-role-other" type="text" maxlength="64" th:placeholder="#{ph.role.other}" placeholder="請寫您的角色" th:field="*{roleOther}">
                 </div>
-                <div class="qf-field__err">> 請選一個角色。</div>
+                <div class="qf-field__err" th:text="#{err.role}">> 請選一個角色。</div>
             </div>
 
             <div class="qf-field" data-required th:classappend="${#fields.hasErrors('orgSize')} ? 'is-invalid' : ''">
-                <div class="qf-field__q">您所在組織的規模？<span class="qf-field__req">必填</span></div>
+                <div class="qf-field__q"><th:block th:text="#{q.orgSize}">您所在組織的規模？</th:block><span class="qf-field__req" th:text="#{req}">必填</span></div>
                 <div class="qf-choices">
-                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="1–10 人">1–10 人</label>
-                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="11–50 人">11–50 人</label>
-                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="51–200 人">51–200 人</label>
-                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="201–1000 人">201–1000 人</label>
-                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="1000 人以上">1000 人以上</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="1–10 人"><th:block th:text="#{opt.size.1}">1–10 人</th:block></label>
+                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="11–50 人"><th:block th:text="#{opt.size.2}">11–50 人</th:block></label>
+                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="51–200 人"><th:block th:text="#{opt.size.3}">51–200 人</th:block></label>
+                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="201–1000 人"><th:block th:text="#{opt.size.4}">201–1000 人</th:block></label>
+                    <label class="qf-choice"><input type="radio" th:field="*{orgSize}" value="1000 人以上"><th:block th:text="#{opt.size.5}">1000 人以上</th:block></label>
                 </div>
-                <div class="qf-field__err">> 請選一個規模。</div>
+                <div class="qf-field__err" th:text="#{err.orgSize}">> 請選一個規模。</div>
             </div>
 
             <!-- ---- the last time ---- -->
             <div class="sv-part" id="sv-p2">
                 <img data-sv-part-img th:src="@{/media/bp_desk.jpg}" src="/media/bp_desk.jpg" alt="">
-                <div><span class="k" data-sv-part-k>// 02 · 最近一次</span><b data-sv-part-title>最近一次，您需要處理的那一件事</b></div>
+                <div><span class="k" data-sv-part-k th:text="#{part.2}">// 02 · 最近一次</span><b data-sv-part-title th:text="#{part.2.title}">最近一次，您需要處理的那一件事</b></div>
             </div>
 
             <div class="qf-field" data-required th:classappend="${#fields.hasErrors('situation')} ? 'is-invalid' : ''">
-                <div class="qf-field__q">最近一次您（或您的團隊）需要做下面哪一件事？選最近發生的那一件。<span class="qf-field__req">必填</span></div>
+                <div class="qf-field__q"><th:block th:text="#{q.situation}">最近一次您（或您的團隊）需要做下面哪一件事？選最近發生的那一件。</th:block><span class="qf-field__req" th:text="#{req}">必填</span></div>
                 <div class="qf-choices qf-choices--stack">
-                    <label class="qf-choice"><input type="radio" th:field="*{situation}" value="verify">確認 AI 產出的內容（程式碼、文件、回答）是否正確</label>
-                    <label class="qf-choice"><input type="radio" th:field="*{situation}" value="explain">回應別人對「我們怎麼用 AI」的詢問或要求（主管、客戶、稽核、主管機關）</label>
-                    <label class="qf-choice"><input type="radio" th:field="*{situation}" value="inventory">盤點舊系統、舊程式裡有什麼、誰在用、還能不能動</label>
-                    <label class="qf-choice qf-choice--other"><input type="radio" th:field="*{situation}" value="other">其他<input type="text" class="qf-choice__text" maxlength="200" placeholder="寫下是什麼事" aria-label="其他：寫下是什麼事" data-other-text th:field="*{situationOther}"></label>
-                    <label class="qf-choice"><input type="radio" th:field="*{situation}" value="none">以上都沒發生過</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{situation}" value="verify"><th:block th:text="#{opt.situation.verify}">確認 AI 產出的內容（程式碼、文件、回答）是否正確</th:block></label>
+                    <label class="qf-choice"><input type="radio" th:field="*{situation}" value="explain"><th:block th:text="#{opt.situation.explain}">回應別人對「我們怎麼用 AI」的詢問或要求（主管、客戶、稽核、主管機關）</th:block></label>
+                    <label class="qf-choice"><input type="radio" th:field="*{situation}" value="inventory"><th:block th:text="#{opt.situation.inventory}">盤點舊系統、舊程式裡有什麼、誰在用、還能不能動</th:block></label>
+                    <label class="qf-choice qf-choice--other"><input type="radio" th:field="*{situation}" value="other"><th:block th:text="#{opt.situation.other}">其他</th:block><input type="text" class="qf-choice__text" maxlength="200" th:placeholder="#{ph.situation.other}" placeholder="寫下是什麼事" th:aria-label="#{aria.situation.other}" aria-label="其他：寫下是什麼事" data-other-text th:field="*{situationOther}"></label>
+                    <label class="qf-choice"><input type="radio" th:field="*{situation}" value="none"><th:block th:text="#{opt.situation.none}">以上都沒發生過</th:block></label>
                 </div>
-                <div class="qf-field__err">> 請選一項；選「其他」的話，請寫下是什麼事。</div>
+                <div class="qf-field__err" th:text="#{err.situation}">> 請選一項；選「其他」的話，請寫下是什麼事。</div>
             </div>
 
             <div data-branch="story">
                 <div class="qf-field" data-required th:classappend="${#fields.hasErrors('occurredWhen')} ? 'is-invalid' : ''">
-                    <div class="qf-field__q">那一次大約是什麼時候？<span class="qf-field__req">必填</span></div>
-                    <div class="qf-field__hint">想不起來的話，可以從最近一次交報告、上線、稽核或客戶詢問往回想。</div>
+                    <div class="qf-field__q"><th:block th:text="#{q.when}">那一次大約是什麼時候？</th:block><span class="qf-field__req" th:text="#{req}">必填</span></div>
+                    <div class="qf-field__hint" th:text="#{hint.when}">想不起來的話，可以從最近一次交報告、上線、稽核或客戶詢問往回想。</div>
                     <div class="qf-choices">
-                        <label class="qf-choice"><input type="radio" th:field="*{occurredWhen}" value="過去一週內">過去一週內</label>
-                        <label class="qf-choice"><input type="radio" th:field="*{occurredWhen}" value="過去一個月內">過去一個月內</label>
-                        <label class="qf-choice"><input type="radio" th:field="*{occurredWhen}" value="一到六個月前">一到六個月前</label>
-                        <label class="qf-choice"><input type="radio" th:field="*{occurredWhen}" value="超過半年前">超過半年前</label>
+                        <label class="qf-choice"><input type="radio" th:field="*{occurredWhen}" value="過去一週內"><th:block th:text="#{opt.when.1}">過去一週內</th:block></label>
+                        <label class="qf-choice"><input type="radio" th:field="*{occurredWhen}" value="過去一個月內"><th:block th:text="#{opt.when.2}">過去一個月內</th:block></label>
+                        <label class="qf-choice"><input type="radio" th:field="*{occurredWhen}" value="一到六個月前"><th:block th:text="#{opt.when.3}">一到六個月前</th:block></label>
+                        <label class="qf-choice"><input type="radio" th:field="*{occurredWhen}" value="超過半年前"><th:block th:text="#{opt.when.4}">超過半年前</th:block></label>
                     </div>
-                    <div class="qf-field__err">> 請選一個時間。</div>
+                    <div class="qf-field__err" th:text="#{err.when}">> 請選一個時間。</div>
                 </div>
 
                 <div class="qf-field" data-required th:classappend="${#fields.hasErrors('whatHappened')} ? 'is-invalid' : ''">
-                    <label for="sf-what">那一次發生了什麼事？是什麼讓您覺得一定要處理，而不是直接放著或直接用？<span class="qf-field__req">必填</span></label>
-                    <div class="sv-why">我們想知道「決定要確認」的那一刻。目前公開的調查都沒有問過這件事。</div>
+                    <label for="sf-what"><th:block th:text="#{q.what}">那一次發生了什麼事？是什麼讓您覺得一定要處理，而不是直接放著或直接用？</th:block><span class="qf-field__req" th:text="#{req}">必填</span></label>
+                    <div class="sv-why" th:text="#{why.what}">我們想知道「決定要確認」的那一刻。目前公開的調查都沒有問過這件事。</div>
                     <textarea id="sf-what" rows="6" maxlength="2000" data-sv-count-text th:field="*{whatHappened}"></textarea>
                     <div class="sv-cnt"></div>
-                    <div class="qf-field__err">> 這題必填。</div>
+                    <div class="qf-field__err" th:text="#{err.required}">> 這題必填。</div>
                 </div>
 
                 <div class="qf-field" data-required th:classappend="${#fields.hasErrors('steps')} ? 'is-invalid' : ''">
-                    <label for="sf-steps">從開始處理到您覺得可以放心交出去，中間做了哪些步驟？誰參與？用了什麼工具或文件？<span class="qf-field__req">必填</span></label>
-                    <div class="sv-why">「怎麼確認」的步驟，就是我們最想了解的部分。照順序寫幾步就好。</div>
-                    <textarea id="sf-steps" rows="6" maxlength="2000" data-sv-count-text placeholder="例如：先對原始檔、再請同事看一遍、最後跟去年的報告比" th:field="*{steps}"></textarea>
+                    <label for="sf-steps"><th:block th:text="#{q.steps}">從開始處理到您覺得可以放心交出去，中間做了哪些步驟？誰參與？用了什麼工具或文件？</th:block><span class="qf-field__req" th:text="#{req}">必填</span></label>
+                    <div class="sv-why" th:text="#{why.steps}">「怎麼確認」的步驟，就是我們最想了解的部分。照順序寫幾步就好。</div>
+                    <textarea id="sf-steps" rows="6" maxlength="2000" data-sv-count-text th:placeholder="#{ph.steps}" placeholder="例如：先對原始檔、再請同事看一遍、最後跟去年的報告比" th:field="*{steps}"></textarea>
                     <div class="sv-cnt"></div>
-                    <div class="qf-field__err">> 這題必填。</div>
+                    <div class="qf-field__err" th:text="#{err.required}">> 這題必填。</div>
                 </div>
 
                 <div class="qf-field">
-                    <label for="sf-outcome">最後結果如何？有沒有漏掉什麼，後來才發現？</label>
+                    <label for="sf-outcome" th:text="#{q.outcome}">最後結果如何？有沒有漏掉什麼，後來才發現？</label>
                     <textarea id="sf-outcome" rows="4" maxlength="2000" th:field="*{outcome}"></textarea>
                 </div>
 
                 <!-- ---- cost ---- -->
-                <div class="qf-survey__part" id="sv-p3">// 03 · 花了多少</div>
+                <div class="qf-survey__part" id="sv-p3" th:text="#{part.3}">// 03 · 花了多少</div>
 
                 <div class="qf-field">
-                    <div class="qf-field__q">大概花了多少時間？</div>
-                    <div class="sv-why">覆核要花多少工時。大概就好。</div>
+                    <div class="qf-field__q" th:text="#{q.hours}">大概花了多少時間？</div>
+                    <div class="sv-why" th:text="#{why.hours}">覆核要花多少工時。大概就好。</div>
                     <div class="qf-inline">
-                        <input id="sf-hours" type="text" inputmode="decimal" maxlength="16" th:field="*{hours}"> 小時，
-                        <input id="sf-people" type="text" inputmode="numeric" maxlength="16" th:field="*{people}"> 個人參與
+                        <input id="sf-hours" type="text" inputmode="decimal" maxlength="16" th:field="*{hours}"><th:block th:text="#{inline.hours}"> 小時，</th:block>
+                        <input id="sf-people" type="text" inputmode="numeric" maxlength="16" th:field="*{people}"><th:block th:text="#{inline.people}"> 個人參與</th:block>
                     </div>
                 </div>
 
                 <div class="qf-field" data-amounts th:classappend="${#fields.hasErrors('extraSpendUsd')} ? 'is-invalid' : ''">
-                    <div class="qf-field__q">有沒有因此另外花錢（工具、外包、顧問、加班費）？</div>
+                    <div class="qf-field__q" th:text="#{q.extra}">有沒有因此另外花錢（工具、外包、顧問、加班費）？</div>
                     <div class="qf-inline">
-                        <span class="qf-inline__group">US$ <input id="sf-extra-usd" type="text" inputmode="decimal" maxlength="24" aria-label="另外花的錢（美金）" data-amount th:field="*{extraSpendUsd}"></span>
+                        <span class="qf-inline__group">US$ <input id="sf-extra-usd" type="text" inputmode="decimal" maxlength="24" th:aria-label="#{aria.extra}" aria-label="另外花的錢（美金）" data-amount th:field="*{extraSpendUsd}"></span>
                     </div>
                     <div class="qf-choices">
-                        <label class="qf-choice"><input type="radio" th:field="*{extraSpend}" value="none">沒有</label>
-                        <label class="qf-choice"><input type="radio" th:field="*{extraSpend}" value="unknown">不知道</label>
+                        <label class="qf-choice"><input type="radio" th:field="*{extraSpend}" value="none"><th:block th:text="#{opt.extra.none}">沒有</th:block></label>
+                        <label class="qf-choice"><input type="radio" th:field="*{extraSpend}" value="unknown"><th:block th:text="#{opt.unknown}">不知道</th:block></label>
                     </div>
-                    <div class="qf-field__err" th:text="${#fields.hasErrors('extraSpendUsd')} ? ${#fields.errors('extraSpendUsd')[0]} : _">> 金額只能填數字（不加幣別），例如 500 或 1,200.5。</div>
+                    <div class="qf-field__err" th:text="${#fields.hasErrors('extraSpendUsd')} ? ${#fields.errors('extraSpendUsd')[0]} : #{err.amount.invalid}">> 金額只能填數字（不加幣別），例如 500 或 1,200.5。</div>
                 </div>
 
                 <div class="qf-field">
-                    <label for="sf-worst">如果那次沒有處理，最壞可能發生什麼事？</label>
+                    <label for="sf-worst" th:text="#{q.worst}">如果那次沒有處理，最壞可能發生什麼事？</label>
                     <textarea id="sf-worst" rows="4" maxlength="2000" th:field="*{worstCase}"></textarea>
                 </div>
 
                 <!-- ---- what you tried ---- -->
-                <div class="qf-survey__part" id="sv-p4">// 04 · 試過的做法</div>
+                <div class="qf-survey__part" id="sv-p4" th:text="#{part.4}">// 04 · 試過的做法</div>
 
                 <div class="qf-field" data-required th:classappend="${#fields.hasErrors('triedOther')} ? 'is-invalid' : ''">
-                    <label for="sf-tried">您有沒有找過或試過其他做法、工具或服務？試了什麼？為什麼繼續用，或為什麼不用了？<span class="qf-field__req">必填</span></label>
-                    <div class="qf-field__hint">如果沒有找過，也請寫「沒有」，可以的話說說為什麼。</div>
+                    <label for="sf-tried"><th:block th:text="#{q.tried}">您有沒有找過或試過其他做法、工具或服務？試了什麼？為什麼繼續用，或為什麼不用了？</th:block><span class="qf-field__req" th:text="#{req}">必填</span></label>
+                    <div class="qf-field__hint" th:text="#{hint.tried}">如果沒有找過，也請寫「沒有」，可以的話說說為什麼。</div>
                     <textarea id="sf-tried" rows="5" maxlength="2000" data-sv-count-text th:field="*{triedOther}"></textarea>
                     <div class="sv-cnt"></div>
-                    <div class="qf-field__err">> 這題必填。</div>
+                    <div class="qf-field__err" th:text="#{err.required}">> 這題必填。</div>
                 </div>
 
                 <div class="qf-field">
-                    <label for="sf-hardest">回想那一次，哪一個步驟最花時間或最讓您不放心？如果那一步可以變得不一樣，您希望它變成什麼樣子？</label>
+                    <label for="sf-hardest" th:text="#{q.hardest}">回想那一次，哪一個步驟最花時間或最讓您不放心？如果那一步可以變得不一樣，您希望它變成什麼樣子？</label>
                     <textarea id="sf-hardest" rows="5" maxlength="2000" th:field="*{hardestStep}"></textarea>
                 </div>
             </div>
 
             <div data-branch="none">
                 <div class="qf-field">
-                    <label for="sf-why-not">您的工作裡有用到 AI 工具嗎？如果有，為什麼不需要確認它的產出？</label>
+                    <label for="sf-why-not" th:text="#{q.whyNot}">您的工作裡有用到 AI 工具嗎？如果有，為什麼不需要確認它的產出？</label>
                     <textarea id="sf-why-not" rows="5" maxlength="2000" th:field="*{whyNotNeeded}"></textarea>
                 </div>
             </div>
 
             <!-- ---- follow-up ---- -->
-            <div class="qf-survey__part" id="sv-p5">// 05 · 後續</div>
+            <div class="qf-survey__part" id="sv-p5" th:text="#{part.5}">// 05 · 後續</div>
 
             <div class="qf-field" data-required data-amounts th:classappend="${#fields.hasErrors('payMin')} ? 'is-invalid' : ''">
-                <div class="qf-field__q"><span data-show-if="situation!=none">為了解決上述問題，您的組織每年願意付多少？</span><span data-show-if="situation=none" hidden>如果之後需要確認 AI 產出的內容、回應別人對 AI 使用的詢問，或盤點舊系統，您的組織每年願意付多少？</span><span class="qf-field__req">必填</span></div>
-                <div class="qf-field__hint">如果是固定金額，兩格填一樣。</div>
+                <div class="qf-field__q"><span data-show-if="situation!=none" th:text="#{q.pay}">為了解決上述問題，您的組織每年願意付多少？</span><span data-show-if="situation=none" hidden th:text="#{q.pay.none}">如果之後需要確認 AI 產出的內容、回應別人對 AI 使用的詢問，或盤點舊系統，您的組織每年願意付多少？</span><span class="qf-field__req" th:text="#{req}">必填</span></div>
+                <div class="qf-field__hint" th:text="#{hint.pay}">如果是固定金額，兩格填一樣。</div>
                 <div class="qf-inline">
-                    <span class="qf-inline__group">每年 US$ <input id="sf-pay-min" type="text" inputmode="decimal" maxlength="24" placeholder="最低" aria-label="每年最低金額（美金）" data-amount th:field="*{payMin}"></span>
-                    <span class="qf-inline__group">到 US$ <input id="sf-pay-max" type="text" inputmode="decimal" maxlength="24" placeholder="最高" aria-label="每年最高金額（美金）" data-amount th:field="*{payMax}"></span>
+                    <span class="qf-inline__group"><th:block th:text="#{inline.pay.min}">每年 US$ </th:block><input id="sf-pay-min" type="text" inputmode="decimal" maxlength="24" th:placeholder="#{ph.pay.min}" placeholder="最低" th:aria-label="#{aria.pay.min}" aria-label="每年最低金額（美金）" data-amount th:field="*{payMin}"></span>
+                    <span class="qf-inline__group"><th:block th:text="#{inline.pay.max}">到 US$ </th:block><input id="sf-pay-max" type="text" inputmode="decimal" maxlength="24" th:placeholder="#{ph.pay.max}" placeholder="最高" th:aria-label="#{aria.pay.max}" aria-label="每年最高金額（美金）" data-amount th:field="*{payMax}"></span>
                 </div>
                 <div class="qf-choices">
-                    <label class="qf-choice"><input type="radio" th:field="*{payOption}" value="none">不會付費</label>
-                    <label class="qf-choice"><input type="radio" th:field="*{payOption}" value="unknown">不知道</label>
+                    <label class="qf-choice"><input type="radio" th:field="*{payOption}" value="none"><th:block th:text="#{opt.pay.none}">不會付費</th:block></label>
+                    <label class="qf-choice"><input type="radio" th:field="*{payOption}" value="unknown"><th:block th:text="#{opt.unknown}">不知道</th:block></label>
                 </div>
-                <div class="qf-field__err" th:text="${#fields.hasErrors('payMin')} ? ${#fields.errors('payMin')[0]} : _">> 請填金額範圍，或選「不會付費」「不知道」。</div>
+                <div class="qf-field__err" th:text="${#fields.hasErrors('payMin')} ? ${#fields.errors('payMin')[0]} : #{err.pay.required}">> 請填金額範圍，或選「不會付費」「不知道」。</div>
             </div>
 
             <div class="qf-field">
-                <label for="sf-message">有什麼是您想告訴我們的</label>
+                <label for="sf-message" th:text="#{q.message}">有什麼是您想告訴我們的</label>
                 <textarea id="sf-message" rows="4" maxlength="2000" th:field="*{message}"></textarea>
             </div>
 
             <!-- ---- contact ---- -->
-            <div class="qf-survey__part" id="sv-p6">// 06 · 聯絡方式</div>
+            <div class="qf-survey__part" id="sv-p6" th:text="#{part.6}">// 06 · 聯絡方式</div>
 
             <div class="sv-priv">
-                <div><b>您的資料</b>不公開、不轉給第三方。</div>
+                <div th:utext="#{priv}"><b>您的資料</b>不公開、不轉給第三方。</div>
             </div>
 
             <div class="qf-field" data-required th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''">
-                <label for="sf-name">名字<span class="qf-field__req">必填</span></label>
+                <label for="sf-name"><th:block th:text="#{q.name}">名字</th:block><span class="qf-field__req" th:text="#{req}">必填</span></label>
                 <input id="sf-name" type="text" maxlength="64" th:field="*{name}">
-                <div class="qf-field__err">> 請留下名字。</div>
+                <div class="qf-field__err" th:text="#{err.name}">> 請留下名字。</div>
             </div>
             <div class="qf-field" data-required th:classappend="${#fields.hasErrors('company')} ? 'is-invalid' : ''">
-                <label for="sf-company">公司<span class="qf-field__req">必填</span></label>
+                <label for="sf-company"><th:block th:text="#{q.company}">公司</th:block><span class="qf-field__req" th:text="#{req}">必填</span></label>
                 <input id="sf-company" type="text" maxlength="128" th:field="*{company}">
-                <div class="qf-field__err">> 請留下公司名稱。</div>
+                <div class="qf-field__err" th:text="#{err.company}">> 請留下公司名稱。</div>
             </div>
             <div class="qf-field" data-required th:classappend="${#fields.hasErrors('contact')} ? 'is-invalid' : ''">
-                <label for="sf-contact">Email 或電話<span class="qf-field__req">必填</span></label>
+                <label for="sf-contact"><th:block th:text="#{q.contact}">Email 或電話</th:block><span class="qf-field__req" th:text="#{req}">必填</span></label>
                 <input id="sf-contact" type="text" maxlength="128" data-contact th:field="*{contact}">
-                <div class="qf-field__err">> 請填一個 Email 或電話號碼。</div>
+                <div class="qf-field__err" th:text="#{err.contact}">> 請填一個 Email 或電話號碼。</div>
             </div>
 
-            <button type="submit" class="qf-btn qf-btn--primary">
+            <button type="submit" class="qf-btn qf-btn--primary" th:utext="#{submit}">
                 送出 <span class="arr">→</span>
             </button>
 
             <div class="qf-form-status"
                  th:classappend="${submitStatus == 'success'} ? 'ok' : ((${submitStatus == 'error'} or ${submitStatus == 'save-error'}) ? 'err' : '')"
-                 th:text="${submitStatus == 'success'} ? '> 謝謝您。您描述的那一次經驗，比任何一般性的意見都更有幫助。彙整報告完成後，會用您留的聯絡方式寄給您。' : (${submitStatus == 'save-error'} ? '> 送出暫時失敗，您填的內容還在，請稍後再按一次送出。' : (${submitStatus == 'error'} ? '> 還有必填的題目沒填，請看標紅的地方。' : ''))"
+                 th:text="${submitStatus == 'success'} ? #{status.success} : (${submitStatus == 'save-error'} ? #{status.saveError} : (${submitStatus == 'error'} ? #{status.error} : ''))"
                  data-form-status></div>
         </form>
         </div>
@@ -317,6 +317,6 @@
 </main>
 
 <footer th:replace="~{fragments/layout :: footer}"></footer>
-<script th:src="@{/js/qilinfish.js(v='20261026-pick')}" src="/js/qilinfish.js"></script>
+<script th:src="@{/js/qilinfish.js(v='20261026-en')}" src="/js/qilinfish.js"></script>
 </body>
 </html>

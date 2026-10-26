@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html th:lang="${htmlLang}" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${vb.titleOf(vb.post)})}"></head>
+<body>
+<div th:replace="~{fragments/layout :: background}"></div>
+<nav th:replace="~{fragments/layout :: navbar('blog')}"></nav>
+
+<!-- English version of blog/shadow-ai.html. Same claims, numbers, figures and structure; sources in #refs.
+     Links were swapped to the publisher's own English page only where that page was opened and says the same thing
+     (2026-10-26); the rest stay on the Chinese page and are marked "(in Chinese)". -->
+<main class="qf-page">
+    <article class="bl-post">
+        <header th:replace="~{fragments/blog :: postHead(${vb}, ${vb.post})}"></header>
+
+        <div class="bl-prose">
+
+            <h2 id="what">What shadow AI is</h2>
+            <p>Shadow AI means employees finding their own AI tools for work, without the company's approval. Lawsnote, a Taiwanese legal database, defines it this way: "Shadow AI refers to employees or members of an organization who, without approval and without management, use generative AI tools on their own to handle their work." (our translation)</p>
+            <p>The same article gives several examples:</p>
+            <ul>
+                <li>Pasting customer data into a free AI tool through a personal account.</li>
+                <li>Summarizing documents with a browser extension that was never approved.</li>
+                <li>An assistant searching court decisions with AI on their own, then handing the results to the lawyer.</li>
+                <li>A department subscribing to an AI tool privately, with no security or compliance review.</li>
+            </ul>
+            <p>The problem is not the AI itself. The problem is that the company does not know which tool was used, what went into it, or where the output ended up. When something goes wrong, it is hard to say what happened.</p>
+
+            <h2 id="how-common">How common it is</h2>
+            <p>Between late 2024 and early 2025, KPMG and the University of Melbourne surveyed 48,340 people in 47 countries. Among employees who use AI for work, almost half admit to using it in ways that break their company's rules. Free public tools are used the most (70%); only 42% use tools provided by their employer.</p>
+
+            <figure class="bl-chart" data-sv-grow>
+                <figcaption class="sv-eb">fig.1 · What employees say about themselves</figcaption>
+                <div class="sv-bar"><div class="sv-bar__l"><span>Avoided revealing that they used AI</span><b>61<small>%</small></b></div><div class="sv-bar__t"><i style="--w:61%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>Used AI without knowing whether the company allowed it</span><b>56<small>%</small></b></div><div class="sv-bar__t"><i style="--w:56%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>Uploaded company information to a public AI tool</span><b>48<small>%</small></b></div><div class="sv-bar__t"><i style="--w:48%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>Used AI in ways that break company rules</span><b>44<small>%</small></b></div><div class="sv-bar__t"><i style="--w:44%"></i></div></div>
+                <span class="sv-src">KPMG × The University of Melbourne, Trust, attitudes and use of AI, 2025 · 48,340 people in 47 countries · Taiwan is not in the sample · shares are "rarely" or more often (report Figure 44: 100% minus "never")</span>
+            </figure>
+
+            <p>Managers see the same thing. In 2025, ISACA, an international IT governance association, polled 3,029 professionals in security, audit and governance: 81% believe employees in their organization use AI whether it is permitted or not, but only 28% of organizations have a formal, comprehensive AI policy. In 2026 the same poll put that figure at 38%. In 2024, Microsoft and LinkedIn surveyed 31,000 people in 31 countries and found that 78% of AI users bring their own AI tools to work.</p>
+
+            <figure class="bl-chart" data-sv-grow>
+                <figcaption class="sv-eb">fig.2 · Employees are using it; the rules have not caught up</figcaption>
+                <div class="sv-bar"><div class="sv-bar__l"><span>Believe employees use AI whether it is permitted or not</span><b>81<small>%</small></b></div><div class="sv-bar__t"><i style="--w:81%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>Organizations with a formal, comprehensive AI policy</span><b>28<small>%</small></b></div><div class="sv-bar__t"><i class="g" style="--w:28%"></i></div></div>
+                <span class="sv-src">ISACA 2025 AI Pulse Poll · 3,029 digital trust professionals · 2025-06</span>
+            </figure>
+
+            <h2 id="incidents">What has already gone wrong</h2>
+            <p>IBM measures the cost of data breaches every year. Its 2025 report analyzed 600 organizations that had a breach; one in five reported a breach caused by shadow AI. Organizations with high levels of shadow AI paid on average US$670,000 more per breach. These breaches also exposed personal data and intellectual property more often than the average. Of the 600 organizations, only 37% had policies to manage AI or detect shadow AI.</p>
+
+            <figure class="bl-chart" data-sv-grow>
+                <figcaption class="sv-eb">fig.3 · What the breaches exposed</figcaption>
+                <div class="sv-bar"><div class="sv-bar__l"><span>Personal data: breaches caused by shadow AI</span><b>65<small>%</small></b></div><div class="sv-bar__t"><i style="--w:65%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>Personal data: overall average</span><b>53<small>%</small></b></div><div class="sv-bar__t"><i class="g" style="--w:53%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>Intellectual property: breaches caused by shadow AI</span><b>40<small>%</small></b></div><div class="sv-bar__t"><i style="--w:40%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>Intellectual property: overall average</span><b>33<small>%</small></b></div><div class="sv-bar__t"><i class="g" style="--w:33%"></i></div></div>
+                <span class="sv-src">IBM Cost of a Data Breach Report 2025 · 600 breached organizations · 2024-03 to 2025-02</span>
+            </figure>
+
+            <h3>Australia: flood victims' data went into ChatGPT</h3>
+            <p>Between 12 and 15 March 2025, a former temporary employee of the NSW Reconstruction Authority in Australia uploaded an Excel spreadsheet to ChatGPT. The file had 10 columns and more than 12,000 rows. It held data on applicants to the Northern Rivers Resilient Homes Program (a flood recovery housing program): names, contact details, addresses, dates of birth, sensitive health information, and a small amount of financial commentary.</p>
+            <p>The Authority said the tool "was not authorised by RA". The incident was made public on 6 October 2025; at that time, up to 3,000 people were thought to be affected. An update in March 2026 confirmed the number at 2,031. The Authority has since added controls that block uploads of personal information to AI tools, and has revised its internal policies and training.</p>
+
+            <h3>Plug-ins for AI assistants can go wrong too</h3>
+            <p>Shadow AI is not only a chat window. Today's AI assistants can take plug-ins that send mail, read files and operate systems on a person's behalf. In September 2025, <code>postmark-mcp</code>, a plug-in in an open-source package registry that lets an AI assistant send email, was listed as malicious: from version 1.0.16 it quietly sent out the mail it handled by blind copy. If an employee installed such a plug-in on their own, the company would not know it was there.</p>
+
+            <h2 id="law">What the rules say</h2>
+            <p>We found no law that uses the words "shadow AI". But several rules already require organizations to know how their own people use AI.</p>
+
+            <h3>EU AI Act: employees using ChatGPT count too</h3>
+            <p>Article 4 of the EU Artificial Intelligence Act has applied since 2 February 2025. It requires organizations that provide or use AI systems to take measures so that their staff have sufficient AI literacy. The European Commission's Q&amp;A answers one question directly: if employees use ChatGPT to write advertising copy or translate documents, does the company have to comply with this article? The answer is yes; staff "should be informed about the specific risks, for example hallucination". Since its amendment took effect in mid-July 2026, the article changed from "ensure a sufficient level" of AI literacy to "support the development of AI literacy" among staff. It no longer requires any guaranteed level, but organizations still have to take measures.</p>
+
+            <h3>US NIST: start by making the list</h3>
+            <p>The generative AI risk management profile published by the US National Institute of Standards and Technology (NIST) in July 2024 suggests that organizations inventory all third parties with access to organizational content, and establish lists of approved generative AI technologies and service providers. This is voluntary guidance, not law.</p>
+
+            <h3>Singapore's MAS: the first supervisory guideline to name it</h3>
+            <p>The Monetary Authority of Singapore issued its Guidelines on AI Risk Management on 7 October 2026; they take effect on 7 October 2027. The guidelines list "shadow AI" as a risk and require financial institutions in Singapore to identify consistently where AI is used across their business units and to keep an inventory of AI use. Where a use cannot be identified, institutions must still assess the risk and take measures. Examples in the guidelines include telling staff which uses are acceptable and which are not, such as not entering confidential or customer data into public AI tools.</p>
+
+            <h2 id="taiwan">The situation in Taiwan</h2>
+            <p>We found no Taiwan-specific survey of "employees using AI without approval". The two closest sources are these. Microsoft's 2024 survey found that 84% of knowledge workers in Taiwan use generative AI at work, and that nearly 80% of AI users bring their own AI tools to work, a higher share than the global figure. In a study released in March 2026, Trend Micro surveyed 200 business and IT decision makers in Taiwan: 74% had been pressured to approve AI adoption despite security concerns, compared with 67% globally.</p>
+
+            <h3>Public sector: ban first, legislate later</h3>
+            <p>At the Executive Yuan's cabinet meeting of 31 August 2023, the National Science and Technology Council presented draft reference guidelines on the use of generative AI, asking agencies to use it responsibly and to pay attention to security, privacy, data governance and accountability. On 3 February 2025, the Executive Yuan announced that government agencies would, as a rule, stop using DeepSeek's AI services altogether. Article 11 of the amended Cyber Security Management Act, in force since 1 December 2025, provides that government agencies may not download, install or use products that are harmful to national cyber security. Article 19 of the Artificial Intelligence Basic Act, promulgated on 14 January 2026, also requires the government to set rules of use or internal control mechanisms.</p>
+
+            <h3>Financial sector: data cannot simply be handed to AI</h3>
+            <p>The Guidelines on the Use of Artificial Intelligence in the Financial Industry, issued by the Financial Supervisory Commission (FSC) in June 2024, are administrative guidance. They state that, without appropriate controls, staff of financial institutions "must not provide generative AI with information that customers have not consented to provide" (our translation), and they recommend that institutions build and maintain an inventory of AI models. In an April 2023 questionnaire, the FSC found that 95 financial institutions and related bodies had already restricted employees' use of generative AI, for example by using firewalls to stop the internal network from reaching ChatGPT.</p>
+
+            <h3>Courts: do not write your appeal with AI</h3>
+            <p>On 24 July 2026, in a civil judgment (2026 Su No. 867), the Taoyuan District Court reminded the parties: once you have the judgment, ask a lawyer, "a living, breathing, licensed one. Do not ask AI, do not write your appeal with AI, and do not assume nobody can tell it was written by AI." (our translation)</p>
+
+            <h3>After an incident, you must be able to say what happened</h3>
+            <p>The Personal Data Protection Act was amended on 11 November 2025; the Executive Yuan will set the date it takes effect. Under the amended Article 12, when personal data is leaked, the organization must notify the data subjects, respond immediately, document the relevant facts, the impact and the measures taken, and keep the records for inspection by the competent authority; where the incident falls within a specified scope, it must also report to the authority. If the data left through an AI tool the company did not know about, these things are hard to explain.</p>
+
+            <div class="pd-stage bl-invite">
+                <p>Has your company ever found out only afterwards that someone had used AI? We are collecting real experiences and would like to hear what you have run into.</p>
+                <a class="qf-btn qf-btn--primary" th:href="${lp + '/survey'}" href="/en/survey">Take the survey <span class="arr">→</span></a>
+            </div>
+
+            <h2 id="refs">Sources</h2>
+            <ol class="bl-refs">
+                <li><span class="pub">Lawsnote</span><span class="d">2026-07-21</span><a href="https://blog.lawsnote.com/2026/07/ai-%e6%99%82%e4%bb%a3%e7%9a%84%e5%88%a4%e6%b1%ba%e6%aa%a2%e7%b4%a2%ef%bd%9c%e5%be%8b%e5%b8%ab%e5%bf%85%e7%9c%8b%e7%9a%84%e5%88%a4%e6%b1%ba%e6%90%9c%e5%b0%8b%e6%9f%a5%e8%ad%89%e6%b5%81%e7%a8%8b/" rel="noopener" target="_blank">Case-law research in the AI era: a verification workflow for lawyers, and the risk of shadow AI</a> (in Chinese)</li>
+                <li><span class="pub">KPMG × The University of Melbourne</span><span class="d">2025-04</span><a href="https://assets.kpmg.com/content/dam/kpmgsites/xx/pdf/2025/05/trust-attitudes-and-use-of-ai-global-report.pdf" rel="noopener" target="_blank">Trust, attitudes and use of AI: A global study 2025</a></li>
+                <li><span class="pub">ISACA</span><span class="d">2025-06-25</span><a href="https://www.isaca.org/about-us/newsroom/press-releases/2025/digital-trust-pros-say-increased-ai-skills-and-knowledge-needed-to-advance-their-career" rel="noopener" target="_blank">2025 AI Pulse Poll press release</a></li>
+                <li><span class="pub">ISACA</span><span class="d">2026-05-05</span><a href="https://www.isaca.org/about-us/newsroom/press-releases/2026/ai-use-accelerates-while-governance-and-roi-lag-says-new-isaca-research" rel="noopener" target="_blank">2026 AI Pulse Poll press release</a></li>
+                <li><span class="pub">Microsoft</span><span class="d">2024-05-08</span><a href="https://news.microsoft.com/source/2024/05/08/microsoft-and-linkedin-release-the-2024-work-trend-index-on-the-state-of-ai-at-work/" rel="noopener" target="_blank">Microsoft and LinkedIn release the 2024 Work Trend Index</a></li>
+                <li><span class="pub">IBM</span><span class="d">2025-07-30</span><a href="https://newsroom.ibm.com/2025-07-30-ibm-report-13-of-organizations-reported-breaches-of-ai-models-or-applications,-97-of-which-reported-lacking-proper-ai-access-controls" rel="noopener" target="_blank">Cost of a Data Breach Report 2025 press release</a></li>
+                <li><span class="pub">NSW Reconstruction Authority</span><span class="d">2025-10-06</span><a href="https://www.nsw.gov.au/departments-and-agencies/nsw-reconstruction-authority/media-releases/northern-rivers-resilient-homes-program-data-breach" rel="noopener" target="_blank">Northern Rivers Resilient Homes Program data breach</a></li>
+                <li><span class="pub">NSW Reconstruction Authority</span><span class="d">updated 2026-03-26</span><a href="https://www.nsw.gov.au/departments-and-agencies/nsw-reconstruction-authority/resilient-homes-program-data-breach" rel="noopener" target="_blank">Resilient Homes Program data breach</a></li>
+                <li><span class="pub">OSV (Open Source Vulnerabilities)</span><span class="d">2025-09-26</span><a href="https://osv.dev/vulnerability/MAL-2025-47604" rel="noopener" target="_blank">MAL-2025-47604: postmark-mcp</a></li>
+                <li><span class="pub">European Commission</span><span class="d">updated 2026-10-20</span><a href="https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers" rel="noopener" target="_blank">AI Literacy – Questions &amp; Answers</a></li>
+                <li><span class="pub">European Commission AI Act Service Desk</span><span class="d">consolidated 2026-07-27</span><a href="https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-4" rel="noopener" target="_blank">AI Act Article 4: AI literacy</a></li>
+                <li><span class="pub">NIST</span><span class="d">2024-07</span><a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf" rel="noopener" target="_blank">NIST AI 600-1: Generative Artificial Intelligence Profile</a></li>
+                <li><span class="pub">Monetary Authority of Singapore</span><span class="d">2026-10-07</span><a href="https://www.mas.gov.sg/news/media-releases/2026/mas-sets-out-supervisory-expectations-on-responsible-ai-adoption-by-financial-institutions" rel="noopener" target="_blank">Guidelines on AI Risk Management press release</a></li>
+                <li><span class="pub">Monetary Authority of Singapore</span><span class="d">2026-10-07</span><a href="https://www.mas.gov.sg/-/media/mas-media-library/regulation/guidelines/bd/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions/guidelines-on-artificial-intelligence-risk-management.pdf" rel="noopener" target="_blank">Guidelines on Artificial Intelligence Risk Management (full text, PDF)</a></li>
+                <li><span class="pub">Microsoft Taiwan</span><span class="d">2024-06-20</span><a href="https://news.microsoft.com/zh-tw/ms-wti-ai/" rel="noopener" target="_blank">2024 Work Trend Index, Taiwan findings</a> (in Chinese)</li>
+                <li><span class="pub">Trend Micro Taiwan</span><span class="d">2026-03-26</span><a href="https://www.trendmicro.com/zh_tw/about/newsroom/press-releases/2026/2026-03-26.html" rel="noopener" target="_blank">Press release</a> (in Chinese)</li>
+                <li><span class="pub">Executive Yuan</span><span class="d">2023-08-31</span><a href="https://www.ey.gov.tw/Page/448DE008087A1971/40c1a925-121d-4b6b-8f40-7e9e1a5401f2" rel="noopener" target="_blank">Reference guidelines on the use of generative AI</a> (in Chinese)</li>
+                <li><span class="pub">Executive Yuan</span><span class="d">2025-02-03</span><a href="https://www.ey.gov.tw/Page/9277F759E41CCD91/3ce9fe8f-2f5f-4d1d-8176-6fa4cf622b82" rel="noopener" target="_blank">Premier: government agencies to stop using DeepSeek AI services altogether</a> (in Chinese)</li>
+                <li><span class="pub">Laws &amp; Regulations Database of the ROC</span><span class="d">in force 2025-12-01</span><a href="https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=A0030297" rel="noopener" target="_blank">Cyber Security Management Act, Article 11</a></li>
+                <li><span class="pub">Presidential Office Gazette No. 7837</span><span class="d">2026-01-14</span><a href="https://www.president.gov.tw/File/Doc/d961e5b2-f8c4-424b-8993-4a52702ae8c7" rel="noopener" target="_blank">Artificial Intelligence Basic Act</a> (in Chinese)</li>
+                <li><span class="pub">Financial Supervisory Commission</span><span class="d">2024-06-20</span><a href="https://www.fsc.gov.tw/ch/home.jsp?id=96&amp;parentpath=0,2&amp;mcustomize=news_view.jsp&amp;dataserno=202406200001&amp;dtable=News" rel="noopener" target="_blank">Guidelines on the Use of Artificial Intelligence in the Financial Industry, press release</a> (in Chinese)</li>
+                <li><span class="pub">Financial Supervisory Commission</span><span class="d">2024-06-20</span><a href="https://www.fsc.gov.tw/uploaddowndoc?file=news/202406201527520.pdf&amp;filedisplay=%E9%99%84%E4%BB%B6_%E9%87%91%E8%9E%8D%E6%A5%AD%E9%81%8B%E7%94%A8AI%E6%8C%87%E5%BC%95.pdf&amp;flag=doc" rel="noopener" target="_blank">Guidelines on the Use of Artificial Intelligence in the Financial Industry (full text, PDF)</a> (in Chinese)</li>
+                <li><span class="pub">Judicial Yuan judgment search</span><span class="d">2026-07-24</span><a href="https://judgment.judicial.gov.tw/FJUD/data.aspx?ty=JD&amp;id=TYDV,115,%E8%A8%B4,867,20260724,1" rel="noopener" target="_blank">Taiwan Taoyuan District Court civil judgment, 2026 Su No. 867</a> (in Chinese)</li>
+                <li><span class="pub">Laws &amp; Regulations Database of the ROC</span><span class="d">amended 2025-11-11</span><a href="https://law.moj.gov.tw/ENG/LawClass/LawAll.aspx?pcode=I0050021" rel="noopener" target="_blank">Personal Data Protection Act</a></li>
+            </ol>
+        </div>
+    </article>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/qilinfish.js(v='20261026-pick')}" src="/js/qilinfish.js"></script>
+</body>
+</html>

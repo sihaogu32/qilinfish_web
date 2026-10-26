@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('成功案例')}"></head>
+<html th:lang="${htmlLang}" lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(#{cases.pageTitle})}"></head>
 <body>
 <div th:replace="~{fragments/layout :: background}"></div>
 <nav th:replace="~{fragments/layout :: navbar('cases')}"></nav>
@@ -10,13 +10,13 @@
         <div data-reveal>
             <div class="qf-eyebrow" th:text="${vb.pageSubtitle}">CASES // selected works</div>
             <h1 class="qf-title" th:text="${vb.pageTitle}">成功案例</h1>
-            <p class="qf-lede">這個區塊保留給已交付專案的精選紀錄。內容陸續補上中。</p>
+            <p class="qf-lede" th:text="#{cases.lede}">這個區塊保留給已交付專案的精選紀錄。內容陸續補上中。</p>
         </div>
 
         <div th:if="${vb.empty}" class="qf-empty" data-reveal>
             <span class="glyph"></span>
-            // PLACEHOLDER · 案例資料尚未公開<br>
-            // We are preparing curated case studies. Stand by.
+            <span th:text="#{cases.placeholder.line1}">// PLACEHOLDER · 案例資料尚未公開</span><br>
+            <span th:text="#{cases.placeholder.line2}">// We are preparing curated case studies. Stand by.</span>
         </div>
 
         <div th:unless="${vb.empty}" class="qf-list">

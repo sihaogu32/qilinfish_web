@@ -1,9 +1,13 @@
 package com.qilinfish.website.controller;
 
+import com.qilinfish.website.config.LangLocaleResolver;
 import com.qilinfish.website.model.SurveyFormModel;
 import com.qilinfish.website.repository.SurveyRepository;
 import com.qilinfish.website.vb.SurveyViewBinder;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,18 +27,21 @@ public class SurveyController {
     private static final Pattern EMAIL = Pattern.compile("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
     private static final Pattern PHONE = Pattern.compile("^\\+?[0-9()\\-\\s#]{7,24}$");
 
-    // amount-question messages: same wording as amountError in qilinfish.js, shown via #fields.errors(...)[0]
-    private static final String MSG_PAY_REQUIRED = "> 請填金額範圍，或選「不會付費」「不知道」。";
-    private static final String MSG_PAY_PARTIAL = "> 最低和最高都要填；如果是固定金額，兩格填一樣。";
-    private static final String MSG_PAY_RANGE = "> 最高金額不可小於最低金額。";
-    private static final String MSG_AMOUNT_INVALID = "> 金額只能填數字（不加幣別），例如 500 或 1,200.5。";
-    private static final String MSG_AMOUNT_TOO_LONG = "> 金額最多 16 位數。";
-    private static final String MSG_EXTRA_SPEND_OPTION = "> 請選「沒有」「不知道」，或填一個金額。";
+    // amount-question messages: keys in i18n/survey*.properties, same wording as amountError in qilinfish.js,
+    // shown via #fields.errors(...)[0] in the language of the request
+    private static final String MSG_PAY_REQUIRED = "err.pay.required";
+    private static final String MSG_PAY_PARTIAL = "err.pay.partial";
+    private static final String MSG_PAY_RANGE = "err.pay.range";
+    private static final String MSG_AMOUNT_INVALID = "err.amount.invalid";
+    private static final String MSG_AMOUNT_TOO_LONG = "err.amount.tooLong";
+    private static final String MSG_EXTRA_SPEND_OPTION = "err.extra.option";
 
     private final SurveyRepository surveyRepository;
+    private final MessageSource messages;
 
-    public SurveyController(SurveyRepository __surveyRepository) {
+    public SurveyController(SurveyRepository __surveyRepository, MessageSource __messages) {
         this.surveyRepository = __surveyRepository;
+        this.messages = __messages;
     }
 
     @GetMapping("/survey")
@@ -48,7 +55,8 @@ public class SurveyController {
     @PostMapping("/survey")
     public String submitSurvey(@Valid @ModelAttribute("surveyForm") SurveyFormModel __form,
                                BindingResult __bindingResult,
-                               Model __model) {
+                               Model __model,
+                               HttpServletRequest __request) {
         __model.addAttribute("vb", buildSurveyBinder());
         __model.addAttribute("activeNav", "survey");
 
@@ -57,7 +65,9 @@ public class SurveyController {
             __model.addAttribute("submitStatus", "error");
             return "survey";
         }
-        boolean ok = surveyRepository.saveSurvey(__form);
+        // the page language the respondent answered in; the choice values themselves are stored in Chinese
+        String lang = LangLocaleResolver.isEnglish(__request) ? "en" : "zh";
+        boolean ok = surveyRepository.saveSurvey(__form, lang);
         if (ok) {
             __model.addAttribute("submitStatus", "success");
             __model.addAttribute("surveyForm", new SurveyFormModel());
@@ -102,7 +112,7 @@ public class SurveyController {
             return;
         }
         if (option != null && !option.isBlank()) {
-            __bindingResult.rejectValue("extraSpendUsd", "invalidOption", MSG_EXTRA_SPEND_OPTION);
+            __bindingResult.rejectValue("extraSpendUsd", "invalidOption", msg(MSG_EXTRA_SPEND_OPTION));
             return;
         }
         String usd = __form.getExtraSpendUsd();
@@ -115,9 +125,9 @@ public class SurveyController {
     private boolean rejectAmount(BindingResult __bindingResult, String __field, SurveyFormModel.UsdProblem __problem) {
         if (__problem == null) return false;
         if (__problem == SurveyFormModel.UsdProblem.INVALID) {
-            __bindingResult.rejectValue(__field, "invalid", MSG_AMOUNT_INVALID);
+            __bindingResult.rejectValue(__field, "invalid", msg(MSG_AMOUNT_INVALID));
         } else {
-            __bindingResult.rejectValue(__field, "tooLong", MSG_AMOUNT_TOO_LONG);
+            __bindingResult.rejectValue(__field, "tooLong", msg(MSG_AMOUNT_TOO_LONG));
         }
         return true;
     }
@@ -133,7 +143,7 @@ public class SurveyController {
             return;
         }
         if (option != null && !option.isBlank()) {
-            __bindingResult.rejectValue("payMin", "invalidOption", MSG_PAY_REQUIRED);
+            __bindingResult.rejectValue("payMin", "invalidOption", msg(MSG_PAY_REQUIRED));
             return;
         }
         // same order as amountError in qilinfish.js: a non-number wins, then too long, then blank, then half-filled, then range
@@ -148,15 +158,15 @@ public class SurveyController {
         String min = SurveyFormModel.normalizeUsd(__form.getPayMin());
         String max = SurveyFormModel.normalizeUsd(__form.getPayMax());
         if (minBlank && maxBlank) {
-            __bindingResult.rejectValue("payMin", "required", MSG_PAY_REQUIRED);
+            __bindingResult.rejectValue("payMin", "required", msg(MSG_PAY_REQUIRED));
             return;
         }
         if (minBlank || maxBlank) {
-            __bindingResult.rejectValue("payMin", "partial", MSG_PAY_PARTIAL);
+            __bindingResult.rejectValue("payMin", "partial", msg(MSG_PAY_PARTIAL));
             return;
         }
         if (new BigDecimal(max).compareTo(new BigDecimal(min)) < 0) {
-            __bindingResult.rejectValue("payMin", "range", MSG_PAY_RANGE);
+            __bindingResult.rejectValue("payMin", "range", msg(MSG_PAY_RANGE));
         }
     }
 
@@ -166,9 +176,14 @@ public class SurveyController {
         }
     }
 
+    /** A page message in the language of the current request (LangLocaleResolver decides it from the URL). */
+    private String msg(String __key) {
+        return messages.getMessage(__key, null, LocaleContextHolder.getLocale());
+    }
+
     private SurveyViewBinder buildSurveyBinder() {
         SurveyViewBinder vb = new SurveyViewBinder();
-        vb.setPageTitle("說說您最近一次的經驗");
+        vb.setPageTitle(msg("vb.pageTitle"));
         vb.setPageSubtitle("SURVEY // tell us about the last time");
         return vb;
     }
