@@ -11,7 +11,6 @@ import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -46,14 +45,6 @@ public class SurveyRepository {
       + " message TEXT,"
       + " pay_min TEXT, pay_max TEXT, pay_option TEXT)";
 
-    // tables created before a question existed lack its column; each ALTER fails harmlessly once it is there
-    private static final String[] ADD_COLUMNS = {
-        "ALTER TABLE survey ADD COLUMN message TEXT",
-        "ALTER TABLE survey ADD COLUMN pay_min TEXT",
-        "ALTER TABLE survey ADD COLUMN pay_max TEXT",
-        "ALTER TABLE survey ADD COLUMN pay_option TEXT",
-    };
-
     private static final String INSERT =
         "INSERT INTO survey (created_at, name, company, contact, role, role_other, org_size,"
       + " situation, occurred_when, what_happened, steps, outcome, hours, people, extra_spend,"
@@ -80,13 +71,6 @@ public class SurveyRepository {
             try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath)) {
                 try (Statement st = conn.createStatement()) {
                     st.execute(CREATE_TABLE);
-                    for (String addColumn : ADD_COLUMNS) {
-                        try {
-                            st.execute(addColumn);
-                        } catch (SQLException ex) {
-                            // column already there
-                        }
-                    }
                 }
                 boolean none = "none".equals(__form.getSituation());
                 try (PreparedStatement ps = conn.prepareStatement(INSERT)) {
