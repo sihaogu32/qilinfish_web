@@ -276,17 +276,6 @@
             </div>
 
             <div class="qf-field">
-                <div class="qf-field__q">願意之後接受一次 20–30 分鐘的線上對話，多聊聊那一次的經驗嗎？</div>
-                <div class="qf-choices">
-                    <label class="qf-choice"><input type="radio" th:field="*{interview}" value="yes">願意</label>
-                    <label class="qf-choice"><input type="radio" th:field="*{interview}" value="no">不願意</label>
-                </div>
-                <div class="qf-survey__other" data-show-if="interview=yes">
-                    <input id="sf-time" type="text" maxlength="128" placeholder="方便的時段，例如：平日晚上、週三下午" th:field="*{availableTime}">
-                </div>
-            </div>
-
-            <div class="qf-field">
                 <label for="sf-message">有什麼是您想告訴我們的</label>
                 <textarea id="sf-message" rows="4" maxlength="2000" th:field="*{message}"></textarea>
             </div>

@@ -61,10 +61,6 @@ public class SurveyFormModel {
     private String whyNotNeeded;
 
     // ---- follow-up ----
-    @Size(max = 16)
-    private String interview;            // yes / no
-    @Size(max = 128)
-    private String availableTime;
     @Size(max = 2000)
     private String message;              // anything else the respondent wants to tell us
 
@@ -182,12 +178,6 @@ public class SurveyFormModel {
 
     public String getWhyNotNeeded() { return whyNotNeeded; }
     public void setWhyNotNeeded(String __whyNotNeeded) { this.whyNotNeeded = __whyNotNeeded; }
-
-    public String getInterview() { return interview; }
-    public void setInterview(String __interview) { this.interview = __interview; }
-
-    public String getAvailableTime() { return availableTime; }
-    public void setAvailableTime(String __availableTime) { this.availableTime = __availableTime; }
 
     public String getMessage() { return message; }
     public void setMessage(String __message) { this.message = __message; }

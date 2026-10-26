@@ -43,7 +43,7 @@ public class SurveyRepository {
       + " hours TEXT, people TEXT, extra_spend TEXT, worst_case TEXT,"
       + " tried_other TEXT, hardest_step TEXT,"
       + " why_not_needed TEXT,"
-      + " interview TEXT, available_time TEXT, message TEXT,"
+      + " message TEXT,"
       + " pay_min TEXT, pay_max TEXT, pay_option TEXT)";
 
     // tables created before a question existed lack its column; each ALTER fails harmlessly once it is there
@@ -57,9 +57,9 @@ public class SurveyRepository {
     private static final String INSERT =
         "INSERT INTO survey (created_at, name, company, contact, role, role_other, org_size,"
       + " situation, occurred_when, what_happened, steps, outcome, hours, people, extra_spend,"
-      + " worst_case, tried_other, hardest_step, why_not_needed, interview, available_time, message,"
+      + " worst_case, tried_other, hardest_step, why_not_needed, message,"
       + " pay_min, pay_max, pay_option)"
-      + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private final String dbPath;
 
@@ -111,8 +111,6 @@ public class SurveyRepository {
                     ps.setString(i++, none ? null : trim(__form.getTriedOther()));
                     ps.setString(i++, none ? null : trim(__form.getHardestStep()));
                     ps.setString(i++, none ? trim(__form.getWhyNotNeeded()) : null);
-                    ps.setString(i++, interviewLabel(__form.getInterview()));
-                    ps.setString(i++, "yes".equals(__form.getInterview()) ? trim(__form.getAvailableTime()) : null);
                     ps.setString(i++, trim(__form.getMessage()));
                     // a picked option wins over typed amounts, so the range is stored only without one
                     String payOption = optionLabel(__form.getPayOption(), "不會付費");
@@ -140,12 +138,6 @@ public class SurveyRepository {
             case "none":      return "以上都沒發生過";
             default:          return __situation;
         }
-    }
-
-    private String interviewLabel(String __interview) {
-        if ("yes".equals(__interview)) return "願意";
-        if ("no".equals(__interview)) return "不願意";
-        return null;
     }
 
     // "none" reads differently per question; "unknown" is always 不知道
