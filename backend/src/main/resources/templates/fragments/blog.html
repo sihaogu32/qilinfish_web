@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Cover fragment: the post picture, or a poster block while the picture is not supplied yet -->
+<div th:fragment="cover(vb, post)" class="bl-cover" th:classappend="${vb.hasCover(post)} ? '' : 'bl-cover--poster'">
+    <img th:if="${vb.hasCover(post)}" th:src="@{'/media/' + ${post.cover} + '.jpg'}" src="/media/blog_shadow_ai.jpg" alt="">
+    <span th:if="${vb.hasCover(post)}" class="bl-ai">示意畫面 · AI 生成</span>
+    <div th:unless="${vb.hasCover(post)}" class="bl-cover__poster" aria-hidden="true">
+        <span class="sv-corner tl"></span><span class="sv-corner tr"></span>
+        <span class="bl-cover__mark">QILINFISH // NOTES</span>
+    </div>
+</div>
+
+<!-- Post header fragment: cover, date, title, summary -->
+<header th:fragment="postHead(vb, post)" class="bl-head">
+    <div th:replace="~{fragments/blog :: cover(${vb}, ${post})}"></div>
+    <div class="bl-head__tx">
+        <a class="bl-back" th:href="@{/blog}" href="/blog">← 所有文章</a>
+        <time class="bl-date" th:datetime="${post.date}" th:text="${post.date}">2026-10-26</time>
+        <h1 class="bl-title" th:text="${post.title}">Shadow AI：公司不知道的 AI 使用</h1>
+        <p class="bl-lede" th:text="${post.summary}">摘要</p>
+    </div>
+</header>
+
+</body>
+</html>

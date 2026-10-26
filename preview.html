@@ -718,6 +718,121 @@ button{font-family:inherit;cursor:pointer;}
   /* the picture is short on phones: the title moves below it instead of covering the lens */
   .pd-lens__t { position: static; padding: 18px 0 0; background: none; }
 }
+
+/* four links still fit at 360px; below that tighten them so the brand stays on one line */
+@media (max-width: 359px) {
+  .qf-nav__brand { white-space: nowrap; gap: 8px; }
+  .qf-nav__brand .ch { letter-spacing: 0.08em; }
+  .qf-nav__menu { gap: 0; }
+  .qf-nav__menu a { padding: 6px 5px; font-size: 11px; letter-spacing: 0; }
+}
+
+/* ============================================================
+   Blog — post list, post header, prose, bar charts, references
+   Bar charts reuse the survey .sv-bar rows inside a .bl-chart figure.
+   ============================================================ */
+.bl-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 760px) { .bl-list { grid-template-columns: 1fr; } }
+.bl-card {
+  display: grid;
+  align-content: start;
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  transition: border-color var(--t-base), transform var(--t-base);
+}
+.bl-card:hover { color: inherit; border-color: var(--fg-3); transform: translateY(-2px); }
+.bl-card:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+.bl-card__img { display: block; border-bottom: 1px solid var(--line); overflow: hidden; }
+.bl-card__img .bl-cover { aspect-ratio: 16 / 9; }
+.bl-card__tx { display: grid; gap: 10px; padding: 18px 20px 20px; }
+.bl-card b { font-size: 18px; line-height: 1.45; font-weight: 700; }
+.bl-card .s { font-size: 14px; color: var(--fg-1); line-height: 1.7; }
+.bl-card:hover .pd-scene__go .arr { transform: translateX(3px); }
+
+.bl-date { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--fg-2); }
+
+/* cover: the picture, or a poster block (grid + glow + title) until the picture is supplied */
+.bl-cover { position: relative; aspect-ratio: 21 / 9; overflow: hidden; background: var(--bg-1); }
+.bl-cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.bl-ai {
+  position: absolute; z-index: 2;
+  top: 12px; right: 14px;
+  padding: 2px 8px;
+  background: rgba(0,0,0,0.7);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: var(--fg-1);
+}
+.bl-cover__poster {
+  position: absolute; inset: 0;
+  display: flex; align-items: flex-end;
+  padding: clamp(18px, 4vw, 48px);
+  background:
+    radial-gradient(ellipse at 78% 18%, var(--accent-soft), transparent 60%),
+    linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 32px 32px,
+    var(--bg-1);
+}
+.bl-cover__mark { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; color: var(--fg-2); }
+.bl-cover__poster .sv-corner { width: 18px; height: 18px; }
+.bl-cover__poster .sv-corner.tl { top: 16px; left: 16px; }
+.bl-cover__poster .sv-corner.tr { top: 16px; right: 16px; }
+
+.bl-post { max-width: 1200px; margin: 0 auto; padding: 40px 40px 104px; }
+.bl-head { display: grid; gap: 28px; }
+.bl-head .bl-cover { border: 1px solid var(--line); }
+.bl-head__tx { display: grid; gap: 10px; max-width: 46em; margin: 0 auto; width: 100%; }
+.bl-back { font-family: var(--font-mono); font-size: 12px; color: var(--fg-2); }
+.bl-title { margin: 0; font-size: clamp(30px, 4.6vw, 52px); line-height: 1.2; font-weight: 900; text-wrap: balance; }
+.bl-lede { margin: 6px 0 0; font-size: clamp(16px, 1.7vw, 19px); line-height: 1.8; color: var(--fg-1); text-wrap: pretty; }
+
+.bl-prose { max-width: 46em; margin: 0 auto; font-size: 16.5px; line-height: 1.9; color: var(--fg-1); }
+.bl-prose h2 {
+  margin: 64px 0 14px;
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.3;
+  font-weight: 900;
+  color: var(--fg-0);
+  scroll-margin-top: 80px;
+}
+.bl-prose h3 { margin: 36px 0 10px; font-size: 18px; line-height: 1.5; font-weight: 700; color: var(--fg-0); }
+.bl-prose p { margin: 0 0 18px; text-wrap: pretty; }
+.bl-prose ul { margin: 0 0 18px; padding-left: 1.4em; display: grid; gap: 4px; }
+.bl-prose li::marker { color: var(--accent); }
+.bl-prose code { font-family: var(--font-mono); font-size: 0.9em; color: var(--fg-0); }
+.bl-prose a:not(.qf-btn) { color: var(--fg-0); text-decoration: underline; text-decoration-color: var(--accent-line); text-underline-offset: 3px; }
+
+.bl-chart {
+  margin: 28px 0;
+  border: 1px solid var(--line);
+  background: var(--bg-1);
+  padding: 22px;
+  display: grid; gap: 14px;
+}
+.bl-chart .sv-bar__l b small { margin-left: 2px; font-size: 11px; color: var(--fg-2); }
+.bl-invite { margin: 64px 0 0; }
+
+.bl-refs { margin: 0; padding: 0; list-style: none; counter-reset: ref; display: grid; gap: 12px; font-size: 14px; line-height: 1.7; }
+.bl-refs li {
+  counter-increment: ref;
+  display: grid; grid-template-columns: 2.4em minmax(0, 1fr);
+  column-gap: 4px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.bl-refs li::before { content: "[" counter(ref) "]"; grid-row: span 3; font-family: var(--font-mono); font-size: 12px; color: var(--accent); }
+.bl-refs .pub { color: var(--fg-0); }
+.bl-refs .d { font-family: var(--font-mono); font-size: 11.5px; color: var(--fg-2); }
+.bl-refs a { overflow-wrap: anywhere; }
+
+@media (max-width: 640px) {
+  .bl-post { padding: 24px 16px 72px; }
+  .bl-head .bl-cover { aspect-ratio: 4 / 3; }
+  .bl-prose { font-size: 16px; }
+  .bl-prose h2 { margin-top: 48px; }
+  .bl-chart { padding: 18px 16px; }
+}
 </style>
 </head>
 <body>
@@ -734,6 +849,7 @@ button{font-family:inherit;cursor:pointer;}
     <div class="qf-nav__menu">
         <a href="#about"     data-route-link="about">關於我們</a>
         <a href="#products"  data-route-link="products">產品方案</a>
+        <a href="#blog"      data-route-link="blog">文章</a>
         <a href="#survey"    data-route-link="survey">填寫問卷</a>
         <span class="qf-nav__lang">
             <button data-lang="zh" class="is-active" disabled>ZH</button>
@@ -1320,6 +1436,152 @@ button{font-family:inherit;cursor:pointer;}
     </section>
 </main>
 
+<!-- ======================== BLOG (synced from templates/blog.html) ======================== -->
+<main class="qf-page qf-route" data-route="blog">
+    <section class="sv-section">
+        <div class="sv-eb">NOTES // what we have been reading</div>
+        <h1 class="pd-h2">文章</h1>
+        <div class="bl-list">
+            <a class="bl-card" href="#blog-shadow-ai">
+                <div class="bl-card__img"><div class="bl-cover"><img src="backend/src/main/resources/static/media/blog_shadow_ai.jpg" alt=""><span class="bl-ai">示意畫面 · AI 生成</span></div></div>
+                <div class="bl-card__tx">
+                    <time class="bl-date" datetime="2026-10-26">2026-10-26</time>
+                    <b>您的公司知道員工在用哪些 AI 嗎？</b>
+                    <span class="s">將近一半用 AI 的員工承認用法違反公司規定。這篇整理國際調查、真實事件、各地規範，以及台灣的現況。</span>
+                    <span class="pd-scene__go">閱讀全文 <span class="arr">→</span></span>
+                </div>
+            </a>
+        </div>
+    </section>
+</main>
+
+<!-- ======================== BLOG POST (synced from templates/blog/shadow-ai.html) ======================== -->
+<main class="qf-page qf-route" data-route="blog-shadow-ai">
+    <article class="bl-post">
+        <header class="bl-head">
+            <div class="bl-cover"><img src="backend/src/main/resources/static/media/blog_shadow_ai.jpg" alt=""><span class="bl-ai">示意畫面 · AI 生成</span></div>
+            <div class="bl-head__tx">
+                <a class="bl-back" href="#blog">← 所有文章</a>
+                <time class="bl-date" datetime="2026-10-26">2026-10-26</time>
+                <h1 class="bl-title">您的公司知道員工在用哪些 AI 嗎？</h1>
+                <p class="bl-lede">將近一半用 AI 的員工承認用法違反公司規定。這篇整理國際調查、真實事件、各地規範，以及台灣的現況。</p>
+            </div>
+        </header>
+
+        <div class="bl-prose">
+
+            <h2 id="what">什麼是影子 AI</h2>
+            <p>影子 AI（shadow AI）指員工沒有經過公司核准，自己找 AI 工具來處理工作。台灣的法律資料庫 Lawsnote 這樣定義：「影子 AI，是指員工或組織成員在未經核准、缺乏管理的情況下，自行使用生成式 AI 工具處理工作。」</p>
+            <p>同一篇文章舉了幾個例子：</p>
+            <ul>
+                <li>用個人帳號，把客戶資料貼進免費版 AI。</li>
+                <li>沒有經過核准，就用瀏覽器外掛摘要文件。</li>
+                <li>助理自己用 AI 搜尋判決，再把結果交給律師。</li>
+                <li>部門私下訂閱 AI 工具，沒有經過資安或法遵審查。</li>
+            </ul>
+            <p>問題不在 AI 本身，而在公司不知道：用了哪個工具、輸入了什麼、產出用在哪裡。出了事的時候，也就很難說清楚發生了什麼。</p>
+
+            <h2 id="how-common">有多普遍</h2>
+            <p>KPMG 與墨爾本大學在 2024 年底到 2025 年初，調查了 47 個國家的 48,340 人。用 AI 工作的員工裡，將近一半承認用法違反公司的規定。用得最多的是免費的公開工具（70%），公司提供的工具只有 42%。</p>
+
+            <figure class="bl-chart" data-sv-grow>
+                <figcaption class="sv-eb">fig.1 · 受訪員工自己說的</figcaption>
+                <div class="sv-bar"><div class="sv-bar__l"><span>避免讓人知道自己用了 AI</span><b>61<small>%</small></b></div><div class="sv-bar__t"><i style="--w:61%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>不確定公司准不准，就先用了</span><b>56<small>%</small></b></div><div class="sv-bar__t"><i style="--w:56%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>把公司資料上傳到公開的 AI 工具</span><b>48<small>%</small></b></div><div class="sv-bar__t"><i style="--w:48%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>用法違反公司的規定</span><b>44<small>%</small></b></div><div class="sv-bar__t"><i style="--w:44%"></i></div></div>
+                <span class="sv-src">KPMG × 墨爾本大學《Trust, attitudes and use of AI》2025 · 47 國 48,340 人 · 台灣不在樣本內</span>
+            </figure>
+
+            <p>這和管理者的感受一致。國際資訊治理組織 ISACA 在 2025 年問了 3,029 位資安、稽核、治理領域的專業人員，81% 認為公司裡的員工不管准不准都在用 AI，但只有 28% 的組織有正式而完整的 AI 政策。到了 2026 年，同一份調查的這個比例升到 38%。微軟與 LinkedIn 2024 年調查 31 個市場的 31,000 人，發現 78% 的 AI 使用者是自己帶 AI 工具上班。</p>
+
+            <figure class="bl-chart" data-sv-grow>
+                <figcaption class="sv-eb">fig.2 · 員工在用，規則還沒跟上</figcaption>
+                <div class="sv-bar"><div class="sv-bar__l"><span>認為員工不管准不准都在用 AI</span><b>81<small>%</small></b></div><div class="sv-bar__t"><i style="--w:81%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>組織有正式而完整的 AI 政策</span><b>28<small>%</small></b></div><div class="sv-bar__t"><i class="g" style="--w:28%"></i></div></div>
+                <span class="sv-src">ISACA 2025 AI Pulse Poll · 3,029 位數位信任專業人員 · 2025-06</span>
+            </figure>
+
+            <h2 id="incidents">出過的事</h2>
+            <p>IBM 每年統計資料外洩的成本。2025 年的報告分析了 600 家發生外洩的組織，每 5 家就有 1 家的外洩是影子 AI 造成的。影子 AI 用得多的組織，每次外洩的成本平均多出 67 萬美元。這類外洩洩漏個人資料與智慧財產的比例，也都比平均高。這 600 家組織裡，只有 37% 有管理 AI 或偵測影子 AI 的政策。</p>
+
+            <figure class="bl-chart" data-sv-grow>
+                <figcaption class="sv-eb">fig.3 · 外洩事件裡洩漏了什麼</figcaption>
+                <div class="sv-bar"><div class="sv-bar__l"><span>個人資料：影子 AI 造成的外洩</span><b>65<small>%</small></b></div><div class="sv-bar__t"><i style="--w:65%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>個人資料：全體平均</span><b>53<small>%</small></b></div><div class="sv-bar__t"><i class="g" style="--w:53%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>智慧財產：影子 AI 造成的外洩</span><b>40<small>%</small></b></div><div class="sv-bar__t"><i style="--w:40%"></i></div></div>
+                <div class="sv-bar"><div class="sv-bar__l"><span>智慧財產：全體平均</span><b>33<small>%</small></b></div><div class="sv-bar__t"><i class="g" style="--w:33%"></i></div></div>
+                <span class="sv-src">IBM Cost of a Data Breach Report 2025 · 600 家發生外洩的組織 · 2024-03 至 2025-02</span>
+            </figure>
+
+            <h3>澳洲：水災災民的資料進了 ChatGPT</h3>
+            <p>2025 年 3 月 12 日到 15 日，澳洲新南威爾斯州重建署的一名前臨時員工，把一份 Excel 試算表上傳到 ChatGPT。檔案有 10 欄、超過 12,000 列，內容是北河地區水災房屋計畫申請人的資料：姓名、聯絡方式、住址、出生日期、敏感的健康資訊，還有少量財務相關的註記。</p>
+            <p>重建署說，這個工具「沒有經過授權」。事件在 2025 年 10 月 6 日公開，當時說最多可能影響 3,000 人。2026 年 3 月更新的說明確定是 2,031 人。之後重建署加裝了控管，擋住把個人資料上傳到 AI 工具，也修改了內部規定與訓練。</p>
+
+            <h3>AI 助理的外掛，也可能出問題</h3>
+            <p>影子 AI 不只是聊天視窗。現在的 AI 助理可以裝外掛，替人寄信、讀檔案、操作系統。2025 年 9 月，開源套件庫裡一個讓 AI 助理寄信的外掛 <code>postmark-mcp</code> 被列為惡意套件：從 1.0.16 版開始，它會用密件副本把經手的信件偷偷寄出去。如果是員工自己裝的外掛，公司就不會知道它在那裡。</p>
+
+            <h2 id="law">法規怎麼說</h2>
+            <p>我們沒有找到直接寫「影子 AI」的法律。但已經有幾份規範，要求組織掌握自己的人怎麼用 AI。</p>
+
+            <h3>歐盟 AI 法：員工用 ChatGPT 也算</h3>
+            <p>歐盟《人工智慧法》第 4 條從 2025 年 2 月 2 日開始適用，要求提供或使用 AI 系統的組織採取措施，讓員工具備足夠的 AI 素養。歐盟執委會的問答直接回答了一個問題：員工用 ChatGPT 寫廣告文案、翻譯文件，公司也要符合這一條嗎？答案是「要」，應該讓員工知道特定的風險，例如 AI 會一本正經地編造內容。這一條在 2026 年 7 月 27 日修正後，從「確保足夠的程度」改成「支持員工培養 AI 素養」，不再要求保證達到某個程度，但組織仍然要採取措施。</p>
+
+            <h3>美國 NIST：先把清單列出來</h3>
+            <p>美國國家標準與技術研究院（NIST）2024 年 7 月發布的生成式 AI 風險管理指引，建議組織盤點所有能接觸到組織內容的第三方，並且建立核准使用的生成式 AI 工具清單。這是自願採用的指引，不是法律。</p>
+
+            <h3>新加坡金管局：第一次在監理指引裡點名</h3>
+            <p>新加坡金融管理局 2026 年 10 月 7 日發布 AI 風險管理指引，2027 年 10 月 7 日生效。指引直接把「影子 AI」列為風險，要求新加坡的金融機構一致地找出各部門在哪裡用了 AI、建立 AI 使用清單。對於找不出來的使用，也要評估風險並採取措施。指引舉的例子包括：告訴員工哪些用法可以、哪些不行，例如不得把機密或客戶資料輸入公開的 AI 工具。</p>
+
+            <h2 id="taiwan">台灣現況</h2>
+            <p>我們沒有找到台灣本地專門調查「員工未經核准使用 AI」的數字。最接近的有兩份。微軟 2024 年的調查指出，台灣 84% 的知識工作者在工作上使用生成式 AI；AI 使用者中將近八成自己帶 AI 工具上班，比全球還高。趨勢科技 2026 年 3 月訪問台灣 200 位企業決策者，74% 曾經在有安全疑慮的情況下仍被迫批准導入 AI，高於全球的 67%。</p>
+
+            <h3>公部門：先禁、再立法</h3>
+            <p>行政院在 2023 年 8 月 31 日通過使用生成式 AI 的參考指引草案，要求各機關負責任地使用，並注意安全、隱私、資料治理與問責。2025 年 2 月 3 日，行政院宣布公務機關原則上全面禁用 DeepSeek 的 AI 服務。2025 年 12 月 1 日施行的新版《資通安全管理法》第 11 條規定，公務機關不得下載、安裝或使用危害國家資通安全的產品。2026 年 1 月 14 日施行的《人工智慧基本法》第 19 條也要求政府訂定使用規範或內控管理機制。</p>
+
+            <h3>金融業：資料不能隨便給 AI</h3>
+            <p>金管會 2024 年 6 月發布的《金融業運用人工智慧(AI)指引》屬於行政指導。指引寫明，在沒有適當管控的情況下，金融機構人員「不得向生成式 AI 提供未經客戶同意提供之資訊」，也建議金融機構建立並維護 AI 模型清單。金管會在 2023 年 4 月的問卷發現，有 95 家金融機構及周邊單位已經對員工使用生成式 AI 進行管制，例如用防火牆擋住內網連到 ChatGPT。</p>
+
+            <h3>法院：不要用 AI 寫上訴狀</h3>
+            <p>2026 年 7 月 24 日，桃園地方法院在一件民事判決（115 年度訴字第 867 號）裡提醒當事人：拿到判決後，請找一位「活生生的、有血有肉有執照的律師」問清楚。「不要問AI，不要用AI寫上訴狀，更不要以為人家看不出是AI寫的。」</p>
+
+            <h3>出事之後，要說得出發生了什麼</h3>
+            <p>《個人資料保護法》在 2025 年 11 月 11 日修正，施行日期由行政院另訂。修正後的第 12 條要求，個人資料外洩時要通知當事人、立即應變，並且記載相關事實、影響與採取的措施，保存紀錄以備主管機關查驗；符合一定範圍時，還要通報主管機關。如果資料是經過公司不知道的 AI 工具流出去，這些事就很難說清楚。</p>
+
+            <div class="pd-stage bl-invite">
+                <p>您的公司有沒有發生過「事後才知道有人用了 AI」的事？我們正在整理實際的經驗，想聽聽您遇過的情況。</p>
+                <a class="qf-btn qf-btn--primary" href="#survey">填寫問卷 <span class="arr">→</span></a>
+            </div>
+
+            <h2 id="refs">參考資料</h2>
+            <ol class="bl-refs">
+                <li><span class="pub">Lawsnote</span><span class="d">2026-07-21</span><a href="https://blog.lawsnote.com/2026/07/ai-%e6%99%82%e4%bb%a3%e7%9a%84%e5%88%a4%e6%b1%ba%e6%aa%a2%e7%b4%a2%ef%bd%9c%e5%be%8b%e5%b8%ab%e5%bf%85%e7%9c%8b%e7%9a%84%e5%88%a4%e6%b1%ba%e6%90%9c%e5%b0%8b%e6%9f%a5%e8%ad%89%e6%b5%81%e7%a8%8b/" rel="noopener" target="_blank">AI 時代的判決檢索｜律師必看的判決搜尋查證流程與影子 AI 風險</a></li>
+                <li><span class="pub">KPMG × The University of Melbourne</span><span class="d">2025-04</span><a href="https://assets.kpmg.com/content/dam/kpmgsites/xx/pdf/2025/05/trust-attitudes-and-use-of-ai-global-report.pdf" rel="noopener" target="_blank">Trust, attitudes and use of AI: A global study 2025</a></li>
+                <li><span class="pub">ISACA</span><span class="d">2025-06-25</span><a href="https://www.isaca.org/about-us/newsroom/press-releases/2025/digital-trust-pros-say-increased-ai-skills-and-knowledge-needed-to-advance-their-career" rel="noopener" target="_blank">2025 AI Pulse Poll 新聞稿</a></li>
+                <li><span class="pub">ISACA</span><span class="d">2026-05-05</span><a href="https://www.isaca.org/about-us/newsroom/press-releases/2026/ai-use-accelerates-while-governance-and-roi-lag-says-new-isaca-research" rel="noopener" target="_blank">2026 AI Pulse Poll 新聞稿</a></li>
+                <li><span class="pub">Microsoft</span><span class="d">2024-05-08</span><a href="https://news.microsoft.com/source/2024/05/08/microsoft-and-linkedin-release-the-2024-work-trend-index-on-the-state-of-ai-at-work/" rel="noopener" target="_blank">Microsoft and LinkedIn release the 2024 Work Trend Index</a></li>
+                <li><span class="pub">IBM</span><span class="d">2025-07-30</span><a href="https://newsroom.ibm.com/2025-07-30-ibm-report-13-of-organizations-reported-breaches-of-ai-models-or-applications,-97-of-which-reported-lacking-proper-ai-access-controls" rel="noopener" target="_blank">Cost of a Data Breach Report 2025 新聞稿</a></li>
+                <li><span class="pub">NSW Reconstruction Authority</span><span class="d">2025-10-06</span><a href="https://www.nsw.gov.au/departments-and-agencies/nsw-reconstruction-authority/media-releases/northern-rivers-resilient-homes-program-data-breach" rel="noopener" target="_blank">Northern Rivers Resilient Homes Program data breach</a></li>
+                <li><span class="pub">NSW Reconstruction Authority</span><span class="d">2026-03-26 更新</span><a href="https://www.nsw.gov.au/departments-and-agencies/nsw-reconstruction-authority/resilient-homes-program-data-breach" rel="noopener" target="_blank">Resilient Homes Program data breach</a></li>
+                <li><span class="pub">OSV（開源漏洞資料庫）</span><span class="d">2025-09-26</span><a href="https://osv.dev/vulnerability/MAL-2025-47604" rel="noopener" target="_blank">MAL-2025-47604：postmark-mcp</a></li>
+                <li><span class="pub">European Commission</span><span class="d">2026-10-20 更新</span><a href="https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers" rel="noopener" target="_blank">AI Literacy – Questions &amp; Answers</a></li>
+                <li><span class="pub">European Commission AI Act Service Desk</span><span class="d">2026-07-27 合併版</span><a href="https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-4" rel="noopener" target="_blank">AI Act Article 4: AI literacy</a></li>
+                <li><span class="pub">NIST</span><span class="d">2024-07</span><a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf" rel="noopener" target="_blank">NIST AI 600-1：Generative Artificial Intelligence Profile</a></li>
+                <li><span class="pub">Monetary Authority of Singapore</span><span class="d">2026-10-07</span><a href="https://www.mas.gov.sg/news/media-releases/2026/mas-sets-out-supervisory-expectations-on-responsible-ai-adoption-by-financial-institutions" rel="noopener" target="_blank">Guidelines on AI Risk Management 新聞稿</a></li>
+                <li><span class="pub">台灣微軟</span><span class="d">2024-06-20</span><a href="https://news.microsoft.com/zh-tw/ms-wti-ai/" rel="noopener" target="_blank">2024 年工作趨勢指數</a></li>
+                <li><span class="pub">趨勢科技</span><span class="d">2026-03-26</span><a href="https://www.trendmicro.com/zh_tw/about/newsroom/press-releases/2026/2026-03-26.html" rel="noopener" target="_blank">新聞稿</a></li>
+                <li><span class="pub">行政院</span><span class="d">2023-08-31</span><a href="https://www.ey.gov.tw/Page/448DE008087A1971/40c1a925-121d-4b6b-8f40-7e9e1a5401f2" rel="noopener" target="_blank">使用生成式 AI 參考指引</a></li>
+                <li><span class="pub">行政院</span><span class="d">2025-02-03</span><a href="https://www.ey.gov.tw/Page/9277F759E41CCD91/3ce9fe8f-2f5f-4d1d-8176-6fa4cf622b82" rel="noopener" target="_blank">卓揆：公務機關全面禁用 Deepseek AI 服務</a></li>
+                <li><span class="pub">全國法規資料庫</span><span class="d">2025-12-01 施行</span><a href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=A0030297&amp;flno=11" rel="noopener" target="_blank">資通安全管理法 第 11 條</a></li>
+                <li><span class="pub">總統府公報 第 7837 號</span><span class="d">2026-01-14</span><a href="https://www.president.gov.tw/File/Doc/d961e5b2-f8c4-424b-8993-4a52702ae8c7" rel="noopener" target="_blank">人工智慧基本法</a></li>
+                <li><span class="pub">金融監督管理委員會</span><span class="d">2024-06-20</span><a href="https://www.fsc.gov.tw/ch/home.jsp?id=96&amp;parentpath=0,2&amp;mcustomize=news_view.jsp&amp;dataserno=202406200001&amp;dtable=News" rel="noopener" target="_blank">金融業運用人工智慧(AI)指引</a></li>
+                <li><span class="pub">司法院裁判書查詢</span><span class="d">2026-07-24</span><a href="https://judgment.judicial.gov.tw/FJUD/data.aspx?ty=JD&amp;id=TYDV,115,%E8%A8%B4,867,20260724,1" rel="noopener" target="_blank">臺灣桃園地方法院 115 年度訴字第 867 號民事判決</a></li>
+                <li><span class="pub">全國法規資料庫</span><span class="d">2025-11-11 修正</span><a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=I0050021" rel="noopener" target="_blank">個人資料保護法</a></li>
+            </ol>
+        </div>
+    </article>
+</main>
+
 <footer class="qf-footer">
     <div class="qf-footer__inner">
         <span>© 2026 QILINFISH STUDIO  ·  qilinfish.com</span>
@@ -1347,8 +1609,10 @@ button{font-family:inherit;cursor:pointer;}
       document.querySelector('[data-route="home"]').classList.add('is-active');
       route = 'home';
     }
+    // a post (#blog-<slug>) keeps 文章 lit, like /blog/<slug> on the site
+    var navRoute = route.indexOf('blog-') === 0 ? 'blog' : route;
     document.querySelectorAll('[data-route-link]').forEach(function(a){
-      a.classList.toggle('is-active', a.getAttribute('data-route-link') === route);
+      a.classList.toggle('is-active', a.getAttribute('data-route-link') === navRoute);
     });
     // re-trigger reveals
     document.querySelectorAll('.is-active [data-reveal]').forEach(function(n){ n.classList.remove('is-revealed'); });

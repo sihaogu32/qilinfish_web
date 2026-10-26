@@ -22,13 +22,15 @@ backend/
 │   │   ├── CasesController.java
 │   │   ├── ContactController.java
 │   │   ├── ResourcesController.java
-│   │   └── SurveyController.java
+│   │   ├── SurveyController.java
+│   │   └── BlogController.java                     # /blog、/blog/{slug}；文章清單也在這裡
 │   ├── model/                                      # 純資料 Model
 │   │   ├── ScenarioModel.java                      # 產品頁情境卡
 │   │   ├── CaseModel.java
 │   │   ├── ContactFormModel.java
 │   │   ├── ResourceLinkModel.java
-│   │   └── SurveyFormModel.java
+│   │   ├── SurveyFormModel.java
+│   │   └── BlogPostModel.java                      # 一篇文章的 slug、標題、摘要、日期、封面
 │   ├── repository/SurveyRepository.java            # 問卷答案寫進 SQLite
 │   ├── service/MailService.java                    # 聯絡表單寄信
 │   └── vb/                                         # ViewBinder（MVVM 的 VM）
@@ -37,7 +39,8 @@ backend/
 │       ├── CasesViewBinder.java
 │       ├── ContactViewBinder.java
 │       ├── ResourcesViewBinder.java
-│       └── SurveyViewBinder.java
+│       ├── SurveyViewBinder.java
+│       └── BlogViewBinder.java
 └── src/main/resources/
     ├── application.yml                             # DB 連接埠保留 (3306)，autoconfig 已停用
     ├── i18n/                                       # 中英 messages
@@ -46,6 +49,9 @@ backend/
     ├── static/media/                               # 頁面用的圖與短片（AI 生成的示意畫面）
     └── templates/
         ├── fragments/layout.html                   # navbar / footer / background fragment
+        ├── fragments/blog.html                     # 文章封面（缺圖時顯示底圖區塊）與文章標頭
+        ├── blog.html                               # 文章列表
+        ├── blog/shadow-ai.html                     # 每篇文章的內文一個檔，檔名＝slug
         ├── index.html
         ├── about.html
         ├── products.html
