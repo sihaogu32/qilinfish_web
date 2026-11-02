@@ -179,6 +179,8 @@ button { font-family: inherit; cursor: pointer; }
   min-height: 100vh;
   padding-top: 64px;
 }
+/* no navbar (a CompanyofOne product opened on its own): nothing to clear at the top */
+body:not(:has(.qf-nav)) .qf-page { padding-top: 0; }
 .qf-section {
   max-width: 1200px;
   margin: 0 auto;
@@ -1182,7 +1184,70 @@ button { font-family: inherit; cursor: pointer; }
   display: grid; gap: 14px;
 }
 .bl-chart .sv-bar__l b small { margin-left: 2px; font-size: 11px; color: var(--fg-2); }
+
+/* wide media: breaks out of the prose column, up to 1120px with a 16px side gap, centred.
+   Centred by margin, not transform: [data-reveal] owns transform for its rise. */
+.qf-page:has(.st-media, .st-cards) { container-type: inline-size; }
+.st-media {
+  --st-w: min(1120px, calc(100cqw - 32px));
+  position: relative;
+  width: var(--st-w);
+  margin: 36px 0 36px calc(50% - var(--st-w) / 2);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg-1);
+}
+.st-media img, .st-media video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.st-ai {
+  position: absolute; z-index: 2;
+  top: 12px; right: 14px;
+  padding: 2px 8px;
+  background: rgba(0,0,0,0.7);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: var(--fg-1);
+}
+/* wide card row: same break-out and centring as .st-media. */
+.st-cards {
+  --st-w: min(1120px, calc(100cqw - 32px));
+  list-style: none;
+  width: var(--st-w);
+  margin: 32px 0 32px calc(50% - var(--st-w) / 2);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.st-cards li { display: grid; gap: 10px; align-content: start; padding: 22px 20px; background: var(--bg-1); font-size: 15px; line-height: 1.7; }
+.st-cards .n { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--accent); }
+.st-cards strong { color: var(--fg-0); font-size: 16.5px; }
+@media (max-width: 900px) and (min-width: 641px) { .st-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .bl-invite { margin: 64px 0 0; }
+
+/* article parts: citations, TL;DR box, table, numbered steps, the lede under a film header,
+   section numbers above h2, the bold lead-in after h2 */
+.bl-prose sup.cite { font-family: var(--font-mono); font-size: 10.5px; line-height: 0; margin-left: 1px; }
+.bl-prose sup.cite a { color: var(--accent); text-decoration: none; }
+.bl-tldr { margin: 64px 0 32px; padding: 22px 24px; border: 1px solid var(--line); border-left: 2px solid var(--accent); background: var(--bg-1); }
+.bl-tldr .sv-eb, .bl-table .sv-eb { display: block; margin-bottom: 10px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--fg-2); }
+.bl-tldr ol { margin: 0; padding-left: 1.4em; display: grid; gap: 8px; color: var(--fg-0); }
+.bl-tldr li::marker { color: var(--accent); font-family: var(--font-mono); }
+.bl-table { margin: 28px 0; border: 1px solid var(--line); background: var(--bg-1); padding: 22px; overflow-x: auto; }
+.bl-table table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.7; }
+.bl-table th { text-align: left; font-weight: 500; color: var(--fg-2); font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.06em; padding: 0 12px 10px 0; border-bottom: 1px solid var(--line); vertical-align: bottom; }
+.bl-table td { padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line-soft); vertical-align: top; color: var(--fg-1); }
+.bl-table td:first-child { color: var(--fg-0); }
+.bl-table .sv-src { display: block; margin-top: 12px; }
+.bl-prose ol.bl-steps { margin: 0 0 18px; padding-left: 1.4em; display: grid; gap: 6px; }
+.bl-prose ol.bl-steps li::marker { color: var(--accent); font-family: var(--font-mono); }
+.ab-hero__inner .bl-date { color: var(--fg-1); }
+.st-lede { margin: 0; max-width: 36em; color: var(--fg-1); font-size: clamp(15px, 1.7vw, 19px); line-height: 1.8; text-wrap: pretty; }
+.bl-prose .qf-eyebrow { margin: 104px 0 -44px; }
+.bl-prose h2 + p strong { color: var(--fg-0); }
 
 .bl-refs { margin: 0; padding: 0; list-style: none; counter-reset: ref; display: grid; gap: 12px; font-size: 14px; line-height: 1.7; }
 .bl-refs li {
@@ -1203,4 +1268,8 @@ button { font-family: inherit; cursor: pointer; }
   .bl-prose { font-size: 16px; }
   .bl-prose h2 { margin-top: 48px; }
   .bl-chart { padding: 18px 16px; }
+  .st-media { aspect-ratio: 4 / 3; margin-top: 28px; margin-bottom: 28px; }
+  .st-cards { grid-template-columns: 1fr; }
+  .bl-prose .qf-eyebrow { margin: 72px 0 -32px; }
+  .bl-table table { min-width: 560px; }
 }
