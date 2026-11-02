@@ -1,0 +1,13 @@
+{
+  "slug" : "ai-handover",
+  "lang" : "en",
+  "title" : "When a Client Asks “How Was This Made?”: What Solo Consultants Who Work With AI Should Hand Over",
+  "lede" : "When you use AI to do client work, a clear handover helps explain how the result came together. Here is what to record, what to check, and where the limits of the record belong.",
+  "summary" : "A useful AI handover explains where AI contributed, which inputs and tools shaped the work, and what you reviewed or changed. It also records uncertainty, intended use, client instructions, and what the next person needs to continue.",
+  "date" : "2026-11-01",
+  "hero" : {
+    "image" : "media/hero.jpg",
+    "video" : "media/hero.mp4"
+  },
+  "cover" : "media/hero.jpg"
+}
