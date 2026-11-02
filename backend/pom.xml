@@ -38,6 +38,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
+        <!-- HTML parser: start-up check of each article's .bl-invite box and where the survey button goes (same version as CompanyofOne) -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.23.2</version>
+        </dependency>
         <!-- SQLite: survey answers are stored in a single file (see SurveyRepository) -->
         <dependency>
             <groupId>org.xerial</groupId>

@@ -1,0 +1,12 @@
+{
+  "slug": "test-en-image",
+  "lang": "en",
+  "title": "Test article: an English article with a picture header only",
+  "lede": "A package used only to test the site; it is never published. Its header has a picture and no clip.",
+  "summary": "Site test package in English: picture-only header, with a TL;DR, citations, a table, steps and a wide figure in the body.",
+  "date": "2026-11-01",
+  "hero": {
+    "image": "media/hero.jpg"
+  },
+  "cover": "media/hero.jpg"
+}

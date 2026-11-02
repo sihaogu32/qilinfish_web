@@ -1,0 +1,12 @@
+{
+  "slug": "test-zh-solo",
+  "lang": "zh",
+  "title": "測試文章：沒有對應文章的中文文章",
+  "lede": "網站測試用的文章包，不會上線。它沒有配對，切換語言時會到英文文章清單。",
+  "summary": "網站測試用的中文文章包：沒有對應的英文文章，頁首只有圖片。",
+  "date": "2026-10-30",
+  "hero": {
+    "image": "media/hero.jpg"
+  },
+  "cover": "media/hero.jpg"
+}

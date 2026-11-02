@@ -6,11 +6,16 @@
     <title th:text="${title} + ' — ' + #{site.name}">麒麟魚 Qilinfish Studio</title>
     <link rel="alternate" hreflang="zh-Hant-TW" th:href="${zhUrl}">
     <link rel="alternate" hreflang="en" th:href="${enUrl}">
+    <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+
+<!-- Fonts and the site stylesheet; every page head includes this (blog/article.html writes the rest of its head itself) -->
+<th:block th:fragment="assets">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/qilinfish.css(v='20261026-en')}" href="/css/qilinfish.css?v=20261026-en">
-</head>
+    <link rel="stylesheet" th:href="@{/css/qilinfish.css(v='20261102-articles')}" href="/css/qilinfish.css?v=20261102-articles">
+</th:block>
 <body>
 
 <!-- Top navigation fragment -->

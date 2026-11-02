@@ -52,6 +52,8 @@ spring:
 
 # Reserved DB port placeholder
 qilinfish:
+  articles:
+    dir: ${ARTICLES_DIR:../content/articles}   # article packages from CompanyofOne (relative to the working folder); Docker sets /content/articles
   db:
     reserved-port: ${QILINFISH_DB_RESERVED_PORT:3306}
     reserved-host: ${QILINFISH_DB_RESERVED_HOST:localhost}

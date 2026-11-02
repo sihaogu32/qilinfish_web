@@ -1,91 +1,109 @@
 package com.qilinfish.website.controller;
 
 import com.qilinfish.website.config.LangLocaleResolver;
-import com.qilinfish.website.model.BlogPostModel;
+import com.qilinfish.website.config.LangPathFilter;
+import com.qilinfish.website.model.ArticlePackageModel;
+import com.qilinfish.website.repository.ArticlePackageRepository;
+import com.qilinfish.website.repository.ArticlePairRepository;
 import com.qilinfish.website.vb.BlogViewBinder;
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.Optional;
 
 /**
- * Controller for the blog. A new post = one entry in POSTS (newest first)
- * + templates/blog/<slug>.html (Chinese) + templates/blog/en/<slug>.html (English).
- * Both bodies must exist or the app refuses to start (owner decision D8: both languages or not published).
+ * Controller for the blog: /blog, /blog/{slug} (and the same under /en).
+ * Every article is an article package from CompanyofOne (content/articles/<slug>/), shown through blog/article.html.
+ * An article lives in its own language only: the other language's URL is a 404.
  */
 @Controller
 public class BlogController {
 
-    private static final List<BlogPostModel> POSTS = List.of(
-        new BlogPostModel("shadow-ai",
-            "您的公司知道員工在用哪些 AI 嗎？",
-            "Does your company know which AI tools its staff are using?",
-            "將近一半用 AI 的員工承認用法違反公司規定。這篇整理國際調查、真實事件、各地規範，以及台灣的現況。",
-            "Nearly half of the employees who use AI admit that their use breaks company rules. This note gathers international surveys, real incidents, rules from several jurisdictions, and the situation in Taiwan.",
-            "2026-10-26",
-            "blog_shadow_ai")
-    );
+    /**
+     * English URLs that moved for good (301), old slug -> new slug. One slug is one article (SP6):
+     * shadow-ai used to answer in both languages; the English article is now shadow-ai-en.
+     */
+    private static final Map<String, String> EN_MOVED = Map.of("shadow-ai", "shadow-ai-en");
 
-    /** Fail fast: every post needs its Chinese and its English body template. */
-    @PostConstruct
-    void checkPostTemplates() {
-        for (BlogPostModel post : POSTS) {
-            for (String view : List.of(zhView(post), enView(post))) {
-                if (!new ClassPathResource("templates/" + view + ".html").exists()) {
-                    throw new IllegalStateException("Blog post '" + post.getSlug() + "' is missing templates/" + view
-                        + ".html (a post ships in both languages or not at all)");
-                }
-            }
-        }
+    private final ArticlePackageRepository articles;
+    private final ArticlePairRepository pairs;
+
+    public BlogController(ArticlePackageRepository __articles, ArticlePairRepository __pairs) {
+        this.articles = __articles;
+        this.pairs = __pairs;
     }
 
     @GetMapping("/blog")
     public String renderBlog(HttpServletRequest __request, Model __model) {
-        __model.addAttribute("vb", buildBlogBinder(__request));
+        BlogViewBinder vb = buildBlogBinder(__request);
+        vb.setCards(buildCards(vb));
+        __model.addAttribute("vb", vb);
         __model.addAttribute("activeNav", "blog");
         return "blog";
     }
 
     @GetMapping("/blog/{slug}")
     public String renderPost(@PathVariable("slug") String __slug, HttpServletRequest __request, Model __model) {
-        BlogPostModel post = POSTS.stream()
-            .filter(p -> p.getSlug().equals(__slug))
-            .findFirst()
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         BlogViewBinder vb = buildBlogBinder(__request);
-        vb.setPost(post);
+        if (vb.isEn() && EN_MOVED.containsKey(__slug)) {
+            __request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.MOVED_PERMANENTLY);
+            return "redirect:" + LangPathFilter.EN_PREFIX + "/blog/" + EN_MOVED.get(__slug);
+        }
+        ArticlePackageModel article = articles.findBySlug(__slug)
+            .filter(a -> a.isEn() == vb.isEn())
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         __model.addAttribute("vb", vb);
         __model.addAttribute("activeNav", "blog");
-        // only slugs from POSTS reach here, so the view name never comes from raw input
-        return vb.isEn() ? enView(post) : zhView(post);
+        return renderArticle(article, vb, __model);
     }
 
-    private static String zhView(BlogPostModel __post) { return "blog/" + __post.getSlug(); }
-
-    private static String enView(BlogPostModel __post) { return "blog/en/" + __post.getSlug(); }
+    /**
+     * One article package inside the site frame.
+     * Language switch: to the counterpart when the article is paired (article-pairs.txt), and then both hreflang links;
+     * otherwise to the other language's list, with no hreflang (an article is not translated).
+     * og:image, canonical and hreflang are absolute, built from this request's scheme and host.
+     */
+    private String renderArticle(ArticlePackageModel __article, BlogViewBinder __vb, Model __model) {
+        String self = "/blog/" + __article.getSlug();
+        String site = ServletUriComponentsBuilder.fromCurrentContextPath().replaceQuery(null).build().toUriString();
+        __vb.setArticle(__article);
+        __vb.setHeroImageUrl(ArticlePackageRepository.mediaUrl(__article, __article.getHero().getImage()));
+        __vb.setHeroVideoUrl(ArticlePackageRepository.mediaUrl(__article, __article.getHero().getVideo()));
+        __vb.setPageUrl(site + (__article.isEn() ? LangPathFilter.EN_PREFIX : "") + self);
+        __vb.setImageUrl(site + __vb.getHeroImageUrl());
+        Optional<String> counterpart = pairs.findCounterpart(__article.getSlug());
+        String other = counterpart.map(c -> "/blog/" + c).orElse("/blog");
+        String zhUrl = __article.isEn() ? other : self;
+        String enUrl = LangPathFilter.EN_PREFIX + (__article.isEn() ? self : other);
+        __model.addAttribute("zhUrl", zhUrl);
+        __model.addAttribute("enUrl", enUrl);
+        if (counterpart.isPresent()) {
+            __vb.setZhAlternateUrl(site + zhUrl);
+            __vb.setEnAlternateUrl(site + enUrl);
+        }
+        return "blog/article";
+    }
 
     private BlogViewBinder buildBlogBinder(HttpServletRequest __request) {
         BlogViewBinder vb = new BlogViewBinder();
         vb.setEn(LangLocaleResolver.isEnglish(__request));
-        vb.setPosts(POSTS);
-        vb.setReadyCovers(findReadyCovers());
         return vb;
     }
 
-    /** Covers are supplied later; until the .jpg is there the page shows a poster block instead of a broken image. */
-    private Set<String> findReadyCovers() {
-        return POSTS.stream()
-            .map(BlogPostModel::getCover)
-            .filter(c -> new ClassPathResource("static/media/" + c + ".jpg").exists())
-            .collect(Collectors.toSet());
+    /** List cards: the article packages in the page language, newest first. */
+    private List<BlogViewBinder.Card> buildCards(BlogViewBinder __vb) {
+        return articles.findByLang(__vb.isEn()).stream()
+            .map(a -> new BlogViewBinder.Card(a.getSlug(), a.getTitle(), a.getSummary(), a.getDate(),
+                ArticlePackageRepository.mediaUrl(a, a.getCover())))
+            .toList();
     }
 }

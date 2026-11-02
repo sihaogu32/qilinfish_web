@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html th:lang="${htmlLang}" lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+<!--/* One template for every article package. The site owns the frame (head, nav, footer, language switch);
+       everything inside <article> is the package's body.html, unchanged except media paths,
+       plus the survey button at the end of its .bl-invite box. */-->
+<head th:with="a=${vb.article}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${a.title} + ' — ' + #{site.name}">文章標題 — 麒麟魚 Qilinfish Studio</title>
+    <meta name="description" th:content="${a.summary}">
+    <link rel="canonical" th:href="${vb.pageUrl}">
+    <!--/* hreflang only when a counterpart exists: an unpaired article has no other-language version */-->
+    <link th:if="${vb.hasCounterpart()}" rel="alternate" hreflang="zh-Hant-TW" th:href="${vb.zhAlternateUrl}">
+    <link th:if="${vb.hasCounterpart()}" rel="alternate" hreflang="en" th:href="${vb.enAlternateUrl}">
+    <meta property="og:type" content="article">
+    <meta property="og:title" th:content="${a.title}">
+    <meta property="og:description" th:content="${a.summary}">
+    <meta property="og:url" th:content="${vb.pageUrl}">
+    <meta property="og:image" th:content="${vb.imageUrl}">
+    <script type="application/ld+json" th:inline="javascript">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": [[${a.title}]],
+      "description": [[${a.summary}]],
+      "datePublished": [[${a.date}]],
+      "image": [[${vb.imageUrl}]],
+      "url": [[${vb.pageUrl}]],
+      "inLanguage": [[${htmlLang}]],
+      "author": { "@type": "Organization", "name": [[#{site.name}]] },
+      "publisher": { "@type": "Organization", "name": [[#{site.name}]] }
+    }
+    </script>
+    <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: background}"></div>
+<nav th:replace="~{fragments/layout :: navbar('blog')}"></nav>
+
+<main class="qf-page" th:with="a=${vb.article}">
+    <!-- page header: the picture always; with a clip, the picture shows until the clip plays -->
+    <header class="ab-hero">
+        <video th:if="${vb.heroVideoUrl != null}" class="ab-hero__video" th:src="${vb.heroVideoUrl}" th:poster="${vb.heroImageUrl}"
+               data-sv-play muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <img th:unless="${vb.heroVideoUrl != null}" class="ab-hero__video" th:src="${vb.heroImageUrl}" alt="" aria-hidden="true">
+        <span class="ab-ai" th:text="#{blog.aiNote}">示意畫面 · AI 生成</span>
+        <div class="ab-hero__inner">
+            <div class="qf-eyebrow"><a class="bl-back" th:href="${lp + '/blog'}" href="/blog" th:text="#{blog.back}">← 所有文章</a>
+                <span aria-hidden="true">·</span> NOTES // <time class="bl-date" th:datetime="${a.date}" th:text="${a.date}">2026-10-28</time></div>
+            <h1 class="ab-hero__title" th:text="${a.title}">文章標題</h1>
+            <p class="st-lede" th:text="${a.lede}">導言</p>
+        </div>
+    </header>
+    <article class="bl-post">
+        <!--/* SP16: the survey button goes at the end of the article's own .bl-invite box (the body is split right there) */-->
+        <th:block th:utext="${a.bodyBeforeCta}"></th:block>
+        <a class="qf-btn qf-btn--primary" th:href="${lp + '/survey'}" href="/survey">[[#{blog.cta.button}]] <span class="arr">→</span></a>
+        <th:block th:utext="${a.bodyAfterCta}"></th:block>
+    </article>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/qilinfish.js(v='20261026-pick')}" src="/js/qilinfish.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "slug": "test-zh-video",
+  "lang": "zh",
+  "title": "測試文章：有頁首影片的中文文章",
+  "lede": "這是網站測試用的文章包，不會上線。它有頁首影片，用來檢查影片、圖片當載入前畫面，以及共用樣式。",
+  "summary": "網站測試用的中文文章包：頁首有影片，內文有 TL;DR、引用、表格、步驟與寬版圖片。",
+  "date": "2026-11-02",
+  "hero": {
+    "image": "media/hero.jpg",
+    "video": "media/hero.mp4"
+  },
+  "cover": "media/hero.jpg"
+}

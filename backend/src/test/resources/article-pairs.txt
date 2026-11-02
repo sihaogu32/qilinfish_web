@@ -1,0 +1,2 @@
+# Test pairs (see ArticlePairRepository). test-zh-solo stays unpaired on purpose.
+test-zh-video = test-en-image
