@@ -100,11 +100,35 @@ docker compose logs -f cloudflared
 
 ---
 
+## 上線一篇文章
+
+文章不在 image 裡：`content/` 以唯讀方式掛進容器（`./content:/content:ro`，`ARTICLES_DIR=/content/articles`），
+所以上線文章不用重建 image。
+
+1. **匯入文章包**：在 CompanyofOne 匯出，文章包會直接寫進這個 repo 的 `content/articles/<slug>/`（整包覆蓋）。
+   要配成中英對應文章，就在 `content/article-pairs.txt` 加一行，例如 `solo-trust = solo-trust-en`。
+2. **本機確認**：`backend/` 下啟動網站，看 `/blog`、`/en/blog` 和文章頁；文章包或配對有錯，網站會拒絕啟動並指出哪一篇、哪裡錯。
+3. **提交**：看過 `git diff` 後提交、push。
+4. **伺服器**：
+
+```bash
+cd qilinfish.com
+git pull
+docker compose restart qilinfish-web     # 啟動時重新讀所有文章包
+docker compose logs --tail=50 qilinfish-web
+```
+
+只有程式（`backend/`）有改時才需要 `docker compose up -d --build`。
+重啟後如果容器一直重開，多半是文章包或 `article-pairs.txt` 有錯，`logs` 會寫哪一篇、哪裡錯。
+
+---
+
 ## 驗收
 
 | 檢查項                                   | 怎麼測 |
 |------------------------------------------|--------|
 | 網站可開                                 | 瀏覽器打開 `https://qilinfish.com` |
+| 文章                                     | `/blog`、`/en/blog` 有新文章；文章頁的圖片與影片能載入 |
 | TLS 憑證                                 | 由 Cloudflare 自動發放，瀏覽器顯示鎖頭 |
 | 表單寄信                                 | 在 `/contact` 送出 → Gmail 應該幾秒內收到 |
 | 收信轉發                                 | 直接寄信到 `qilinfish@qilinfish.com` → Gmail 應該收到 |
