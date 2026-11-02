@@ -5,7 +5,18 @@
 ---
 
 ## 預覽
-打開 `preview.html` 直接在瀏覽器看完整流程（單檔靜態 SPA，模擬多頁切換）。
+打開 `preview.html` 直接在瀏覽器看完整網站（中英所有頁面與文章），不必啟動伺服器。
+
+`preview.html` 由 `tools/build_preview.py` 從真的網站產生，**不要手改**。網站或文章有改動時重新產生：
+
+```bash
+# 先在本機啟動網站（backend/ 下 java -jar target/qilinfish-website-*.jar，或 docker compose up）
+python tools/build_preview.py                  # 預設抓 http://localhost:8080
+python tools/build_preview.py --base http://localhost:18080
+```
+
+- CSS、JS、圖片、影片不複製，直接指向 repo 裡的檔案，所以 `preview.html` 要放在 repo 根目錄。
+- 預覽裡表單不會送出；產品頁情境卡連到問卷時不會預選（`?pick=`）。
 
 ## 部署架構
 
