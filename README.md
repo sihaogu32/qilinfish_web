@@ -135,7 +135,7 @@ cp .env.example .env       # 填 Gmail App Password、Cloudflare Tunnel Token
 docker compose up -d --build
 ```
 
-`content/` 唯讀掛進容器（`ARTICLES_DIR=/content/articles`）。上線文章：匯入文章包 → 提交 → 伺服器 `git pull` → `docker compose restart qilinfish-web`，不用重建 image（見 `DEPLOY.md`「上線一篇文章」）。
+`content/` 唯讀掛進容器（`ARTICLES_DIR=/content/articles`）。上線文章：匯入文章包 → 提交 → 伺服器 `git pull` → `docker compose restart qilinfish-web cloudflared`（cloudflared 借用 web 的網路，要一起重啟），不用重建 image（見 `DEPLOY.md`「上線一篇文章」）。
 
 ## GitHub
 Repo：<https://github.com/sihaogu32/qilinfish_web>

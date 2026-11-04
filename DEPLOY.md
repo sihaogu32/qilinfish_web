@@ -114,9 +114,12 @@ docker compose logs -f cloudflared
 ```bash
 cd qilinfish.com
 git pull
-docker compose restart qilinfish-web     # 啟動時重新讀所有文章包
+docker compose restart qilinfish-web cloudflared   # web 啟動時重新讀所有文章包
 docker compose logs --tail=50 qilinfish-web
 ```
+
+`cloudflared` 要一起重啟：它借用 web 容器的網路（`network_mode: "service:qilinfish-web"`），
+只重啟 web 的話，cloudflared 會留在舊的網路裡，tunnel 斷線，外面看到 Cloudflare 530。
 
 只有程式（`backend/`）有改時才需要 `docker compose up -d --build`。
 重啟後如果容器一直重開，多半是文章包或 `article-pairs.txt` 有錯，`logs` 會寫哪一篇、哪裡錯。
