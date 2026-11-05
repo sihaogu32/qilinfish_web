@@ -1402,6 +1402,36 @@ body:not(:has(.qf-nav)) .qf-page { padding-top: 0; }
 .bl-refs .d { font-family: var(--font-mono); font-size: 11.5px; color: var(--fg-2); }
 .bl-refs a { overflow-wrap: anywhere; }
 
+/* article-evidence B9–B12: click [n], the evidence opens right under the passage; one panel at a time (D7).
+   Same panel on the article page and in the /products/content demo. */
+sup.cite[data-e] a { border-radius: 2px; }
+sup.cite[data-e] a:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+sup.cite.is-open a { background: var(--accent-soft); color: var(--fg-0); }
+.ev-panel {
+  margin: 4px 0 22px;
+  display: grid; gap: 1px;
+  background: var(--accent-line);
+  border: 1px solid var(--accent-line);
+  border-left: 2px solid var(--accent);
+  font-size: 14px; line-height: 1.7; color: var(--fg-1);
+  text-align: left;
+}
+li > .ev-panel { margin: 10px 0 6px; }
+.ev-item { display: grid; gap: 8px; align-content: start; padding: 20px 24px; background: var(--bg-1); }
+.ev-item p { margin: 0; font-size: 14px; line-height: 1.7; }
+.ev-item__src { display: flex; flex-wrap: wrap; gap: 2px 10px; color: var(--fg-2); font-size: 13px; }
+.ev-item__src b { color: var(--fg-0); font-weight: 500; }
+.ev-item__src time { font-family: var(--font-mono); font-size: 12px; }
+.ev-k { margin-top: 4px; font-family: var(--font-mono); font-size: 10.5px; line-height: 1.4; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.ev-q { display: grid; gap: 4px; }
+.ev-item .ev-line { color: var(--fg-0); }
+.ev-item .ev-tr { color: var(--fg-2); }
+.ev-url { overflow-wrap: anywhere; }
+.ev-item .ev-url a { color: var(--fg-0); text-decoration: underline; text-decoration-color: var(--accent-line); text-underline-offset: 3px; }
+@media (max-width: 640px) {
+  .ev-item { padding: 18px 16px; }
+}
+
 @media (max-width: 640px) {
   .bl-post { padding: 24px 16px 72px; }
   .bl-head .bl-cover { aspect-ratio: 4 / 3; }

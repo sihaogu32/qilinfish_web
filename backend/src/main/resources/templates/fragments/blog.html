@@ -8,5 +8,20 @@
     <span class="bl-ai" th:text="#{blog.aiNote}">示意畫面 · AI 生成</span>
 </div>
 
+<!--/* article-evidence B9–B12: one <template> per piece of evidence (EvidenceModel), never shown as it is.
+       qilinfish.js (initEvidenceMarks) copies the pieces a clicked mark [n] points at, in data-e order, into one panel
+       right under the passage. Labels in the page language (blog.ev.*). Without JavaScript nothing here shows (B13). */-->
+<th:block th:fragment="evidenceStore(list)">
+<template th:each="e : ${list}" th:attr="data-ev-src=${e.id}"><section class="ev-item">
+    <div class="ev-item__src"><b th:if="${e.publisher != null}" th:text="${e.publisher}">Ipsos</b><span th:if="${e.title != null}" th:text="${e.title}">Ipsos AI Monitor 2025</span><time th:if="${e.date != null}" th:text="${e.date}">2025-06-06</time></div>
+    <div class="ev-k" th:text="#{blog.ev.quote}">原文引句</div>
+    <div class="ev-q"><p th:each="l : ${e.quote}" th:class="${l.translation} ? 'ev-tr' : 'ev-line'" th:text="${l.shown}">"Seventy-nine percent agree …"</p></div>
+    <div class="ev-k" th:text="#{blog.ev.qual}">限定條件</div>
+    <p class="ev-qual" th:text="${e.qualifiers}">限定條件全文</p>
+    <div class="ev-k" th:text="#{blog.ev.url}">原始網址</div>
+    <p class="ev-url"><th:block th:each="part : ${e.urlParts}"><a th:if="${part.link}" th:href="${part.text}" th:text="${part.text}" rel="noopener" target="_blank">https://…</a><th:block th:unless="${part.link}" th:text="${part.text}"></th:block></th:block></p>
+</section></template>
+</th:block>
+
 </body>
 </html>

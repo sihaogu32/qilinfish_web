@@ -116,6 +116,26 @@ class BlogControllerTest {
     }
 
     @Test
+    void evidenceMarksHaveTheirEvidenceOnThePageInTheArticleLanguage() {
+        // article-evidence B9–B13: the evidence is on the page in <template> (shown by qilinfish.js); [n] still goes to #r1
+        String zh = ok("/blog/test-zh-solo");
+        assertThat(zh).contains("<article class=\"bl-post\" data-ev-marks=\"這段話的出處\">",
+            "<sup class=\"cite\" data-e=\"E1\"><a href=\"#r1\">[1]</a></sup>", "/js/qilinfish.js?v=20261105-evidence");
+        assertThat(zh).containsSubsequence("<template data-ev-src=\"E1\">", "<b>測試出版者</b>", "<span>測試報告 2026</span>",
+            "<time>2026-11-02</time>", ">原文引句<", "<p class=\"ev-line\">&quot;This is a test quote.&quot;</p>",
+            "<p class=\"ev-tr\">這是測試用的引句。</p>", ">限定條件<", "測試用的限定條件：只代表測試資料。", ">原始網址<",
+            "<a href=\"https://example.com/report.pdf\" rel=\"noopener\" target=\"_blank\">https://example.com/report.pdf</a>（第 3 頁）",
+            "</template>");
+        assertThat(zh).doesNotContain("中文：這是測試用的引句");
+        String en = ok("/en/blog/test-en-image");
+        assertThat(en).contains("data-ev-marks=\"Sources for this passage\"", ">Quote<", ">Qualifiers<", ">Source URL<",
+            "<a href=\"https://example.com/news\" rel=\"noopener\" target=\"_blank\">https://example.com/news</a>.");
+        assertThat(en).doesNotContain(">原文引句<", "page 3");
+        // no evidence marks: no evidence on the page
+        assertThat(ok("/blog/test-zh-video")).doesNotContain("data-ev-marks", "<template");
+    }
+
+    @Test
     void oldEnglishShadowAiUrlMovedForGood() throws Exception {
         HttpResponse<Void> r = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NEVER).build().send(
             HttpRequest.newBuilder(URI.create("http://localhost:" + port + "/en/blog/shadow-ai")).GET().build(),

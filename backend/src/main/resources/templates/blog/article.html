@@ -51,7 +51,9 @@
             <p class="st-lede" th:text="${a.lede}">導言</p>
         </div>
     </header>
-    <article class="bl-post">
+    <!--/* article-evidence B9–B13: data-ev-marks (its value names the panel) makes every evidence mark [n] open its evidence under the passage */-->
+    <article class="bl-post" th:attr="data-ev-marks=${a.evidenceMarked} ? #{blog.ev.panel} : null">
+        <th:block th:replace="~{fragments/blog :: evidenceStore(${a.evidenceList})}"></th:block>
         <!--/* SP16: the survey button goes at the end of the article's own .bl-invite box (the body is split right there) */-->
         <th:block th:utext="${a.bodyBeforeCta}"></th:block>
         <a class="qf-btn qf-btn--primary" th:href="${lp + '/survey/verify'}" href="/survey/verify">[[#{blog.cta.button}]] <span class="arr">→</span></a>
@@ -62,6 +64,6 @@
 </main>
 
 <footer th:replace="~{fragments/layout :: footer}"></footer>
-<script th:src="@{/js/qilinfish.js(v='20261104-demo')}" src="/js/qilinfish.js"></script>
+<script th:src="@{/js/qilinfish.js(v='20261105-evidence')}" src="/js/qilinfish.js"></script>
 </body>
 </html>

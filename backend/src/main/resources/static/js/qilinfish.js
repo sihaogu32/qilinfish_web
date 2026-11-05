@@ -704,6 +704,79 @@
   }
 
   /**
+   * article-evidence B9–B13: inside every [data-ev-marks] box (an article, the product page demo), a click on any [n]
+   * of an evidence mark (sup.cite[data-e]) opens one panel right under its passage (paragraph, list item or table)
+   * with every piece of evidence the mark points at, in data-e order, copied from <template data-ev-src="E…">.
+   * One panel at a time; the same mark again closes it; Enter and Space work on a focused [n] (D7).
+   * Without JavaScript the [n] links keep going to the reference list (B13).
+   */
+  function initEvidenceMarks() {
+    document.querySelectorAll('[data-ev-marks]').forEach(function (box, k) {
+      var store = {};
+      box.querySelectorAll('template[data-ev-src]').forEach(function (t) { store[t.getAttribute('data-ev-src')] = t; });
+      var panelId = 'ev-panel-' + (k + 1);
+      var open = null;   // { mark, panel }
+
+      // where the panel goes: under the table, at the end of a list item, or right after the paragraph
+      function place(__mark, __panel) {
+        var table = __mark.closest('table');
+        if (table) { var t = table.closest('.bl-table') || table; t.after(__panel); return; }
+        var li = __mark.closest('li');
+        if (li && box.contains(li)) { li.appendChild(__panel); return; }
+        var p = __mark.closest('p, blockquote, dd, figcaption') || __mark.parentElement;
+        p.after(__panel);
+      }
+
+      function setLinks(__mark, __on) {
+        __mark.classList.toggle('is-open', __on);
+        __mark.querySelectorAll('a').forEach(function (a) {
+          a.setAttribute('aria-expanded', __on ? 'true' : 'false');
+          if (__on) a.setAttribute('aria-controls', panelId); else a.removeAttribute('aria-controls');
+        });
+      }
+
+      function close() {
+        if (!open) return;
+        setLinks(open.mark, false);
+        open.panel.remove();
+        open = null;
+      }
+
+      function toggle(__mark) {
+        var same = open && open.mark === __mark;
+        // keep the clicked mark where it is on screen when a panel above it closes
+        var top = __mark.getBoundingClientRect().top;
+        close();
+        if (!same) {
+          var panel = document.createElement('div');
+          panel.className = 'ev-panel';
+          panel.id = panelId;
+          panel.setAttribute('role', 'region');
+          panel.setAttribute('aria-label', box.getAttribute('data-ev-marks') || '');
+          __mark.getAttribute('data-e').trim().split(/\s+/).forEach(function (id) {
+            if (store[id]) panel.appendChild(store[id].content.cloneNode(true));
+          });
+          place(__mark, panel);
+          setLinks(__mark, true);
+          open = { mark: __mark, panel: panel };
+        }
+        var moved = __mark.getBoundingClientRect().top - top;
+        if (Math.abs(moved) > 1) window.scrollBy(0, moved);
+      }
+
+      box.querySelectorAll('sup.cite[data-e]').forEach(function (mark) {
+        mark.querySelectorAll('a').forEach(function (a) {
+          a.setAttribute('aria-expanded', 'false');
+          a.addEventListener('click', function (__e) { __e.preventDefault(); toggle(mark); });
+          a.addEventListener('keydown', function (__e) {
+            if (__e.key === ' ') { __e.preventDefault(); toggle(mark); }   // Enter already clicks a link
+          });
+        });
+      });
+    });
+  }
+
+  /**
    * Article-app product page demo ([data-evidence-demo]): each sentence ([data-ev]) opens the evidence panel
    * ([data-ev-panel]) it points at. One sentence at a time; the same one again closes it; Enter or Space on a
    * focused sentence works like a click (D50). Without JavaScript every panel stays visible under the excerpt.
@@ -763,6 +836,7 @@
     initSurveyVisuals();
     initProductsLens();
     initEvidenceDemo();
+    initEvidenceMarks();
     initLangSwitcher();
   });
 })();
