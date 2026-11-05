@@ -106,9 +106,9 @@ class BlogControllerTest {
     @Test
     void articleWithEvidenceMarksEndsWithTheLineToTheProductPage() {
         String zh = ok("/blog/test-zh-solo");
-        assertThat(zh).containsPattern("</div>\\s*<p class=\"bl-sourced\"><a href=\"/products/content\">這篇文章由麒麟魚的內容工具製作，每一句都查得到出處 <span class=\"arr\">→</span></a></p>\\s*</article>");
+        assertThat(zh).containsPattern("</div>\\s*<p class=\"bl-sourced\"><a href=\"/products/content\">這篇文章由麒麟魚的內容工具製作，每個事實都附原文，也附上它的限度 <span class=\"arr\">→</span></a></p>\\s*</article>");
         String en = ok("/en/blog/test-en-image");
-        assertThat(en).containsPattern("<p class=\"bl-sourced\"><a href=\"/en/products/content\">This article was made with Qilinfish&#39;s content tool, and every sentence can be traced to its source <span class=\"arr\">→</span></a></p>\\s*</article>");
+        assertThat(en).containsPattern("<p class=\"bl-sourced\"><a href=\"/en/products/content\">This article was made with Qilinfish&#39;s content tool: every fact comes with its source and its limits <span class=\"arr\">→</span></a></p>\\s*</article>");
         // after the references list, before the footer (D45)
         assertThat(en).containsSubsequence("<h2 id=\"refs\">", "class=\"bl-sourced\"", "</article>", "<footer");
         // <sup class="cite"> without data-e is not an evidence mark

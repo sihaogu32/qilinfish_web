@@ -25,17 +25,17 @@ class ProductsContentControllerTest {
     @Test
     void bothLanguagesHaveTheTitleAndTheButtonToTheirSurvey() {
         String zh = ok("/products/content");
-        assertThat(zh).contains("<h1 class=\"sc-title\">每一句都查得到出處</h1>", "<title>每一句都查得到出處 — 麒麟魚 Qilinfish Studio</title>",
+        assertThat(zh).contains("<h1 class=\"sc-title\">每個事實都附原文，也附上它的限度</h1>", "<title>每個事實都附原文，也附上它的限度 — 麒麟魚 Qilinfish Studio</title>",
             "href=\"/survey/content\"");
         String en = ok("/en/products/content");
-        assertThat(en).contains("<h1 class=\"sc-title\">Every sentence, traceable to its source</h1>", "href=\"/en/survey/content\"",
+        assertThat(en).contains("<h1 class=\"sc-title\">Every fact comes with its source — and its limits</h1>", "href=\"/en/survey/content\"",
             "<html lang=\"en\"");
     }
 
     @Test
     void fivePartsInOrderWithTheExcerptAndBothRowsOfSteps() {
         String zh = ok("/products/content");
-        assertThat(zh).containsSubsequence("每一句都查得到出處</h1>", "這篇沒有對應的英文文章。", "[1]",
+        assertThat(zh).containsSubsequence("每個事實都附原文，也附上它的限度</h1>", "這篇沒有對應的英文文章。", "[1]",
             "為什麼平常做不到", ">查資料<", ">寫稿<", ">配圖<", ">排版<", ">上線<", "出處連結就斷一次",
             ">提問<", ">研究<", ">查核<", ">大綱<", ">製作<", ">驗收<", ">成品<",
             "實際案例", "怎麼付費",
@@ -44,7 +44,7 @@ class ProductsContentControllerTest {
             "這個產品還在打磨，還沒開放使用", "href=\"/survey/content\"");
         assertThat(zh).doesNotContain("pd-scenes", "class=\"pd-scene\"");   // no scenario cards
         String en = ok("/en/products/content");
-        assertThat(en).containsSubsequence("Every sentence, traceable to its source</h1>",
+        assertThat(en).containsSubsequence("Every fact comes with its source — and its limits</h1>",
             "This paragraph is test content for checking paragraphs, line height and citation styles.", "[1]", "Why it usually can");
     }
 
@@ -69,7 +69,7 @@ class ProductsContentControllerTest {
         assertThat(zh).containsSubsequence("<template data-ev-src=\"E1\">", "<b>測試出版者</b>", ">原文引句<",
             "<p class=\"ev-tr\">這是測試用的引句。</p>", ">限定條件<", "測試用的限定條件：只代表測試資料。", ">原始網址<",
             "<a href=\"https://example.com/report.pdf\" rel=\"noopener\" target=\"_blank\">", "</template>");
-        assertThat(zh).contains("<meta name=\"description\" content=\"把一個主題做成每一句都查得到出處的內容：點文章裡的編號，就看得到原文引句、限定條件和原始網址。\">");
+        assertThat(zh).contains("<meta name=\"description\" content=\"把一個主題做成內容，每個事實都附原文，也寫明來源只支持到哪裡：點文章裡的編號，就看得到原文引句、限定條件和原始網址。\">");
         // the old hand-written demo is gone
         assertThat(zh).doesNotContain("Ipsos", "pc-sent", "pc-ev", "data-ev=", "點一句");
         String en = ok("/en/products/content");

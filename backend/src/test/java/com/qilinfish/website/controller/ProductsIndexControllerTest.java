@@ -26,7 +26,7 @@ class ProductsIndexControllerTest {
         assertThat(zh).contains("<h1 class=\"sc-title\">交出去之前，先確定它站得住</h1>",
             "<title>交出去之前，先確定它站得住 — 麒麟魚 Qilinfish Studio</title>");
         assertThat(zh).containsSubsequence("href=\"/products/verify\"", "src=\"/media/report_clean.jpg\"", "AI 說「做完了」", "交出去之前，找出錯在哪裡",
-            "href=\"/products/content\"", "src=\"/media/content_clean.jpg\"", "每一句都查得到出處", "做的時候就留下證據，交出去不怕被查",
+            "href=\"/products/content\"", "src=\"/media/content_clean.jpg\"", "每個事實都附原文，也附上它的限度", "做的時候就留下證據，交出去不怕被查",
             "也接 Web 開發與專案設計 →", "<a href=\"/contact\">聯絡我們</a>");
         assertThat(zh.split("class=\"pd-scene pe-card\"", -1)).hasSize(3);
         assertThat(zh).doesNotContain("<video", "治療", "預防", "……");

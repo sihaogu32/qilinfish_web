@@ -180,4 +180,4 @@ docker cp qilinfish-web:/data/survey.db ./survey.db
   `ProductsContentControllerTest.eachSentenceOpensItsEvidenceWordForWord` 與其他測試裡手寫句子的斷言（改測文章包段落）。
   還在引用已刪內容的文件：`design/features/content-product/spec.md`、`tickets.md`（D20、D21、`pc.ev.*` 鍵的說明；決策文件，照原樣保留為歷史，已由 article-evidence 規格取代）。
   `pc.demo.from` 的文章標題仍是手寫，文章改標題時要一起改
-- 定位句「每一句都查得到出處」字面上不成立（2026-11-05 列入追蹤）：實測 solo-trust 46/91、ai-handover 7/44 個文字區塊（段落、列點、表格格子）沒有任何證據標記。這句出現在產品頁標題、產品總覽、部落格文章最後一行、問卷與 `CONTEXT.md`。待決：改定位句，或要求文章每一句都有標記
+- 定位句「每一句都查得到出處」字面上不成立（2026-11-05 列入追蹤）：實測 solo-trust 46/91、ai-handover 7/44 個文字區塊（段落、列點、表格格子）沒有任何證據標記。這句出現在產品頁標題、產品總覽、部落格文章最後一行、問卷與 `CONTEXT.md`。待決：改定位句，或要求文章每一句都有標記。**2026-11-05 結案**：定位句改成「每個事實都附原文，也附上它的限度」，規格與票單在 `design/features/fact-limits/`

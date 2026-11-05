@@ -72,7 +72,7 @@ public class ArticlePackageModel {
     public String getBodyAfterCta() { return bodyAfterCta; }
     public void setBodyAfterCta(String __html) { this.bodyAfterCta = __html; }
 
-    /** Spec B30/B12: only an article with evidence marks says "every sentence has a source" and is a real example. */
+    /** Spec B30/B12: only an article with evidence marks says "every fact comes with its source and its limits" and is a real example. */
     public boolean isEvidenceMarked() { return evidenceMarked; }
     public void setEvidenceMarked(boolean __marked) { this.evidenceMarked = __marked; }
 
