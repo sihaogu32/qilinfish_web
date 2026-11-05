@@ -1,0 +1,4 @@
+{"evidence":[{"id":"E1","publisher":"測試出版者","title":"測試報告 2026","date":"2026-11-02",
+  "quote":[{"text":"\"This is a test quote.\"","translation":false},
+           {"text":"中文：這是測試用的引句。","translation":true}],
+  "note":null,"qualifiers":"測試用的限定條件：只代表測試資料。","url":"https://example.com/report.pdf（第 3 頁）"}]}

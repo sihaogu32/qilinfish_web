@@ -1,0 +1,4 @@
+{"evidence":[{"id":"E1","publisher":"Test Publisher","title":"Test Report 2026","date":"2026-11-02",
+  "quote":[{"text":"\"This is a test quote.\"","translation":false},
+           {"text":"\"A second line from the same page.\"","translation":false}],
+  "note":"page 3","qualifiers":"Test qualifiers: the test data only.","url":"https://example.com/report.pdf; news page: https://example.com/news."}]}

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.qilinfish.website.model.ArticlePackageModel;
+import com.qilinfish.website.model.EvidenceModel;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -34,7 +35,8 @@ import java.util.stream.Stream;
 
 /**
  * Reads every article package under qilinfish.articles.dir once, at start-up.
- * A package is a folder <slug>/ holding article.json, body.html and media/ (see README, "文章包").
+ * A package is a folder <slug>/ holding article.json, body.html and media/ (see README, "文章包"),
+ * and evidence.json when body.html has evidence marks (article-evidence B6–B8).
  *
  * Fail fast: any broken package stops the app; the message names every package and what is wrong with it.
  * Only media/ is public: body.html writes media/<file>, served at /articles/<slug>/media/<file>.
@@ -46,6 +48,7 @@ public class ArticlePackageRepository {
     public static final String MEDIA = "media/";
     /** An evidence mark in body.html (CONTEXT.md, 證據標記): a citation that points at its evidence. */
     public static final String EVIDENCE_MARK = "sup.cite[data-e]";
+    public static final String EVIDENCE_FILE = "evidence.json";
 
     private static final Pattern FRAME_TAG = Pattern.compile("<\\s*(html|head|style)[\\s>/]", Pattern.CASE_INSENSITIVE);
     private static final Pattern MEDIA_ATTR = Pattern.compile("(\\s(?:src|poster|href)\\s*=\\s*\")media/([^\"#?]*)");
@@ -161,6 +164,7 @@ public class ArticlePackageRepository {
         }
         Document doc = Jsoup.parse(body, "", Parser.htmlParser().setTrackPosition(true));
         int ctaAt = findCtaPosition(doc, name, __problems);
+        Map<String, EvidenceModel> evidence = loadEvidence(__pkg, doc.select(EVIDENCE_MARK), name, __problems);
         if (__problems.size() > before) return null;
 
         a.setBodyBeforeCta(pointMediaAtPublicPath(body.substring(0, ctaAt), name));
@@ -168,7 +172,61 @@ public class ArticlePackageRepository {
         // always set here, so a value in article.json could never count; data-e is what makes a <sup class="cite">
         // an evidence mark (a plain reference number has none)
         a.setEvidenceMarked(!doc.select(EVIDENCE_MARK).isEmpty());
+        a.setEvidence(evidence);
         return a;
+    }
+
+    /**
+     * B6–B8 (D4): an article with evidence marks must have evidence.json, and every E number of every mark must be in it
+     * with a quote, qualifiers and a URL. Returns the evidence the marks use, in file order (empty with no marks: then the
+     * file is not read at all). Problems name the package and every E number that fails.
+     */
+    private Map<String, EvidenceModel> loadEvidence(Path __pkg, Elements __marks, String __name, List<String> __problems) {
+        if (__marks.isEmpty()) return Map.of();
+        Set<String> used = new LinkedHashSet<>();
+        for (Element mark : __marks) {
+            for (String id : mark.attr("data-e").trim().split("\\s+")) if (!id.isEmpty()) used.add(id);
+        }
+        Path file = __pkg.resolve(EVIDENCE_FILE);
+        if (!Files.isRegularFile(file)) {
+            __problems.add(__name + ": body.html has evidence marks but " + EVIDENCE_FILE + " not found");
+            return Map.of();
+        }
+        EvidenceModel.File parsed;
+        try {
+            parsed = mapper.readValue(file.toFile(), EvidenceModel.File.class);
+        } catch (UnrecognizedPropertyException e) {
+            __problems.add(__name + ": " + EVIDENCE_FILE + " has an unknown field '" + e.getPropertyName() + "'");
+            return Map.of();
+        } catch (IOException e) {
+            __problems.add(__name + ": " + EVIDENCE_FILE + " is not valid: " + e.getMessage());
+            return Map.of();
+        }
+        Map<String, EvidenceModel> byId = new LinkedHashMap<>();
+        if (parsed.getEvidence() != null) {
+            for (EvidenceModel e : parsed.getEvidence()) if (e != null && e.getId() != null) byId.putIfAbsent(e.getId(), e);
+        }
+        List<String> notFound = new ArrayList<>();
+        Map<String, List<String>> incomplete = new LinkedHashMap<>();
+        for (String id : used) {
+            EvidenceModel e = byId.get(id);
+            if (e == null) { notFound.add(id); continue; }
+            List<String> missing = new ArrayList<>();
+            if (e.getQuote() == null || e.getQuote().stream().noneMatch(l -> l != null && l.getText() != null && !l.getText().isBlank())) {
+                missing.add("quote");
+            }
+            if (e.getQualifiers() == null || e.getQualifiers().isBlank()) missing.add("qualifiers");
+            if (!e.hasUrl()) missing.add("url");
+            if (!missing.isEmpty()) incomplete.put(id, missing);
+        }
+        if (!notFound.isEmpty()) {
+            __problems.add(__name + ": evidence marks point at " + String.join(", ", notFound) + ", not in " + EVIDENCE_FILE);
+        }
+        incomplete.forEach((id, missing) ->
+            __problems.add(__name + ": evidence " + id + " in " + EVIDENCE_FILE + " has no " + String.join(", no ", missing)));
+        Map<String, EvidenceModel> out = new LinkedHashMap<>();
+        byId.forEach((id, e) -> { if (used.contains(id)) out.put(id, e); });
+        return out;
     }
 
     /**

@@ -1,5 +1,8 @@
 package com.qilinfish.website.model;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Pure data Model — one article package from CompanyofOne: content/articles/<slug>/article.json.
  * An article is written in one language only (zh or en); it is not a translation of another article.
@@ -23,6 +26,7 @@ public class ArticlePackageModel {
     private String bodyBeforeCta;   // not in the JSON
     private String bodyAfterCta;    // not in the JSON; starts with the .bl-invite box's end tag
     private boolean evidenceMarked; // not in the JSON; body.html has at least one evidence mark <sup class="cite" data-e="…">
+    private Map<String, EvidenceModel> evidence = Map.of();  // not in the JSON; from evidence.json, by E number, only when marked
 
     /** Page header: the picture is required; the clip is optional and plays over it once loaded. */
     public static class Hero {
@@ -71,4 +75,11 @@ public class ArticlePackageModel {
     /** Spec B30/B12: only an article with evidence marks says "every sentence has a source" and is a real example. */
     public boolean isEvidenceMarked() { return evidenceMarked; }
     public void setEvidenceMarked(boolean __marked) { this.evidenceMarked = __marked; }
+
+    /** The package's evidence by E number (evidence.json), checked at start-up; empty for an article without marks. */
+    public Map<String, EvidenceModel> getEvidence() { return evidence; }
+    public void setEvidence(Map<String, EvidenceModel> __evidence) { this.evidence = __evidence; }
+
+    /** The evidence the page uses, in file order: every piece an evidence mark points at (the article page's panels). */
+    public List<EvidenceModel> getEvidenceList() { return List.copyOf(evidence.values()); }
 }
