@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html th:lang="${htmlLang}" lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+<!--/* Its own file: a second <head> in layout.html would also match layout :: head (a markup selector). */-->
+<!-- Page head with a description and og: tags (new pages, spec D52: the title is the page's H1) -->
+<head th:fragment="headDesc(title, description)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title} + ' — ' + #{site.name}">麒麟魚 Qilinfish Studio</title>
+    <meta name="description" th:content="${description}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" th:content="${title}">
+    <meta property="og:description" th:content="${description}">
+    <link rel="alternate" hreflang="zh-Hant-TW" th:href="${zhUrl}">
+    <link rel="alternate" hreflang="en" th:href="${enUrl}">
+    <th:block th:replace="~{fragments/layout :: assets}"></th:block>
+</head>
+</html>

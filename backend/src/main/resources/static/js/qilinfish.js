@@ -26,7 +26,10 @@
       partOther: '最近一次，您需要處理的那一件事',
       partNone: '如果都沒遇過，也請告訴我們',
       countUnit: ' 字',
-      countHint: ' · 幾句話就好'
+      countHint: ' · 幾句話就好',
+      // article-app survey: same wording as i18n/survey_content.properties (sc.err.hours, sc.err.blind)
+      hoursInvalid: '> 時數只能填數字，例如 2 或 1.5。',
+      blindRequired: '> 請填一個金額，或選「不會付費」「不知道」。'
     },
     en: {
       contactError: '> error: please review the highlighted fields',
@@ -44,7 +47,9 @@
       partOther: 'The last time you had to deal with one of these',
       partNone: 'If it never happened to you, please tell us too',
       countUnit: ' characters',
-      countHint: ' · a few sentences is enough'
+      countHint: ' · a few sentences is enough',
+      hoursInvalid: '> Hours must be a number, e.g. 2 or 1.5.',
+      blindRequired: '> Please enter an amount, or pick "Would not pay" or "Don\'t know".'
     }
   };
   var T = TEXT[(document.documentElement.lang || '').slice(0, 2) === 'en' ? 'en' : 'zh'];
@@ -319,6 +324,178 @@
     });
   }
 
+  /**
+   * Article-app survey (/survey/content, [data-content-survey]). Its own init, not initSurveyForm: that one is tied
+   * to the verification survey's situation question. Mirrors SurveyContentController's checks before sending.
+   *   data-show-if="name=a|b"  shown while the checked answer of name is a or b (the 7a follow-up)
+   *   data-nojs-hint           only for pages without JavaScript (there the follow-up is always shown)
+   *   data-exclusive           a checkbox ("none") that unticks the others in its question, and is unticked by them
+   *   data-number              optional box that takes a number only (hours)
+   *   data-blind               required: one US$ amount, or "would not pay" / "don't know"
+   *   data-reveal-block        the real price questions: hidden until the blind price is answered and "Next"
+   *                            ([data-blind-next]) is pressed; then the blind price locks, its note shows and
+   *                            [data-blind-locked] becomes 1 (D26, D33). Without JavaScript everything shows at once.
+   */
+  function initContentSurvey() {
+    var form = document.querySelector('[data-content-survey]');
+    if (!form) return;
+    var statusEl = form.querySelector('[data-form-status]');
+
+    function checkedValue(__name) {
+      var el = form.querySelector('input[name="' + __name + '"]:checked');
+      return el ? el.value : '';
+    }
+
+    function syncShowIf() {
+      form.querySelectorAll('[data-show-if]').forEach(function (b) {
+        var rule = b.getAttribute('data-show-if').match(/^(\w+)=(.*)$/);
+        b.hidden = rule[2].split('|').indexOf(checkedValue(rule[1])) < 0;
+      });
+    }
+    form.querySelectorAll('[data-nojs-hint]').forEach(function (h) { h.hidden = true; });
+
+    // typing in an "other" box ticks or picks "other", since the box lives inside that choice
+    form.querySelectorAll('[data-other-text]').forEach(function (t) {
+      function pickOther() {
+        var box = t.closest('.qf-choice').querySelector('input[type="radio"], input[type="checkbox"]');
+        if (box.checked) return;
+        box.checked = true;
+        box.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      // not on focus: tabbing through the box must not change the answer
+      ['click', 'input'].forEach(function (__type) { t.addEventListener(__type, pickOther); });
+    });
+
+    // "none" and a tool cannot both be ticked (D39)
+    form.querySelectorAll('input[type="checkbox"][data-exclusive]').forEach(function (none) {
+      var others = Array.prototype.filter.call(
+        form.querySelectorAll('input[type="checkbox"][name="' + none.name + '"]'), function (__c) { return __c !== none; });
+      none.addEventListener('change', function () {
+        if (none.checked) others.forEach(function (__c) { __c.checked = false; });
+      });
+      others.forEach(function (__c) {
+        __c.addEventListener('change', function () { if (__c.checked) none.checked = false; });
+      });
+    });
+
+    // the amount and the "no amount" choices answer the same question, so one clears the other
+    form.querySelectorAll('.qf-field[data-blind]').forEach(function (f) {
+      var box = f.querySelector('[data-amount]');
+      var radios = f.querySelectorAll('input[type="radio"]');
+      box.addEventListener('input', function () {
+        if (plainAmount(box.value)) radios.forEach(function (r) { r.checked = false; });
+      });
+      radios.forEach(function (r) {
+        r.addEventListener('change', function () { if (r.checked) box.value = ''; });
+      });
+    });
+
+    function clearMark(__e) {
+      var f = __e.target.closest('.qf-field');
+      if (f) f.classList.remove('is-invalid');
+    }
+
+    // blind price first, the real price only after "Next"; once shown, the blind answer cannot change
+    var blind = form.querySelector('.qf-field[data-blind]');
+    var reveal = form.querySelector('[data-reveal-block]');
+    var next = form.querySelector('[data-blind-next]');
+    var lockedBox = form.querySelector('[data-blind-locked]');
+    function isRevealed() { return !reveal || !reveal.hidden; }
+    function lockBlind() {
+      blind.classList.add('is-locked');
+      var box = blind.querySelector('[data-amount]');
+      box.readOnly = true;
+      box.setAttribute('aria-readonly', 'true');
+      // the picked option still has to be sent, so only the others are switched off
+      blind.querySelectorAll('input[type="radio"]').forEach(function (r) { if (!r.checked) r.disabled = true; });
+      blind.querySelector('[data-blind-note]').hidden = false;
+      reveal.hidden = false;
+      next.hidden = true;
+      lockedBox.value = '1';
+    }
+    function pressNext() {
+      var msg = blindError(blind);
+      if (msg) {
+        blind.querySelector('.qf-field__err').textContent = msg;
+        blind.classList.add('is-invalid');
+        blind.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return false;
+      }
+      lockBlind();
+      return true;
+    }
+    if (blind && reveal && next && lockedBox) {
+      // a page sent back by the server (e.g. a missing name) already went past "Next"
+      if (lockedBox.value === '1') { lockBlind(); } else { reveal.hidden = true; next.hidden = false; }
+      next.addEventListener('click', function () {
+        if (pressNext()) reveal.querySelector('input').focus();
+      });
+      window.addEventListener('pageshow', function () { if (lockedBox.value === '1' && !blind.classList.contains('is-locked')) lockBlind(); });
+    }
+
+    form.addEventListener('change', syncShowIf);
+    form.addEventListener('change', clearMark);
+    form.addEventListener('input', clearMark);
+    syncShowIf();
+    // going back can refill the answers after this script ran
+    window.addEventListener('pageshow', syncShowIf);
+    if (statusEl && /\b(ok|err)\b/.test(statusEl.className)) {
+      statusEl.scrollIntoView({ block: 'center' });
+    }
+
+    /** '' when the blind price is answered, otherwise the message (same order as SurveyContentController.checkBlind). */
+    function blindError(__field) {
+      if (__field.querySelector('input[type="radio"]:checked')) return '';
+      var v = plainAmount(__field.querySelector('[data-amount]').value);
+      if (!v) return T.blindRequired;
+      if (!/^\d+(\.\d+)?$/.test(v)) return T.amountInvalid;
+      if (v.replace('.', '').length > 16) return T.amountTooLong;
+      return '';
+    }
+
+    form.addEventListener('submit', function (e) {
+      // sending before "Next" counts as pressing it: the real price shows (or the blind price is pointed out)
+      if (!isRevealed() && !pressNext()) { e.preventDefault(); return; }
+      var ok = true;
+      function mark(__f) { __f.classList.add('is-invalid'); ok = false; }
+      form.querySelectorAll('.qf-field').forEach(function (f) {
+        f.classList.remove('is-invalid');
+        if (f.closest('[hidden]')) return;
+        if (f.hasAttribute('data-blind')) {
+          var msg = blindError(f);
+          if (msg) { f.querySelector('.qf-field__err').textContent = msg; mark(f); }
+          return;
+        }
+        if (f.hasAttribute('data-number')) {
+          var n = plainAmount(f.querySelector('input').value);
+          if (n && !/^\d+(\.\d+)?$/.test(n)) mark(f);
+          return;
+        }
+        if (!f.hasAttribute('data-required')) return;
+        var radios = f.querySelectorAll('input[type="radio"]');
+        if (radios.length) {
+          var picked = f.querySelector('input[type="radio"]:checked');
+          var other = f.querySelector('[data-other-text]');
+          // "other" needs its own words, otherwise the answer says nothing
+          if (!picked || (other && other.closest('.qf-choice').contains(picked) && !other.value.trim())) mark(f);
+          return;
+        }
+        var input = f.querySelector('input, textarea');
+        var v = input ? (input.value || '').trim() : '';
+        if (!v || (input.hasAttribute('data-contact') && !isValidContact(v))) mark(f);
+      });
+      if (!ok) {
+        e.preventDefault();
+        if (statusEl) {
+          statusEl.className = 'qf-form-status err';
+          statusEl.textContent = T.surveyError;
+        }
+        var first = form.querySelector('.qf-field.is-invalid');
+        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  }
+
   /** Run __fn once when __el scrolls into view (immediately without IntersectionObserver). */
   function whenSeen(__el, __threshold, __fn) {
     if (!('IntersectionObserver' in window)) { __fn(); return; }
@@ -526,6 +703,38 @@
     });
   }
 
+  /**
+   * Article-app product page demo ([data-evidence-demo]): each sentence ([data-ev]) opens the evidence panel
+   * ([data-ev-panel]) it points at. One sentence at a time; the same one again closes it; Enter or Space on a
+   * focused sentence works like a click (D50). Without JavaScript every panel stays visible under the excerpt.
+   */
+  function initEvidenceDemo() {
+    var demo = document.querySelector('[data-evidence-demo]');
+    if (!demo) return;
+    var sentences = demo.querySelectorAll('[data-ev]');
+    var panels = demo.querySelectorAll('[data-ev-panel]');
+    demo.classList.add('is-live');
+    panels.forEach(function (p) { p.hidden = true; });
+
+    function show(__sentence) {
+      var open = __sentence && __sentence.getAttribute('aria-expanded') !== 'true';
+      sentences.forEach(function (s) {
+        var on = open && s === __sentence;
+        s.setAttribute('aria-expanded', on ? 'true' : 'false');
+        s.classList.toggle('is-open', on);
+      });
+      var id = open ? __sentence.getAttribute('data-ev') : null;
+      panels.forEach(function (p) { p.hidden = p.getAttribute('data-ev-panel') !== id; });
+      demo.classList.toggle('is-open', open);
+    }
+    sentences.forEach(function (s) {
+      s.addEventListener('click', function () { show(s); });
+      s.addEventListener('keydown', function (__e) {
+        if (__e.key === 'Enter' || __e.key === ' ') { __e.preventDefault(); show(s); }
+      });
+    });
+  }
+
   /** Products opening: the lens drifts over the report in a slow figure-eight; reduced motion parks it. */
   function initProductsLens() {
     var lens = document.querySelector('[data-pd-lens]');
@@ -549,9 +758,11 @@
     initTypewriter();
     initContactForm();
     initSurveyForm();
+    initContentSurvey();
     initSurveyDots();
     initSurveyVisuals();
     initProductsLens();
+    initEvidenceDemo();
     initLangSwitcher();
   });
 })();

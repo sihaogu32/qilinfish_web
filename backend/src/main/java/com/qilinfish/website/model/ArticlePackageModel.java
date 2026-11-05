@@ -22,6 +22,7 @@ public class ArticlePackageModel {
     private String cover;      // list card picture, e.g. media/hero.jpg
     private String bodyBeforeCta;   // not in the JSON
     private String bodyAfterCta;    // not in the JSON; starts with the .bl-invite box's end tag
+    private boolean evidenceMarked; // not in the JSON; body.html has at least one evidence mark <sup class="cite" data-e="…">
 
     /** Page header: the picture is required; the clip is optional and plays over it once loaded. */
     public static class Hero {
@@ -66,4 +67,8 @@ public class ArticlePackageModel {
 
     public String getBodyAfterCta() { return bodyAfterCta; }
     public void setBodyAfterCta(String __html) { this.bodyAfterCta = __html; }
+
+    /** Spec B30/B12: only an article with evidence marks says "every sentence has a source" and is a real example. */
+    public boolean isEvidenceMarked() { return evidenceMarked; }
+    public void setEvidenceMarked(boolean __marked) { this.evidenceMarked = __marked; }
 }

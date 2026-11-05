@@ -3,6 +3,8 @@ package com.qilinfish.website.model;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.regex.Pattern;
+
 /**
  * Form-binding Model for the experience survey.
  * Annotations cover the always-required fields and length caps; the
@@ -77,6 +79,10 @@ public class SurveyFormModel {
     /** Digits allowed in an amount, after commas and spaces are dropped (decimal point not counted). */
     public static final int USD_MAX_DIGITS = 16;
 
+    /** Same as isValidContact in qilinfish.js; both surveys use it. */
+    private static final Pattern EMAIL = Pattern.compile("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
+    private static final Pattern PHONE = Pattern.compile("^\\+?[0-9()\\-\\s#]{7,24}$");
+
     /** What is wrong with a typed amount; same order as amountError in qilinfish.js. */
     public enum UsdProblem { INVALID, TOO_LONG }
 
@@ -100,6 +106,11 @@ public class SurveyFormModel {
     public static String normalizeUsd(String __value) {
         if (isBlankUsd(__value) || usdProblem(__value) != null) return null;
         return new java.math.BigDecimal(plainUsd(__value)).stripTrailingZeros().toPlainString();
+    }
+
+    /** An email address or a phone number (the contact question of both surveys); __value is already trimmed. */
+    public static boolean isValidContact(String __value) {
+        return EMAIL.matcher(__value).matches() || PHONE.matcher(__value).matches();
     }
 
     /** True when nothing is left after dropping commas and spaces, same as the page's amount check. */

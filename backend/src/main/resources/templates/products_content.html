@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html th:lang="${htmlLang}" lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+<!--/* The article-app product page (spec B8–B15): five parts in order, no scenario cards, no product name, no prices.
+       Every key is pc.* (i18n/products_content*.properties). */-->
+<head th:replace="~{fragments/head :: headDesc(#{pc.title}, #{pc.description})}"></head>
+<body>
+<div th:replace="~{fragments/layout :: background}"></div>
+<nav th:replace="~{fragments/layout :: navbar('products')}"></nav>
+
+<main class="qf-page">
+
+    <!-- ---- 1 the demo: a real excerpt from one of our articles ---- -->
+    <section class="sv-section pc-open">
+        <div class="sv-eb" th:text="#{pc.eyebrow}">PRODUCT // every sentence has a source</div>
+        <h1 class="sc-title" th:text="#{pc.title}">每一句都查得到出處</h1>
+        <!--/* Each sentence opens its evidence beside the excerpt (below it on phones): one at a time, again to close,
+               Tab + Enter (D50). Without JavaScript every panel simply shows under the excerpt. */-->
+        <div class="pc-demo-wrap" data-evidence-demo>
+            <figure class="pc-demo">
+                <div class="pc-demo__hint" th:text="#{pc.demo.hint}">點一句，看它的出處</div>
+                <blockquote class="pc-demo__text"><th:block th:each="s, it : ${vb.demo}"><span class="pc-sent" tabindex="0" role="button" aria-expanded="false"
+                    th:id="'pc-s-' + ${it.count}" th:attr="data-ev=${s.evidence},aria-controls=${'pc-ev-' + s.evidence}" th:text="${s.text}">Ipsos 2025 年在 30 個國家訪問了 23,216 人……</span><sup class="pc-cite" th:if="${s.cite != null}" th:text="${s.cite}">[3]</sup> </th:block></blockquote>
+                <figcaption class="pc-demo__from" th:text="#{pc.demo.from}">摘自本站文章</figcaption>
+            </figure>
+            <div class="pc-evs">
+                <aside class="pc-ev" th:each="e : ${vb.evidence}" th:id="'pc-ev-' + ${e.id}" th:attr="data-ev-panel=${e.id}">
+                    <div class="pc-ev__src"><b th:text="${e.publisher}">Ipsos</b> <span th:text="${e.title}">Ipsos AI Monitor 2025</span> <time th:text="${e.date}">2025-06-06</time></div>
+                    <div class="pc-ev__k" th:text="#{pc.ev.label.quote}">原文引句</div>
+                    <div class="pc-ev__q" th:each="q : ${e.quotes}">
+                        <span class="pc-ev__note" th:if="${q.note != null}" th:text="${q.note}">報告第 22 頁題目</span>
+                        <blockquote lang="en">“<th:block th:text="${q.original}">quote</th:block>”</blockquote>
+                        <p class="pc-ev__tr" th:if="${q.translation != null}" th:text="${q.translation}">中文：翻譯</p>
+                    </div>
+                    <div class="pc-ev__k" th:text="#{pc.ev.label.qual}">限定條件</div>
+                    <p class="pc-ev__qual" th:text="${e.qualifiers}">限定條件全文</p>
+                    <div class="pc-ev__k" th:text="#{pc.ev.label.url}">原始網址</div>
+                    <a class="pc-ev__url" th:href="${e.url}" th:text="${e.url}" rel="noopener" target="_blank">https://…</a>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- ---- 2 why it usually breaks: five tools, five breaks; one line, one source trail ---- -->
+    <section class="sv-section sv-section--flush">
+        <div class="sv-eb" th:text="#{pc.why.eyebrow}">WHY // where the source gets lost</div>
+        <h2 class="pd-h2" th:text="#{pc.why.title}">為什麼平常做不到</h2>
+        <div class="pc-chain">
+            <div class="pc-chain__row pc-chain__row--broken">
+                <b class="pc-chain__label" th:text="#{pc.why.broken.label}">平常的做法：五個工具</b>
+                <ol class="pc-steps"><li th:each="st : ${vb.brokenSteps}" th:text="${st}">查資料</li></ol>
+                <p th:text="#{pc.why.broken.text}">每換一次工具，出處連結就斷一次。</p>
+            </div>
+            <div class="pc-chain__row pc-chain__row--line">
+                <b class="pc-chain__label" th:text="#{pc.why.line.label}">同一條線：從提問到成品</b>
+                <ol class="pc-steps"><li th:each="st : ${vb.lineSteps}" th:text="${st}">提問</li></ol>
+                <p th:text="#{pc.why.line.text}">從提問到成品都在同一條流程裡。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ---- 3 real examples: our articles with evidence marks, in this language; no such article, no part 3 (D59) ---- -->
+    <section class="sv-section sv-section--flush" data-pc-cases th:unless="${#lists.isEmpty(vb.cases)}">
+        <div class="sv-eb" th:text="#{pc.cases.eyebrow}">CASES // made this way</div>
+        <h2 class="pd-h2" th:text="#{pc.cases.title}">實際案例</h2>
+        <div class="bl-list">
+            <a class="bl-card" th:each="c : ${vb.cases}" th:href="${lp + '/blog/' + c.slug}" href="/blog/solo-trust">
+                <div class="bl-card__img"><div th:replace="~{fragments/blog :: cardCover(${c.coverUrl})}"></div></div>
+                <div class="bl-card__tx">
+                    <time class="bl-date" th:datetime="${c.date}" th:text="${c.date}">2026-10-28</time>
+                    <b th:text="${c.title}">文章標題</b>
+                    <span class="pd-scene__go">[[#{blog.readMore}]] <span class="arr">→</span></span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ---- 4 how you pay: the structure only, no amounts (D10) ---- -->
+    <section class="sv-section sv-section--flush">
+        <div class="sv-eb" th:text="#{pc.pay.eyebrow}">PRICING // how it is paid for</div>
+        <h2 class="pd-h2" th:text="#{pc.pay.title}">怎麼付費</h2>
+        <div class="pc-pay">
+            <p class="pc-pay__main" th:text="#{pc.pay.text}">一次買斷，永久使用；之後可選擇加購維護合約，取得更新與修正。沒有維護合約也能繼續用，只是拿不到更新。</p>
+            <ul class="pc-pay__notes">
+                <li th:text="#{pc.pay.support}">維護合約不含一對一技術支援。</li>
+                <li th:text="#{pc.pay.noUpdates}">沒有維護合約，就拿不到任何更新，包括外部服務（AI API 等）改版造成的修正。</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ---- 5 where the product stands ---- -->
+    <section class="sv-section sv-section--flush">
+        <div class="pd-stage">
+            <p th:text="#{pc.stage}">這個產品還在打磨，還沒開放使用。</p>
+            <a class="qf-btn qf-btn--primary" th:href="${lp + '/survey/content'}" href="/survey/content"><th:block th:text="#{pc.cta}">說說您怎麼確認出處</th:block> <span class="arr">→</span></a>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/qilinfish.js(v='20261104-demo')}" src="/js/qilinfish.js"></script>
+</body>
+</html>

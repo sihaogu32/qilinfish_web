@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html th:lang="${htmlLang}" lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+<!--/* The article-app survey (spec B16–B25, appendix A). Every key is sc.*; choice values are the Chinese
+       option text on both pages (SurveyContentFormModel), the labels come from the view binder. */-->
+<head th:replace="~{fragments/head :: headDesc(#{sc.title}, #{sc.description})}"></head>
+<body>
+<div th:replace="~{fragments/layout :: background}"></div>
+<nav th:replace="~{fragments/layout :: navbar('products')}"></nav>
+
+<main class="qf-page">
+
+    <!-- ---- opening: one title, why we ask, three promises ---- -->
+    <section class="sv-section sc-open">
+        <div class="sv-eb" th:text="#{sc.eyebrow}">SURVEY // where your numbers come from</div>
+        <h1 class="sc-title" th:text="#{sc.title}">您交出去的內容，出處都查得到嗎？</h1>
+        <p class="sc-why" th:text="#{sc.why}">我們在做一個讓每一句都查得到出處的內容工具。</p>
+        <div class="sv-deal">
+            <div><span class="k">TIME</span><b th:text="#{sc.deal.time.b}">約 6 分鐘</b><span th:text="#{sc.deal.time.s}">開放題可以留空</span></div>
+            <div><span class="k">PRIVACY</span><b th:text="#{sc.deal.privacy.b}">不公開</b><span th:text="#{sc.deal.privacy.s}">名字和聯絡方式只有我們看得到</span></div>
+            <div><span class="k">YOU GET</span><b th:text="#{sc.deal.get.b}">彙整報告</b><span th:text="#{sc.deal.get.s}">寄到您留的聯絡方式；開放試用時優先通知您</span></div>
+        </div>
+    </section>
+
+    <!-- ---- the form: one submit sends everything ---- -->
+    <section class="sv-section sv-section--flush" id="sc-form">
+    <form class="qf-survey sv-form sc-form" method="post" th:action="${lp + '/survey/content'}" action="/survey/content"
+          data-content-survey novalidate th:object="${contentForm}">
+
+        <!-- ---- 01 about you ---- -->
+        <div class="qf-survey__part" id="sc-p1" th:text="#{sc.part.1}">// 01 · 關於您</div>
+
+        <div class="qf-field" data-q="role" data-required th:classappend="${#fields.hasErrors('role')} ? 'is-invalid' : ''">
+            <div class="qf-field__q"><th:block th:text="#{sc.q.role}">您最接近哪一種？</th:block><span class="qf-field__req" th:text="#{sc.req}">必填</span></div>
+            <div class="qf-choices qf-choices--stack">
+                <label class="qf-choice" th:each="c : ${vb.roles}" th:classappend="${c.other} ? 'qf-choice--other' : ''"><input type="radio" th:field="*{role}" th:value="${c.value}"><th:block th:text="${c.label}">行銷／內容工作室</th:block><input th:if="${c.other}" type="text" class="qf-choice__text" maxlength="200" th:placeholder="#{sc.ph.role.other}" th:aria-label="#{sc.aria.role.other}" data-other-text th:field="*{roleOther}"></label>
+            </div>
+            <div class="qf-field__err" th:text="#{sc.err.role}">> 請選一項；選「其他」的話，請寫下是哪一種。</div>
+        </div>
+
+        <div class="qf-field" data-q="teamSize" data-required th:classappend="${#fields.hasErrors('teamSize')} ? 'is-invalid' : ''">
+            <div class="qf-field__q"><th:block th:text="#{sc.q.team}">團隊幾個人？</th:block><span class="qf-field__req" th:text="#{sc.req}">必填</span></div>
+            <div class="qf-choices">
+                <label class="qf-choice" th:each="c : ${vb.teamSizes}"><input type="radio" th:field="*{teamSize}" th:value="${c.value}"><th:block th:text="${c.label}">1 人</th:block></label>
+            </div>
+            <div class="qf-field__err" th:text="#{sc.err.pick}">> 請選一項。</div>
+        </div>
+
+        <div class="qf-field" data-q="monthlyPieces" data-required th:classappend="${#fields.hasErrors('monthlyPieces')} ? 'is-invalid' : ''">
+            <div class="qf-field__q"><th:block th:text="#{sc.q.pieces}">每個月交出幾篇內容？</th:block><span class="qf-field__req" th:text="#{sc.req}">必填</span></div>
+            <div class="qf-choices">
+                <label class="qf-choice" th:each="c : ${vb.monthlyPieces}"><input type="radio" th:field="*{monthlyPieces}" th:value="${c.value}"><th:block th:text="${c.label}">1–3</th:block></label>
+            </div>
+            <div class="qf-field__err" th:text="#{sc.err.pick}">> 請選一項。</div>
+        </div>
+
+        <!-- ---- 02 the last time ---- -->
+        <div class="qf-survey__part" id="sc-p2" th:text="#{sc.part.2}">// 02 · 最近一次</div>
+
+        <div class="qf-field" data-q="lastPiece">
+            <label for="sc-last" th:text="#{sc.q.lastPiece}">最近一次交出一篇「裡面有數字或引用」的內容，是什麼、交給誰？</label>
+            <textarea id="sc-last" rows="4" maxlength="2000" th:field="*{lastPiece}"></textarea>
+        </div>
+
+        <div class="qf-field" data-q="howChecked">
+            <label for="sc-how" th:text="#{sc.q.howChecked}">裡面的數字和引用，您是怎麼確認的？</label>
+            <textarea id="sc-how" rows="4" maxlength="2000" th:field="*{howChecked}"></textarea>
+        </div>
+
+        <div class="qf-field" data-q="checkHours" data-number th:classappend="${#fields.hasErrors('checkHours')} ? 'is-invalid' : ''">
+            <div class="qf-field__q" th:text="#{sc.q.checkHours}">確認出處大約花了多久？</div>
+            <div class="qf-inline">
+                <input id="sc-check-hours" type="text" inputmode="decimal" maxlength="16" th:aria-label="#{sc.aria.checkHours}" th:field="*{checkHours}"><span class="sc-unit" th:text="#{sc.unit.hours}">小時／每篇</span>
+            </div>
+            <div class="qf-field__err" th:text="#{sc.err.hours}">> 時數只能填數字，例如 2 或 1.5。</div>
+        </div>
+
+        <div class="qf-field" data-q="afterDelivery">
+            <div class="qf-field__q" th:text="#{sc.q.after}">交出去之後：</div>
+            <div class="qf-choices">
+                <label class="qf-choice" th:each="c : ${vb.afterDelivery}"><input type="radio" th:field="*{afterDelivery}" th:value="${c.value}"><th:block th:text="${c.label}">沒人問</th:block></label>
+            </div>
+        </div>
+
+        <!--/* 7a: with JavaScript only after the two answers in the rule; without it always shown, with the hint (D37) */-->
+        <div class="qf-field" data-q="afterDeliveryCost" th:data-show-if="${vb.afterDeliveryFollowUpRule}">
+            <label for="sc-after-cost" th:text="#{sc.q.afterCost}">後來怎麼處理、付出什麼代價？</label>
+            <div class="qf-field__hint" data-nojs-hint th:text="#{sc.hint.afterCost}">選了「有人問出處」或「有人指出錯誤」才需要填。</div>
+            <textarea id="sc-after-cost" rows="4" maxlength="2000" th:field="*{afterDeliveryCost}"></textarea>
+        </div>
+
+        <!-- ---- 03 how you work now ---- -->
+        <div class="qf-survey__part" id="sc-p3" th:text="#{sc.part.3}">// 03 · 現在的做法</div>
+
+        <div class="qf-field" data-q="tools" th:classappend="${#fields.hasErrors('tools')} ? 'is-invalid' : ''">
+            <div class="qf-field__q" th:text="#{sc.q.tools}">現在做內容會用哪些工具？</div>
+            <div class="qf-field__hint" th:text="#{sc.multi}">可複選</div>
+            <div class="qf-choices">
+                <label class="qf-choice qf-choice--check" th:each="c : ${vb.tools}" th:classappend="${c.other} ? 'qf-choice--other' : ''"><input type="checkbox" th:field="*{tools}" th:value="${c.value}" th:attr="data-exclusive=${c.value == vb.noTools} ? 'true' : null"><th:block th:text="${c.label}">ChatGPT</th:block><input th:if="${c.other}" type="text" class="qf-choice__text" maxlength="200" th:placeholder="#{sc.ph.tools.other}" th:aria-label="#{sc.aria.tools.other}" data-other-text th:field="*{toolsOther}"></label>
+            </div>
+            <div class="qf-field__err" th:text="#{sc.err.choices}">> 選項不在清單裡，請重新勾選。</div>
+        </div>
+
+        <div class="qf-field" data-q="toolCount">
+            <div class="qf-field__q" th:text="#{sc.q.toolCount}">從定題到交出，中間換過幾個工具？</div>
+            <div class="qf-choices">
+                <label class="qf-choice" th:each="c : ${vb.toolCounts}"><input type="radio" th:field="*{toolCount}" th:value="${c.value}"><th:block th:text="${c.label}">1–2</th:block></label>
+            </div>
+        </div>
+
+        <div class="qf-field" data-q="moveHours" data-number th:classappend="${#fields.hasErrors('moveHours')} ? 'is-invalid' : ''">
+            <div class="qf-field__q" th:text="#{sc.q.moveHours}">花在工具之間搬資料、重新排版的時間，大約多少？</div>
+            <div class="qf-inline">
+                <input id="sc-move-hours" type="text" inputmode="decimal" maxlength="16" th:aria-label="#{sc.aria.moveHours}" th:field="*{moveHours}"><span class="sc-unit" th:text="#{sc.unit.hours}">小時／每篇</span>
+            </div>
+            <div class="qf-field__err" th:text="#{sc.err.hours}">> 時數只能填數字，例如 2 或 1.5。</div>
+        </div>
+
+        <div class="qf-field" data-q="formats" th:classappend="${#fields.hasErrors('formats')} ? 'is-invalid' : ''">
+            <div class="qf-field__q" th:text="#{sc.q.formats}">最近一個月，實際交出去的格式？</div>
+            <div class="qf-field__hint" th:text="#{sc.multi}">可複選</div>
+            <div class="qf-choices">
+                <label class="qf-choice qf-choice--check" th:each="c : ${vb.formats}" th:classappend="${c.other} ? 'qf-choice--other' : ''"><input type="checkbox" th:field="*{formats}" th:value="${c.value}"><th:block th:text="${c.label}">電子報</th:block><input th:if="${c.other}" type="text" class="qf-choice__text" maxlength="200" th:placeholder="#{sc.ph.formats.other}" th:aria-label="#{sc.aria.formats.other}" data-other-text th:field="*{formatsOther}"></label>
+            </div>
+            <div class="qf-field__err" th:text="#{sc.err.choices}">> 選項不在清單裡，請重新勾選。</div>
+        </div>
+
+        <!-- ---- 04 pricing: the blind question, then the real price ---- -->
+        <div class="qf-survey__part" id="sc-p4" th:text="#{sc.part.4}">// 04 · 付費</div>
+
+        <div class="qf-field" data-q="blind" data-required data-blind th:classappend="${#fields.hasErrors('blindUsd')} ? 'is-invalid' : ''">
+            <div class="qf-field__q"><th:block th:text="#{sc.q.blind}">這樣的工具，一次買斷您願意付多少？</th:block><span class="qf-field__req" th:text="#{sc.req}">必填</span></div>
+            <div class="qf-inline">
+                <span class="qf-inline__group">US$ <input id="sc-blind" type="text" inputmode="decimal" maxlength="24" th:aria-label="#{sc.aria.blind}" data-amount th:field="*{blindUsd}"></span>
+            </div>
+            <div class="qf-choices">
+                <label class="qf-choice" th:each="c : ${vb.blindOptions}"><input type="radio" th:field="*{blindOption}" th:value="${c.value}"><th:block th:text="${c.label}">不會付費</th:block></label>
+            </div>
+            <div class="qf-field__err" th:text="${#fields.hasErrors('blindUsd')} ? ${#fields.errors('blindUsd')[0]} : #{sc.err.blind}">> 請填一個金額，或選「不會付費」「不知道」。</div>
+            <!--/* the note and "Next" exist only with JavaScript (hidden here, shown by initContentSurvey; D32, D61) */-->
+            <p class="sc-lock-note" data-blind-note hidden th:text="#{sc.lockNote}">看到價格之後就不能改了，這樣我們才知道您原本心裡的價格。</p>
+        </div>
+        <button type="button" class="qf-btn sc-next" data-blind-next hidden th:utext="#{sc.next}">下一步 <span class="arr">→</span></button>
+        <!--/* 1 when the reveal questions appeared only after "Next" (D33); stays "" without JavaScript, stored as 0 */-->
+        <input type="hidden" data-blind-locked th:field="*{blindLocked}">
+
+        <div data-reveal-block>
+            <div class="qf-field" data-q="revealBuy" data-required th:classappend="${#fields.hasErrors('revealBuy')} ? 'is-invalid' : ''">
+                <div class="qf-field__q"><th:block th:text="#{sc.q.buy}">實際定價是買斷 US$150，含 3 個月維護合約，之後每 3 個月 US$30。</th:block><span class="qf-field__req" th:text="#{sc.req}">必填</span></div>
+                <div class="qf-choices">
+                    <label class="qf-choice" th:each="c : ${vb.revealBuy}"><input type="radio" th:field="*{revealBuy}" th:value="${c.value}"><th:block th:text="${c.label}">會買</th:block></label>
+                </div>
+                <div class="qf-field__err" th:text="#{sc.err.pick}">> 請選一項。</div>
+            </div>
+
+            <div class="qf-field" data-q="revealRenew" data-required th:classappend="${#fields.hasErrors('revealRenew')} ? 'is-invalid' : ''">
+                <div class="qf-field__q"><th:block th:text="#{sc.q.renew}">維護合約到期，您會續嗎？</th:block><span class="qf-field__req" th:text="#{sc.req}">必填</span></div>
+                <div class="qf-choices">
+                    <label class="qf-choice" th:each="c : ${vb.revealRenew}"><input type="radio" th:field="*{revealRenew}" th:value="${c.value}"><th:block th:text="${c.label}">會</th:block></label>
+                </div>
+                <div class="qf-field__err" th:text="#{sc.err.pick}">> 請選一項。</div>
+            </div>
+        </div>
+
+        <!-- ---- 05 contact: name, contact, trial; nothing else (B23) ---- -->
+        <div class="qf-survey__part" id="sc-p5" th:text="#{sc.part.5}">// 05 · 聯絡方式</div>
+
+        <div class="qf-field" data-q="name" data-required th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''">
+            <label for="sc-name"><th:block th:text="#{sc.q.name}">名字</th:block><span class="qf-field__req" th:text="#{sc.req}">必填</span></label>
+            <input id="sc-name" type="text" maxlength="64" th:field="*{name}">
+            <div class="qf-field__err" th:text="#{sc.err.name}">> 請留下名字。</div>
+        </div>
+
+        <div class="qf-field" data-q="contact" data-required th:classappend="${#fields.hasErrors('contact')} ? 'is-invalid' : ''">
+            <label for="sc-contact"><th:block th:text="#{sc.q.contact}">聯絡方式</th:block><span class="qf-field__req" th:text="#{sc.req}">必填</span></label>
+            <div class="qf-field__hint" th:text="#{sc.hint.contact}">Email 或電話</div>
+            <input id="sc-contact" type="text" maxlength="128" data-contact th:field="*{contact}">
+            <div class="qf-field__err" th:text="#{sc.err.contact}">> 請填一個 Email 或電話號碼。</div>
+        </div>
+
+        <div class="qf-field" data-q="trial">
+            <div class="qf-field__q" th:text="#{sc.q.trial}">願意之後實際試用並給回饋嗎？</div>
+            <div class="qf-choices">
+                <label class="qf-choice" th:each="c : ${vb.trial}"><input type="radio" th:field="*{trial}" th:value="${c.value}"><th:block th:text="${c.label}">願意</th:block></label>
+            </div>
+        </div>
+
+        <button type="submit" class="qf-btn qf-btn--primary" th:utext="#{sc.submit}">送出 <span class="arr">→</span></button>
+
+        <div class="qf-form-status"
+             th:classappend="${submitStatus == 'success'} ? 'ok' : ((${submitStatus == 'error'} or ${submitStatus == 'save-error'}) ? 'err' : '')"
+             th:text="${submitStatus == 'success'} ? #{sc.status.success} : (${submitStatus == 'save-error'} ? #{sc.status.saveError} : (${submitStatus == 'error'} ? #{sc.status.error} : ''))"
+             data-form-status></div>
+    </form>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/qilinfish.js(v='20261104-demo')}" src="/js/qilinfish.js"></script>
+</body>
+</html>

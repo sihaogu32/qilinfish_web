@@ -97,10 +97,22 @@ class BlogControllerTest {
     void surveyButtonGoesAtTheEndOfTheArticlesOwnInviteBox() {
         String zh = ok("/blog/test-zh-solo");
         assertThat(zh).containsOnlyOnce("bl-invite").doesNotContain("<aside");
-        assertThat(zh).containsPattern("<p>這篇也有提問框。</p>\\s*<a class=\"qf-btn qf-btn--primary\" href=\"/survey\">填寫問卷 <span class=\"arr\">→</span></a>\\s*</div>");
+        assertThat(zh).containsPattern("<p>這篇也有提問框。</p>\\s*<a class=\"qf-btn qf-btn--primary\" href=\"/survey/verify\">填寫問卷 <span class=\"arr\">→</span></a>\\s*</div>");
         String en = ok("/en/blog/test-en-image");
         assertThat(en).containsOnlyOnce("bl-invite");
-        assertThat(en).containsPattern("<p>Have you run into this\\? This is a test question\\.</p>\\s*<a class=\"qf-btn qf-btn--primary\" href=\"/en/survey\">Take the survey <span class=\"arr\">→</span></a>\\s*</div>\\s*<h2 id=\"refs\">");
+        assertThat(en).containsPattern("<p>Have you run into this\\? This is a test question\\.</p>\\s*<a class=\"qf-btn qf-btn--primary\" href=\"/en/survey/verify\">Take the survey <span class=\"arr\">→</span></a>\\s*</div>\\s*<h2 id=\"refs\">");
+    }
+
+    @Test
+    void articleWithEvidenceMarksEndsWithTheLineToTheProductPage() {
+        String zh = ok("/blog/test-zh-solo");
+        assertThat(zh).containsPattern("</div>\\s*<p class=\"bl-sourced\"><a href=\"/products/content\">這篇文章由麒麟魚的內容工具製作，每一句都查得到出處 <span class=\"arr\">→</span></a></p>\\s*</article>");
+        String en = ok("/en/blog/test-en-image");
+        assertThat(en).containsPattern("<p class=\"bl-sourced\"><a href=\"/en/products/content\">This article was made with Qilinfish&#39;s content tool, and every sentence can be traced to its source <span class=\"arr\">→</span></a></p>\\s*</article>");
+        // after the references list, before the footer (D45)
+        assertThat(en).containsSubsequence("<h2 id=\"refs\">", "class=\"bl-sourced\"", "</article>", "<footer");
+        // <sup class="cite"> without data-e is not an evidence mark
+        assertThat(ok("/blog/test-zh-video")).doesNotContain("bl-sourced", "/products/content");
     }
 
     @Test

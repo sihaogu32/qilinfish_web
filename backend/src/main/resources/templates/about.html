@@ -49,12 +49,12 @@
 
     <!-- ---- next step ---- -->
     <section class="ab-section ab-section--flush ab-next" data-reveal>
-        <a class="qf-btn qf-btn--primary" th:href="${lp + '/survey'}" href="/survey"><th:block th:text="#{about.cta}">說說您那一次</th:block> <span class="arr">→</span></a>
+        <a class="qf-btn qf-btn--primary" th:href="${lp + '/survey/verify'}" href="/survey/verify"><th:block th:text="#{about.cta}">說說您那一次</th:block> <span class="arr">→</span></a>
         <a class="ab-also" th:href="${lp + '/contact'}" href="/contact" th:text="#{about.also}">也接 Web 開發與專案設計 → 聯絡我們</a>
     </section>
 </main>
 
 <footer th:replace="~{fragments/layout :: footer}"></footer>
-<script th:src="@{/js/qilinfish.js(v='20261026-pick')}" src="/js/qilinfish.js"></script>
+<script th:src="@{/js/qilinfish.js(v='20261104-demo')}" src="/js/qilinfish.js"></script>
 </body>
 </html>

@@ -54,12 +54,14 @@
     <article class="bl-post">
         <!--/* SP16: the survey button goes at the end of the article's own .bl-invite box (the body is split right there) */-->
         <th:block th:utext="${a.bodyBeforeCta}"></th:block>
-        <a class="qf-btn qf-btn--primary" th:href="${lp + '/survey'}" href="/survey">[[#{blog.cta.button}]] <span class="arr">→</span></a>
+        <a class="qf-btn qf-btn--primary" th:href="${lp + '/survey/verify'}" href="/survey/verify">[[#{blog.cta.button}]] <span class="arr">→</span></a>
         <th:block th:utext="${a.bodyAfterCta}"></th:block>
+        <!--/* B30: after the references, before the footer; only for an article with evidence marks (D45) */-->
+        <p class="bl-sourced" th:if="${a.evidenceMarked}"><a th:href="${lp + '/products/content'}" href="/products/content">[[#{blog.sourced}]] <span class="arr">→</span></a></p>
     </article>
 </main>
 
 <footer th:replace="~{fragments/layout :: footer}"></footer>
-<script th:src="@{/js/qilinfish.js(v='20261026-pick')}" src="/js/qilinfish.js"></script>
+<script th:src="@{/js/qilinfish.js(v='20261104-demo')}" src="/js/qilinfish.js"></script>
 </body>
 </html>

@@ -44,6 +44,8 @@ public class ArticlePackageRepository {
 
     public static final String URL_PREFIX = "/articles/";
     public static final String MEDIA = "media/";
+    /** An evidence mark in body.html (CONTEXT.md, 證據標記): a citation that points at its evidence. */
+    public static final String EVIDENCE_MARK = "sup.cite[data-e]";
 
     private static final Pattern FRAME_TAG = Pattern.compile("<\\s*(html|head|style)[\\s>/]", Pattern.CASE_INSENSITIVE);
     private static final Pattern MEDIA_ATTR = Pattern.compile("(\\s(?:src|poster|href)\\s*=\\s*\")media/([^\"#?]*)");
@@ -63,6 +65,11 @@ public class ArticlePackageRepository {
 
     /** Every package slug, newest first. */
     public List<String> findAllSlugs() { return List.copyOf(bySlug.keySet()); }
+
+    /** Articles in one language that have evidence marks, newest first (the product page's real examples). */
+    public List<ArticlePackageModel> findEvidenceMarkedByLang(boolean __en) {
+        return findByLang(__en).stream().filter(ArticlePackageModel::isEvidenceMarked).toList();
+    }
 
     /** Articles in one language, newest first. */
     public List<ArticlePackageModel> findByLang(boolean __en) {
@@ -152,11 +159,15 @@ public class ArticlePackageRepository {
         while (media.find()) {
             requireMedia(__pkg, MEDIA + media.group(2), "body.html", name, __problems);
         }
-        int ctaAt = findCtaPosition(body, name, __problems);
+        Document doc = Jsoup.parse(body, "", Parser.htmlParser().setTrackPosition(true));
+        int ctaAt = findCtaPosition(doc, name, __problems);
         if (__problems.size() > before) return null;
 
         a.setBodyBeforeCta(pointMediaAtPublicPath(body.substring(0, ctaAt), name));
         a.setBodyAfterCta(pointMediaAtPublicPath(body.substring(ctaAt), name));
+        // always set here, so a value in article.json could never count; data-e is what makes a <sup class="cite">
+        // an evidence mark (a plain reference number has none)
+        a.setEvidenceMarked(!doc.select(EVIDENCE_MARK).isEmpty());
         return a;
     }
 
@@ -165,9 +176,8 @@ public class ArticlePackageRepository {
      * So there must be exactly one box, with no link of its own. Same rule as CompanyofOne's export.
      * Returns where the box's end tag starts in the original body.html (the markup itself is never re-serialised), or -1.
      */
-    private static int findCtaPosition(String __body, String __name, List<String> __problems) {
-        Document doc = Jsoup.parse(__body, "", Parser.htmlParser().setTrackPosition(true));
-        Elements invites = doc.select(".bl-invite");
+    private static int findCtaPosition(Document __doc, String __name, List<String> __problems) {
+        Elements invites = __doc.select(".bl-invite");
         if (invites.size() != 1) {
             __problems.add(__name + ": body.html must have exactly one .bl-invite box, found " + invites.size()
                 + " (the site adds the survey button to it)");

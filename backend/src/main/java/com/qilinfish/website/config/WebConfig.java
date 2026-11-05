@@ -43,11 +43,14 @@ public class WebConfig implements WebMvcConfigurer {
             "classpath:i18n/layout",
             "classpath:i18n/about",
             "classpath:i18n/products",
+            "classpath:i18n/products_content",
+            "classpath:i18n/products_index",
             "classpath:i18n/cases",
             "classpath:i18n/contact",
             "classpath:i18n/resources",
             "classpath:i18n/blog",
-            "classpath:i18n/survey");
+            "classpath:i18n/survey",
+            "classpath:i18n/survey_content");
         source.setDefaultEncoding("UTF-8");
         // without this, a Chinese request on an English-locale server would pick the _en file
         source.setFallbackToSystemLocale(false);

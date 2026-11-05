@@ -1,6 +1,7 @@
 package com.qilinfish.website.controller;
 
 import com.qilinfish.website.config.LangLocaleResolver;
+import com.qilinfish.website.config.LangPathFilter;
 import com.qilinfish.website.model.SurveyFormModel;
 import com.qilinfish.website.repository.SurveyRepository;
 import com.qilinfish.website.vb.SurveyViewBinder;
@@ -8,24 +9,23 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.View;
 
 import java.math.BigDecimal;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 @Controller
 public class SurveyController {
 
     private static final Set<String> SITUATIONS = Set.of("verify", "explain", "inventory", "other", "none");
     private static final Set<String> ANSWER_OPTIONS = Set.of("none", "unknown");
-    private static final Pattern EMAIL = Pattern.compile("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
-    private static final Pattern PHONE = Pattern.compile("^\\+?[0-9()\\-\\s#]{7,24}$");
 
     // amount-question messages: keys in i18n/survey*.properties, same wording as amountError in qilinfish.js,
     // shown via #fields.errors(...)[0] in the language of the request
@@ -44,7 +44,20 @@ public class SurveyController {
         this.messages = __messages;
     }
 
+    /**
+     * The verification survey moved to /survey/verify (spec B27): GET /survey answers 301 there, carrying the whole
+     * query string (?pick=... and anything else, D60). /en/survey reaches here through LangPathFilter and goes to /en/survey/verify.
+     * POST /survey is not redirected (D55): an old cached page still sends its answers here, see submitSurvey.
+     */
     @GetMapping("/survey")
+    public String redirectSurvey(HttpServletRequest __request) {
+        Object query = __request.getAttribute(LangPathFilter.ATTR_QUERY);
+        String prefix = LangLocaleResolver.isEnglish(__request) ? LangPathFilter.EN_PREFIX : "";
+        __request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.MOVED_PERMANENTLY);
+        return "redirect:" + prefix + "/survey/verify" + (query == null ? "" : "?" + query);
+    }
+
+    @GetMapping("/survey/verify")
     public String renderSurvey(Model __model) {
         __model.addAttribute("vb", buildSurveyBinder());
         __model.addAttribute("surveyForm", new SurveyFormModel());
@@ -52,7 +65,8 @@ public class SurveyController {
         return "survey";
     }
 
-    @PostMapping("/survey")
+    /** POST /survey is the old form address, still accepted as before (D55). */
+    @PostMapping({"/survey/verify", "/survey"})
     public String submitSurvey(@Valid @ModelAttribute("surveyForm") SurveyFormModel __form,
                                BindingResult __bindingResult,
                                Model __model,
@@ -97,7 +111,7 @@ public class SurveyController {
         }
         checkPay(__form, __bindingResult);
         String contact = __form.getContact() == null ? "" : __form.getContact().trim();
-        if (!contact.isEmpty() && !EMAIL.matcher(contact).matches() && !PHONE.matcher(contact).matches()) {
+        if (!contact.isEmpty() && !SurveyFormModel.isValidContact(contact)) {
             __bindingResult.rejectValue("contact", "invalid");
         }
     }

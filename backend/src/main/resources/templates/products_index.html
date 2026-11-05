@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html th:lang="${htmlLang}" lang="zh-Hant-TW" xmlns:th="http://www.thymeleaf.org">
+<!--/* The products entry page (spec B1–B6): two still cards, no video, each picture labelled AI-made (D63); every key is pe.* */-->
+<head th:replace="~{fragments/head :: headDesc(#{pe.title}, #{pe.description})}"></head>
+<body>
+<div th:replace="~{fragments/layout :: background}"></div>
+<nav th:replace="~{fragments/layout :: navbar('products')}"></nav>
+
+<main class="qf-page">
+    <section class="sv-section">
+        <div class="sv-eb" th:text="#{pe.eyebrow}">PRODUCTS // two ways to stand behind your work</div>
+        <h1 class="sc-title" th:text="#{pe.title}">交出去之前，先確定它站得住</h1>
+        <div class="pd-scenes pe-cards">
+            <a class="pd-scene pe-card" th:each="c : ${vb.cards}" th:href="${lp + c.path}" href="/products/verify">
+                <span class="pd-scene__img"><img th:src="@{'/media/' + ${c.image}}" src="/media/report_clean.jpg" th:alt="${c.imageAlt}" alt="">
+                    <span class="bl-ai" th:if="${c.aiImage}" th:text="#{pe.ai}">示意畫面 · AI 生成</span></span>
+                <span class="pd-scene__tx">
+                    <b th:text="${c.title}">AI 說「做完了」</b>
+                    <span class="pe-card__text" th:text="${c.text}">交出去之前，找出錯在哪裡</span>
+                    <span class="pe-card__for"><span class="k" th:text="#{pe.for}">給誰</span><th:block th:text="${c.forWhom}">律師、工程師、稽核</th:block></span>
+                    <span class="pd-scene__go"><th:block th:text="#{pe.go}">看這個產品</th:block> <span class="arr">→</span></span>
+                </span>
+            </a>
+        </div>
+    </section>
+
+    <p class="pd-also"><th:block th:text="#{pe.also}">也接 Web 開發與專案設計 →</th:block> <a th:href="${lp + '/contact'}" href="/contact" th:text="#{pe.also.link}">聯絡我們</a></p>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/qilinfish.js(v='20261104-demo')}" src="/js/qilinfish.js"></script>
+</body>
+</html>

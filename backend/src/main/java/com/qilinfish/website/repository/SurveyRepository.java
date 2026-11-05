@@ -1,5 +1,6 @@
 package com.qilinfish.website.repository;
 
+import com.qilinfish.website.model.SurveyContentFormModel;
 import com.qilinfish.website.model.SurveyFormModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import java.sql.Statement;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * Stores survey submissions in a single SQLite file, one row per submission.
@@ -52,6 +54,30 @@ public class SurveyRepository {
       + " worst_case, tried_other, hardest_step, why_not_needed, message,"
       + " pay_min, pay_max, pay_option, lang)"
       + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+    /**
+     * The article-app survey (/survey/content), same file, its own table (spec D34). One column per question;
+     * a multiple-choice answer is its Chinese options joined with "、"; blind_locked is 1 when the browser showed
+     * the reveal questions only after "Next" (a hint, not a guarantee: D33).
+     */
+    private static final String CREATE_CONTENT_TABLE =
+        "CREATE TABLE IF NOT EXISTS survey_content ("
+      + " id INTEGER PRIMARY KEY AUTOINCREMENT,"
+      + " created_at TEXT NOT NULL,"
+      + " lang TEXT,"
+      + " role TEXT, team_size TEXT, monthly_pieces TEXT,"
+      + " last_piece TEXT, how_checked TEXT, check_hours TEXT, after_delivery TEXT, after_delivery_cost TEXT,"
+      + " tools TEXT, tool_count TEXT, move_hours TEXT, formats TEXT,"
+      + " blind_price TEXT, reveal_buy TEXT, reveal_renew TEXT,"
+      + " name TEXT, contact TEXT, trial TEXT,"
+      + " blind_locked INTEGER NOT NULL DEFAULT 0)";
+
+    private static final String INSERT_CONTENT =
+        "INSERT INTO survey_content (created_at, lang, role, team_size, monthly_pieces,"
+      + " last_piece, how_checked, check_hours, after_delivery, after_delivery_cost,"
+      + " tools, tool_count, move_hours, formats, blind_price, reveal_buy, reveal_renew,"
+      + " name, contact, trial, blind_locked)"
+      + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private final String dbPath;
 
@@ -113,6 +139,78 @@ public class SurveyRepository {
             log.error("Failed to save survey to {}", dbPath, ex);
             return false;
         }
+    }
+
+    /**
+     * Save one article-app survey submission (/survey/content) into survey_content. Returns true on success,
+     * false on any failure (logged). __form has passed SurveyContentController's checks; __lang is "zh" or "en".
+     */
+    public synchronized boolean saveContentSurvey(SurveyContentFormModel __form, String __lang) {
+        try {
+            Path parent = Path.of(dbPath).toAbsolutePath().getParent();
+            if (parent != null) {
+                Files.createDirectories(parent);
+            }
+            try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath)) {
+                try (Statement st = conn.createStatement()) {
+                    st.execute(CREATE_CONTENT_TABLE);
+                }
+                // List.of(...).contains(null) throws, so a blank answer is checked first
+                String after = __form.getAfterDelivery();
+                boolean followUp = after != null && SurveyContentFormModel.AFTER_DELIVERY_FOLLOW_UP.contains(after);
+                try (PreparedStatement ps = conn.prepareStatement(INSERT_CONTENT)) {
+                    int i = 1;
+                    ps.setString(i++, ZonedDateTime.now(TAIPEI).format(TS));
+                    ps.setString(i++, __lang);
+                    ps.setString(i++, withOther(__form.getRole(), __form.getRoleOther()));
+                    ps.setString(i++, trim(__form.getTeamSize()));
+                    ps.setString(i++, trim(__form.getMonthlyPieces()));
+                    ps.setString(i++, trim(__form.getLastPiece()));
+                    ps.setString(i++, trim(__form.getHowChecked()));
+                    ps.setString(i++, SurveyFormModel.normalizeUsd(__form.getCheckHours()));
+                    ps.setString(i++, trim(__form.getAfterDelivery()));
+                    // 7a is only asked after "someone asked for sources / pointed out an error"
+                    ps.setString(i++, followUp ? trim(__form.getAfterDeliveryCost()) : null);
+                    ps.setString(i++, joinChoices(__form.getTools(), __form.getToolsOther()));
+                    ps.setString(i++, trim(__form.getToolCount()));
+                    ps.setString(i++, SurveyFormModel.normalizeUsd(__form.getMoveHours()));
+                    ps.setString(i++, joinChoices(__form.getFormats(), __form.getFormatsOther()));
+                    ps.setString(i++, blindLabel(__form.getBlindOption(), __form.getBlindUsd()));
+                    ps.setString(i++, trim(__form.getRevealBuy()));
+                    ps.setString(i++, trim(__form.getRevealRenew()));
+                    ps.setString(i++, trim(__form.getName()));
+                    ps.setString(i++, trim(__form.getContact()));
+                    ps.setString(i++, trim(__form.getTrial()));
+                    // the browser's word only (D33): "1" or nothing, anything else counts as 0
+                    ps.setInt(i++, "1".equals(__form.getBlindLocked()) ? 1 : 0);
+                    ps.executeUpdate();
+                }
+            }
+            return true;
+        } catch (Exception ex) {
+            log.error("Failed to save content survey to {}", dbPath, ex);
+            return false;
+        }
+    }
+
+    /** "其他" becomes "其他：<the respondent's words>", so one column holds the whole answer. */
+    private String withOther(String __choice, String __other) {
+        if (__choice == null || __choice.isBlank()) return null;
+        String other = trim(__other);
+        return SurveyContentFormModel.OTHER.equals(__choice) && other != null ? __choice + "：" + other : __choice;
+    }
+
+    /** Checked options in page order, joined with "、"; null when none is checked. */
+    private String joinChoices(List<String> __checked, String __other) {
+        List<String> labels = __checked.stream().map(c -> withOther(c, __other)).filter(c -> c != null).toList();
+        return labels.isEmpty() ? null : String.join("、", labels);
+    }
+
+    /** A picked option (不會付費 / 不知道) wins over a typed amount, same as the verification survey. */
+    private String blindLabel(String __option, String __usd) {
+        if (__option != null && SurveyContentFormModel.BLIND_OPTIONS.contains(__option)) return __option;
+        String usd = SurveyFormModel.normalizeUsd(__usd);
+        return usd == null ? null : "US$" + usd;
     }
 
     // "other" is stored as its own words in the same column, so the existing table needs no new column

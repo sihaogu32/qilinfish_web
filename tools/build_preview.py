@@ -14,7 +14,7 @@ How it works
 - CSS, JS and media are not copied: links point at the real files in this repo
   (backend/src/main/resources/static/..., content/articles/<slug>/media/...),
   so preview.html must stay at the repo root.
-- Forms do not submit in the preview, and /survey?pick=... does not preselect an option.
+- Forms do not submit in the preview, and /survey/verify?pick=... does not preselect an option.
 """
 import argparse
 import html
@@ -29,8 +29,9 @@ REPO = Path(__file__).resolve().parent.parent
 OUT = REPO / "preview.html"
 STATIC = "backend/src/main/resources/static/"
 # Top-level pages (one controller each). Some are not linked from the nav, so list them all;
-# articles are found by following the blog lists.
-TOP = ["/about", "/products", "/cases", "/contact", "/resources", "/survey", "/blog"]
+# articles are found by following the blog lists. No address that redirects (e.g. /survey, a 301 to
+# /survey/verify): fetch() skips redirects, and every START page must load.
+TOP = ["/about", "/products", "/products/verify", "/products/content", "/cases", "/contact", "/resources", "/survey/verify", "/survey/content", "/blog"]
 START = TOP + ["/en" + p for p in TOP]
 NOT_PAGES = ("/css/", "/js/", "/media/", "/articles/")
 
@@ -108,7 +109,7 @@ def rewrite(doc, routes):
     doc = re.sub(r'((?:src|poster|href)=")/articles/([^/"]+)/media/', r'\1content/articles/\2/media/', doc)
 
     # Page links that exist in the preview become hash routes. A query string stays in the
-    # hash but the page cannot read it (srcdoc has no location.search): /survey?pick= does not preselect.
+    # hash but the page cannot read it (srcdoc has no location.search): /survey/verify?pick= does not preselect.
     def link(m):
         path = m.group(2).rstrip("/") or "/"
         return f'{m.group(1)}#{path}{m.group(3) or ""}"' if path in routes else m.group(0)

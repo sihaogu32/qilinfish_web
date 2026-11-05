@@ -3,7 +3,7 @@
 <head th:replace="~{fragments/layout :: head(#{page.title})}"></head>
 <body>
 <div th:replace="~{fragments/layout :: background}"></div>
-<nav th:replace="~{fragments/layout :: navbar('survey')}"></nav>
+<nav th:replace="~{fragments/layout :: navbar('products')}"></nav>
 
 <main class="qf-page">
 
@@ -118,7 +118,7 @@
                 <a href="#sv-p6"><span>06</span><th:block th:text="#{toc.6}">聯絡方式</th:block></a>
             </nav>
 
-        <form class="qf-survey sv-form" method="post" th:action="${lp + '/survey'}" action="/survey" data-survey-form novalidate
+        <form class="qf-survey sv-form" method="post" th:action="${lp + '/survey/verify'}" action="/survey/verify" data-survey-form novalidate
               th:object="${surveyForm}">
 
             <!-- ---- about you ---- -->
@@ -317,6 +317,6 @@
 </main>
 
 <footer th:replace="~{fragments/layout :: footer}"></footer>
-<script th:src="@{/js/qilinfish.js(v='20261026-en')}" src="/js/qilinfish.js"></script>
+<script th:src="@{/js/qilinfish.js(v='20261104-demo')}" src="/js/qilinfish.js"></script>
 </body>
 </html>

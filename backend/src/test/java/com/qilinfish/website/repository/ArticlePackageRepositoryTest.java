@@ -49,6 +49,25 @@ class ArticlePackageRepositoryTest {
     }
 
     @Test
+    void onlyACiteWithDataEIsAnEvidenceMark() throws IOException {
+        ArticlePackageRepository repo = new ArticlePackageRepository(dir.toString());
+        // test-zh-video has <sup class="cite"> without data-e: a plain reference number, not an evidence mark
+        assertThat(repo.findBySlug("test-zh-video").orElseThrow().isEvidenceMarked()).isFalse();
+        assertThat(repo.findBySlug("test-zh-solo").orElseThrow().isEvidenceMarked()).isTrue();
+        assertThat(repo.findBySlug("test-en-image").orElseThrow().isEvidenceMarked()).isTrue();
+        assertThat(repo.findEvidenceMarkedByLang(false)).extracting(ArticlePackageModel::getSlug).containsExactly("test-zh-solo");
+        assertThat(repo.findEvidenceMarkedByLang(true)).extracting(ArticlePackageModel::getSlug).containsExactly("test-en-image");
+    }
+
+    @Test
+    void evidenceMarkedIsNeverTakenFromArticleJson() throws IOException {
+        Path json = dir.resolve("test-zh-video/article.json");
+        String s = Files.readString(json, StandardCharsets.UTF_8);
+        Files.writeString(json, s.replaceFirst("\\{","{ \"evidenceMarked\" : true,"), StandardCharsets.UTF_8);
+        assertThat(new ArticlePackageRepository(dir.toString()).findBySlug("test-zh-video").orElseThrow().isEvidenceMarked()).isFalse();
+    }
+
+    @Test
     void bodyIsSplitRightBeforeTheInviteBoxEndTag() throws IOException {
         ArticlePackageModel zh = new ArticlePackageRepository(dir.toString()).findBySlug("test-zh-video").orElseThrow();
         String original = Files.readString(dir.resolve("test-zh-video/body.html"), StandardCharsets.UTF_8)
