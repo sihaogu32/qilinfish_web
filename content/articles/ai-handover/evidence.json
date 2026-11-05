@@ -1,0 +1,291 @@
+{
+  "evidence" : [ {
+    "id" : "E1",
+    "publisher" : "American Bar Association, Standing Committee on Ethics and Professional Responsibility.",
+    "title" : null,
+    "date" : "2024-07-29.",
+    "quote" : [ {
+      "text" : "“Of course, lawyers must disclose their GAI practices if asked by a client how they conducted their work, or whether GAI technologies were employed in doing so, or if the client expressly requires disclosure under the terms of the engagement agreement or the client’s outside counsel guidelines.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "The opinion addresses lawyers and interprets the ABA Model Rules of Professional Conduct. It says disclosure may be unnecessary in some circumstances, while disclosure or consultation may be required depending on the facts, client requests, engagement terms, or other Model Rule duties. This is not a general disclosure rule for independent consultants.",
+    "url" : "https://www.americanbar.org/content/dam/aba/administrative/professional_responsibility/ethics-opinions/aba-formal-opinion-512.pdf"
+  }, {
+    "id" : "E2",
+    "publisher" : "UK Government.",
+    "title" : null,
+    "date" : "Updated 2025-12-18; the checked page does not state the original publication date.",
+    "quote" : [ {
+      "text" : "“give appropriate disclosure when AI has been used to produce an output – this concerns both internal and external uses of AI”; “recording how much of the process is automated and how much is controlled by people”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "The framework is for government and other public-sector organisations. It recommends appropriate disclosure for AI-produced outputs. The recording recommendation applies where a system includes automated processing, as part of appropriate human oversight. This guidance does not establish a universal private-consultant requirement.",
+    "url" : "https://www.gov.uk/government/publications/data-ethics-framework/data-and-ai-ethics-framework"
+  }, {
+    "id" : "E3",
+    "publisher" : "National Institute of Standards and Technology, U.S. Department of Commerce.",
+    "title" : null,
+    "date" : "2024-07.",
+    "quote" : [ {
+      "text" : "“Provenance metadata can include information about GAI model developers or creators of GAI content, date/time of creation, location, modifications, and sources.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "The profile is cross-sectoral and accompanies the AI Risk Management Framework, which is intended for voluntary use by organisations. The passage describes metadata that may be included; it does not guarantee that the metadata will identify or establish each listed detail. The profile does not impose a freelancer-specific client-handover record.",
+    "url" : "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
+  }, {
+    "id" : "E4",
+    "publisher" : "U.S. Copyright Office.",
+    "title" : null,
+    "date" : "Published and effective 2023-03-16.",
+    "quote" : [ {
+      "text" : "“applicants have a duty to disclose the inclusion of AI-generated content in a work submitted for registration and to provide a brief explanation of the human author’s contributions to the work.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "This duty applies to applicants submitting works for U.S. copyright registration. The guidance concerns the registration application and does not establish a general AI-disclosure requirement for client handovers.",
+    "url" : "https://www.copyright.gov/ai/ai_policy_guidance.pdf"
+  }, {
+    "id" : "E5",
+    "publisher" : "National Institute of Standards and Technology (NIST).",
+    "title" : null,
+    "date" : "July 2024.",
+    "quote" : [ {
+      "text" : "“Provenance metadata can include information about GAI model developers or creators of GAI content, date/time of creation, location, modifications, and sources.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "The report describes a cross-sectoral Generative AI risk-management profile. It says these fields can be included; it does not prescribe a mandatory, fixed record. It also describes tracking the history and origin of input data and synthetic content.",
+    "url" : "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
+  }, {
+    "id" : "E6",
+    "publisher" : "National Institute of Standards and Technology (NIST).",
+    "title" : null,
+    "date" : "Created 2026-08-31; updated 2026-09-15.",
+    "quote" : [ {
+      "text" : "“Fuller Provenance record — identifies the AI system, the human and automated participants and the roles they played, the inputs and prompts, and a link to the system's model card”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "The guide is for recording AI involvement in health data exchanged using FHIR. NIST says the first draft completed formal HL7 balloting and was approved as an STU1 ballot draft for trial use; healthcare organizations may pilot it, and further revisions are expected before finalization. The guide standardizes representation; it does not evaluate AI systems, judge resulting data, or detect undisclosed AI use.",
+    "url" : "https://www.nist.gov/programs-projects/hl7-ai-transparency-fast-healthcare-interoperability-resources-fhir"
+  }, {
+    "id" : "E7",
+    "publisher" : "OECD.AI, Organisation for Economic Co-operation and Development (OECD).",
+    "title" : null,
+    "date" : "No publication or update date displayed on the opened page.",
+    "quote" : [ {
+      "text" : "“where feasible and useful, to provide plain and easy-to-understand information on the sources of data/input, factors, processes and/or logic that led to the prediction, content, recommendation or decision”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "This is a principle about transparency and responsible disclosure by AI actors. The page qualifies the information by context, feasibility, usefulness, and the state of the art; it is not a prescribed handover template.",
+    "url" : "https://oecd.ai/en/dashboards/ai-principles/P7"
+  }, {
+    "id" : "E8",
+    "publisher" : "OECD.AI, Organisation for Economic Co-operation and Development (OECD).",
+    "title" : null,
+    "date" : "No publication or update date displayed on the opened page.",
+    "quote" : [ {
+      "text" : "“AI actors should ensure traceability, including in relation to datasets, processes and decisions made during the AI system lifecycle, to enable analysis of the AI system’s outputs and responses to inquiry, appropriate to the context and consistent with the state of the art.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "The principle applies to AI actors and concerns traceability across the AI system lifecycle. It explicitly makes the appropriate degree context- and state-of-the-art-dependent; it does not specify a particular consultant handover record.",
+    "url" : "https://oecd.ai/en/dashboards/ai-principles/P9"
+  }, {
+    "id" : "E9",
+    "publisher" : "Coalition for Content Provenance and Authenticity (C2PA).",
+    "title" : null,
+    "date" : "Version 2.3; publication date not stated on the page.",
+    "quote" : [ {
+      "text" : "“Content Credentials, also known as a C2PA Manifest, contain one or more assertions, which are statements about the asset, such as its origin (i.e., when and where it was created), modifications (i.e., what happened using what tools) and use of AI (i.e., how it was authored).”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "The explainer concerns digital assets such as images, video, audio, and documents. It confirms that credentials can record ingredients and their provenance when assets are assembled from multiple sources. It also states that provenance alone cannot establish whether content is true, accurate, or factual, and provenance may be incomplete.",
+    "url" : "https://spec.c2pa.org/specifications/specifications/2.3/explainer/Explainer.html"
+  }, {
+    "id" : "E10",
+    "publisher" : "United States Copyright Office.",
+    "title" : null,
+    "date" : "January 2025.",
+    "quote" : [ {
+      "text" : "“it analyzes how the law may apply to various types of human contributions to AI-generated outputs: prompting, the inclusion of human-authored expressive inputs, and the modification or arrangement of AI-generated outputs.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "The report addresses copyrightability of works created using generative AI under U.S. copyright law. It distinguishes these types of human contribution; it does not establish general rules for documenting or handing over AI-assisted work.",
+    "url" : "https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-2-Copyrightability-Report.pdf"
+  }, {
+    "id" : "E11",
+    "publisher" : "National Institute of Standards and Technology (NIST).",
+    "title" : null,
+    "date" : "July 2024.",
+    "quote" : [ {
+      "text" : "“Review and verify sources and citations in GAI system outputs during pre-deployment risk measurement and ongoing monitoring activities.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "The profile also suggests methods to trace the origin and modifications of digital content. It is a cross-sectoral profile for organizations managing generative AI risks, and NIST describes the AI Risk Management Framework as intended for voluntary use. These are suggested actions, not a claim that every organization must take them.",
+    "url" : "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
+  }, {
+    "id" : "E12",
+    "publisher" : "Stanford Law School hosts the paper; the authors are affiliated with Stanford University and Yale University.",
+    "title" : null,
+    "date" : "2024-05-30 (arXiv submission; the PDF labels the manuscript “Preprint. Under review.”).",
+    "quote" : [ {
+      "text" : "“Second, we manually construct a preregistered dataset of over 200 legal queries for identifying and understanding vulnerabilities in legal AI tools. We run these queries on LexisNexis, Thomson Reuters, and GPT-4 and manually review their outputs for accuracy and fidelity to authority.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "The “over 200” figure describes legal queries in the researchers’ preregistered dataset, not people or all legal queries. The tested systems were LexisNexis, Thomson Reuters, and GPT-4. The findings concern those tools and queries.",
+    "url" : "https://law.stanford.edu/wp-content/uploads/2024/05/Legal_RAG_Hallucinations.pdf"
+  }, {
+    "id" : "E13",
+    "publisher" : "Coalition for Content Provenance and Authenticity (C2PA).",
+    "title" : null,
+    "date" : "Not stated; version 2.3.",
+    "quote" : [ {
+      "text" : "“Provenance information can help establish the truth about the origin, history and authenticity of digital content, by providing evidence for its creation, discovery, ownership and movement over time; but provenance information alone cannot tell you whether the digital content is true, accurate or factual.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "Content Credentials can record asset provenance, including origin and modifications. A credential-enabled application can verify the associated asset and manifest, including whether the asset has changed since the manifest was created. Provenance may be incomplete, and verification of provenance does not establish that the asset’s content is factually true.",
+    "url" : "https://spec.c2pa.org/specifications/specifications/2.3/explainer/Explainer.html"
+  }, {
+    "id" : "E14",
+    "publisher" : "National Institute of Standards and Technology (NIST).",
+    "title" : null,
+    "date" : "July 2024.",
+    "quote" : [ {
+      "text" : "“Determine and document the expected and acceptable GAI system context of use”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "This is a suggested action in NIST’s voluntary, cross-sectoral Generative AI Profile. The passage says to assess assumptions and limitations, the intended operational environment and observed usage patterns, potential impacts, and social norms and expectations. It is guidance for organizations managing generative AI risks, not a claim about measured outcomes.",
+    "url" : "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
+  }, {
+    "id" : "E15",
+    "publisher" : "National Institute of Standards and Technology (NIST).",
+    "title" : null,
+    "date" : "July 2024.",
+    "quote" : [ {
+      "text" : "“Limitations of the generalizability beyond the conditions under which the technology was developed are documented.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "This sentence appears under Measure 2.5, which concerns demonstrating that a system to be deployed is valid and reliable. The profile also advises against extrapolating performance or capabilities from narrow, non-systematic, anecdotal assessments. This is voluntary, cross-sectoral risk-management guidance.",
+    "url" : "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
+  }, {
+    "id" : "E16",
+    "publisher" : "Ministry of Law, Singapore.",
+    "title" : null,
+    "date" : "2026-03-06.",
+    "quote" : [ {
+      "text" : "“Offer clients the option to opt out of GenAI being applied in connection with their matters.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "The Guide is expressly non-binding and applies to people handling legal work in Singapore, including legal professionals and others in the legal sector. Its accompanying footnote says opting out may mean GenAI-enabled efficiencies or capabilities are unavailable, traditional processes are used, turnaround is slower, and costs may be higher. These are possible effects, not guaranteed outcomes.",
+    "url" : "https://www.mlaw.gov.sg/files/Guide_for_using_Generative_AI_in_the_Legal_Sector__Published_on_6_Mar_2026_.pdf"
+  }, {
+    "id" : "E17",
+    "publisher" : "State Bar of California, Standing Committee on Professional Responsibility and Conduct.",
+    "title" : null,
+    "date" : "2026; the PDF does not state an exact release day.",
+    "quote" : [ {
+      "text" : "“A lawyer must also follow any applicable client instructions or guidelines that may restrict or limit the use of AI in connection with the representation of the client”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "The 2026 Practical Guidance addresses lawyers’ professional responsibilities when using generative AI in legal practice. The quoted instruction concerns applicable client instructions or guidelines in a client representation; it is not a general rule for all AI users or all jurisdictions.",
+    "url" : "https://www.calbar.ca.gov/Portals/0/documents/ethics/Generative-AI-Practical-Guidance.pdf"
+  }, {
+    "id" : "E18",
+    "publisher" : "GOV.UK Developer Documentation.",
+    "title" : null,
+    "date" : "Last updated 2023-12-07. The page warns it may be out of date.",
+    "quote" : [ {
+      "text" : "“Dependencies that need to be installed manually.” “One-off commands that need to be run manually.” “Give one command to run all the tests, linting, etc.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "Guidance and a README template for GOV.UK public application repositories, aimed at technical readers. The setup section applies “if applicable.” The source itself cautions that it may be out of date.",
+    "url" : "https://docs.publishing.service.gov.uk/manual/readmes.html"
+  }, {
+    "id" : "E19",
+    "publisher" : "GOV.UK Service Manual, Software engineering community.",
+    "title" : null,
+    "date" : "2016-05-23; last updated 2016-12-02.",
+    "quote" : [ {
+      "text" : "“record your changes and the reasons why you made them, to help future developers understand the process”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "Coding guidance. The page frames version control as something code teams must maintain; this is guidance, not evidence about a measured population.",
+    "url" : "https://www.gov.uk/service-manual/technology/maintaining-version-control-in-coding"
+  }, {
+    "id" : "E20",
+    "publisher" : "npm.",
+    "title" : null,
+    "date" : "npm CLI v11.21.1 documentation; publication date not stated; accessed 2026-11-01.",
+    "quote" : [ {
+      "text" : "“It describes the exact tree that was generated, such that subsequent installs are able to generate identical trees, regardless of intermediate dependency updates.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "Documentation for npm’s package-lock.json. The page says the file is intended for source repositories and describes what subsequent installs can generate from that recorded tree.",
+    "url" : "https://docs.npmjs.com/cli/v11/configuring-npm/package-lock-json/"
+  }, {
+    "id" : "E21",
+    "publisher" : "The Twelve-Factor App.",
+    "title" : null,
+    "date" : "Date not stated; accessed 2026-11-01.",
+    "quote" : [ {
+      "text" : "“strict separation of config from code”; “The twelve-factor app stores config in environment variables”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "This is the Twelve-Factor App’s prescription for application config that varies between deploys. The page explicitly excludes internal application configuration that does not vary between deploys from its definition of config.",
+    "url" : "https://www.12factor.net/config"
+  }, {
+    "id" : "E22",
+    "publisher" : "National Institute of Standards and Technology (NIST).",
+    "title" : null,
+    "date" : "Publication date not stated in the opened PDF; accessed 2026-11-01.",
+    "quote" : [ {
+      "text" : "“Proper documentation storage and access procedures allow for quick retrieval of critical information during a negative incident.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "The Playbook’s suggested documentation-policy topics include scope and uses, assumptions and limitations, testing and validation results, upstream and downstream dependencies, and plans for deployment, monitoring, and change management. These are suggested actions, not a universal requirement; the AI RMF Playbook is a voluntary companion resource.",
+    "url" : "https://airc.nist.gov/docs/AI_RMF_Playbook.pdf"
+  }, {
+    "id" : "E23",
+    "publisher" : "National Institute of Standards and Technology (NIST).",
+    "title" : null,
+    "date" : "The page identifies the content as an excerpt from NIST AI RMF 1.0 (2023); page publication date not stated.",
+    "quote" : [ {
+      "text" : "“Ongoing monitoring and periodic review of the risk management process and its outcomes are planned”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "This is Govern 1.5 in the AI RMF Core. The full subcategory also says organizational roles and responsibilities should be clearly defined, including the frequency of periodic review. The page describes AI RMF actions as not constituting a checklist or necessarily an ordered set of steps.",
+    "url" : "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/"
+  }, {
+    "id" : "E24",
+    "publisher" : "OpenAI.",
+    "title" : null,
+    "date" : "Page publication date not stated; accessed 2026-11-01.",
+    "quote" : [ {
+      "text" : "“Use git history, PR review, release tags, and feature flags to review, ship, compare, and roll back prompt changes.”",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "The guidance appears in the section on prompts in an application and production prompts, as advice for new work using the OpenAI API. The same section says reusable prompt objects are being deprecated and gives a scheduled shutdown date for v1/prompts; the statement is provider-specific guidance.",
+    "url" : "https://developers.openai.com/api/docs/guides/prompting"
+  } ]
+}

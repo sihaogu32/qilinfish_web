@@ -1,0 +1,1278 @@
+{
+  "evidence" : [ {
+    "id" : "E6",
+    "publisher" : "The University of Melbourne × KPMG International",
+    "title" : "Trust, attitudes and use of AI: A global study 2025",
+    "date" : "2025-04",
+    "quote" : [ {
+      "text" : "\"Four out of five (83%) report they would be more willing to trust an AI system when such assurance mechanisms are in place.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：五分之四（83%）的人說，有這類保證機制時，他們會更願意信任 AI 系統。",
+      "translation" : true
+    }, {
+      "text" : "\"These mechanisms range from monitoring system reliability to human oversight and accountability, responsible AI policies and training, adhering to international AI standards, and independent third-party AI assurance systems (see Figure 29).\"",
+      "translation" : false
+    }, {
+      "text" : "中文：這些機制從監測系統可靠度、人的監督與問責、負責任 AI 政策與訓練、遵循國際 AI 標準，到獨立第三方 AI 保證系統。",
+      "translation" : true
+    }, {
+      "text" : "圖 29 題目：\"I would be more willing to trust an AI system (specific application) if...\"；選項含 \"It allows for human intervention to correct, override, or challenge recommendations and output\" 與 \"It is clear who is accountable if something goes wrong with the system\"",
+      "translation" : false
+    }, {
+      "text" : "中文：「如果……我會更願意信任這個 AI 系統」；選項含「允許人介入修正、推翻或質疑建議與產出」、「出問題時清楚由誰負責」。",
+      "translation" : true
+    } ],
+    "note" : "報告第 54 頁",
+    "qualifiers" : "48,340 人，47 個國家與地區；線上調查，2024-11 至 2025-01 中旬。母體是各國一般成人，不是客戶或採購者。受訪者自述，不是實際行為。台灣不在樣本內（註 9：中國樣本只含中國大陸，不含港澳台）。83% 是「保證機制整體」的數字，不是單一機制。圖 29 的單項百分比沒有逐字核對，不引用。台灣不在樣本內。",
+    "url" : "https://assets.kpmg.com/content/dam/kpmgsites/xx/pdf/2025/05/trust-attitudes-and-use-of-ai-global-report.pdf"
+  }, {
+    "id" : "E9",
+    "publisher" : "KPMG International × The University of Melbourne",
+    "title" : "The age of Intelligence: Empowering human-AI collaboration for a trusted future（摘要 PDF 版權頁標題）",
+    "date" : "2025-04",
+    "quote" : [ {
+      "text" : "\"61 percent avoid revealing when they have used AI tools in their work\"",
+      "translation" : false
+    }, {
+      "text" : "中文：61% 會避免透露自己在工作中用了 AI 工具。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "員工子樣本 n=32,352；員工中 77% 受僱於組織、16% 自僱、7% 是企業主。受訪者自述。57%（報告）與 61%（摘要，見 E9）是不同題目或合併方式，不可混用。台灣不在樣本內。與 57% 不可混用。台灣不在樣本內。",
+    "url" : "https://kpmg.com/kpmg-us/content/dam/kpmg/pdf/2025/trust-attitudes-artificial-intelligence-executive-summary.pdf"
+  }, {
+    "id" : "E10",
+    "publisher" : "Ipsos",
+    "title" : "Ipsos AI Monitor 2025",
+    "date" : "2025-06-06",
+    "quote" : [ {
+      "text" : "\"Seventy-nine percent agree (40% strongly agree) that companies using AI should have to disclose that use.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：79% 同意（40% 非常同意）用 AI 的公司應該要揭露這件事。",
+      "translation" : true
+    }, {
+      "text" : "報告第 22 頁題目：\"How much do you agree or disagree with the following? Products and services using artificial intelligence should have to disclose that use\"",
+      "translation" : false
+    }, {
+      "text" : "中文：你多同意下列說法？用人工智慧的產品與服務應該要揭露這件事。",
+      "translation" : true
+    }, {
+      "text" : "同頁：\"30-country average 79% Indonesia 91% … Japan 66%\"；不同意欄 30 國平均 7%。",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "\"Base: 23,216 online adults under age 75 across 30 countries, interviewed March 21 – April 4, 2025\"。部分國家樣本比一般人口更都市、更高學歷或更富裕。30 國平均未依人口加權，不代表總體結果。題目是「產品與服務」，不是專業顧問服務。台灣不在 30 國內。",
+    "url" : "新聞頁 https://www.ipsos.com/en-us/conflicting-global-perceptions-around-ai-present-mixed-signals-brands ；報告 PDF https://www.ipsos.com/sites/default/files/ct/news/documents/2025-06/Ipsos-AI-Monitor-2025_0.pdf"
+  }, {
+    "id" : "E12",
+    "publisher" : "Salesforce",
+    "title" : "（新聞頁，查核未逐字取得標題；網址路徑為 ai-customer-research）",
+    "date" : "2024-10-31",
+    "quote" : [ {
+      "text" : "\"Nearly 75% of consumers want to know if they're communicating with an AI agent.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：近 75% 的消費者想知道自己是不是在跟 AI 代理溝通。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "15,015 名消費者，2024-07-16 至 08-16，YouGov 線上執行；加權後代表 18 國成人（18 歲以上）。同頁樣本數寫法不一致，引用時用 15,015。出版者販售 AI 代理產品。題目是「跟 AI 代理溝通」，不是「交付成果用了 AI」。台灣不在 18 國內。",
+    "url" : "https://www.salesforce.com/news/stories/ai-customer-research/"
+  }, {
+    "id" : "E15",
+    "publisher" : "Pew Research Center",
+    "title" : "How Americans View AI and Its Impact on People and Society（依網址路徑；頁面標題未逐字核對）",
+    "date" : "2025-09-17",
+    "quote" : [ {
+      "text" : "\"most Americans (76%) say it's extremely or very important to be able to tell if pictures, videos and text were made by AI or people.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：多數美國人（76%）說，能分辨圖片、影片和文字是 AI 還是人做的，極為或非常重要。",
+      "translation" : true
+    }, {
+      "text" : "\"For this analysis, we surveyed 5,023 adults from June 9 to 15, 2025.\"",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "美國成人 5,023 人，2025-06-09 至 06-15。題目是一般內容，不是專業服務成果。只有美國，沒有台灣。",
+    "url" : "https://www.pewresearch.org/science/2025/09/17/how-americans-view-ai-and-its-impact-on-people-and-society/"
+  }, {
+    "id" : "E16",
+    "publisher" : "Pew Research Center",
+    "title" : "How Americans View AI and Its Impact on People and Society（依網址路徑；頁面標題未逐字核對）",
+    "date" : "2025-09-17",
+    "quote" : [ {
+      "text" : "\"But 53% of Americans are not too or not at all confident they can detect if something is made by AI versus a person.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：但 53% 的美國人不太有或完全沒有信心，能分辨某樣東西是 AI 還是人做的。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "美國成人 5,023 人，2025-06-09 至 06-15。題目是一般內容，不是專業服務成果。只有美國，沒有台灣。只有美國，沒有台灣。",
+    "url" : "https://www.pewresearch.org/science/2025/09/17/how-americans-view-ai-and-its-impact-on-people-and-society/"
+  }, {
+    "id" : "E17",
+    "publisher" : "Organizational Behavior and Human Decision Processes Vol. 188, Article 104405, DOI 10.1016/j.obhdp.2025.104405（Schilke & Reimann）；摘要取自 NSF 公開存取頁",
+    "title" : "The transparency dilemma: How AI disclosure erodes trust",
+    "date" : "2025-05-01（NSF 頁）",
+    "quote" : [ {
+      "text" : "\"Thirteen experiments consistently demonstrate\"",
+      "translation" : false
+    }, {
+      "text" : "中文：十三個實驗一致顯示。",
+      "translation" : true
+    }, {
+      "text" : "\"actors who disclose their AI usage are trusted less than those who do not\"",
+      "translation" : false
+    }, {
+      "text" : "中文：揭露自己用 AI 的人，比不揭露的人被信任得少。",
+      "translation" : true
+    }, {
+      "text" : "\"regardless of whether disclosure is voluntary or mandatory\"",
+      "translation" : false
+    }, {
+      "text" : "中文：不論揭露是自願或被要求的。",
+      "translation" : true
+    }, {
+      "text" : "\"though it is comparatively weaker than the effect of third-party exposure\"",
+      "translation" : false
+    }, {
+      "text" : "中文：不過這個效果比被第三方揭露時弱。",
+      "translation" : true
+    } ],
+    "note" : "NSF 摘要",
+    "qualifiers" : "實驗研究（情境題），量的是評估者的信任，不是實際客戶行為。作者文章寫 \"across 13 experiments involving more than 5,000 participants\"（13 個實驗、超過 5,000 名參與者）。參與者國籍未寫；沒有證據顯示含台灣樣本。期刊原頁 403，未打開。",
+    "url" : "https://par.nsf.gov/biblio/10597787"
+  }, {
+    "id" : "E18",
+    "publisher" : "University of Arizona News 轉載 The Conversation（作者本人文章）",
+    "title" : "Being honest about using AI at work makes people trust you less, research finds（依網址路徑）",
+    "date" : "2025-05-29",
+    "quote" : [ {
+      "text" : "\"We found that quietly using AI can trigger the steepest decline in trust if others uncover it later.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：悄悄用 AI，若之後被別人發現，信任下降最多。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "實驗研究（情境題），量的是評估者的信任，不是實際客戶行為。作者文章寫 \"across 13 experiments involving more than 5,000 participants\"（13 個實驗、超過 5,000 名參與者）。參與者國籍未寫；沒有證據顯示含台灣樣本。期刊原頁 403，未打開。沒有證據顯示含台灣樣本。",
+    "url" : "https://news.arizona.edu/employee-news/being-honest-about-using-ai-work-makes-people-trust-you-less-research-finds"
+  }, {
+    "id" : "E19",
+    "publisher" : "University of Arizona News 轉載 The Conversation（作者本人文章）",
+    "title" : "Being honest about using AI at work makes people trust you less, research finds（依網址路徑）",
+    "date" : "2025-05-29",
+    "quote" : [ {
+      "text" : "\"Interestingly, we found that even evaluators who were tech-savvy were less trusting of people who said they used AI.\" \"While having a positive view of technology reduced the effect slightly, it didn't erase it.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：即使懂科技的評估者，也比較不信任說自己用 AI 的人。對科技看法正面會稍微減弱效果，但不會消除。",
+      "translation" : true
+    }, {
+      "text" : "\"Participants in our study included students, legal analysts, hiring managers and investors, among others.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：參與者包括學生、法律分析師、招募主管、投資人等。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "實驗研究（情境題），量的是評估者的信任，不是實際客戶行為。作者文章寫 \"across 13 experiments involving more than 5,000 participants\"（13 個實驗、超過 5,000 名參與者）。參與者國籍未寫；沒有證據顯示含台灣樣本。期刊原頁 403，未打開。沒有證據顯示含台灣樣本。",
+    "url" : "https://news.arizona.edu/employee-news/being-honest-about-using-ai-work-makes-people-trust-you-less-research-finds"
+  }, {
+    "id" : "E20",
+    "publisher" : "JAMA Network Open（作者 Moritz Reis, Florian Reis, Wilfried Kunde）",
+    "title" : "Public Perception of Physicians Who Use Artificial Intelligence（Research Letter）",
+    "date" : "2025-07-17（線上發表）",
+    "quote" : [ {
+      "text" : "\"In every AI condition, the portrayed physician was perceived as significantly less competent (control: 3.85 [95% CI, 3.75-3.94] points; administrative AI: 3.71 [95% CI, 3.61-3.80] points;\"",
+      "translation" : false
+    }, {
+      "text" : "中文：在每一種 AI 條件下，被描述的醫師都被認為明顯較不稱職。",
+      "translation" : true
+    }, {
+      "text" : "稱職度另兩組：diagnostic AI 3.66、\"therapeutic AI: 3.58 [95% CI, 3.48-3.68] points\"",
+      "translation" : false
+    }, {
+      "text" : "可信度：\"control: 3.88 [95% CI, 3.79-3.96] points\"、\"administrative AI: 3.66\"、\"diagnostic AI: 3.62\"、\"therapeutic AI: 3.61\"",
+      "translation" : false
+    }, {
+      "text" : "同理心：\"control: 4.00\"、\"administrative AI: 3.80\"、\"diagnostic AI: 3.82\"、\"therapeutic AI: 3.72\"",
+      "translation" : false
+    }, {
+      "text" : "\"There was no significant difference between the AI conditions for any rating dimension.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：各 AI 條件之間在任何評分面向都沒有顯著差異。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "美國成人 1,276 人，Prolific 線上配額樣本（依 2021 美國普查），2025-01 收集。虛構的家醫科廣告，量的是印象，不是實際就醫行為。依查核修正：可信度 對照組 3.88、AI 組 3.61–3.66（3.58 是治療 AI 組的「稱職度」）。沒有台灣樣本。",
+    "url" : "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/10.1001/jamanetworkopen.2025.21643"
+  }, {
+    "id" : "E21",
+    "publisher" : "PNAS Nexus, Vol. 3, Issue 10（作者 Sacha Altay & Fabrizio Gilardi）",
+    "title" : "People are skeptical of headlines labeled as AI-generated, even if true or human-made, because they assume full AI automation",
+    "date" : "2024-10-01",
+    "quote" : [ {
+      "text" : "摘要：\"In two preregistered online experiments\" \"among US and UK participants (N = 4,976)\"",
+      "translation" : false
+    }, {
+      "text" : "\"labeling headlines as AI-generated lowered their perceived accuracy and participants' willingness to share them\"",
+      "translation" : false
+    }, {
+      "text" : "中文：把標題標為 AI 生成，降低了被認為的準確度與參與者的分享意願。",
+      "translation" : true
+    }, {
+      "text" : "\"regardless of whether the headlines were true or false, and created by humans or AI.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：不論標題真假、由人或 AI 產生。",
+      "translation" : true
+    }, {
+      "text" : "\"The impact of labeling headlines as AI-generated was three times smaller than labeling them as false.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：標為 AI 生成的影響，是標為假的三分之一。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "研究一美國（招募 1,976 人）、研究二美國與英國（招募 3,003 人），都在 Prolific 招募；摘要寫 N = 4,976。對象是新聞標題，不是服務成果。沒有台灣樣本。",
+    "url" : "https://academic.oup.com/pnasnexus/article/3/10/pgae403/7795946"
+  }, {
+    "id" : "E22",
+    "publisher" : "PNAS Nexus, Vol. 3, Issue 10（作者 Sacha Altay & Fabrizio Gilardi）",
+    "title" : "People are skeptical of headlines labeled as AI-generated, even if true or human-made, because they assume full AI automation",
+    "date" : "2024-10-01",
+    "quote" : [ {
+      "text" : "\"This AI aversion is due to expectations that headlines labeled as AI-generated have been entirely written by AI with no human supervision.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：這種對 AI 的排斥，來自人們以為標了 AI 生成的標題是完全由 AI 寫、沒有人監督。",
+      "translation" : true
+    }, {
+      "text" : "\"effective deployment of labels requires transparency regarding their meaning.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：標籤要有效，需要讓人清楚標籤的意思。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "研究一美國（招募 1,976 人）、研究二美國與英國（招募 3,003 人），都在 Prolific 招募；摘要寫 N = 4,976。對象是新聞標題，不是服務成果。沒有台灣樣本。依查核修正：引句要保留後半 \"with no human supervision\"。沒有台灣樣本。",
+    "url" : "https://academic.oup.com/pnasnexus/article/3/10/pgae403/7795946"
+  }, {
+    "id" : "E23",
+    "publisher" : "Thomson Reuters Institute",
+    "title" : "2026 AI in Professional Services Report: AI adoption has hit critical mass, but now comes the tough business questions（文章）",
+    "date" : "2026-02-09（文章日期；報告 PDF 沒寫發布日）",
+    "quote" : [ {
+      "text" : "\"While most corporate departments want their outside firms to use AI on client matters,\" \"less than one-third are aware whether their firms are doing so.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：大多數企業部門希望外部事務所在客戶案件上用 AI，但不到三分之一知道他們的事務所有沒有在用。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "1,514 人，2025-10 至 11 月，27 國；樣本來自 Thomson Reuters 名單，篩選過熟悉 AI 的人；多數來自美國 39%、英國 18%、加拿大 13%。母體是法律、稅務、企業風險、政府法務的專業人員，不是一般大眾。出版者販售 AI 法律與稅務工具。依查核修正：若要寫比例，用「約三分之二的企業受訪者」（E24）或圖 8 的企業稅務 74%、企業法務 54%（E27），不要混成單一數字。報告沒有列出台灣。",
+    "url" : "https://www.thomsonreuters.com/en-us/posts/technology/ai-in-professional-services-report-2026"
+  }, {
+    "id" : "E24",
+    "publisher" : "Thomson Reuters Institute",
+    "title" : "2026 AI in Professional Services Report",
+    "date" : "2026-02-09（文章日期）",
+    "quote" : [ {
+      "text" : "\"Although roughly twothirds of corporate respondents say they believe their outside firms should use AI, less than 20% are mandating its use through guidelines or RFPs.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：約三分之二的企業受訪者認為外部事務所應該用 AI，但不到 20% 透過指引或招標文件要求。",
+      "translation" : true
+    } ],
+    "note" : "報告第 3 頁",
+    "qualifiers" : "1,514 人，2025-10 至 11 月，27 國；樣本來自 Thomson Reuters 名單，篩選過熟悉 AI 的人；多數來自美國 39%、英國 18%、加拿大 13%。母體是法律、稅務、企業風險、政府法務的專業人員，不是一般大眾。出版者販售 AI 法律與稅務工具。依查核修正：若要寫比例，用「約三分之二的企業受訪者」（E24）或圖 8 的企業稅務 74%、企業法務 54%（E27），不要混成單一數字。報告沒有列出台灣。報告沒有列出台灣。",
+    "url" : "https://www.thomsonreuters.com/content/dam/ewp-m/documents/thomsonreuters/en/pdf/reports/2026-ai-in-professional-services-report.pdf"
+  }, {
+    "id" : "E26",
+    "publisher" : "Thomson Reuters Institute",
+    "title" : "2026 AI in Professional Services Report",
+    "date" : "2026-02-09（文章日期）",
+    "quote" : [ {
+      "text" : "\"Changing business models will force more of these conversations; although about three-quarters of respondents say they believe firms should take the initiative to begin these talks.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：約四分之三的受訪者認為應由事務所主動開啟討論。",
+      "translation" : true
+    } ],
+    "note" : "報告第 3 頁",
+    "qualifiers" : "1,514 人，2025-10 至 11 月，27 國；樣本來自 Thomson Reuters 名單，篩選過熟悉 AI 的人；多數來自美國 39%、英國 18%、加拿大 13%。母體是法律、稅務、企業風險、政府法務的專業人員，不是一般大眾。出版者販售 AI 法律與稅務工具。依查核修正：若要寫比例，用「約三分之二的企業受訪者」（E24）或圖 8 的企業稅務 74%、企業法務 54%（E27），不要混成單一數字。報告沒有列出台灣。報告沒有列出台灣。",
+    "url" : "https://www.thomsonreuters.com/content/dam/ewp-m/documents/thomsonreuters/en/pdf/reports/2026-ai-in-professional-services-report.pdf"
+  }, {
+    "id" : "E28",
+    "publisher" : "Thomson Reuters Institute",
+    "title" : "2026 AI in Professional Services Report",
+    "date" : "2026-02-09（文章日期）",
+    "quote" : [ {
+      "text" : "\"Firms are reluctant -- they claim it would compromise quality and fidelity. I think they are threatened by it,\" … \"The quality still needs to be checked, and the human beings should still be responsible for the quality just as any junior associate work would need to be carefully reviewed by someone more experienced. But they should use it.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：事務所不太願意談，說會影響品質與忠實度。我覺得他們是感到威脅。品質還是要檢查，人還是要為品質負責，就像資淺律師的工作要由資深的人仔細審一樣。但他們應該用。",
+      "translation" : true
+    } ],
+    "note" : "報告第 20 頁，\"Corporate chief legal officer, USA\"",
+    "qualifiers" : "單一受訪者的話，美國。",
+    "url" : "https://www.thomsonreuters.com/content/dam/ewp-m/documents/thomsonreuters/en/pdf/reports/2026-ai-in-professional-services-report.pdf"
+  }, {
+    "id" : "E29",
+    "publisher" : "The State Bar of California, Standing Committee on Professional Responsibility and Conduct (COPRAC)",
+    "title" : "Practical Guidance for the Use of Generative Artificial Intelligence in the Practice of Law",
+    "date" : "原版 2023-11-16；2026 版由理事會 2026-05-14 核准（PDF 本身沒有標日期）",
+    "quote" : [ {
+      "text" : "\"A lawyer remains fully responsible for any outputs and work product generated with the assistance of AI.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：律師對 AI 協助產生的任何輸出與工作成果，仍負全部責任。",
+      "translation" : true
+    }, {
+      "text" : "\"Second, a lawyer must exercise independent professional judgment by reviewing, verifying, and correcting AI-generated outputs consistent with the learning and skill reasonably necessary for the representation.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：第二，律師必須以代理所需的合理知識與技能，審閱、驗證並更正 AI 產生的輸出，行使獨立的專業判斷。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "職業倫理意見（州律師公會委員會的實務指引，解釋既有的 California Rules of Professional Conduct）；說明頁沒有寫是否有拘束力。適用對象：加州執業律師。台灣不適用。",
+    "url" : "PDF https://www.calbar.ca.gov/Portals/0/documents/ethics/Generative-AI-Practical-Guidance.pdf ；說明頁 https://www.calbar.ca.gov/legal-professionals/ethics-compliance-practice-resources/ethics/ethics-technology-resources"
+  }, {
+    "id" : "E30",
+    "publisher" : "The State Bar of California, Standing Committee on Professional Responsibility and Conduct (COPRAC)",
+    "title" : "Practical Guidance for the Use of Generative Artificial Intelligence in the Practice of Law",
+    "date" : "原版 2023-11-16；2026 版由理事會 2026-05-14 核准（PDF 本身沒有標日期）",
+    "quote" : [ {
+      "text" : "\"As a general matter, a lawyer must not input any confidential information of the client into a generative AI solution that may present material risks to confidentiality or security, absent informed client consent (see rule 1.0.1(e)) as to the underlying risks.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：一般而言，未就相關風險取得客戶知情同意，律師不得把客戶的任何機密資訊輸入可能對保密或安全有重大風險的生成式 AI 方案。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "職業倫理意見（州律師公會委員會的實務指引，解釋既有的 California Rules of Professional Conduct）；說明頁沒有寫是否有拘束力。適用對象：加州執業律師。台灣不適用。",
+    "url" : "PDF https://www.calbar.ca.gov/Portals/0/documents/ethics/Generative-AI-Practical-Guidance.pdf ；說明頁 https://www.calbar.ca.gov/legal-professionals/ethics-compliance-practice-resources/ethics/ethics-technology-resources"
+  }, {
+    "id" : "E31",
+    "publisher" : "The State Bar of California, Standing Committee on Professional Responsibility and Conduct (COPRAC)",
+    "title" : "Practical Guidance for the Use of Generative Artificial Intelligence in the Practice of Law",
+    "date" : "原版 2023-11-16；2026 版由理事會 2026-05-14 核准（PDF 本身沒有標日期）",
+    "quote" : [ {
+      "text" : "\"A lawyer must consider disclosure to their client that they intend to use AI in the representation, including how the technology will be used, and the benefits and risks of such use. For example, disclosure may be appropriate where AI use materially affects decision-making processes.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：律師必須考慮向客戶揭露打算在代理中使用 AI，包括技術會怎麼用及其利益與風險。例如 AI 的使用實質影響決策過程時，揭露可能是適當的。",
+      "translation" : true
+    }, {
+      "text" : "\"A lawyer must also follow any applicable client instructions or guidelines that may restrict or limit the use of AI in connection with the representation of the client.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：律師也必須遵守客戶限制使用 AI 的任何指示或準則。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "職業倫理意見（州律師公會委員會的實務指引，解釋既有的 California Rules of Professional Conduct）；說明頁沒有寫是否有拘束力。適用對象：加州執業律師。台灣不適用。\"must consider disclosure\" 是「必須考慮揭露」，不是「必須揭露」。",
+    "url" : "PDF https://www.calbar.ca.gov/Portals/0/documents/ethics/Generative-AI-Practical-Guidance.pdf ；說明頁 https://www.calbar.ca.gov/legal-professionals/ethics-compliance-practice-resources/ethics/ethics-technology-resources"
+  }, {
+    "id" : "E34",
+    "publisher" : "Ministry of Law, Singapore",
+    "title" : "Guide for Using Generative Artificial Intelligence in the Legal Sector",
+    "date" : "2026-03-06（說明頁頁尾 \"Last Updated 27 Oct 2026\" 是網頁更新日）",
+    "quote" : [ {
+      "text" : "第 4 段：\"This Guide is non-binding.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：本指南不具拘束力。",
+      "translation" : true
+    }, {
+      "text" : "第 14 段：\"Professionals and organisations are ultimately responsible for the quality and integrity of their work product, and for compliance with applicable professional and ethical duties.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：專業人員與組織對工作成果的品質與完整性，以及遵守相關專業與倫理義務，負最終責任。",
+      "translation" : true
+    }, {
+      "text" : "3.1 (b)：\"Regardless of whether GenAI is used, legal professionals remain ultimately accountable for all work product as part of their professional duties owed to clients or business units they serve.\"；\"The use of GenAI tools does not delegate or diminish these obligations.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：無論是否使用 GenAI，法律專業人員都對所有工作成果負最終責任，這是對所服務客戶或業務單位的專業義務。使用 GenAI 工具不會轉移或減輕這些義務。",
+      "translation" : true
+    }, {
+      "text" : "3.1 (c)：\"Before using any GenAI-generated output in legal work, legal professionals must ensure that the output is correct, factually accurate, and fit for purpose.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：在法律工作中使用任何 GenAI 產出前，法律專業人員必須確保產出正確、事實準確、符合用途。",
+      "translation" : true
+    } ],
+    "note" : "PDF",
+    "qualifiers" : "自願指引（原文自稱 non-binding）；所引的 Legal Profession (Professional Conduct) Rules 2015 第 5、6 條（誠實能力勤勉、保密）有拘束力，指南本身沒有。適用地：新加坡。適用對象含執業律師、企業法務、替代法律服務提供者等。只有 3.1(c) 用 \"must\"。",
+    "url" : "說明頁 https://www.mlaw.gov.sg/launch-of-guide-for-using-generative-artificial-intelligence-in-the-legal-sector/ ；PDF https://www.mlaw.gov.sg/files/Guide_for_using_Generative_AI_in_the_Legal_Sector__Published_on_6_Mar_2026_.pdf"
+  }, {
+    "id" : "E36",
+    "publisher" : "Ministry of Law, Singapore",
+    "title" : "Guide for Using Generative Artificial Intelligence in the Legal Sector",
+    "date" : "2026-03-06（說明頁頁尾 \"Last Updated 27 Oct 2026\" 是網頁更新日）",
+    "quote" : [ {
+      "text" : "\"the Supreme Court's Guide on the Use of GenAI by Court Users requires all court users, including legal professionals, to be prepared to identify GenAI use in court documents and explain how the output was verified, if asked.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：最高法院的法院使用者 GenAI 指南要求所有法院使用者，包括法律專業人員，準備好在被問到時指出法院文件中哪裡用了 GenAI，並說明產出如何驗證。",
+      "translation" : true
+    } ],
+    "note" : "第 29 段",
+    "qualifiers" : "自願指引（原文自稱 non-binding）；所引的 Legal Profession (Professional Conduct) Rules 2015 第 5、6 條（誠實能力勤勉、保密）有拘束力，指南本身沒有。適用地：新加坡。適用對象含執業律師、企業法務、替代法律服務提供者等。只有 3.1(c) 用 \"must\"。這是律政部指南轉述最高法院指南；最高法院指南原文未在查核檔中打開。",
+    "url" : "說明頁 https://www.mlaw.gov.sg/launch-of-guide-for-using-generative-artificial-intelligence-in-the-legal-sector/ ；PDF https://www.mlaw.gov.sg/files/Guide_for_using_Generative_AI_in_the_Legal_Sector__Published_on_6_Mar_2026_.pdf"
+  }, {
+    "id" : "E37",
+    "publisher" : "Ministry of Law, Singapore",
+    "title" : "Guide for Using Generative Artificial Intelligence in the Legal Sector",
+    "date" : "2026-03-06（說明頁頁尾 \"Last Updated 27 Oct 2026\" 是網頁更新日）",
+    "quote" : [ {
+      "text" : "(b)：\"explain how GenAI is used in their provision of legal service. For example, which tools are used, at what stage of the legal workflow, by whom, and how the output is verified.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：說明提供法律服務時怎麼用 GenAI，例如用哪些工具、在工作流程的哪個階段、由誰用、產出怎麼驗證。",
+      "translation" : true
+    }, {
+      "text" : "(c)：\"Clarify that while GenAI tools may be used, legal professionals retain full responsibility for the work product;\"",
+      "translation" : false
+    }, {
+      "text" : "中文：說明雖然可能使用 GenAI 工具，法律專業人員對工作成果保有全部責任。",
+      "translation" : true
+    }, {
+      "text" : "(f)：\"Offer clients the option to opt out of GenAI being applied in connection with their matters\"",
+      "translation" : false
+    }, {
+      "text" : "中文：提供客戶選擇其案件不使用 GenAI。",
+      "translation" : true
+    } ],
+    "note" : "第 30 段",
+    "qualifiers" : "自願指引（原文自稱 non-binding）；所引的 Legal Profession (Professional Conduct) Rules 2015 第 5、6 條（誠實能力勤勉、保密）有拘束力，指南本身沒有。適用地：新加坡。適用對象含執業律師、企業法務、替代法律服務提供者等。只有 3.1(c) 用 \"must\"。",
+    "url" : "說明頁 https://www.mlaw.gov.sg/launch-of-guide-for-using-generative-artificial-intelligence-in-the-legal-sector/ ；PDF https://www.mlaw.gov.sg/files/Guide_for_using_Generative_AI_in_the_Legal_Sector__Published_on_6_Mar_2026_.pdf"
+  }, {
+    "id" : "E39",
+    "publisher" : "Ministry of Law, Singapore",
+    "title" : "Guide for Using Generative Artificial Intelligence in the Legal Sector",
+    "date" : "2026-03-06（說明頁頁尾 \"Last Updated 27 Oct 2026\" 是網頁更新日）",
+    "quote" : [ {
+      "text" : "\"The Firm exercises oversight to ensure that all outputs are reviewed by qualified professionals and that no client-sensitive information is disclosed to external AI systems without the requisite safeguards and your prior consent.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：本所進行監督，確保所有產出都經合格專業人員審閱，且未具備必要防護與您事先同意，不會把客戶敏感資訊揭露給外部 AI 系統。",
+      "translation" : true
+    } ],
+    "note" : "Annex C (III)「Sample Clauses for Letter of Engagement」，節錄",
+    "qualifiers" : "自願指引（原文自稱 non-binding）；所引的 Legal Profession (Professional Conduct) Rules 2015 第 5、6 條（誠實能力勤勉、保密）有拘束力，指南本身沒有。適用地：新加坡。適用對象含執業律師、企業法務、替代法律服務提供者等。只有 3.1(c) 用 \"must\"。範例條款，不是強制條款。",
+    "url" : "說明頁 https://www.mlaw.gov.sg/launch-of-guide-for-using-generative-artificial-intelligence-in-the-legal-sector/ ；PDF https://www.mlaw.gov.sg/files/Guide_for_using_Generative_AI_in_the_Legal_Sector__Published_on_6_Mar_2026_.pdf"
+  }, {
+    "id" : "E40",
+    "publisher" : "中華民國律師公會全國聯合會",
+    "title" : "律師倫理規範(全文含對照表)；附件「115.04.18律師倫理規範全文及修正對照表.pdf」",
+    "date" : "頁面日期 2025-06-26；頁尾「更新日期：2026/10/28」；附件沿革最後一筆 2026-04-18",
+    "quote" : [ {
+      "text" : "附件 PDF 沿革最後一筆：「115 年 4 月 18 日第 3 屆第 2 次會員代表大會增訂第 53 條之 1」。",
+      "translation" : false
+    }, {
+      "text" : "查核員從附件 PDF 抽出全文，搜尋「人工智慧」「生成式」「AI」，0 筆。律師倫理規範頁本身也沒有這些字樣。",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "律師倫理規範是全聯會訂定的自律規範（台灣執業律師）。依查核修正：寫成「2026-04-18 修正後的律師倫理規範全文，沒有出現『人工智慧』『生成式』『AI』字樣」。「全聯會或台北律師公會沒有正式發布律師使用生成式 AI 的指引」只能寫成「我們沒有找到」，不能寫成「沒有」（全聯會站內搜尋讀不到結果；台北律師公會網站未查）。",
+    "url" : "https://www.twba.org.tw/regulation/morale/65bfe5e5-1a32-47db-b2b2-3783369c8e60 ；附件 https://www.twba.org.tw/upload/content/20260504/4f4e310aedce491898db654d751d8ace/4f4e310aedce491898db654d751d8ace.pdf"
+  }, {
+    "id" : "E41",
+    "publisher" : "中華民國律師公會全國聯合會",
+    "title" : "〈公告〉本會已通過「勞動法律」、「人工智慧（AI）與法律」兩個專業領域進修科目課綱，請參閱附件或律師學院最新公告。",
+    "date" : "2024-10-25",
+    "quote" : [ {
+      "text" : "公告標題：「〈公告〉本會已通過「勞動法律」、「人工智慧（AI）與法律」兩個專業領域進修科目課綱，請參閱附件或律師學院最新公告。」",
+      "translation" : false
+    }, {
+      "text" : "附件檔名：「20241024AI委員會_人工智慧（AI）與法律專業課程課綱.pdf」",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "進修課綱是研習課程，不是行為規範。檔名有「AI委員會」字樣，但不能據此確認委員會的正式名稱。",
+    "url" : "https://www.twba.org.tw/news/ab9dce85-2a8b-472d-8146-ce3f4b3fb295"
+  }, {
+    "id" : "E43",
+    "publisher" : "金融監督管理委員會",
+    "title" : "金融業運用人工智慧(AI)指引",
+    "date" : "2024-06-20；到 2026-10-26 查不到修訂",
+    "quote" : [ {
+      "text" : "第三章：「(三)金融機構運用 AI 系統面對客戶時，宜告知客戶，並尊重其選擇是 否使用 AI 服務之權利及提醒是否有替代方案，以維護客戶權益。」",
+      "translation" : false
+    }, {
+      "text" : "第三章「四、尊重客戶選擇的權利及替代方案」：「(一)金融機構如運用 AI 系統向客戶提供金融服務，宜注意以下事項： 1.告知金融消費者該金融服務係由 AI 系統所提供。 2.提供資訊以便金融消費者瞭解，在正常使用過程中，AI 系統之功 能為何及由 AI 協助做出之決策可能會如何影響他們。 3.提醒金融消費者是否存在 AI 系統以外之替代方案，以讓其自行 決定是否選擇使用 AI 系統所提供之服務。」",
+      "translation" : false
+    }, {
+      "text" : "新聞稿：「本指引主要提供金融業者於導入及使用AI 時可注意的事項，是屬於行政指導性質。」",
+      "translation" : false
+    } ],
+    "note" : "PDF 換行造成的空格照抄",
+    "qualifiers" : "行政指導。適用對象：金融機構，以及受託的第三方業者那一側。多數用字是「宜」（建議）。不直接適用於非金融業的獨立顧問。適用地：台灣。",
+    "url" : "新聞稿 https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202406200001&dtable=News ；指引 PDF https://www.fsc.gov.tw/uploaddowndoc?file=news/202406201527520.pdf&filedisplay=%E9%99%84%E4%BB%B6_%E9%87%91%E8%9E%8D%E6%A5%AD%E9%81%8B%E7%94%A8AI%E6%8C%87%E5%BC%95.pdf&flag=doc"
+  }, {
+    "id" : "E44",
+    "publisher" : "金融監督管理委員會",
+    "title" : "金融業運用人工智慧(AI)指引",
+    "date" : "2024-06-20；到 2026-10-26 查不到修訂",
+    "quote" : [ {
+      "text" : "第五章（「系統部署及監控」階段）：「1.金融機構使用 AI 與消費者直接互動前，宜主動告知該互動或服 務係利用 AI 系統自動完成。 2.金融機構宜依據客戶所提出之需求，視情況提供適當之說明及解 釋，尤其對於可能受到系統性不利差別待遇之客戶，金融機構可 評估以簡單易懂之方式，說明 AI 系統產出之預測、建議或其決 策基礎之邏輯，惟仍宜注意資訊過度揭露所衍生之風險。」",
+      "translation" : false
+    }, {
+      "text" : "第五章：「(四)金融機構運用 AI 系統時，宜主動向利害關係人揭露相關資訊，如 利害關係人要求進一步說明，宜適當說明所使用之資料、資料如 何影響決策，及決策對利害關係人之影響等，以提升民眾信任度。」",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "行政指導。適用對象：金融機構，以及受託的第三方業者那一側。多數用字是「宜」（建議）。不直接適用於非金融業的獨立顧問。適用地：台灣。",
+    "url" : "新聞稿 https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202406200001&dtable=News ；指引 PDF https://www.fsc.gov.tw/uploaddowndoc?file=news/202406201527520.pdf&filedisplay=%E9%99%84%E4%BB%B6_%E9%87%91%E8%9E%8D%E6%A5%AD%E9%81%8B%E7%94%A8AI%E6%8C%87%E5%BC%95.pdf&flag=doc"
+  }, {
+    "id" : "E45",
+    "publisher" : "金融監督管理委員會",
+    "title" : "金融業運用人工智慧(AI)指引",
+    "date" : "2024-06-20；到 2026-10-26 查不到修訂",
+    "quote" : [ {
+      "text" : "總則（第一章之前）：「(五)金融機構宜要求第三方業者留存執行受託辦理事項之書面或數 位作業紀錄，俾利後續追蹤、驗證及管理。」",
+      "translation" : false
+    }, {
+      "text" : "資安段落（「模型建立及驗證」階段）：「(3)針對模型、資料及提示留下相關書面或數位紀錄。」",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "行政指導。適用對象：金融機構，以及受託的第三方業者那一側。多數用字是「宜」（建議）。不直接適用於非金融業的獨立顧問。適用地：台灣。",
+    "url" : "新聞稿 https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202406200001&dtable=News ；指引 PDF https://www.fsc.gov.tw/uploaddowndoc?file=news/202406201527520.pdf&filedisplay=%E9%99%84%E4%BB%B6_%E9%87%91%E8%9E%8D%E6%A5%AD%E9%81%8B%E7%94%A8AI%E6%8C%87%E5%BC%95.pdf&flag=doc"
+  }, {
+    "id" : "E46",
+    "publisher" : "金融監督管理委員會",
+    "title" : "金融業運用人工智慧(AI)指引",
+    "date" : "2024-06-20；到 2026-10-26 查不到修訂",
+    "quote" : [ {
+      "text" : "核心原則一：「金融機構應對其使用之 AI 系統承擔相應之內、外部責任。」",
+      "translation" : false
+    }, {
+      "text" : "附錄原則二：「3.生成式 AI 產出之資訊，仍需由金融機構人員就其風險進 行客觀且專業的管控」",
+      "translation" : false
+    }, {
+      "text" : "核心原則五：「(二)金融機構使用 AI 與消費者直接互動時，應適當揭露。」",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "行政指導。適用對象：金融機構，以及受託的第三方業者那一側。多數用字是「宜」（建議）。不直接適用於非金融業的獨立顧問。適用地：台灣。核心原則用「應」。",
+    "url" : "新聞稿 https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202406200001&dtable=News ；指引 PDF https://www.fsc.gov.tw/uploaddowndoc?file=news/202406201527520.pdf&filedisplay=%E9%99%84%E4%BB%B6_%E9%87%91%E8%9E%8D%E6%A5%AD%E9%81%8B%E7%94%A8AI%E6%8C%87%E5%BC%95.pdf&flag=doc"
+  }, {
+    "id" : "E48",
+    "publisher" : "總統府（總統府公報第 7837 號）",
+    "title" : "人工智慧基本法",
+    "date" : "公布 2026-01-14；施行 2026-01-14（第 20 條）",
+    "quote" : [ {
+      "text" : "公報：「總統令中華民國115年1月14日華總一義字第11500001671號茲制定人工智慧基本法，公布之。」",
+      "translation" : false
+    }, {
+      "text" : "第 4 條序文：「政府推動人工智慧之研發與應用，應在兼顧社會公益、數位平權、促進創新研發與強化國家競爭力之前提下，發展良善治理與基礎建設，並遵循下列原則：」",
+      "translation" : false
+    }, {
+      "text" : "第 4 條第 5 款：「五、透明與可解釋：人工智慧之產出應做適當資訊揭露或標記，以利評估可能風險，並瞭解對相關權益之影響，進而提升人工智慧可信任度。」",
+      "translation" : false
+    }, {
+      "text" : "第 4 條第 7 款：「七、問責：應確保承擔相應之責任，包含內部治理責任及外部社會責任。」",
+      "translation" : false
+    }, {
+      "text" : "第 20 條：「本法自公布之日起施行。」",
+      "translation" : false
+    }, {
+      "text" : "罰則：本法全文（第 1 條至第 20 條）搜尋「罰」字，0 筆。",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "法律（基本法，原則性規定）。第 4 條的主詞是「政府推動人工智慧之研發與應用」，是政府施政原則，不是對個別業者的具體義務。適用地：台灣。",
+    "url" : "https://www.president.gov.tw/File/Doc/d961e5b2-f8c4-424b-8993-4a52702ae8c7"
+  }, {
+    "id" : "E49",
+    "publisher" : "總統府（總統府公報第 7837 號）",
+    "title" : "人工智慧基本法",
+    "date" : "公布 2026-01-14；施行 2026-01-14（第 20 條）",
+    "quote" : [ {
+      "text" : "第 16 條第 2 項：「各目的事業主管機關應視人工智慧應用風險管理之需要，循前項風險分類框架，訂定以風險為基礎之管理規範，並應協助相關產業自行訂定產業指引及行為規範。」",
+      "translation" : false
+    }, {
+      "text" : "第 18 條第 1 項（節錄）：「……應自本法施行後二年內，完成法規之制（訂）定、修正或廢止，及行政措施之改進。」",
+      "translation" : false
+    }, {
+      "text" : "第 19 條：「政府使用人工智慧執行業務或提供服務，應進行風險評估，規劃風險因應措施。政府應依使用人工智慧之業務性質，訂定使用規範或內控管理機制。」",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "法律（基本法，原則性規定）。第 4 條的主詞是「政府推動人工智慧之研發與應用」，是政府施政原則，不是對個別業者的具體義務。適用地：台灣。對民間的管理規範要等各目的事業主管機關依第 16 條訂定。「施行後二年內」約為 2028-01-14，是推算，原文沒有寫日期。各業別管理規範到 2026-10-28 的狀態未查。",
+    "url" : "https://www.president.gov.tw/File/Doc/d961e5b2-f8c4-424b-8993-4a52702ae8c7"
+  }, {
+    "id" : "E50",
+    "publisher" : "法務部全國法規資料庫",
+    "title" : "個人資料保護法",
+    "date" : "修正公布 2025-11-11；施行日「由行政院定之」，到 2026-10-28 仍未定",
+    "quote" : [ {
+      "text" : "「※本法規部分或全部條文尚未生效，最後生效日期：未定」",
+      "translation" : false
+    }, {
+      "text" : "「一百十四年十一月十一日修正第 1-1、12、18、21、22～26、41、47～49、52、53、55 條條文」；「施行日期，由行政院定之。」",
+      "translation" : false
+    }, {
+      "text" : "第 12 條第 1 項：「公務機關或非公務機關知悉所保有之個人資料被竊取、竄改、毀損、滅失或洩漏時，應通知當事人。」",
+      "translation" : false
+    }, {
+      "text" : "第 12 條第 3 項：「第一項情形，公務機關或非公務機關應採取即時有效之應變措施，防止事故之擴大，及記載相關事實、影響、已採取之因應措施，並保存相關紀錄，以備主管機關查驗。」",
+      "translation" : false
+    } ],
+    "note" : "2026-10-28 頁面",
+    "qualifiers" : "法律。修正條文已公布、尚未施行；公布日 2025-11-11，施行日未定，要分開寫。條文沒有提到 AI；把客戶個資貼進 AI 服務是否構成「洩漏」，條文沒有寫。適用地：台灣。",
+    "url" : "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=I0050021 ；沿革 https://law.moj.gov.tw/LawClass/LawHistory.aspx?pcode=I0050021"
+  }, {
+    "id" : "E52",
+    "publisher" : "Australian Greens（澳洲綠黨）媒體稿；內容歸給參議員 Barbara Pocock 與 Penny Allman-Payne",
+    "title" : "Greens slam Deloitte's unethical behaviour and measly refund over AI report bungle",
+    "date" : "2025-10-09",
+    "quote" : [ {
+      "text" : "\"During questioning from Senator Barbara Pocock at a Senate estimates hearing last night, the Finance Department revealed that Deloitte had refunded just $97,587 (less than a quarter) of the $440,000 contract.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：昨晚參議院預算聽證會上，Barbara Pocock 參議員質詢時，財政部揭露 Deloitte 只退了 97,587 澳元，不到 44 萬澳元合約的四分之一。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "國家：澳洲。幣別依澳洲政黨稿推定為澳元；是否含 GST 沒寫。這是綠黨的轉述，不是議事錄或財政部聲明；Hansard 沒打開。聽證推定是 2025-10-08。A$440,000 是新聞稿寫的合約金額，AusTender 合約公告沒找到。文章使用時要寫成「據澳洲綠黨新聞稿，財政部在聽證會上表示……」。",
+    "url" : "https://greens.org.au/news/media-release/greens-slam-deloittes-unethical-behaviour-and-measly-refund-over-ai-report"
+  }, {
+    "id" : "E53",
+    "publisher" : "Australian Greens（澳洲綠黨）媒體稿；內容歸給參議員 Barbara Pocock 與 Penny Allman-Payne",
+    "title" : "Greens slam Deloitte's unethical behaviour and measly refund over AI report bungle",
+    "date" : "2025-10-09",
+    "quote" : [ {
+      "text" : "\"Finance admitted that it had discovered Deloitte's errors through media reporting\"",
+      "translation" : false
+    }, {
+      "text" : "中文：財政部承認，它是從媒體報導發現 Deloitte 的錯誤。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "國家：澳洲。幣別依澳洲政黨稿推定為澳元；是否含 GST 沒寫。這是綠黨的轉述，不是議事錄或財政部聲明；Hansard 沒打開。聽證推定是 2025-10-08。A$440,000 是新聞稿寫的合約金額，AusTender 合約公告沒找到。文章使用時要寫成「據澳洲綠黨新聞稿，財政部在聽證會上表示……」。",
+    "url" : "https://greens.org.au/news/media-release/greens-slam-deloittes-unethical-behaviour-and-measly-refund-over-ai-report"
+  }, {
+    "id" : "E55",
+    "publisher" : "Government of Newfoundland and Labrador，Office of the Chief Information Officer（OCIO）",
+    "title" : "AI policy 頁（Responsible Use of Artificial Intelligence Technology 政策；頁面標題未逐字確認，以網址為準）",
+    "date" : "Original Issue Date 2025-04-17；Date Last Reviewed 2025-04-17；Version 1.0",
+    "quote" : [ {
+      "text" : "第 2.0 節：\"This policy applies to all government departments and (hereafter also referred to as \"Government\") including all employees, contractors, consultants, partners, students, volunteers, vendors, agents, third parties and other persons working on behalf of the Government of Newfoundland and Labrador's departments\"",
+      "translation" : false
+    }, {
+      "text" : "中文：本政策適用所有政府部門，包括為 NL 省政府各部門工作的所有員工、承包商、顧問、合作夥伴、學生、志工、廠商、代理人、第三方及其他人員。",
+      "translation" : true
+    }, {
+      "text" : "第 5.0 節：\"Individuals are responsible for:\" \"The accuracy of the information produced or the decision proposed by AI technology.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：個人須負責：AI 技術產出的資訊、或提出的決策的正確性。",
+      "translation" : true
+    }, {
+      "text" : "第 4.0 節第 5 項陳述：核准的 AI 技術產出的資訊 \"must be validated by an individual for accuracy before use\"",
+      "translation" : false
+    }, {
+      "text" : "中文：使用前必須由人驗證正確性。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "國家：加拿大，NL 省。頁面沒有提到採購或合約條款。這份政策對 Deloitte 合約有沒有約束力，沒有找到任何說法。依查核修正：引用適用對象時不要在 \"vendors\" 後加句點；「必須驗證」在第 4.0 節第 5 項陳述，「責任」在第 5.0 節；不要拿「合約簽於 2023 年」做比較。",
+    "url" : "https://www.gov.nl.ca/exec/ocio/ai-policy/"
+  }, {
+    "id" : "E56",
+    "publisher" : "Chicago Sun-Times（Chicago Public Media），Press Room；署名 Melissa Bell",
+    "title" : "Chicago Sun-Times response to May 18 special section",
+    "date" : "2025-05-20",
+    "quote" : [ {
+      "text" : "\"To our great disappointment, that list was created through the use of an AI tool and recommended books that do not exist.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：令我們非常失望的是，那份書單是用 AI 工具做出來的，推薦了不存在的書。",
+      "translation" : true
+    }, {
+      "text" : "\"It was inserted into our paper without review from our editorial team\"",
+      "translation" : false
+    }, {
+      "text" : "中文：它沒經我們編輯部審閱就放進報紙。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "國家：美國。特刊名 \"Heat Index: Your Guide to the Best of Summer\"，2025-05-18 刊出。",
+    "url" : "https://chicago.suntimes.com/press-room/2025/05/20/chicago-sun-times-response-to-may-18-special-section"
+  }, {
+    "id" : "E57",
+    "publisher" : "Chicago Sun-Times（Chicago Public Media），Press Room；署名 Melissa Bell",
+    "title" : "Chicago Sun-Times response to May 18 special section",
+    "date" : "2025-05-20",
+    "quote" : [ {
+      "text" : "\"King Features worked with a freelancer who used an AI agent to help build out this special section.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：King Features 與一名自由撰稿人合作，此人用 AI 代理協助做出這份特刊。",
+      "translation" : true
+    }, {
+      "text" : "King Features（太陽報轉述）：\"a strict policy with our staff, cartoonists, columnists, and freelance writers against the use of AI to create content\"",
+      "translation" : false
+    }, {
+      "text" : "中文：我們對員工、漫畫家、專欄作家與自由撰稿人有嚴格政策，禁止用 AI 產出內容。",
+      "translation" : true
+    }, {
+      "text" : "King Features：\"We are terminating our relationship with this individual.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：我們正在終止與此人的合作關係。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "國家：美國。特刊名 \"Heat Index: Your Guide to the Best of Summer\"，2025-05-18 刊出。King Features 的話是太陽報在自己的聲明裡轉述，不是 King Features 自己的頁面。事件鏈是「自由撰稿人 → 內容供應商 → 報社 → 讀者」。",
+    "url" : "https://chicago.suntimes.com/press-room/2025/05/20/chicago-sun-times-response-to-may-18-special-section"
+  }, {
+    "id" : "E58",
+    "publisher" : "Chicago Sun-Times（Chicago Public Media），Press Room；署名 Melissa Bell",
+    "title" : "Chicago Sun-Times response to May 18 special section",
+    "date" : "2025-05-20",
+    "quote" : [ {
+      "text" : "\"Subscribers will not be charged for this premium edition.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：這期付費版不向訂戶收費。",
+      "translation" : true
+    }, {
+      "text" : "\"The section has been removed from our e-paper version.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：電子版已撤下這份特刊。",
+      "translation" : true
+    }, {
+      "text" : "\"explicitly identify third-party licensed editorial content\"",
+      "translation" : false
+    }, {
+      "text" : "中文：明確標示第三方授權的編輯內容。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "國家：美國。特刊名 \"Heat Index: Your Guide to the Best of Summer\"，2025-05-18 刊出。「不向訂戶收費」沒寫金額。",
+    "url" : "https://chicago.suntimes.com/press-room/2025/05/20/chicago-sun-times-response-to-may-18-special-section"
+  }, {
+    "id" : "E59",
+    "publisher" : "Chicago Sun-Times（作者 Kade Heather、Dan Mihalopoulos）",
+    "title" : "Special section with fake book list plagued with additional errors, Sun-Times review finds",
+    "date" : "2025-05-29（依網址，頁面本身沒有明確發布日）",
+    "quote" : [ {
+      "text" : "\"The newsroom fact-checked all 10 stories with named sources\"；\"each of the articles had multiple errors\"",
+      "translation" : false
+    }, {
+      "text" : "中文：編輯部查核了全部 10 篇有具名來源的文章；每篇都有多處錯誤。",
+      "translation" : true
+    }, {
+      "text" : "\"Some included phony sources and quotes.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：有些含假的消息來源與引言。",
+      "translation" : true
+    }, {
+      "text" : "書單 \"recommended 15 book titles with reviews, though 10 of the titles were fake while the authors were real.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：推薦 15 本書並附書評，其中 10 本書名是假的，作者是真的。",
+      "translation" : true
+    }, {
+      "text" : "\"Hearst did not respond to multiple requests for comment\"",
+      "translation" : false
+    }, {
+      "text" : "中文：Hearst 沒回應多次置評請求。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "國家：美國。被引述的個人或機構的原話已刪除（見刪除清單 R3-10）；若只要說「被引述的人出面否認」，依查核檔可改寫為「太陽報查核報導說，部分被引述的人或機構表示沒說過那些話或查無此人」，並標出處為太陽報查核報導。",
+    "url" : "https://chicago.suntimes.com/news/2025/05/29/special-section-king-fake-book-list-errors-sun-times-review"
+  }, {
+    "id" : "E60",
+    "publisher" : "Chicago Sun-Times（作者 Melissa Bell，Chicago Public Media 執行長）",
+    "title" : "Lessons (and an apology) from the Sun-Times CEO on that AI-generated book list",
+    "date" : "2025-05-29（依網址）",
+    "quote" : [ {
+      "text" : "\"I didn't deeply investigate the editions and quickly approved the team to continue the practice in place.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：我沒有深入查這些特刊，很快就核准團隊沿用既有做法。",
+      "translation" : true
+    }, {
+      "text" : "\"The section was licensed from the third-party content provider King Features, a division of Hearst.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：這份特刊是向第三方內容供應商 King Features（Hearst 旗下）授權取得。",
+      "translation" : true
+    }, {
+      "text" : "\"it's likely that the team did not conduct a thorough fact-checking or copy editing process\"",
+      "translation" : false
+    }, {
+      "text" : "中文：King 的團隊「很可能」沒做徹底的事實查核或文字校對。",
+      "translation" : true
+    }, {
+      "text" : "\"I am sorry for our mistakes that brought us to this point\"",
+      "translation" : false
+    }, {
+      "text" : "中文：我為我們走到這一步的錯誤道歉。",
+      "translation" : true
+    }, {
+      "text" : "第三方內容 \"is reviewed by our new Standards team with editors from our newsrooms\"",
+      "translation" : false
+    }, {
+      "text" : "中文：由我們新成立、成員為各編輯部編輯的 Standards 團隊審閱。",
+      "translation" : true
+    }, {
+      "text" : "\"We don't plan to use other editorial special sections from King Features\"",
+      "translation" : false
+    }, {
+      "text" : "中文：我們不打算再用 King Features 的其他編輯特刊。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "國家：美國。道歉文的 WebFetch 回覆有截斷，只列逐字給出的部分。依查核修正：\"it's likely that\" 要保留，這是 Bell 的推測，不是確定的事實；\"editions\" 後沒有逗號。",
+    "url" : "https://chicago.suntimes.com/opinion/2025/05/29/lessons-apology-from-sun-times-ceo-ai-generated-book-list"
+  }, {
+    "id" : "E61",
+    "publisher" : "美國國家標準暨技術研究院（NIST）",
+    "title" : "NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+    "date" : "2023-01",
+    "quote" : [ {
+      "text" : "\"Trustworthy AI depends upon accountability. Accountability presupposes transparency.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：可信的 AI 取決於問責。問責以透明為前提。",
+      "translation" : true
+    }, {
+      "text" : "\"This characteristic's scope spans from design decisions and training data to model training, the structure of the model, its intended use cases, and how and when deployment, post-deployment, or end user decisions were made and by whom.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：這項特性的範圍，從設計決策、訓練資料，到模型訓練、模型結構、預定用途，以及部署、部署後或終端使用者的決策怎麼做、何時做、由誰做。",
+      "translation" : true
+    }, {
+      "text" : "\"Transparency is often necessary for actionable redress related to AI system outputs that are incorrect or otherwise lead to negative impacts.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：AI 系統輸出錯誤或造成負面影響時，要能實際救濟，往往需要透明。",
+      "translation" : true
+    }, {
+      "text" : "\"A transparent system is not necessarily an accurate, privacy-enhanced, secure, or fair system.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：透明的系統不一定是準確、保護隱私、安全或公平的系統。",
+      "translation" : true
+    }, {
+      "text" : "\"The Framework is intended to be voluntary, rights-preserving, non-sector-specific, and use-case agnostic\"",
+      "translation" : false
+    }, {
+      "text" : "中文：框架預定為自願採用、維護權利、不分產業、不限用途。",
+      "translation" : true
+    } ],
+    "note" : "第 3.4 節 \"Accountable and Transparent\"",
+    "qualifiers" : "自願指引（美國聯邦機構發布，沒有罰則）。對象：設計、開發、部署或使用 AI 系統的組織。",
+    "url" : "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+  }, {
+    "id" : "E62",
+    "publisher" : "NIST",
+    "title" : "NIST AI 600-1, Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile",
+    "date" : "2024-07",
+    "quote" : [ {
+      "text" : "MS-1.1-001：\"Employ methods to trace the origin and modifications of digital content.\"（風險欄：\"Information Integrity\"）",
+      "translation" : false
+    }, {
+      "text" : "中文：採用方法追蹤數位內容的來源與修改。",
+      "translation" : true
+    }, {
+      "text" : "MS-2.5-003：\"Review and verify sources and citations in GAI system outputs during pre-deployment risk measurement and ongoing monitoring activities.\"（風險欄：\"Confabulation\"）",
+      "translation" : false
+    }, {
+      "text" : "中文：在部署前的風險量測與持續監測中，複核並查證生成式 AI 輸出裡的來源與引用。",
+      "translation" : true
+    }, {
+      "text" : "MS-2.2-002（節錄）：\"Document how content provenance data is tracked and how that data interacts with privacy and security.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：記錄內容來源資料怎麼追蹤，以及它和隱私、資安的關係。",
+      "translation" : true
+    }, {
+      "text" : "A.1.2：\"Organizations' use of GAI systems may also warrant additional human review, tracking and documentation, and greater management oversight.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：組織使用生成式 AI，也可能需要額外的人工複核、追蹤與文件化，以及更多管理監督。",
+      "translation" : true
+    }, {
+      "text" : "第 1 節：\"pursuant to President Biden's Executive Order (EO) 14110 on Safe, Secure, and Trustworthy Artificial Intelligence.\"；\"The AI RMF was released in January 2023, and is intended for voluntary use\"",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "自願指引。表格欄名是 \"Suggested Action\"（建議動作），不是強制要求。EO 14110 後來的存廢狀態沒有查，不寫。",
+    "url" : "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
+  }, {
+    "id" : "E63",
+    "publisher" : "NIST",
+    "title" : "NIST AI 600-1, Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile",
+    "date" : "2024-07",
+    "quote" : [ {
+      "text" : "\"Provenance metadata can include information about GAI model developers or creators of GAI content, date/time of creation, location, modifications, and sources.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：來源中繼資料可以包括：模型開發者或內容創作者、建立日期時間、地點、修改紀錄與來源。",
+      "translation" : true
+    }, {
+      "text" : "\"When combined with other organizational accountability mechanisms, digital content transparency approaches can enable processes to trace negative outcomes back to their source, improve information integrity, and uphold public trust.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：與組織的其他問責機制結合時，數位內容透明做法可以讓負面結果追回源頭、改善資訊完整性、維持公眾信任。",
+      "translation" : true
+    } ],
+    "note" : "A.1.6 Content Provenance Overview",
+    "qualifiers" : "自願指引。表格欄名是 \"Suggested Action\"（建議動作），不是強制要求。EO 14110 後來的存廢狀態沒有查，不寫。",
+    "url" : "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
+  }, {
+    "id" : "E64",
+    "publisher" : "NIST",
+    "title" : "NIST AI 600-1, Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile",
+    "date" : "2024-07",
+    "quote" : [ {
+      "text" : "\"High-integrity information can be trusted; \"distinguishes fact from fiction, opinion, and inference; acknowledges uncertainties; and is transparent about its level of vetting. This information can be linked to the original source(s) with appropriate evidence. High-integrity information is also accurate and reliable, can be verified and authenticated, has a clear chain of custody, and creates reasonable expectations about when its validity may expire.\"\"",
+      "translation" : false
+    }, {
+      "text" : "中文：高完整性的資訊可以被信任：分清事實與虛構、意見、推論；承認不確定；公開說明經過多少查核。能用適當證據連回原始來源。也準確可靠、能被查證與驗證真偽、有清楚的保管鏈，並讓人合理預期它何時可能失效。",
+      "translation" : true
+    }, {
+      "text" : "註 11：\"This definition of information integrity is derived from the 2022 White House Roadmap for Researchers on Priorities Related to Information Integrity Research and Development.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：這個定義出自 2022 年白宮〈資訊完整性研發優先事項研究者路線圖〉。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "自願指引中的描述性定義，不是義務；定義是 NIST 引用白宮 2022 年路線圖，不是 NIST 自創。",
+    "url" : "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
+  }, {
+    "id" : "E68",
+    "publisher" : "經濟合作暨發展組織（OECD）",
+    "title" : "OECD AI Principles（屬 OECD Recommendation on Artificial Intelligence）",
+    "date" : "2019 年通過，2024-05 更新",
+    "quote" : [ {
+      "text" : "總頁：\"The OECD AI Principles were initially adopted in 2019 and updated in May 2024.\"；\"The OECD Recommendation on AI is the first intergovernmental standard on AI. Today, there are 47 adherents to the Principles.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：原則 2019 年首次通過、2024 年 5 月更新；OECD AI 建議是第一個政府間 AI 標準，目前有 47 個遵循方。",
+      "translation" : true
+    }, {
+      "text" : "1.3：\"AI Actors should commit to transparency and responsible disclosure regarding AI systems. To this end, they should provide meaningful information, appropriate to the context, and consistent with the state of art: ... where feasible and useful, to provide plain and easy-to-understand information on the sources of data/input, factors, processes and/or logic that led to the prediction, content, recommendation or decision, to enable those affected by an AI system to understand the output, and, to provide information that enable those adversely affected by an AI system to challenge its output.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：AI 行為者應承諾透明與負責任的揭露。為此，應依情境與當前技術提供有意義的資訊：……在可行且有用時，用淺白易懂的資訊說明資料／輸入來源，以及導致預測、內容、建議或決定的因素、過程和／或邏輯，讓受影響的人能理解輸出；並提供資訊，讓受不利影響的人能質疑輸出。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "自願指引性質的政府間建議，對遵循方是政策承諾，不是對企業直接適用的法律；頁面沒有寫是否具法律拘束力。原文附 \"where feasible and useful\"、\"appropriate to the context\" 等限定語。台灣與 OECD 的關係沒有查核，不寫。",
+    "url" : "1.3 https://oecd.ai/en/dashboards/ai-principles/P7 ；總頁 https://oecd.ai/en/ai-principles"
+  }, {
+    "id" : "E69",
+    "publisher" : "經濟合作暨發展組織（OECD）",
+    "title" : "OECD AI Principles（屬 OECD Recommendation on Artificial Intelligence）",
+    "date" : "2019 年通過，2024-05 更新",
+    "quote" : [ {
+      "text" : "\"To this end, AI actors should ensure traceability, including in relation to datasets, processes and decisions made\" / \"during the AI system lifecycle, to enable analysis of the AI system's outputs and responses to inquiry,\" / \"appropriate to the context and consistent with the state of the art.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：為此，AI 行為者應確保可追溯性，包括 AI 系統生命週期中的資料集、過程與決定，以便分析輸出並回應詢問；程度要符合情境與當前技術。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "自願指引性質的政府間建議，對遵循方是政策承諾，不是對企業直接適用的法律；頁面沒有寫是否具法律拘束力。原文附 \"where feasible and useful\"、\"appropriate to the context\" 等限定語。台灣與 OECD 的關係沒有查核，不寫。",
+    "url" : "https://oecd.ai/en/dashboards/ai-principles/P9"
+  }, {
+    "id" : "E70",
+    "publisher" : "Coalition for Content Provenance and Authenticity（C2PA）",
+    "title" : "C2PA and Content Credentials Explainer",
+    "date" : "頁面沒有標發布日期；版本 2.3；頁尾 \"Copyright © 2026\"",
+    "quote" : [ {
+      "text" : "\"the C2PA specifications are designed to enable global, opt-in, adoption of digital provenance techniques\"",
+      "translation" : false
+    }, {
+      "text" : "中文：C2PA 規格的設計目的，是讓全球以自願加入的方式採用數位來源技術。",
+      "translation" : true
+    }, {
+      "text" : "\"It is not a cure-all for misinformation, but instead seeks to mitigate against its threats in the digital domain. It complements media literacy, fact-checking, and digital forensics approaches such as deep-fake detection by providing an infrastructure to record all of that information in a tamper-evident structure, representing the provenance of any asset.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：它不是錯誤資訊的萬靈丹，而是降低數位領域的威脅。它補足媒體素養、事實查核與深偽偵測等做法：提供基礎設施，把資訊記在被改動就看得出來的結構裡，代表任何素材的來源。",
+      "translation" : true
+    }, {
+      "text" : "\"Provenance information can help establish the truth about the origin, history and authenticity of digital content, by providing evidence for its creation, discovery, ownership and movement over time; but provenance information alone cannot tell you whether the digital content is true, accurate or factual.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：來源資訊可以幫助確認數位內容的來源、歷史與真實性；但光靠來源資訊，不能告訴你內容是否真實、正確或符合事實。",
+      "translation" : true
+    }, {
+      "text" : "\"Content Credentials provides a way to establish provenance of content. There are no value judgments about whether the provenance data is good or bad.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：內容憑證提供確立內容來源的方法，不對來源資料的好壞做價值判斷。",
+      "translation" : true
+    }, {
+      "text" : "\"it uses established cryptographic techniques like cryptographic hashing, Merkle trees and digital signatures to provide tamper-evident Content Credentials.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：它用密碼雜湊、Merkle 樹與數位簽章等既有密碼技術，提供被改動就看得出來的內容憑證。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "自願指引（產業聯盟技術規格，opt-in，不是法律）。用於純文字顧問報告的程度，沒有查。",
+    "url" : "https://spec.c2pa.org/specifications/specifications/2.3/explainer/Explainer.html （2.2 版同段文字相同：https://spec.c2pa.org/specifications/specifications/2.2/explainer/Explainer.html ）"
+  }, {
+    "id" : "E71",
+    "publisher" : "Varun Magesh、Faiz Surani、Matthew Dahl、Mirac Suzgun、Christopher D. Manning、Daniel E. Ho（arXiv 預印本；通訊作者 deho@stanford.edu）",
+    "title" : "Hallucination-Free? Assessing the Reliability of Leading AI Legal Research Tools",
+    "date" : "arXiv v1 2024-05-30；PDF 內註明 2024-06-03 版加入 Westlaw 評估",
+    "quote" : [ {
+      "text" : "\"we find that the AI research tools made by LexisNexis (Lexis+ AI) and Thomson Reuters (Westlaw AI-Assisted Research and Ask Practical Law AI) each hallucinate between 17% and 33% of the time.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：LexisNexis 與 Thomson Reuters 的 AI 研究工具，各有 17% 到 33% 的時間會幻覺。",
+      "translation" : true
+    }, {
+      "text" : "\"we manually construct a preregistered dataset of over 200 legal queries for identifying and understanding vulnerabilities in legal AI tools. We run these queries on LexisNexis (Lexis+ AI), Thomson Reuters (Ask Practical Law AI), Westlaw (AI-Assisted Research), and GPT-4 and manually review their outputs for accuracy and fidelity to authority.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：我們人工建立預先登記的 200 多個法律查詢，在四個系統上執行，人工檢查輸出的正確性與是否忠於法源。",
+      "translation" : true
+    }, {
+      "text" : "\"Our estimate of the hallucination rate is not meant to be an unbiased estimate of the (unknown) population-level rate of hallucinations in legal AI queries\"",
+      "translation" : false
+    }, {
+      "text" : "中文：我們估的幻覺率，不是法律 AI 查詢整體幻覺率的不偏估計。",
+      "translation" : true
+    }, {
+      "text" : "\"The benchmark was designed to be challenging precisely because (a) those are the settings where legal research is needed the most, and (b) it responds to the marketing claims by providers.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：基準刻意設計得有難度，因為那是最需要法律研究的情境，也是為了回應廠商的行銷說法。",
+      "translation" : true
+    }, {
+      "text" : "註 13：\"Since the completion of our evaluation for this paper in April 2024, LexisNexis has released a \"second generation\" version of its tool. Our results do not speak to the performance of this second generation product, if different.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：2024 年 4 月完成評估後，LexisNexis 推出第二代工具；結果不涵蓋第二代。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "研究（預印本，\"Preprint. Under review.\"）。母體是研究者設計的 200 多個美國法律查詢，刻意有難度，不是實際使用分布。期間（依查核修正）：Lexis+ AI、Ask Practical Law AI、GPT-4 的查詢在 2024-03-22 至 04-22 執行；Westlaw AI-Assisted Research 在 2024-05-23 至 27 執行（2024-06-03 版加入）。只限美國法律研究工具；與台灣法律或一般顧問工作沒有直接對應。",
+    "url" : "https://arxiv.org/abs/2405.20362 （PDF https://arxiv.org/pdf/2405.20362 ）"
+  }, {
+    "id" : "E72",
+    "publisher" : "Varun Magesh、Faiz Surani、Matthew Dahl、Mirac Suzgun、Christopher D. Manning、Daniel E. Ho（arXiv 預印本；通訊作者 deho@stanford.edu）",
+    "title" : "Hallucination-Free? Assessing the Reliability of Leading AI Legal Research Tools",
+    "date" : "arXiv v1 2024-05-30；PDF 內註明 2024-06-03 版加入 Westlaw 評估",
+    "quote" : [ {
+      "text" : "\"Lexis+ AI's answers are accurate (i.e., correct and grounded) for 65% of queries, compared to much lower accuracy rates of 41% and 19% by by Westlaw and Practical Law AI, respectively.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：Lexis+ AI 有 65% 的回答正確且有依據；Westlaw 與 Practical Law AI 分別是 41% 與 19%。（原文 \"by by\" 照抄。）",
+      "translation" : true
+    }, {
+      "text" : "\"Lengthier answers also require substantially more time to check, verify, and validate, as every proposition and citation has to be independently evaluated.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：回答越長，檢查、查證、確認越花時間，因為每個命題和引用都要個別評估。",
+      "translation" : true
+    } ],
+    "note" : null,
+    "qualifiers" : "研究（預印本，\"Preprint. Under review.\"）。母體是研究者設計的 200 多個美國法律查詢，刻意有難度，不是實際使用分布。期間（依查核修正）：Lexis+ AI、Ask Practical Law AI、GPT-4 的查詢在 2024-03-22 至 04-22 執行；Westlaw AI-Assisted Research 在 2024-05-23 至 27 執行（2024-06-03 版加入）。只限美國法律研究工具；與台灣法律或一般顧問工作沒有直接對應。",
+    "url" : "https://arxiv.org/abs/2405.20362 （PDF https://arxiv.org/pdf/2405.20362 ）"
+  }, {
+    "id" : "E73",
+    "publisher" : "Vectara",
+    "title" : "Hallucination Leaderboard",
+    "date" : "README 標 \"Last updated on October 22, 2026\"",
+    "quote" : [ {
+      "text" : "\"To build this leaderboard, fed the full set of documents in the dataset to each of the LLMs and asked them to summarize each document, using only the facts presented in the document. We then computed the overall factual consistency rate (no hallucinations) and hallucination rate (100 - accuracy) for each model.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：把資料集全部文件交給每個模型，要求只用文中事實寫摘要，再計算事實一致率與幻覺率（100 減一致率）。（原文句首缺主詞，照抄。）",
+      "translation" : true
+    }, {
+      "text" : "\"This leaderboard uses HHEM-2.3, Vectara's commercial hallucination evaluation model, to compute the LLM rankings.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：排行榜用 Vectara 的商用幻覺評估模型 HHEM-2.3 計算排名。",
+      "translation" : true
+    }, {
+      "text" : "Dataset：\"Not publicly available to avoid overfitting by any LLM\"；\"Contains over 7700 articles from a variery of sources includeing: news, technology, science, medicine, legal, sports, sports, business and education.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：資料集不公開，以免模型過度擬合；含 7,700 多篇文章。（拼字照抄。）",
+      "translation" : true
+    }, {
+      "text" : "\"Determining hallucinations is impossible to do for any ad hoc question as it's not known precisely what data every LLM is trained on.\"",
+      "translation" : false
+    }, {
+      "text" : "中文：對任意臨時問題判定幻覺做不到，因為不知道每個模型確切用什麼資料訓練。",
+      "translation" : true
+    }, {
+      "text" : "表格列（2026-10-22 版，欄位：Model｜Hallucination Rate｜Factual Consistency Rate｜Answer Rate｜Average Summary Length）：\"|antgroup/finix_s1_32b|1.8 %|98.2 %|99.5 %|172.4|\"（第一列，也是最低值）；\"|openai/gpt-5.4-nano-2026-03-17|3.1 %|96.9 %|100.0 %|144.4|\"；\"|google/gemini-2.5-pro|7.0 %|93.0 %|99.1 %|106.4|\"；\"|anthropic/claude-opus-4-6|12.2 %|87.8 %|99.8 %|137.6|\"",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "研究（廠商自己公布的測試數字，非同儕審查）。測的是有原文可對照的摘要任務的事實一致性，不是開放問答或研究任務。判定者是 Vectara 自家商用模型，不是人工。溫度 0（做不到時例外）；只計所有模型都有回答的文件。數字隨版本更新，引用要寫「2026-10-22 版」。",
+    "url" : "https://github.com/vectara/hallucination-leaderboard （README 原文 https://raw.githubusercontent.com/vectara/hallucination-leaderboard/main/README.md ）"
+  }, {
+    "id" : "E75",
+    "publisher" : "行政院主計總處（國勢普查處）",
+    "title" : "114年人力資源調查統計（Yearbook of Manpower Survey Statistics 2025）；表 15〈歷年就業者之從業身分〉",
+    "date" : "2026-03",
+    "quote" : [ {
+      "text" : "表頭：「表１５　歷年就業者之從業身分 | TABLE 15. EMPLOYED PERSONS BY CLASS OF WORKER, 1978 TO DATE」「單位：千人」",
+      "translation" : false
+    }, {
+      "text" : "「１１４年平均 Ave., 2025 | 11626 | 6366 | 5260 | 470 | 367 | 103 | 1270 | 888 | 381 | …」（總計 11,626；雇主 470；自營作業者 1,270，男 888、女 381；單位千人）",
+      "translation" : false
+    }, {
+      "text" : "百分比列：「１１４年平均 Ave., 2025 | 100 | 54.76 | 45.24 | 4.05 | 3.16 | 0.89 | 10.92 | 7.64 | 3.28 | …」（雇主 4.05%；自營作業者 10.92%）",
+      "translation" : false
+    }, {
+      "text" : "抽樣：\"Approximately 550 TSUN/LIs and 21,000 households (about 55,000 people) were drawn in the first stage and second stage of sampling\"",
+      "translation" : false
+    }, {
+      "text" : "中文：兩階段抽樣，約 550 個村里、21,000 戶（約 55,000 人）；派員面訪或電話訪問。",
+      "translation" : true
+    } ],
+    "note" : "表 15 Excel",
+    "qualifiers" : "依查核修正：「114 年平均就業者 1,162.6 萬人；自營作業者 127.0 萬人，占 10.92%；雇主 47.0 萬人，占 4.05%。」母體是全體就業者；自營作業者涵蓋所有行業（含農業、攤販），不等於知識型接案者或顧問；年報沒有「接案者」「一人公司」分類。名詞定義的中文原句未逐字核對，不引用。台灣官方統計。",
+    "url" : "發布頁 https://www.stat.gov.tw/News_Content.aspx?n=4001&s=236078 ；年報 PDF https://ws.dgbas.gov.tw/001/Upload/463/relfile/11516/236078/f194afc4-ad75-46bf-aa65-02239bdfdf8d.pdf ；表 15 Excel https://ws.dgbas.gov.tw/001/Upload/463/relfile/11516/236078/table15.xlsx"
+  }, {
+    "id" : "E80",
+    "publisher" : "經濟部智慧財產局（著作權主題網，解釋資料檢索）",
+    "title" : "電子郵件1140522c",
+    "date" : "2025-05-22（更新 2025-07-02）",
+    "quote" : [ {
+      "text" : "提問：「所詢利用ChatGPT輸入指令後生成的圖畫是否享有著作權」",
+      "translation" : false
+    }, {
+      "text" : "「著作必須係以自然人或法人為權利義務主體的情形下，由自然人所為的創作，方可能受到著作權的保護。」「故AI生成之圖畫是否享有著作權，應視創作過程中有無人類實際的創意投入而定」",
+      "translation" : false
+    }, {
+      "text" : "「若只是把AI當作輔助工具(例如:繪圖軟體)來使用，而有人類實際的創意投入，則完成的創作成果仍可受著作權保護」「該圖畫之著作權歸屬，除有著作權法第11條(僱傭關係)及第12條(出資聘用關係)之情形外，原則上由該實際創作之人(即投入實際創意的自然人)享有。」",
+      "translation" : false
+    }, {
+      "text" : "「(二)反之，若創作過程中完全是由AI的演算功能獨立進行完成」「並無人類精神文明之投入，則該AI生成的圖畫無法享有著作權。」",
+      "translation" : false
+    }, {
+      "text" : "「可一併參考本局電子郵件1111031、電子郵件1120317之說明。」",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "對單一民眾提問的電子郵件回覆，不是法規命令，對法院沒有拘束力。問的是「圖畫」，沒有直接回答文字或報告類成果。台灣。",
+    "url" : "https://www.tipo.gov.tw/tw/copyright/692-34252.html"
+  }, {
+    "id" : "E81",
+    "publisher" : "經濟部智慧財產局（著作權主題網，解釋資料檢索）",
+    "title" : "電子郵件1140522c",
+    "date" : "2025-05-22（更新 2025-07-02）",
+    "quote" : [ {
+      "text" : "「為避免產生著作權糾紛，建議先向AI模型之開發或管理者釐清有無取得著作財產權人之授權及得否轉授權第三人商業利用」「並應遵循生成式AI提供者所訂定之使用規範。」",
+      "translation" : false
+    }, {
+      "text" : "「由於著作權係屬私權，個案中利用AI生成之圖畫是否受著作權保護？是否侵害他人著作權？如有爭議」「仍應由司法機關就個案具體事實調查證據認定之。」",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "對單一民眾提問的電子郵件回覆，不是法規命令，對法院沒有拘束力。問的是「圖畫」，沒有直接回答文字或報告類成果。台灣。",
+    "url" : "https://www.tipo.gov.tw/tw/copyright/692-34252.html"
+  }, {
+    "id" : "E82",
+    "publisher" : "法務部全國法規資料庫",
+    "title" : "著作權法 第 12 條",
+    "date" : "頁面最新修正紀錄為 111 年 5 月 4 日（第 12 條不在其中）",
+    "quote" : [ {
+      "text" : "第 1 項：「出資聘請他人完成之著作，除前條情形外，以該受聘人為著作人。但契約約定以出資人為著作人者，從其約定。」",
+      "translation" : false
+    }, {
+      "text" : "第 2 項：「依前項規定，以受聘人為著作人者，其著作財產權依契約約定歸受聘人或出資人享有。未約定著作財產權之歸屬者，其著作財產權歸受聘人享有。」",
+      "translation" : false
+    }, {
+      "text" : "第 3 項：「依前項規定著作財產權歸受聘人享有者，出資人得利用該著作。」",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "法律，台灣。法條沒有提到 AI。只處理「有著作權」的成果歸屬；依 E80，AI 獨立生成、沒有人類創意投入的部分原則上沒有著作權可歸屬。",
+    "url" : "https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=J0070017&flno=12"
+  }, {
+    "id" : "E83",
+    "publisher" : "益思科技法律事務所 賴文智律師（講義檔放在經濟部智慧財產局網站）",
+    "title" : "AI人工智慧相關著作權議題",
+    "date" : "2025-10-30",
+    "quote" : [ {
+      "text" : "第 17 頁：「若使用生成式AI自行生成，請保留使用的紀錄，以降低被認定故意侵權的風險」",
+      "translation" : false
+    }, {
+      "text" : "第 15 頁（標題「智慧財產局電子郵件1111031」）：「(二)第二種是「人工智慧獨立創作」，也就是人類並無實際的創意投入，完全是由AI的演算功能獨立進行完成創作，此時由於AI並非自然人，沒有人類精神文明的投入，其創作完成成果自然不屬於著作權法保護的著作，原則上無法享有著作權。」",
+      "translation" : false
+    }, {
+      "text" : "第 13 頁：「如何證明是人類的創作成果？」（列為問題）",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "律師個人講義，不是智慧局函釋或官方立場；引用要寫講者名字。第 17 頁「保留紀錄」的上下文是圖片生成與侵權風險。",
+    "url" : "https://www.tipo.gov.tw/wSite/public/Attachment/006/f1762389262199.pdf"
+  }, {
+    "id" : "E84",
+    "publisher" : "益思科技法律事務所 賴文智律師（講義檔放在經濟部智慧財產局網站）",
+    "title" : "AI人工智慧相關著作權議題",
+    "date" : "2025-10-30",
+    "quote" : [ {
+      "text" : "第 36 頁：「使用生成式AI，還是由使用者負實體世界的法律責任」「對外利用前也須再次檢視」",
+      "translation" : false
+    }, {
+      "text" : "第 43 頁：「應用生成式AI生成的成果做出適當的標示，讓使用者有機會評估是否信任或使用」",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "律師個人講義，不是智慧局函釋或官方立場；引用要寫講者名字。第 17 頁「保留紀錄」的上下文是圖片生成與侵權風險。第 43 頁「適當的標示」列在「如何降低生成式AI應用的著作權風險」，對象寫的是企業。",
+    "url" : "https://www.tipo.gov.tw/wSite/public/Attachment/006/f1762389262199.pdf"
+  }, {
+    "id" : "E88",
+    "publisher" : "金融監督管理委員會",
+    "title" : "金融業運用人工智慧(AI)指引",
+    "date" : "2024-06-20",
+    "quote" : [ {
+      "text" : "「以生成式 AI 之運用為例，在無適當管控機制下，金融機構人員不得向生成式 AI 提供未經客戶同意提供之資訊。前稱適當管控機制，例如採用封閉型部署之生成式 AI 模型、確認系統環境安全性等。如不涉及個人資料、無法直接或間接辨識特定個人之客戶行為者，則不在此限。」",
+      "translation" : false
+    }, {
+      "text" : "新聞稿：「本指引主要提供金融業者於導入及使用AI 時可注意的事項，是屬於行政指導性質。」",
+      "translation" : false
+    } ],
+    "note" : "印刷頁 15",
+    "qualifiers" : "適用對象是金融業者；性質是行政指導。條文有但書（不涉個資者不在此限）。不直接拘束接案者；「金融業客戶會帶進委外契約」未驗證，不可寫成事實。到 2026-10-26 查不到修訂。引句沿用既有查核檔，本輪未重開。",
+    "url" : "新聞稿 https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0,2&mcustomize=news_view.jsp&dataserno=202406200001&dtable=News ；指引 PDF 見 content/articles/shadow-ai/verified/verified-taiwan.md 第 6 節"
+  }, {
+    "id" : "E89",
+    "publisher" : "台灣微軟（微軟＋LinkedIn《2024 工作趨勢指數》）",
+    "title" : "2024 工作趨勢指數台灣版新聞稿",
+    "date" : "2024-06-20",
+    "quote" : [ {
+      "text" : "「台灣有高達 84% 的知識型工作者積極使用生成式 AI 輔助日常工作」",
+      "translation" : false
+    }, {
+      "text" : "「運用自身 AI 工具工作（BYOAI）的 AI 使用者將近八成，亦高於全球工作者比例」",
+      "translation" : false
+    } ],
+    "note" : null,
+    "qualifiers" : "受訪者自述；台灣樣本數原文沒寫。全球方法：31,000 名全職受雇或自雇知識工作者，31 個市場，含台灣。依查核修正：母體是「全職受雇或自雇的知識工作者」。「近八成」的母體是「AI 使用者」，不是全體知識工作者。引句沿用既有查核檔，本輪未重開。",
+    "url" : "https://news.microsoft.com/zh-tw/ms-wti-ai/"
+  } ]
+}
