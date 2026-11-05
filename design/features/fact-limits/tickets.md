@@ -1,14 +1,14 @@
 # fact-limits 票單
 
-狀態：已核准（2026-11-05 Fable 依使用者授權核准；F1–F15 見 `spec.md`「Fable 決斷」），實作中。規格：`spec.md`（同目錄）。
+狀態：已完成（2026-11-05 驗收，提交 CompanyofOne 1318b5c–186c3d1、qilinfish_web 5b2bead–e8449c9；F16–F19 見 `spec.md`）。票單清單由 Fable 依使用者授權核准（2026-11-05）。規格：`spec.md`（同目錄）。
 
 | 票單 | 行為 | 規格 | 相依 | repo | 狀態 |
 |---|---|---|---|---|---|
-| FL1 | 製作與段落修改的提示詞要求「每個事實說法」都有標記 | B1–B4、F13 | — | CompanyofOne | 待實作 |
-| FL2 | 程式標記檢查：表格列、查無句缺標記就不匯出，文章頁列出位置 | B5、B9（程式部分）、F1、F2、F9、F11 | — | CompanyofOne | 待實作 |
-| FL3 | AI 標記檢查清單：跑 3 次取聯集，逐項處理才匯出 | B6–B8、B9（AI 部分）、F3–F8、F14 | FL2 | CompanyofOne | 待實作 |
-| FL4 | solo-trust、ai-handover 補標記，通過兩道檢查，重新匯出 | B12、F10 | FL1、FL2、FL3 | 兩邊 | 待實作 |
-| FL5 | 網站改成新定位文案；README 待決條結案 | B10、B11、B13、F12、F15 | FL4（上線順序） | qilinfish_web（另改 CompanyofOne `docs/tracking.md` TR55 的舊句） | 待實作 |
+| FL1 | 製作與段落修改的提示詞要求「每個事實說法」都有標記 | B1–B4、F13 | — | CompanyofOne | 已完成（2026-11-05 驗收，提交 CompanyofOne 1318b5c） |
+| FL2 | 程式標記檢查：表格列、查無句缺標記就不匯出，文章頁列出位置 | B5、B9（程式部分）、F1、F2、F9、F11 | — | CompanyofOne | 已完成（2026-11-05 驗收，提交 CompanyofOne 93d70a0） |
+| FL3 | AI 標記檢查清單：跑 3 次取聯集，逐項處理才匯出 | B6–B8、B9（AI 部分）、F3–F8、F14 | FL2 | CompanyofOne | 已完成（2026-11-05 驗收，提交 CompanyofOne 17b5ad6） |
+| FL4 | solo-trust、ai-handover 補標記，通過兩道檢查，重新匯出 | B12、F10、F18、F19 | FL1、FL2、FL3 | 兩邊 | 已完成（2026-11-05 驗收，提交 CompanyofOne b1951e8、qilinfish_web 5b2bead） |
+| FL5 | 網站改成新定位文案；README 待決條結案 | B10、B11、B13、F12、F15–F17 | FL4（上線順序） | qilinfish_web（另改 CompanyofOne `docs/tracking.md` TR55 的舊句） | 已完成（2026-11-05 驗收，提交 qilinfish_web e8449c9、CompanyofOne 186c3d1） |
 
 相依順序：FL1 與 FL2 互不相依，可同時做；FL3 在 FL2 之後；FL4 在 FL1–FL3 之後；FL5 在 FL4 之後。
 
