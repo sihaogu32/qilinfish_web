@@ -54,6 +54,10 @@ spring:
 qilinfish:
   articles:
     dir: ${ARTICLES_DIR:../content/articles}   # article packages from CompanyofOne (relative to the working folder); Docker sets /content/articles
+  # /products/content demo (article-evidence B14, F1, F7): <package>:<E number>, the first <p> with a mark that points at it
+  demo:
+    zh: solo-trust:E10      # body.html line 20, the Ipsos and Salesforce paragraph, [3] [4]
+    en: ai-handover:E12     # body.html line 45, the Stanford paragraph, [10]
   db:
     reserved-port: ${QILINFISH_DB_RESERVED_PORT:3306}
     reserved-host: ${QILINFISH_DB_RESERVED_HOST:localhost}

@@ -171,5 +171,13 @@ docker cp qilinfish-web:/data/survey.db ./survey.db
 - DB 啟用：解開 `application.yml` 的 datasource，移除 autoconfigure exclude
 - Cloudflare 部署：建議走 Cloudflare Tunnel 連到後端 Spring Boot
 - 文章 app 的對外產品名稱未定（2026-11-04 列入追蹤）。候選：Sourced／有據、Traceable／可溯、掛品牌名、不取名只用描述。決定後要查商標與網域，並更新產品頁、問卷標題、部落格文章最後那一行
-- 每篇部落格文章都能「點一句看出處」（2026-11-04 列入追蹤）：文章包加帶證據（原文引句、限定條件、網址），網站讀它顯示。要同時改 CompanyofOne 的匯出與網站的啟動檢查。`/products/content` 的示範目前是手寫在網站裡的兩筆證據，做完這項後改讀文章包。**文章 app 產品頁驗收時要提醒使用者做這項**。2026-11-05 已討論定案（點 [n] 展開證據），規格將放在 `design/features/article-evidence/`
+- 每篇部落格文章都能「點一句看出處」（2026-11-04 列入追蹤）：文章包加帶證據（原文引句、限定條件、網址），網站讀它顯示。要同時改 CompanyofOne 的匯出與網站的啟動檢查。`/products/content` 的示範目前是手寫在網站裡的兩筆證據，做完這項後改讀文章包。**文章 app 產品頁驗收時要提醒使用者做這項**。2026-11-05 已討論定案（點 [n] 展開證據），規格將放在 `design/features/article-evidence/`。**2026-11-05 結案**：article-evidence AE1–AE5 實作完成，規格與票單在 `design/features/article-evidence/`
+- article-evidence 刪掉的產品頁手寫示範，殘留物（2026-11-05 登記，B18）：
+  已刪：`products_content.properties` 的 `pc.demo.1.*`、`pc.demo.2.*`、`pc.ev.label.*`、`pc.ev.e10.*`、`pc.ev.e12.*`（29 個鍵）；
+  `products_content_en.properties` 的 `pc.demo.1.*`–`pc.demo.3.*`、`pc.ev.label.*`、`pc.ev.e12.*`（20 個鍵）；
+  `ProductsContentViewBinder` 的 `Sentence`、`Quote`、`Evidence`；`ProductsController` 的 `demoSentences`、`evidence`；
+  `qilinfish.js` 的 `initEvidenceDemo`；`qilinfish.css` 的 `.pc-cite`、`.pc-sent`、`.pc-evs`、`.pc-ev*`、`.pc-demo-wrap.is-open` 兩欄排法（兩份 CSS 一起刪）；
+  `ProductsContentControllerTest.eachSentenceOpensItsEvidenceWordForWord` 與其他測試裡手寫句子的斷言（改測文章包段落）。
+  還在引用已刪內容的文件：`design/features/content-product/spec.md`、`tickets.md`（D20、D21、`pc.ev.*` 鍵的說明；決策文件，照原樣保留為歷史，已由 article-evidence 規格取代）。
+  `pc.demo.from` 的文章標題仍是手寫，文章改標題時要一起改
 - 定位句「每一句都查得到出處」字面上不成立（2026-11-05 列入追蹤）：實測 solo-trust 46/91、ai-handover 7/44 個文字區塊（段落、列點、表格格子）沒有任何證據標記。這句出現在產品頁標題、產品總覽、部落格文章最後一行、問卷與 `CONTEXT.md`。待決：改定位句，或要求文章每一句都有標記

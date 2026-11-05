@@ -716,6 +716,7 @@
       box.querySelectorAll('template[data-ev-src]').forEach(function (t) { store[t.getAttribute('data-ev-src')] = t; });
       var panelId = 'ev-panel-' + (k + 1);
       var open = null;   // { mark, panel }
+      box.classList.add('is-live');   // the demo's hint shows only when clicking works
 
       // where the panel goes: under the table, at the end of a list item, or right after the paragraph
       function place(__mark, __panel) {
@@ -776,38 +777,6 @@
     });
   }
 
-  /**
-   * Article-app product page demo ([data-evidence-demo]): each sentence ([data-ev]) opens the evidence panel
-   * ([data-ev-panel]) it points at. One sentence at a time; the same one again closes it; Enter or Space on a
-   * focused sentence works like a click (D50). Without JavaScript every panel stays visible under the excerpt.
-   */
-  function initEvidenceDemo() {
-    var demo = document.querySelector('[data-evidence-demo]');
-    if (!demo) return;
-    var sentences = demo.querySelectorAll('[data-ev]');
-    var panels = demo.querySelectorAll('[data-ev-panel]');
-    demo.classList.add('is-live');
-    panels.forEach(function (p) { p.hidden = true; });
-
-    function show(__sentence) {
-      var open = __sentence && __sentence.getAttribute('aria-expanded') !== 'true';
-      sentences.forEach(function (s) {
-        var on = open && s === __sentence;
-        s.setAttribute('aria-expanded', on ? 'true' : 'false');
-        s.classList.toggle('is-open', on);
-      });
-      var id = open ? __sentence.getAttribute('data-ev') : null;
-      panels.forEach(function (p) { p.hidden = p.getAttribute('data-ev-panel') !== id; });
-      demo.classList.toggle('is-open', open);
-    }
-    sentences.forEach(function (s) {
-      s.addEventListener('click', function () { show(s); });
-      s.addEventListener('keydown', function (__e) {
-        if (__e.key === 'Enter' || __e.key === ' ') { __e.preventDefault(); show(s); }
-      });
-    });
-  }
-
   /** Products opening: the lens drifts over the report in a slow figure-eight; reduced motion parks it. */
   function initProductsLens() {
     var lens = document.querySelector('[data-pd-lens]');
@@ -835,7 +804,6 @@
     initSurveyDots();
     initSurveyVisuals();
     initProductsLens();
-    initEvidenceDemo();
     initEvidenceMarks();
     initLangSwitcher();
   });

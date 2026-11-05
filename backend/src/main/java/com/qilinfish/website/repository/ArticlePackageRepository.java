@@ -9,6 +9,7 @@ import com.qilinfish.website.model.EvidenceModel;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.nodes.Range;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
@@ -78,6 +79,46 @@ public class ArticlePackageRepository {
     public List<ArticlePackageModel> findByLang(boolean __en) {
         return bySlug.values().stream().filter(a -> a.isEn() == __en).toList();
     }
+
+    /**
+     * The /products/content demo (article-evidence B14): the first <p> of the package whose evidence mark points at __eId,
+     * as HTML, with its [n] links pointing at the article page's reference list (F7), and the evidence its marks use.
+     * Empty when there is no such package or paragraph.
+     */
+    public Optional<Passage> findPassage(String __slug, String __eId, String __articleUrl) {
+        ArticlePackageModel a = bySlug.get(__slug);
+        if (a == null) return Optional.empty();
+        Document doc = Jsoup.parseBodyFragment(a.getBodyBeforeCta() + a.getBodyAfterCta());
+        for (Element p : doc.select("p")) {
+            Elements marks = p.select(EVIDENCE_MARK);
+            boolean hit = marks.stream().anyMatch(m -> List.of(m.attr("data-e").trim().split("\\s+")).contains(__eId));
+            if (!hit) continue;
+            endAtLastMark(p, marks.last());
+            for (Element link : p.select("sup.cite a[href^=#]")) link.attr("href", __articleUrl + link.attr("href"));
+            Map<String, EvidenceModel> used = new LinkedHashMap<>();
+            for (Element m : marks) {
+                for (String id : m.attr("data-e").trim().split("\\s+")) {
+                    EvidenceModel e = a.getEvidence().get(id);
+                    if (e != null) used.putIfAbsent(id, e);
+                }
+            }
+            return Optional.of(new Passage(a, p.outerHtml(), List.copyOf(used.values())));
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Option B (prototype): the demo ends with the paragraph's last evidence mark; every node after it (text, links,
+     * bold, at any depth inside the paragraph) is removed.
+     */
+    private static void endAtLastMark(Element __p, Element __last) {
+        for (Node n = __last; n != null && n != __p; n = n.parentNode()) {
+            while (n.nextSibling() != null) n.nextSibling().remove();
+        }
+    }
+
+    /** One paragraph of an article package, with the evidence its marks point at. */
+    public record Passage(ArticlePackageModel article, String html, List<EvidenceModel> evidence) { }
 
     /** Public URL of a file inside a package, e.g. media/hero.jpg -> /articles/<slug>/media/hero.jpg; null stays null. */
     public static String mediaUrl(ArticlePackageModel __article, String __file) {

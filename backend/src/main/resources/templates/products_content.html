@@ -13,30 +13,16 @@
     <section class="sv-section pc-open">
         <div class="sv-eb" th:text="#{pc.eyebrow}">PRODUCT // every sentence has a source</div>
         <h1 class="sc-title" th:text="#{pc.title}">每一句都查得到出處</h1>
-        <!--/* Each sentence opens its evidence beside the excerpt (below it on phones): one at a time, again to close,
-               Tab + Enter (D50). Without JavaScript every panel simply shows under the excerpt. */-->
-        <div class="pc-demo-wrap" data-evidence-demo>
+        <!--/* article-evidence B14–B15: a real paragraph from an article package (Chinese solo-trust, English ai-handover,
+               application.yml qilinfish.demo); its [n] open the same panel as the article page (D5, D7), one at a time.
+               Without JavaScript the [n] go to the article's reference list (F7). */-->
+        <div class="pc-demo-wrap" th:if="${vb.demoHtml != null}" th:attr="data-ev-marks=#{blog.ev.panel}">
             <figure class="pc-demo">
-                <div class="pc-demo__hint" th:text="#{pc.demo.hint}">點一句，看它的出處</div>
-                <blockquote class="pc-demo__text"><th:block th:each="s, it : ${vb.demo}"><span class="pc-sent" tabindex="0" role="button" aria-expanded="false"
-                    th:id="'pc-s-' + ${it.count}" th:attr="data-ev=${s.evidence},aria-controls=${'pc-ev-' + s.evidence}" th:text="${s.text}">Ipsos 2025 年在 30 個國家訪問了 23,216 人……</span><sup class="pc-cite" th:if="${s.cite != null}" th:text="${s.cite}">[3]</sup> </th:block></blockquote>
+                <div class="pc-demo__hint" th:text="#{pc.demo.hint}">點編號，看這段話的出處</div>
+                <div class="pc-demo__text" th:utext="${vb.demoHtml}"><p>Ipsos 2025 年在 30 個國家訪問了 23,216 人……</p></div>
                 <figcaption class="pc-demo__from" th:text="#{pc.demo.from}">摘自本站文章</figcaption>
             </figure>
-            <div class="pc-evs">
-                <aside class="pc-ev" th:each="e : ${vb.evidence}" th:id="'pc-ev-' + ${e.id}" th:attr="data-ev-panel=${e.id}">
-                    <div class="pc-ev__src"><b th:text="${e.publisher}">Ipsos</b> <span th:text="${e.title}">Ipsos AI Monitor 2025</span> <time th:text="${e.date}">2025-06-06</time></div>
-                    <div class="pc-ev__k" th:text="#{pc.ev.label.quote}">原文引句</div>
-                    <div class="pc-ev__q" th:each="q : ${e.quotes}">
-                        <span class="pc-ev__note" th:if="${q.note != null}" th:text="${q.note}">報告第 22 頁題目</span>
-                        <blockquote lang="en">“<th:block th:text="${q.original}">quote</th:block>”</blockquote>
-                        <p class="pc-ev__tr" th:if="${q.translation != null}" th:text="${q.translation}">中文：翻譯</p>
-                    </div>
-                    <div class="pc-ev__k" th:text="#{pc.ev.label.qual}">限定條件</div>
-                    <p class="pc-ev__qual" th:text="${e.qualifiers}">限定條件全文</p>
-                    <div class="pc-ev__k" th:text="#{pc.ev.label.url}">原始網址</div>
-                    <a class="pc-ev__url" th:href="${e.url}" th:text="${e.url}" rel="noopener" target="_blank">https://…</a>
-                </aside>
-            </div>
+            <th:block th:replace="~{fragments/blog :: evidenceStore(${vb.demoEvidence})}"></th:block>
         </div>
     </section>
 
@@ -97,6 +83,6 @@
 </main>
 
 <footer th:replace="~{fragments/layout :: footer}"></footer>
-<script th:src="@{/js/qilinfish.js(v='20261104-demo')}" src="/js/qilinfish.js"></script>
+<script th:src="@{/js/qilinfish.js(v='20261105-evidence')}" src="/js/qilinfish.js"></script>
 </body>
 </html>

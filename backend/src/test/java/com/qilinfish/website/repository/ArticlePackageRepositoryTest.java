@@ -140,6 +140,36 @@ class ArticlePackageRepositoryTest {
             .containsOnlyKeys("E1");
     }
 
+    // ---- option B prototype: the demo paragraph ends with its last evidence mark ----
+
+    @Test
+    void passageEndsWithItsLastEvidenceMark() throws IOException {
+        body("test-zh-solo", "<p>前句。<sup class=\"cite\" data-e=\"E1\"><a href=\"#r1\">[1]</a></sup>中句，<b>粗體</b>。"
+            + "<sup class=\"cite\" data-e=\"E1\"><a href=\"#r1\">[1]</a></sup>後面的話<a href=\"https://x.example/\">連結</a><strong>粗體</strong>。</p>");
+        ArticlePackageRepository repo = new ArticlePackageRepository(dir.toString());
+        // the first <p> with E1 is the fixture's own paragraph: nothing after its mark, so nothing changes
+        assertThat(repo.findPassage("test-zh-solo", "E1", "/blog/test-zh-solo").orElseThrow().html())
+            .isEqualTo("<p>這篇沒有對應的英文文章。<sup class=\"cite\" data-e=\"E1\"><a href=\"/blog/test-zh-solo#r1\">[1]</a></sup></p>");
+        // a mark nested in bold: what follows it inside the bold and after the bold goes
+        body("test-en-image", "<p>Lead. <strong>Bold claim.<sup class=\"cite\" data-e=\"E1\"><a href=\"#r1\">[1]</a></sup> bold tail</strong> tail.</p>");
+        Path f = dir.resolve("test-en-image/body.html");
+        Files.writeString(f, Files.readString(f, StandardCharsets.UTF_8).replace("styles.<sup class=\"cite\" data-e=\"E1\">", "styles.<sup class=\"cite\">"),
+            StandardCharsets.UTF_8);
+        Files.writeString(dir.resolve("test-zh-solo/body.html"), Files.readString(dir.resolve("test-zh-solo/body.html"), StandardCharsets.UTF_8)
+            .replace("這篇沒有對應的英文文章。<sup class=\"cite\" data-e=\"E1\">", "這篇沒有對應的英文文章。<sup class=\"cite\">"), StandardCharsets.UTF_8);
+        repo = new ArticlePackageRepository(dir.toString());
+        assertThat(repo.findPassage("test-zh-solo", "E1", "/blog/test-zh-solo").orElseThrow().html())
+            .isEqualTo("<p>前句。<sup class=\"cite\" data-e=\"E1\"><a href=\"/blog/test-zh-solo#r1\">[1]</a></sup>中句，<b>粗體</b>。"
+                + "<sup class=\"cite\" data-e=\"E1\"><a href=\"/blog/test-zh-solo#r1\">[1]</a></sup></p>");
+        assertThat(repo.findPassage("test-en-image", "E1", "/en/blog/test-en-image").orElseThrow().html())
+            .isEqualTo("<p>Lead. <strong>Bold claim.<sup class=\"cite\" data-e=\"E1\"><a href=\"/en/blog/test-en-image#r1\">[1]</a></sup></strong></p>");
+    }
+
+    @Test
+    void noPassageWithoutAMarkForThatENumber() throws IOException {
+        assertThat(new ArticlePackageRepository(dir.toString()).findPassage("test-zh-solo", "E9", "/blog/test-zh-solo")).isEmpty();
+    }
+
     @Test
     void bodyIsSplitRightBeforeTheInviteBoxEndTag() throws IOException {
         ArticlePackageModel zh = new ArticlePackageRepository(dir.toString()).findBySlug("test-zh-video").orElseThrow();
