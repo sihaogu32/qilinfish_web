@@ -1,6 +1,6 @@
 # fact-limits 票單
 
-狀態：已完成（2026-11-05 驗收，提交 CompanyofOne 1318b5c–186c3d1、qilinfish_web 5b2bead–e8449c9；F16–F19 見 `spec.md`）。票單清單由 Fable 依使用者授權核准（2026-11-05）。規格：`spec.md`（同目錄）。
+狀態：FL1–FL5 已完成（2026-11-05 驗收，提交 CompanyofOne 1318b5c–186c3d1、qilinfish_web 5b2bead–e8449c9；F16–F19 見 `spec.md`）；FL6 已完成（2026-11-06 驗收，提交 CompanyofOne 9b3a58c–edd5d5b、qilinfish_web aa7a3f5；依 D16 改寫）。票單清單由 Fable 依使用者授權核准（2026-11-05）。規格：`spec.md`（同目錄）。
 
 | 票單 | 行為 | 規格 | 相依 | repo | 狀態 |
 |---|---|---|---|---|---|
@@ -9,6 +9,7 @@
 | FL3 | AI 標記檢查清單：跑 3 次取聯集，逐項處理才匯出 | B6–B8、B9（AI 部分）、F3–F8、F14 | FL2 | CompanyofOne | 已完成（2026-11-05 驗收，提交 CompanyofOne 17b5ad6） |
 | FL4 | solo-trust、ai-handover 補標記，通過兩道檢查，重新匯出 | B12、F10、F18、F19 | FL1、FL2、FL3 | 兩邊 | 已完成（2026-11-05 驗收，提交 CompanyofOne b1951e8、qilinfish_web 5b2bead） |
 | FL5 | 網站改成新定位文案；README 待決條結案 | B10、B11、B13、F12、F15–F17 | FL4（上線順序） | qilinfish_web（另改 CompanyofOne `docs/tracking.md` TR55 的舊句） | 已完成（2026-11-05 驗收，提交 qilinfish_web e8449c9、CompanyofOne 186c3d1） |
+| FL6 | 涵蓋改由程式判定、AI 只分類；圖表來源列帶標記；solo-trust 表 2 補標記重新匯出 | B5′、B6′、B7″、B9″、B14、D16、P6、P7′、P8 | FL3 | 兩邊 | 已完成（2026-11-06 驗收，提交 CompanyofOne 9b3a58c、edd5d5b，qilinfish_web aa7a3f5） |
 
 相依順序：FL1 與 FL2 互不相依，可同時做；FL3 在 FL2 之後；FL4 在 FL1–FL3 之後；FL5 在 FL4 之後。
 
@@ -56,3 +57,16 @@
 - 驗收步驟：中英產品頁、產品總覽、部落格文章最後一行（solo-trust、ai-handover）、問卷開場的截圖顯示新文案；點 solo-trust 表 1 一列的標記，看到證據與限定條件；`grep -ri` 確認 i18n、模板、測試沒有「每一句」與 "every sentence"；兩個 repo 測試全綠；FL4 的文章包提交在本票之前（B13）。
 - 預期證據：截圖、grep 結果、測試輸出、提交順序。
 - 停止條件：文案在版面上換行或溢出（例如標題太長），需要改字。
+
+## FL6　涵蓋由程式判定、AI 只分類
+
+（2026-11-06 改寫：原「三種處理方式」版本依 D15，已由 D16 取代；那版未提交的改動在本票改寫，不提交。）
+
+- 範圍：
+  - 程式：涵蓋判定（P8 切句、B8、B3、圖表單位）；B5′ 來源列檢查併入現有 `MarkerCheck` 關卡；AI 檢查改成只送未涵蓋句子、只問是不是事實說法（B6′，句中標記送後半句）；清單以句子為單位，兩種處理（B7″），`record.md` 文字；匯出關卡 B9″；文章頁「標記檢查」區照改；拿掉「已有標記涵蓋」與其 POST。
+  - 製作規則（B14）：`ProduceService`、`SectionEditService` 中英提示詞加「來源列帶這張圖表所用證據的標記」；golden 固定檔重產（同 F13）；`content/strategy.md` §5 第 5 條同步。
+  - 資料（P7′）：solo-trust 表 2 來源列補標記（直接改 HTML，照 F18 條件，改後按驗收回到已驗收）；兩篇用新檢查重跑產生新 `cite-check.json`；solo-trust 重新匯出到 qilinfish_web `content/articles/`。
+- 不在範圍：網站程式與文案、ai-handover 內容。
+- 驗收步驟：單元測試（切句邊界含引號內問號、圖表單位、表格列、句中標記、來源列檢查、重跑過濾、匯出關卡）；三份輸入重現原型數字：solo-trust 現行（補表 2 前）B5′ 擋下表 2、補後清單 0 項；ai-handover 0 項；拿掉 E15 E16 與表 2 第 2 列 E52 E53 的暫存副本列出正好那 2 項，各跑 3 次一致並記耗時；副本上操作「補標記」「不是事實說法」各一次；solo-trust 匯出成功；兩個 repo `mvn test` 全綠、網站啟動檢查通過。
+- 預期證據：測試輸出、三份輸入的清單與耗時、提示詞與 golden 差異、表 2 補標記前後 diff（去掉 `sup.cite` 後逐字相同）、文章頁截圖、匯出結果。
+- 停止條件：真實文章出現 P8 涵蓋不了的寫法而需要改規則；3 次分類不一致；清單出現四種種類都歸不進去、又不是事實說法的句子。
